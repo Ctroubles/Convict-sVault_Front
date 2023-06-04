@@ -1,67 +1,66 @@
+import Footer from "./components/Footer/Footer";
+import Header from "./components/Header/header";
+import homeIcon from "./assets/home_icon.svg"
 import style from "./Home.module.css"
-import shopping_cart from "../../assets/icons/shopping_cart.svg"
-import lines_menu from "../../assets/icons/lines_menu.svg"
+import FilterSideBar from "./components/FilterSideBar/FilterSideBar";
+import { useEffect, useState } from "react";
+import axios from "axios"
+import Card from "./components/Card/Card";
+
 
 const Home = ()=>{
+
+    const [products, setProducts] = useState([])
+
+    const getProducts = async() =>{
+        try {
+            const {data} = await axios.get("http://localhost:3001/");
+            console.log(data);
+            setProducts(data)
+        } catch (error) {
+            console.log(console.error);
+            alert("Error, checar en consola")
+        }
+    }
+
+    useEffect(()=>{
+        getProducts()
+    },[])
+
+
     return(
         <div>
-            <div>
-                <div>
-                    <div id={style.top}>
-                        <div id={style.logoSection}>
-                            <h1>SUPER REO Y+</h1>
-                        </div>
-                        <div id={style.searchBar}>
-                            <div id={style.container}>
-                                <input type="text"/>
-                                <span>
-                                    <button>X</button>
-                                </span>
+            <Header/>
+            <section id={style.body}>
+                <div style={{maxWidth:"1250px", width:"100%", padding:"0 20px"}}>
+                    <label>
+                        <div style={{display:"flex", alignItems:"center", padding:"20px 0 15px 0"}}>
+                            <div style={{width:"24px", height:"24px",}}>
+                                <img src={homeIcon} alt="Home" style={{width:"24px", height:"24px",}}/>
+                            </div>
+                            <div style={{display:"flex", alignItems:"center"}}>
+                                <div style={{fontWeight:"500", margin:"0 9px 0 9px", fontSize:"17px"}}>
+                                    {">"}
+                                </div>
+                                <span style={{fontSize:"13px", color:"rgb(37, 44, 59)"}}>Calzado</span>
                             </div>
                         </div>
-                        <div id={style.rightOptions}>
-                            <div>
-                                <label id={style.account}>
-                                    <button></button>
-                                    <div>
-                                        <span>Hola</span>
-                                        <p>Mi cuenta</p>
-                                    </div>
-                                </label>
+                        <div style={{display:"flex" ,justifyContent:"center",}}>
+                            <div style={{paddingRight:"30px"}}>
+                                <FilterSideBar/>
                             </div>
                             <div>
-                                <div id={style.shopping_cart}>
-                                    <label>
-                                        <img src={shopping_cart} alt="Carrito de compras" />
-                                    </label>
-                                    <span>0</span>
+                                <div id={style.cardsContaier}>
+                                    {products.map(e=>(
+                                        <Card key={e._id} brand={e.brand} category={e.category} image={e.image} price ={e.price} name={e.name} id={e._id}/>
+                                    ))}
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div style={{backgroundColor:"#009fe3", display:"flex", padding:"0 16px", justifyContent:"center"}}>
-                        <div style={{display:"flex", padding:"0 16px", justifyContent:"space-between", width:"100%", maxWidth:"1500px"}}>
-                            <div id={style.buttonMenu}>
-                                <label>
-                                    <img src={lines_menu} alt="Menu" />
-                                </label>
-                                <label>
-                                    <p>Todas las categorías</p>
-                                </label>
-                            </div>
-                            <nav id={style.navBar}>
-                                <li>Ropa</li>    
-                                <li>Calzado</li>    
-                                <li>Joyería</li>    
-                                <li>Muebles</li>    
-                                <li>Jeguetería</li>    
-                                <li>belleza</li>    
-                                <li>Equipaje</li>    
-                            </nav>  
-                        </div>
-                    </div>
+                    </label>
                 </div>
-            </div>
+            </section>
+            <Footer/>
         </div>
     )
 };
