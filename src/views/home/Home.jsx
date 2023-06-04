@@ -14,7 +14,7 @@ const Home = ()=>{
 
     const getProducts = async() =>{
         try {
-            const {data} = await axios.get("http://localhost:3001/products");
+            const {data} = await axios.get("http://localhost:3001/");
             console.log(data);
             setProducts(data)
         } catch (error) {
@@ -35,8 +35,8 @@ const Home = ()=>{
                 <div style={{maxWidth:"1250px", width:"100%", padding:"0 20px"}}>
                     <label>
                         <div style={{display:"flex", alignItems:"center", padding:"20px 0 15px 0"}}>
-                            <div style={{width:"24px", height:"24px",}}>
-                                <img src={homeIcon} alt="Home" style={{width:"24px", height:"24px",}}/>
+                            <div style={{width:"26px", height:"26px",}}>
+                                <img src={homeIcon} alt="Home" style={{width:"26px", height:"26px",}}/>
                             </div>
                             <div style={{display:"flex", alignItems:"center"}}>
                                 <div style={{fontWeight:"500", margin:"0 9px 0 9px", fontSize:"17px"}}>
