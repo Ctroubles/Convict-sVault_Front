@@ -1,6 +1,7 @@
 #body{
     display: flex;
     justify-content: center;
+    min-height: calc(100vh - 552.53px);
 }
 #cardsContaier{
     display: flex;
