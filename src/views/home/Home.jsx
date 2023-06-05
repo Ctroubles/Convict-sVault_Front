@@ -19,12 +19,12 @@ const Home = ()=>{
             setProducts(data)
         } catch (error) {
             console.log(console.error);
-            alert("Error, checar en consola")
+            alert("Error al traer Data, checar en consola")
         }
     }
 
     useEffect(()=>{
-        getProducts()
+        // getProducts()
     },[])
 
 
@@ -45,7 +45,7 @@ const Home = ()=>{
                                 <span style={{fontSize:"13px", color:"rgb(37, 44, 59)"}}>Calzado</span>
                             </div>
                         </div>
-                        <div style={{display:"flex" ,justifyContent:"center",}}>
+                        <div style={{display:"flex" ,justifyContent:"start",}}>
                             <div style={{paddingRight:"30px"}}>
                                 <FilterSideBar/>
                             </div>
