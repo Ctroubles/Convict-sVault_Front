@@ -14,7 +14,7 @@ const Home = ()=>{
 
     const getProducts = async() =>{
         try {
-            const {data} = await axios.get("http://localhost:3001/");
+            const {data} = await axios.get("http://localhost:3001/products");
             console.log(data);
             setProducts(data)
         } catch (error) {
@@ -24,7 +24,7 @@ const Home = ()=>{
     }
 
     useEffect(()=>{
-        // getProducts()
+        getProducts()
     },[])
 
 
