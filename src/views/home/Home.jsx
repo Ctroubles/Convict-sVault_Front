@@ -27,7 +27,6 @@ const Home = ()=>{
         getProducts()
     },[])
 
-
     return(
         <div>
             <Header/>
