@@ -1,8 +1,8 @@
 import React from 'react';
 import style from "./Landing.module.css";
 import { Link } from "react-router-dom";
-import LoginButton from "../home/components/Login/LoginButton";
-import LogoutButton from "../home/components/Logout/LogoutButton";
+import LoginButton from "./Login/LoginButton";
+import LogoutButton from "./Logout/LogoutButton";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Landing = () => {
