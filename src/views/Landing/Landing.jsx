@@ -10,6 +10,7 @@ const Landing = () => {
 
   return (
     <div className={style.container}>
+      <h1 >SUPER REO Y+</h1>
       <Link to={"/home"}>
         <button className={style.button}>Ir a la tienda</button>
       </Link>
