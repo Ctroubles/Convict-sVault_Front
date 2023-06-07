@@ -6,6 +6,7 @@ import style from "./Home.module.css";
 import FilterSideBar from "./components/FilterSideBar/FilterSideBar";
 import axios from "axios";
 import Card from "./components/Card/Card";
+import SliderCategory from "./components/SilderCategory/SliderCategory";
 
 const Home = () => {
   const [products, setProducts] = useState([]);

@@ -2,24 +2,37 @@
     padding: 8px;
     flex-basis: 25%;
     max-width: 25%;
+    margin-bottom: 30px;
+    display: block;
+    max-width: 320px;
 }
 #Card section{
-    border: 1px solid #d4d8dd;
+    max-width: 300px;
+    border: 1px solid #bfc0c2;
     padding: 8px 0;
     border-radius: 8px;
-    /* height: 430px; */
+    height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: end;
+}
+#ImgSection{
+    height: 100%;
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+    display: block;
 }
 #ImgSection>:nth-child(1){
     padding: 25px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
 #ImgSection>:nth-child(1) img{
-    width: 100%;
-    max-width: 265px !important;
-    height: 200px !important;
-    background-color: red;
+    width: 100% !important;
+    max-height: 252px !important;
+    /* height: 100% !important; */
+    object-fit: cover;
 }
 #nameSection{
     padding: 7px;
@@ -41,8 +54,16 @@
     color: rgb(37, 44, 59);
     font-size: 15px;
     font-weight: 500;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 #priceSection{
+    height: 100%;
+}
+#priceSection>:nth-child(1){
     padding: 20px 7px;
     height: 100%;
     display: flex;

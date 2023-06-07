@@ -19,12 +19,14 @@ const Card = ({brand,category,image,price,name,id}) =>{
                         </div>
                         <div id={style.priceSection}>
                             <div>
-                                <small>
-                                    $ {price + 32800}
-                                </small>
-                            </div>
-                            <div>
-                                <span>$ {price}</span>
+                                <div>
+                                    <small>
+                                        $ {price + 32800}
+                                    </small>
+                                </div>
+                                <div>
+                                    <span>$ {price}</span>
+                                </div>
                             </div>
                         </div>
                         <div>
