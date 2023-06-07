@@ -1,0 +1,14 @@
+
+.dashboardContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: #ffffff;
+  }
+
+  .adminTitle {
+    font-size: 35px;
+    border-bottom: 1px solid gray;
+    margin: 0;
+    padding: 0;
+  }

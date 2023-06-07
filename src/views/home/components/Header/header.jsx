@@ -2,6 +2,9 @@ import style from "./Header.module.css"
 import shopping_cart from "../../../../assets/icons/shopping_cart.svg"
 import lines_menu from "../../../../assets/icons/lines_menu.svg"
 import SearchBar from "../../Searchbar/Searchbar";
+import NavBar from "../../../../admin/Dashboard";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
+
 const Header = () =>{
     return(
         <div>
@@ -28,6 +31,12 @@ const Header = () =>{
                                     <span>0</span>
                                 </div>
                             </div>
+
+                            {/* puede haber cambios en este admin */}
+                            <Link to={"/dashboard"}>
+                        <button>dashboard</button>
+                            </Link>
+
                         </div>
                     </div>
                     <div style={{backgroundColor:"#009fe3", display:"flex", padding:"0 16px", justifyContent:"center"}}>
