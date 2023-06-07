@@ -13,11 +13,21 @@ function Dashboard() {
       <Router>
     <div className={style.dashboardContainer}>
         <nav>
-          <h1 className={style.adminTitle}>SuperReo Y+</h1>
-        <SideBar/>
-        <Route exact path="/dashboard/sales" component={Sales} />
-        <Route exact path="/dashboard/clients" component={Clients} />
-        <Route exact path="/dashboard/products" component={Products} />
+          <div>
+            <h1 className={style.adminTitle}>SuperReo Y+</h1>
+          </div>
+          <div style={{display:"flex"}}>
+              <div>
+                <SideBar/>
+              </div>
+              <div>
+                <Route exact path="/dashboard/sales" component={Sales} />
+                <Route exact path="/dashboard/clients" component={Clients} />
+                <Route exact path="/dashboard/products" component={Products} />
+              </div>
+          </div>
+
+       
         </nav>
     </div>
       </Router>

@@ -10,7 +10,7 @@
   background-image: linear-gradient(to bottom right, #8fbbee, #ffffff);
 }
 
-  h1 {
+  .tittulo {
     font-size: 100px;
     margin-bottom: 20px;
     color: #0056b3; 

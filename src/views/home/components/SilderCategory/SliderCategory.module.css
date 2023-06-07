@@ -1,0 +1,81 @@
+#container{
+    padding: 30px 0 1px 0;
+}
+#top{
+    border-top: 1px solid #907dae7a;
+    border-bottom: 1px solid #907dae7a;
+    margin: 15px 0 0 0;
+}
+#top label{
+    display: flex;
+    padding: 15px 0;
+}
+#top img{
+    margin-right: 30px;
+}
+#top h1{
+    font-size: 35px;
+    font-weight: 600;
+}
+#deco{
+    width: 100px;
+    border: 5px solid #009fe3;
+}
+#content{
+    margin: 40px 0 100px 0;
+    display: flex;
+    height: 100%;
+    align-items: stretch;
+}
+#leftSide{
+    width: 37%;
+    /* flex-grow: 1; */
+}
+#leftSide img{
+    width: 100%;
+    max-height: 100%;
+}
+#rigthSide{
+    width: 63%;
+}
+#rigthSide>:nth-child(1){
+    padding-left: 6rem;
+    height: 100%;
+}
+#frame{
+    width: calc(100% + 24px);
+    height: 100%;
+    display: flex;
+    justify-content: start;
+    position: relative;
+    overflow: hidden ;
+}
+#cardsContainer{
+    display: flex;
+    height: 100%;
+    align-items: stretch;
+    padding-bottom: 20px;
+}
+#leftArrow{
+    background-color: #49267f;
+    position: absolute;
+    width: 38px;
+    height: 38px;
+    border: none;
+    top: 50%;
+    transform: translate(-50px, -50%);
+    border-radius: 50%;
+    cursor: pointer;
+}
+#rigthArrow{
+    top: 50%;
+    background-color: #49267f;
+    position: absolute;
+    border-radius: 50%;
+    width: 38px;
+    border: none;
+    height: 38px;
+    right: 0;
+    transform: rotate(180deg) translate(-50px, 50%);
+    cursor: pointer;
+}
