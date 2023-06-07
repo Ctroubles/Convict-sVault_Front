@@ -1,14 +1,20 @@
 /* styles.module.css */
 
 .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #4d4848;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #ffffff;
+  background-image: linear-gradient(to bottom right, #8fbbee, #ffffff);
+}
+
+  h1 {
+    font-size: 100px;
+    margin-bottom: 20px;
+    color: #0056b3; 
   }
-  
   .button {
     padding: 10px 20px;
     font-size: 16px;
@@ -33,4 +39,3 @@
       width: 100%;
     }
   }
-  

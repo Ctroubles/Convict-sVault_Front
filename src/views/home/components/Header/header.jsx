@@ -1,7 +1,7 @@
 import style from "./Header.module.css"
 import shopping_cart from "../../../../assets/icons/shopping_cart.svg"
 import lines_menu from "../../../../assets/icons/lines_menu.svg"
-
+import SearchBar from "../../Searchbar/Searchbar";
 const Header = () =>{
     return(
         <div>
@@ -9,14 +9,6 @@ const Header = () =>{
                     <div id={style.top}>
                         <div id={style.logoSection}>
                             <h1>SUPER REO Y+</h1>
-                        </div>
-                        <div id={style.searchBar}>
-                            <div id={style.container}>
-                                <input type="text"/>
-                                <span>
-                                    <button>X</button>
-                                </span>
-                            </div>
                         </div>
                         <div id={style.rightOptions}>
                             <div>
