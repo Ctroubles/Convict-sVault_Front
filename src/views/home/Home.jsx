@@ -12,6 +12,7 @@ import SliderCategory from "./components/SilderCategory/SliderCategory";
 const Home = ()=>{
 
     const [products, setProducts] = useState([])
+    const [filteredProducts, setFilteredProducts] = useState([]);
 
     const getProducts = async() =>{
         try {
@@ -26,6 +27,17 @@ const Home = ()=>{
     useEffect(()=>{
         getProducts()
     },[])
+
+    const handleSearch = (searchTerm) => {
+      if (searchTerm === "") {
+        setFilteredProducts(products);
+      } else {
+        const filtered = products.filter((product) =>
+          product.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setFilteredProducts(filtered);
+      }
+    };
 
     return(
         <div>

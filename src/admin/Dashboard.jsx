@@ -6,7 +6,7 @@ import Sales from "../../src/admin/Sales/Sales"
 import Clients from "../../src/admin/Clients/Clients"
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Products from './Productos/Products';
-
+import CreateProduct from './CreateProduct/CreateProduct';
 
 function Dashboard() {
   return (
@@ -24,6 +24,7 @@ function Dashboard() {
                 <Route exact path="/dashboard/sales" component={Sales} />
                 <Route exact path="/dashboard/clients" component={Clients} />
                 <Route exact path="/dashboard/products" component={Products} />
+                <Route exact path="/dashboard/products/create" component={CreateProduct} />
               </div>
           </div>
 

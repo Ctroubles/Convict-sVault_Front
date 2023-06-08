@@ -7,7 +7,7 @@ function SideBar() {
 
   return (
     <div className={style.sidebar}>
-      <ul>
+      <ul className={style.ulist}>
         <li className={style.buttons}>
           <NavLink
             to="/dashboard/products"

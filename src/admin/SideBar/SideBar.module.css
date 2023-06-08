@@ -4,18 +4,15 @@
     border-right: 1px solid gray;
     background-color: #e7e9eb;
 }
-/* ul {
+.ulist {
     list-style: none;
     padding: 1rem 2rem;
-}
-li {
-    margin-bottom: 1rem;
 }
 
 a {
     color: #007bff;
     text-decoration: none;
-} */
+}
 
 .buttons {
         padding: 10px 20px;

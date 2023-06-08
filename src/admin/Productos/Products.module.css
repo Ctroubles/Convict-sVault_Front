@@ -1,5 +1,4 @@
 .productsContainer {
-   justify-content: baseline;
     width: 100%;
     max-width: 70%;
     margin: 0 auto;
@@ -7,7 +6,7 @@
   }
   
   .table {
-    width: 100%;
+    width: 150%;
     border-collapse: collapse;
   }
   
