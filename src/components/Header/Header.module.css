@@ -7,6 +7,9 @@
 #logoSection{
     color: #009fe3;
 }
+#logoSection h1{
+    font-size: 35px;
+}
 #searchBar{
     width: 100%;
     margin: 0 20px;
@@ -94,13 +97,15 @@
     justify-content: center;
     width: 250px;
 }
-#buttonMenu>:nth-child(1){
+#buttonMenu a {
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    color:#ffffff;
+    text-decoration: none;
 }
-#buttonMenu>:nth-child(1) *{
+#buttonMenu a *{
     pointer-events: none;
 }
 #buttonMenu img{
@@ -109,7 +114,7 @@
     margin-right: 5px;
 }
 #buttonMenu p{
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 500;
 }
 #navBar{
@@ -118,14 +123,16 @@
      list-style: none;
     color:#ffffff;
 }
-#navBar li{
+#navBar a{
     font-size: 15px;
     padding: 10px;
     font-weight: 500;
     flex: 1 1 auto;
     text-align: center;
+    color:#ffffff;
+    text-decoration: none;
 }
-#navBar li:hover{
+#navBar a:hover{
     background-color: #0f88c3;
     cursor: pointer;
 }

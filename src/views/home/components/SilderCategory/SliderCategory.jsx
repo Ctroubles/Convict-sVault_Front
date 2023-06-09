@@ -4,7 +4,7 @@ import promocional from "./assets/imagenes_promocional/imagen_temporal.jpg";
 import { useEffect, useState } from "react";
 import axios from "axios"
 import OtherCard from "./components/OtherCard/OtherCard";
-import Card from "../Card/Card";
+import Card from "../../../../components/Card/Card";
 import arrow from "../../../../assets/icons/arrow_icon.svg"
 
 

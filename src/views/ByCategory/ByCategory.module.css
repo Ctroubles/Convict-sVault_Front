@@ -1,0 +1,18 @@
+#ByCategory{
+    display: flex;
+    justify-content: center;
+    /* min-height: calc(100vh - 552.53px); */
+    min-height: 570px;
+}
+#ByCategory>section:first-child{
+    padding-top: 40px;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+#cardsContaier{
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
