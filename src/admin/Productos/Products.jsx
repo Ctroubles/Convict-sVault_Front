@@ -3,6 +3,10 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import style from "./Products.module.css";
 import {FaTrash, FaEdit } from "react-icons/fa"
+import CreateProduct from '../CreateProduct/CreateProduct';
+import { Link } from 'react-router-dom/cjs/react-router-dom';
+
+
 function Products() {
   const [products, setProducts] = useState([]);
 
@@ -22,6 +26,8 @@ function Products() {
 
   return (
     <div className={style.productsContainer}>
+      <div>
+      </div>
       <table className={style.table}>
         <thead>
           <tr>
@@ -49,7 +55,7 @@ function Products() {
           ))}
         </tbody>
       </table>
-
+      <Link to="/dashboard/products/create" className={style.buttons}>Agregar Producto</Link>
     </div>
   );
 }
