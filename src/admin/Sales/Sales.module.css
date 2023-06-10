@@ -8,3 +8,27 @@
   margin-top: 50px;
   margin-left: 180px;
 } */
+
+.chartTypeButtons {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.chartTypeButton {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  margin: 0 8px;
+  color: #777777;
+}
+
+.activeChartTypeButton {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  margin: 0 8px;
+  color: #007bff;
+}
