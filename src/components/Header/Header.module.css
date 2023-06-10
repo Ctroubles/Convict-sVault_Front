@@ -136,3 +136,9 @@
     background-color: #0f88c3;
     cursor: pointer;
 }
+
+.dashboardIcon{
+    font-size: 25px;
+    color: #009fe3;
+    cursor: pointer;
+}

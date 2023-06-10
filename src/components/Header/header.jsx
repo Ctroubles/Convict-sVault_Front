@@ -7,7 +7,7 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import {useLocation} from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
-
+import { RiShieldUserFill } from "react-icons/ri"
 
 const Header = () =>{
 
@@ -50,9 +50,8 @@ const Header = () =>{
 
                                 {/* puede haber cambios en este admin */}
                                 <Link to={"/dashboard"}>
-                            <button>dashboard</button>
+                            <RiShieldUserFill className={style.dashboardIcon}/>
                                 </Link>
-
                             </div>
                         </div>
                         <div style={{backgroundColor:"#009fe3", display:"flex", padding:"0 16px", justifyContent:"center"}}>

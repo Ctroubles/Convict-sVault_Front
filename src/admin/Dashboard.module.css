@@ -1,10 +1,10 @@
 
 .dashboardContainer {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    background-color: #ffffff;
-  }
+  display: flex;
+  flex-direction: column;
+  height: calc(100vmax);
+  background-color: #363a3e27; 
+}
 
   .adminTitle {
     font-size: 35px;

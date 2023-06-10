@@ -13,14 +13,21 @@ function App() {
 
   return (
     <div className="App">
+      <Router>
       <Route exact path={"/"} render={()=> <Landing/>}/>
       { location.pathname!=='/' && !location.pathname.toLowerCase().includes('/admin')  && <Header />}
       <Route exact path={"/home"} render={()=> <Home/>}/>
       <Route exact path={"/category/:cat"} render={()=> <ByCategory/>}/>
       <Route exact path={"/dashboard"} render={()=> <Dashboard/>}/>
       { location.pathname!=='/' && !location.pathname.toLowerCase().includes('/admin')  && <Footer/>}
+      </Router>
     </div>
   );
 }
 
 export default App;
+
+
+{/* <Route exact path={"/"} render={()=> <Landing/>}/>
+<Route exact path={"/home"} render={()=> <Home/>}/>
+<Route exact path={"/dashboard"} render={()=> <Dashboard/>}/> */}

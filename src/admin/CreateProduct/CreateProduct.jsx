@@ -87,9 +87,8 @@ function CreateProduct() {
     return (
         <div className={style.createContainer}>
             <div>
-                <h1>Agregar producto</h1>
                 <br />
-                <p>Agregue los productos a la base de datos de SuperReo Y+</p>
+                <h1 className={style.tituloCreate}>Agregar producto</h1>
             </div>
             <div>
                 <form onSubmit={formik.handleSubmit} className={style.formCreate}>

@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import style from "./Products.module.css";
-import { FaTrash, FaEdit } from "react-icons/fa";
+import { FaTrash, FaEdit, FaUndo, FaFilter } from "react-icons/fa";
 import CreateProduct from '../CreateProduct/CreateProduct';
 import { Link } from 'react-router-dom/cjs/react-router-dom';
 import { IoMdAddCircle } from "react-icons/io";
@@ -12,6 +12,7 @@ function Products() {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [filter, setFilter] = useState("active");
 
   const handleRevoke = async (product) => {
     try {
@@ -37,6 +38,30 @@ function Products() {
     }
   };
 
+  const handleRestore = async (product) => {
+  try {
+    await axios.put(`http://localhost:3001/products/${product._id}`, {
+      isActive: true
+    });
+    getProducts();
+    swal.fire({
+      title: 'Se restauró el producto con éxito',
+      icon: 'success',
+      confirmButtonText: 'Aceptar',
+      timerProgressBar: 2000
+    });
+  } catch (error) {
+    console.log(error);
+    swal.fire({
+      title: 'Error al restaurar el producto',
+      text: error.message,
+      icon: 'error',
+      confirmButtonText: 'Aceptar',
+      timerProgressBar: 3000
+    });
+  }
+};
+
   const getProducts = async () => {
     try {
       const { data } = await axios.get("http://localhost:3001/products");
@@ -53,12 +78,13 @@ function Products() {
       setFilteredProducts(products);
     } else {
       const filtered = products.filter((product) =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase()) && product.isActive
+        product.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+        ((filter === "active" && product.isActive) || (filter === "inactive" && !product.isActive))
       );
       setFilteredProducts(filtered);
     }
   };
-
+  
   useEffect(() => {
     getProducts();
   }, []);
@@ -66,15 +92,29 @@ function Products() {
   return (
     <div className={style.productsContainer}>
       <div className={style.searchContainer}>
-        <input
-          type='text'
-          placeholder='Buscar producto'
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          onKeyUp={handleSearch}
-          className={style.searchInput}
-        />
-      </div>
+  <input
+    type="text"
+    placeholder="Buscar producto"
+    value={searchTerm}
+    onChange={(e) => setSearchTerm(e.target.value)}
+    onKeyUp={handleSearch}
+    className={style.searchInput}
+  />
+  <div className={style.filterButtons}>
+    <button
+      className={filter === "active" ? style.activeFilterButton : style.filterButton}
+      onClick={() => setFilter("active")}
+    >
+      <FaFilter /> Activos
+    </button>
+    <button
+      className={filter === "inactive" ? style.activeFilterButton : style.filterButton}
+      onClick={() => setFilter("inactive")}
+    >
+      <FaFilter /> Inactivos
+    </button>
+  </div>
+</div>
       <div className={`${style.tableContainer} ${style.table}`}>
         {filteredProducts.length === 0 ? (
           <div className={style.tableOverlay}>
@@ -103,11 +143,15 @@ function Products() {
                 <td>{product.category}</td>
                 <td>{product.price}</td>
                 <td>{product._id}</td>
-                <td className={product.isActive ? style.onlineStatus : style.offlineStatus}>{product.isActive ? 'Online' : 'Offline'}</td>
+                <td className={product.isActive ? style.onlineStatus : style.offlineStatus}>{product.isActive ? 'Activo' : 'Inactivo'}</td>
                 <td>
-                  <button className={style.editButton}><FaEdit />Editar</button>
-                  <button onClick={() => handleRevoke(product)} className={style.deleteButton}><FaTrash />Eliminar</button>
-                </td>
+                      <button className={style.editButton}><FaEdit />Editar</button>
+                      {product.isActive ? (
+                        <button onClick={() => handleRevoke(product)} className={style.deleteButton}><FaTrash />Desactivar</button>
+                      ) : (
+                        <button onClick={() => handleRestore(product)} className={style.restoreButton}><FaUndo />Activar</button>
+                      )}
+                    </td>
               </tr>
             ))}
           </tbody>

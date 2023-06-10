@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import style from "./Dashboard.module.css";
 import NavBar from './NavBar/NavBar';
 import SideBar from './SideBar/SideBar';
@@ -10,28 +10,23 @@ import CreateProduct from './CreateProduct/CreateProduct';
 
 function Dashboard() {
   return (
-      <Router>
-    <div className={style.dashboardContainer}>
+    <Router>
+      <div className={style.dashboardContainer}>
         <nav>
-          <div>
-            <h1 className={style.adminTitle}>SuperReo Y+</h1>
+          <div style={{ display: "flex" }}>
+            <div>
+              <SideBar />
+            </div>
+            <div>
+              <Route exact path="/dashboard/sales" component={Sales} />
+              <Route exact path="/dashboard/clients" component={Clients} />
+              <Route exact path="/dashboard/products" component={Products} />
+              <Route exact path="/dashboard/products/create" component={CreateProduct} />
+            </div>
           </div>
-          <div style={{display:"flex"}}>
-              <div>
-                <SideBar/>
-              </div>
-              <div>
-                <Route exact path="/dashboard/sales" component={Sales} />
-                <Route exact path="/dashboard/clients" component={Clients} />
-                <Route exact path="/dashboard/products" component={Products} />
-                <Route exact path="/dashboard/products/create" component={CreateProduct} />
-              </div>
-          </div>
-
-       
         </nav>
-    </div>
-      </Router>
+      </div>
+    </Router>
   )
 }
 

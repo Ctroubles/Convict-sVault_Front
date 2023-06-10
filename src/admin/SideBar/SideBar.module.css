@@ -1,9 +1,10 @@
 .sidebar {
-    width: 14rem;
-    height: calc(100vh - 52px);
-    border-right: 1px solid gray;
-    background-color: #e7e9eb;
+  width: 14rem;
+  height: 100vmax;
+  border-right: 1px solid gray;
+  background-color: #e7e9eb;
 }
+
 .ulist {
     list-style: none;
     padding: 1rem 2rem;
