@@ -2,54 +2,79 @@
   width: 14rem;
   height: 100vmax;
   border-right: 1px solid gray;
-  background-color: #e7e9eb;
+  background-image: linear-gradient(to bottom left, #1064bc, #77ace9);
 }
 
 .ulist {
-    list-style: none;
-    padding: 1rem 2rem;
+  list-style: none;
+  /* padding: 1rem 2rem; */
+  width: 100%;
 }
 
 a {
-    color: #007bff;
-    text-decoration: none;
+  color: #fff;
+  text-decoration: none;
 }
 
 .buttons {
-        padding: 10px 20px;
-        font-size: 19px;
-        border: none;
-        border-radius: 5px;
-        /* background-color: #007bff; */
-        color: #fff;
-        cursor: pointer;
-        margin-bottom: 10px;
-      
+  width: 100%; 
+  padding: 10px 20px;
+  font-size: 19px;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  margin-bottom: 10px;
 }
+
+.activeButton {
+  width: 125%;
+  padding: 10px 0;
+  font-size: 19px;
+  border: none;
+  border-radius: 50px;
+  color: #0056b3;
+  background-color: #e1e1e1;
+  transition: 0.5s;
+  display: block;
+  margin: 0;
+  margin-bottom: 2px;
+}
+
 
 .buttons:hover {
-    background-color: #0056b3;
-  }
-
-.buttons:hover a{
-    color: #fff;
+  width: 125%;
+  padding: 10px 0;
+  font-size: 19px;
+  border: none;
+  border-radius: 50px;
+  color: #0056b3;
+  background-color: #e1e1e1;
+  transition: 0.5s;
+  display: block;
+  margin: 0;
+  margin-bottom: 2px;
 }
 
-  @media (max-width: 600px) {
-    .container {
-      padding: 20px;
-    }
-    
-    .buttons {
-      width: 100%;
-    }
+.buttons:hover a {
+  color: #0056b3;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 20px;
   }
 
-  .icon {
-    margin-right: 8px;
+  .buttons {
+    width: 100%;
   }
+}
 
-  .active {
-    background-color: #007bff;
-    color: #fff;
-  }
+.icon {
+  margin-right: 8px;
+}
+
+/* .active {
+  background-color: #007bff;
+  color: #fff;
+} */

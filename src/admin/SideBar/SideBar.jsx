@@ -11,6 +11,7 @@ function SideBar() {
         <li className={style.buttons}>
           <NavLink
             to="/dashboard/products"
+            activeClassName={style.activeButton} // Aplica el estilo cuando está activo
           >
             <FaShoppingCart className={style.icon} />
             <span className={style.label}>Productos</span>
@@ -19,7 +20,7 @@ function SideBar() {
         <li className={style.buttons}>
           <NavLink
             to="/dashboard/sales"
-            activeClassName={style.active}
+            activeClassName={style.activeButton} // Aplica el estilo cuando está activo
           >
             <FaRegChartBar className={style.icon} />
             <span className={style.label}>Ventas</span>
@@ -28,7 +29,7 @@ function SideBar() {
         <li className={style.buttons}>
           <NavLink
             to="/dashboard/clients"
-            activeClassName={style.active}
+            activeClassName={style.activeButton} // Aplica el estilo cuando está activo
           >
             <FaUserEdit className={style.icon} />
             <span className={style.label}>Clientes</span>

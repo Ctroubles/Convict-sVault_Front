@@ -10,20 +10,6 @@ function LoginButton() {
     loginWithRedirect();
   };
 
-  // React.useEffect(() => {
-  //   if (isAuthenticated && user) {
-  //     Swal.fire({
-  //       toast: true,
-  //       position: 'bottom-end',
-  //       showConfirmButton: false,
-  //       timer: 2000,
-  //       icon: 'success',
-  //       title: `Inicio de sesión exitoso: ${user.name}`,
-  //       timerProgressBar: true,
-  //     });
-  //   }
-  // }, [isAuthenticated, user]);
-
   return (
     <button className={style.LoginButton} onClick={handleLogin}>Ingresar</button>
   );
