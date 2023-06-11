@@ -73,7 +73,7 @@ function CategoryChart({ categoryCounts, chartType }) {
 
   return (
     <div className={style.salescontainer}>
-      <h2>Productos por categoría</h2>
+      <h2>Categorías</h2>
       <canvas ref={chartRef} style={{ width: '400px', height: '400px' }}></canvas>
     </div>
   );

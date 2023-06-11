@@ -27,7 +27,7 @@
 }
 
 .tableContainer {
-  background-image: linear-gradient(to bottom right, #8fbbee, #ffffff);
+  background-image: linear-gradient(to bottom left, #a5c9f2, #ffffff);
   position: relative;
   overflow: hidden;
   border-radius: 10px;
