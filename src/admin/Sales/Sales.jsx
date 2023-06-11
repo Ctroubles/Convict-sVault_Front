@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import Chart from 'chart.js';
 import style from './Sales.module.css';
-import { FaChartPie, FaChartBar } from 'react-icons/fa';
+import { FaChartPie, FaChartBar, FaUsers, FaShoppingCart, FaMoneyBillWave } from 'react-icons/fa';
 
 function CategoryChart({ categoryCounts, chartType }) {
   const chartRef = useRef(null);
@@ -35,6 +35,18 @@ function CategoryChart({ categoryCounts, chartType }) {
     const chartOptions = {
       responsive: true,
       maintainAspectRatio: false,
+      legend: {
+        display: false, // Oculta la leyenda
+      },
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true, // Comienza en 0
+            },
+          },
+        ],
+      },
     };
 
     const ctx = chartRef.current.getContext('2d');
@@ -75,9 +87,15 @@ function Sales() {
     const savedChartType = localStorage.getItem('chartType');
     return savedChartType || 'pie';
   });
+  const [visitsCount, setVisitsCount] = useState(1524); //hardcodeado
+  const [salesCount, setSalesCount] = useState(55);//hardcodeado
+  const [revenue, setRevenue] = useState(154956);//hardcodeado
 
   useEffect(() => {
     getProducts();
+    fetchVisitsCount();
+    fetchSalesCount();
+    fetchRevenue();
   }, []);
 
   useEffect(() => {
@@ -91,6 +109,33 @@ function Sales() {
       setSoldProducts(products.filter((product) => !product.isActive));
       setStockProducts(products.filter((product) => product.isActive));
       setCategoryCounts(getCategoryCounts(products));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const fetchVisitsCount = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/visits/count');
+      setVisitsCount(response.data.count);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const fetchSalesCount = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/sales/count');
+      setSalesCount(response.data.count);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const fetchRevenue = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/sales/revenue');
+      setRevenue(response.data.revenue);
     } catch (error) {
       console.error(error);
     }
@@ -115,6 +160,35 @@ function Sales() {
 
   return (
     <div className={style.salescontainer}>
+      <div className={style.cardsContainer}>
+        <div className={style.card}>
+          <div className={style.cardIcon}>
+            <FaUsers />
+          </div>
+          <div className={style.cardInfo}>
+            <h3>Visitas</h3>
+            <p>{visitsCount}</p>
+          </div>
+        </div>
+        <div className={style.card}>
+          <div className={style.cardIcon}>
+            <FaShoppingCart />
+          </div>
+          <div className={style.cardInfo}>
+            <h3>Ventas</h3>
+            <p>{salesCount}</p>
+          </div>
+        </div>
+        <div className={style.card}>
+          <div className={style.cardIcon}>
+            <FaMoneyBillWave />
+          </div>
+          <div className={style.cardInfo}>
+            <h3>Ingresos</h3>
+            <p>${revenue}</p>
+          </div>
+        </div>
+      </div>
       <div className={style.chart}>
         <CategoryChart categoryCounts={categoryCounts} chartType={chartType} />
       </div>

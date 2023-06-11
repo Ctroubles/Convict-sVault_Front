@@ -8,6 +8,9 @@ import {useLocation} from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
 import { RiShieldUserFill } from "react-icons/ri"
+import logo from "../../assets/logoAzul2-removebg-preview.png";
+import logo2 from "../../assets/LogoAzul-removebg-preview.png"
+
 
 const Header = () =>{
 
@@ -27,7 +30,9 @@ const Header = () =>{
                 <div>
                         <div id={style.top}>
                             <div id={style.logoSection}>
-                                <h1>SUPER REO Y+</h1>
+                                <h1>
+                                <img src={logo2} alt="Super Reo Y+" height="80px" width="300px"/>
+                                </h1>
                             </div>
                             <div id={style.rightOptions}>
                                 <div>
