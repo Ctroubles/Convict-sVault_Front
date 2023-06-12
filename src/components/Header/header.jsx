@@ -1,15 +1,15 @@
 import style from "./Header.module.css"
 import shopping_cart from "../../assets/icons/shopping_cart.svg"
 import lines_menu from "../../assets/icons/lines_menu.svg"
-import SearchBar from "../Searchbar/Searchbar";
-import NavBar from "../../admin/Dashboard";
+// import SearchBar from "../Searchbar/Searchbar";
+// import NavBar from "../../admin/Dashboard";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import {useLocation} from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
 import { RiShieldUserFill } from "react-icons/ri"
-import logo from "../../assets/logoAzul2-removebg-preview.png";
-import logo2 from "../../assets/LogoAzul-removebg-preview.png"
+// import logo from "../../assets/logoAzul2-removebg-preview.png";
+// import logo2 from "../../assets/LogoAzul-removebg-preview.png"
 
 
 const Header = () =>{
@@ -31,7 +31,7 @@ const Header = () =>{
                         <div id={style.top}>
                             <div id={style.logoSection}>
                                 <h1>
-                                <img src={logo2} alt="Super Reo Y+" height="80px" width="300px"/>
+                                 Super Reo Y+
                                 </h1>
                             </div>
                             <div id={style.rightOptions}>
