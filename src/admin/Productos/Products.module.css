@@ -1,8 +1,8 @@
 .productsContainer {
-  width: 100%;
-  max-width: 70%;
+  width: 72%;
+  /* max-width: 70%; */
   margin: 0 auto;
-  padding: 20px;
+  padding: 0 10px;
 }
 
 .searchContainer {
@@ -12,6 +12,7 @@
   margin-bottom: 20px;
 }
 .searchInput {
+  margin-top: 20px;
   padding: 10px;
   width: 300px;
   border: none;
@@ -184,7 +185,6 @@
     border-radius: 5px;
     color: #fff;
     padding: 5px 10px;
-    /* margin-right: 10px; */
     cursor: pointer;
     transition: background-color 0.3s ease;
   }

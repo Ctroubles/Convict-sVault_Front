@@ -10,12 +10,13 @@ import { useState } from "react";
 import { RiShieldUserFill } from "react-icons/ri"
 // import logo from "../../assets/logoAzul2-removebg-preview.png";
 // import logo2 from "../../assets/LogoAzul-removebg-preview.png"
-
+import axios from "axios";
 
 const Header = () =>{
 
     const {pathname} = useLocation()
     const [category, setCategory] = useState(null)
+    const [isAdmin, setIsAdmin] = useState(false);
 
     useEffect(()=>{
         const arrurl = pathname.split("/");
@@ -23,7 +24,15 @@ const Header = () =>{
         console.log(category);
         setCategory(category);
     },[pathname])
-    
+    // useEffect (() => {
+    //   const fetchUserData  = async()=>{
+    //     const response = await axios.get("http://localhost:3001/users/db")
+    //     const currentUser = response.data;
+    //     const isAdmin = currentUser.isAmin;
+    //     setIsAdmin(isAdmin);
+    //   }
+    //   fetchUserData(true);
+    //   }, []);
     return(
         <div>
             <section>
@@ -52,11 +61,11 @@ const Header = () =>{
                                         <span>0</span>
                                     </div>
                                 </div>
-
-                                {/* puede haber cambios en este admin */}
-                                <Link to={"/dashboard"}>
-                            <RiShieldUserFill className={style.dashboardIcon}/>
-                                </Link>
+                                {
+                <Link to={"/dashboard"}>
+                  <RiShieldUserFill className={style.dashboardIcon} />
+                </Link>
+              }
                             </div>
                         </div>
                         <div style={{backgroundColor:"#009fe3", display:"flex", padding:"0 16px", justifyContent:"center"}}>
