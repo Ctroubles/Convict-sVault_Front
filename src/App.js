@@ -23,7 +23,11 @@ function App() {
   useEffect(()=>{
     const setting = async()=>{
       const postUser=async()=>{
-        const response = await axios.post(`http://localhost:3001/users/createuser`,{email:user.email }).catch(err=>console.log(err))
+        const response = await axios.post(`http://localhost:3001/users/createuser`, { "email": user.email }, {
+  headers: {
+    'Content-Type': 'application/json'
+  }
+}).catch(err => console.log(err.message));
         const data= response?.data;
         if(data){
           setCurrentUser(data)
