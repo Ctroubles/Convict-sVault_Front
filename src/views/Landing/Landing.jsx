@@ -21,7 +21,8 @@ const Landing = () => {
       <Link to={"/home"}>
         <button className={style.button}>Ir a la tienda</button>
       </Link>
-      {isAuthenticated ? <LogoutButton /> : <LoginButton />}
+      <LoginButton />
+      <LogoutButton />
     </div>
   );
 };
