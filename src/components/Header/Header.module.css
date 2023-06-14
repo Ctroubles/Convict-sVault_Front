@@ -64,7 +64,7 @@
 #account>:nth-child(2){
     padding-left: 10px;
 }
-#account span{
+#hola{
     font-size: 11px;
     color: #49267f;
 }
@@ -141,4 +141,58 @@
     font-size: 35px;
     color: #009fe3;
     cursor: pointer;
+}
+.underLined{
+    cursor: pointer;
+}
+.underLined:hover{
+    text-decoration: underline;
+}
+#opener:hover+#menu_desplegable{
+    display: flex !important;
+}
+#menu_desplegable:hover{
+    display: flex !important;
+}
+#menu_desplegable{
+    background-color: #eee;
+    position: absolute;
+    top: calc(100% + 5px);
+    right: 0px;
+    display: none;
+    flex-direction: column;
+    z-index: 12;
+    box-shadow: 0 0 0 1px #3333335e;
+    padding-bottom: 10px;
+}
+#menu_desplegable>.options{
+    display: inline-block;
+    text-align: center;
+    color: #000000;
+    font-size: 15px;
+    padding: 10px 8px 5px 8px;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 200;
+}
+#email{
+    padding: 8px 10px 5px 10px;
+    font-size: 14px;
+}
+#email span{
+    color: #5f5e5eec;
+}
+#menu_desplegable>.options:hover{
+    background-color: #c0baba;
+}
+#menu_desplegable>.options>label{
+    pointer-events: none;
+}
+#menu_desplegable::after{
+    background-color: transparent;
+    content: '';
+    width: 100%;
+    height: 5px;
+    position: absolute;
+    top: -5px;
 }

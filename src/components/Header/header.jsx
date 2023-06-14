@@ -11,8 +11,14 @@ import { RiShieldUserFill } from "react-icons/ri"
 // import logo from "../../assets/logoAzul2-removebg-preview.png";
 // import logo2 from "../../assets/LogoAzul-removebg-preview.png"
 import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
 
-const Header = () =>{
+
+
+
+const Header = ({user}) =>{
+
+    const {loginWithRedirect, logout} = useAuth0()
 
     const {pathname} = useLocation()
     const [category, setCategory] = useState(null)
@@ -24,6 +30,7 @@ const Header = () =>{
         console.log(category);
         setCategory(category);
     },[pathname])
+
     // useEffect (() => {
     //   const fetchUserData  = async()=>{
     //     const response = await axios.get("http://localhost:3001/users/db")
@@ -33,6 +40,8 @@ const Header = () =>{
     //   }
     //   fetchUserData(true);
     //   }, []);
+
+console.log(user);
     return(
         <div>
             <section>
@@ -48,8 +57,42 @@ const Header = () =>{
                                     <label id={style.account}>
                                         <button></button>
                                         <div>
-                                            <span>Hola</span>
-                                            <p>Mi cuenta</p>
+                                            <span id={style.hola}>Hola</span>
+                                            {
+                                                user ? (
+                                                    <div style={{position:"relative"}} >
+                                                        <p
+                                                         style={{
+                                                            cursor:"pointer",
+                                                        }}
+                                                        id={style.opener}
+                                                        >{user.name}</p>
+                                            <div id={style.menu_desplegable}>
+                                                <div id={style.email}>
+                                                    <label>
+                                                        <span>{user.email}</span>
+                                                    </label>
+                                                </div>
+                                                <Link className={style.options} to="/profile" >
+                                                    <label>
+                                                        <span>Mi perfil</span>
+                                                    </label>
+                                                </Link>            
+                                                <div className={style.options} onClick={()=>logout()} style={{paddingBottom:"5px", color:" #fa0202 "}}>
+                                                    <label>
+                                                        <span>Cerrar sesión</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                                    </div>
+                                                ) : (
+                                                    <p onClick={()=>loginWithRedirect()}
+                                                    style={{
+                                                        cursor:"pointer",
+                                                    }}
+                                                    className={style.underLined}
+                                                     >Iniciar sesión</p>                                                )
+                                            }
                                         </div>
                                     </label>
                                 </div>

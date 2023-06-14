@@ -15,19 +15,19 @@ function App() {
 
   const { user,isAuthenticated,loginWithRedirect,isLoading} = useAuth0()
 
-  const [currentUser, setCurrentUser]=useState({})
+  const [currentUser, setCurrentUser]=useState(null)
   const [loadinStatus, setLoadingStatus]=useState(true)
-  const location = useLocation()
+
 
   const {logout} = useAuth0();
   useEffect(()=>{
     const setting = async()=>{
       const postUser=async()=>{
-        const response = await axios.post(`http://localhost:3001/users/createuser`, { "email": user.email }, {
-  headers: {
-    'Content-Type': 'application/json'
-  }
-}).catch(err => console.log(err.message));
+      const response = await axios.post(`http://localhost:3001/users/createuser`, { "email": user.email }, {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+    }).catch(err => console.log(err.message));
         const data= response?.data;
         if(data){
           setCurrentUser(data)
@@ -51,17 +51,27 @@ function App() {
   if(user){
     userBanned()
   }
-})
+  },[])
 
   return (
     <div className="App">
       <Router>
       <Route exact path={"/"} render={()=><Landing/>}/>
-      { location.pathname!=='/' && !location.pathname.toLowerCase().includes('/admin')  && <Header />}
-      <Route exact path={"/home"} render={()=> <Home/>}/>
-      <Route exact path={"/category/:cat"} render={()=> <ByCategory/>}/>
-      <Route exact path={"/dashboard"} render={()=> <Dashboard/>}/>
-      { location.pathname!=='/' && !location.pathname.toLowerCase().includes('/admin')  && <Footer/>}
+      <Route path="/home" render={() => 
+        <>
+          <Header user={currentUser}/>
+          <Home />
+          <Footer />
+        </>
+      }/>
+      <Route path="/category/:cat" render={() =>
+        <>
+          <Header user={currentUser}/>
+          <ByCategory />
+          <Footer />
+        </>
+      }/>
+        <Route  path={"/dashboard"} render={()=> <Dashboard/>}/>
       </Router>
     </div>
   );
