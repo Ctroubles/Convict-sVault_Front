@@ -13,6 +13,7 @@ function Dashboard() {
     <Router>
       <div className={style.dashboardContainer}>
         <nav>
+          <h1>Super Reo Y+</h1>
           <div style={{ display: "flex" }}>
             <div>
               <SideBar />

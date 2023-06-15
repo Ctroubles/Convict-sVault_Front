@@ -95,6 +95,7 @@ function Clients() {
             <thead>
               <tr>
                 <th>Name</th>
+                <th>surname</th>
                 <th>Email</th>
                 <th>ID</th>
                 <th>Active</th>
@@ -105,15 +106,13 @@ function Clients() {
               {filteredClients.map((client) => (
                 <tr key={client._id}>
                   <td>{client.name}</td>
+                  <td>{client.surname}</td>
                   <td>{client.email}</td>
                   <td>{client._id}</td>
                   <td className={client.isActive ? style.onlineStatus : style.offlineStatus}>
                     {client.isActive ? 'Activo' : 'Inactivo'}
                   </td>
                   <td>
-                    <button className={style.editButton}>
-                      <FaEdit /> Editar
-                    </button>
                     {client.isActive ? (
                       <button onClick={() => handleRevoke(client)} className={style.deleteButton}>
                         <FaTrash /> Desactivar
