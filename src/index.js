@@ -11,33 +11,24 @@ dotenv.config();
 
 const domain= process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId= process.env.REACT_APP_AUTH0_CLIENT_ID;
-const audience= process.env.REACT_APP_AUTH0_AUDIENCE;
-const scope = "openid profile email";
-
-const handleRedirectCallback = (appState) => {
-  console.log('Autenticación completada');
-  console.log(appState);
-  console.log(User)
-};
 
 ReactDOM.render(
+  <Auth0Provider 
+  domain={domain}
+  clientId={clientId}
+  redirectUri={window.location.origin}
+
+  >
     <Provider store={store}>
   <React.StrictMode>
-    <Auth0Provider 
-    domain={domain}
-    clientId={clientId}
-    redirectUri={window.location.origin}
-    audience={audience}
-    scope={scope}
-    onRedirectCallback={handleRedirectCallback}
-    useRefreshTokens={false}
-    >
+
     <BrowserRouter>
       <App />
     </BrowserRouter>
-    </Auth0Provider>
   </React.StrictMode>
       </Provider>
+          </Auth0Provider>
+
       ,
   document.getElementById('root')
 );

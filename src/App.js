@@ -32,16 +32,14 @@ function App() {
       const data = response?.data;
       if (data) {
         setCurrentUser(data);
-
-        // Envía la solicitud para enviar el correo electrónico
-        await sendEmail();
+        await sendEmail(data);
       }
     };
 
-    const sendEmail = async () => {
+    const sendEmail = async (data) => {
       await axios.post(
         "http://localhost:3001/users/send-email",
-        { userId: currentUser.id, email: currentUser.email },
+        { userId: data.id, email: data.email },
         {
           headers: {
             "Content-Type": "application/json",
