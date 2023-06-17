@@ -42,7 +42,7 @@ const ByCategory = () =>{
                             <div style={{fontWeight:"400", margin:"0 9px 0 9px", fontSize:"20px"}}>
                                 {">"}
                             </div>
-                            <span style={{fontSize:"15px", color:"rgb(37, 44, 59)"}}>{capitalizeFirstLetter(cat)}</span>
+                            <span style={{fontSize:"15px", color:"rgb(37, 44, 59)"}}>{capitalizeFirstLetter(cat?cat:"Categoría sin definir")}</span>
                         </div>
                     </div>
                     <div style={{display:"flex" ,justifyContent:"space-between", alignItems:"stretch", width:"100%",}}>

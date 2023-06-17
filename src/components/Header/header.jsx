@@ -10,7 +10,6 @@ import { useState } from "react";
 import { RiShieldUserFill } from "react-icons/ri"
 // import logo from "../../assets/logoAzul2-removebg-preview.png";
 // import logo2 from "../../assets/LogoAzul-removebg-preview.png"
-import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 
 
@@ -27,7 +26,6 @@ const Header = ({user}) =>{
     useEffect(()=>{
         const arrurl = pathname.split("/");
         const category = arrurl[arrurl.length-1];
-        console.log(category);
         setCategory(category);
     },[pathname])
 
@@ -41,7 +39,6 @@ const Header = ({user}) =>{
     //   fetchUserData(true);
     //   }, []);
 
-console.log(user);
     return(
         <div>
             <section>
@@ -73,7 +70,7 @@ console.log(user);
                                                         <span>{user.email}</span>
                                                     </label>
                                                 </div>
-                                                <Link className={style.options} to="/profile" >
+                                                <Link className={style.options} to="/account" >
                                                     <label>
                                                         <span>Mi perfil</span>
                                                     </label>

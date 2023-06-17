@@ -9,6 +9,7 @@ import Footer from "./components/Footer/Footer.jsx"
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import Profile from "./views/Profile/Profile";
 
 function App() {
   const { user, isAuthenticated, loginWithRedirect, isLoading } = useAuth0();
@@ -92,6 +93,14 @@ function App() {
               <ByCategory />
               <Footer />
             </>
+          } />
+          <Route path="/account/:sec" render={() =>
+          !isAuthenticated?loginWithRedirect():
+          (  <>
+              <Header user={currentUser} />
+                  <Profile user={currentUser}/>
+              <Footer />
+            </>)
           } />
           <Route path={"/dashboard"} render={() => <Dashboard />} />
         </Router>
