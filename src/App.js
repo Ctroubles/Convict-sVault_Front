@@ -32,7 +32,11 @@ function App() {
       const data = response?.data;
       if (data) {
         setCurrentUser(data);
-        await sendEmail(data);
+        const emailSent = localStorage.getItem("emailSent");
+        if (!emailSent) {
+          await sendEmail(data);
+          localStorage.setItem("emailSent", "true");
+        }
       }
     };
 

@@ -93,9 +93,9 @@ function Sales() {
 
   useEffect(() => {
     getProducts();
-    fetchVisitsCount();
-    fetchSalesCount();
-    fetchRevenue();
+    // fetchVisitsCount();
+    // fetchSalesCount();
+    // fetchRevenue();
   }, []);
 
   useEffect(() => {
@@ -114,32 +114,32 @@ function Sales() {
     }
   };
 
-  const fetchVisitsCount = async () => {
-    try {
-      const response = await axios.get('http://localhost:3001/visits/count');
-      setVisitsCount(response.data.count);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const fetchVisitsCount = async () => {
+  //   try {
+  //     const response = await axios.get('http://localhost:3001/visits/count');
+  //     setVisitsCount(response.data.count);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
-  const fetchSalesCount = async () => {
-    try {
-      const response = await axios.get('http://localhost:3001/sales/count');
-      setSalesCount(response.data.count);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const fetchSalesCount = async () => {
+  //   try {
+  //     const response = await axios.get('http://localhost:3001/sales/count');
+  //     setSalesCount(response.data.count);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
-  const fetchRevenue = async () => {
-    try {
-      const response = await axios.get('http://localhost:3001/sales/revenue');
-      setRevenue(response.data.revenue);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const fetchRevenue = async () => {
+  //   try {
+  //     const response = await axios.get('http://localhost:3001/sales/revenue');
+  //     setRevenue(response.data.revenue);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   const getCategoryCounts = (products) => {
     const categoryCounts = {};
