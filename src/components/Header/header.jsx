@@ -70,7 +70,7 @@ const Header = ({user}) =>{
                                                         <span>{user.email}</span>
                                                     </label>
                                                 </div>
-                                                <Link className={style.options} to="/account" >
+                                                <Link className={style.options} to="/account/profile" >
                                                     <label>
                                                         <span>Mi perfil</span>
                                                     </label>

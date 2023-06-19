@@ -94,7 +94,7 @@ function App() {
               <Footer />
             </>
           } />
-          <Route path="/account/:sec" render={() =>
+          <Route path="/account/:sec?" render={() =>
           !isAuthenticated?loginWithRedirect():
           (  <>
               <Header user={currentUser} />
