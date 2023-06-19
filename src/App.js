@@ -19,10 +19,11 @@ function App() {
   const { logout } = useAuth0();
 
   useEffect(() => {
+    console.log(user)
     const postUser = async () => {
       const response = await axios.post(
         "http://localhost:3001/users/createuser",
-        { email: user.email },
+        { ...user },
         {
           headers: {
             "Content-Type": "application/json",
@@ -52,7 +53,6 @@ function App() {
         }
       ).catch((err) => console.log(err.message));
     };
-
     const setting = async () => {
       if (isAuthenticated) await postUser();
       if (!isLoading) setLoadingStatus(false);
