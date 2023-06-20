@@ -6,6 +6,7 @@ import { FaTrash, FaEdit, FaUndo, FaFilter } from "react-icons/fa";
 import CreateProduct from '../CreateProduct/CreateProduct';
 import { Link } from 'react-router-dom/cjs/react-router-dom';
 import { IoMdAddCircle } from "react-icons/io";
+import EditProductModal from './EditProductModal';
 import swal from 'sweetalert2';
 
 function Products() {
@@ -13,6 +14,26 @@ function Products() {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filter, setFilter] = useState("active");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
+
+  const openModal = (product) => {
+    setSelectedProduct(product);
+    setIsModalOpen(true);
+  };
+
+  const updateProduct = (updatedProduct) => {
+    const updatedProducts = products.map((product) => {
+      if (product._id === updatedProduct._id) {
+        return updatedProduct;
+      }
+      return product;
+    });
+    setProducts(updatedProducts);
+    setFilteredProducts(updatedProducts);
+  };
+
 
   const handleRevoke = async (product) => {
     try {
@@ -131,6 +152,7 @@ function Products() {
               <th>Category</th>
               <th>Price</th>
               <th>ID</th>
+              <th>Stock</th>
               <th>Estado</th>
               <th>Acciones</th>
             </tr>
@@ -143,9 +165,12 @@ function Products() {
                 <td>{product.category}</td>
                 <td>{product.price}</td>
                 <td>{product._id}</td>
+                <td>{product.stock}</td>
                 <td className={product.isActive ? style.onlineStatus : style.offlineStatus}>{product.isActive ? 'Activo' : 'Inactivo'}</td>
                 <td>
-                      <button className={style.editButton}><FaEdit />Editar</button>
+                                <button className={style.editButton} onClick={() => openModal(product)}>
+                  <FaEdit /> Editar
+                </button>
                       {product.isActive ? (
                         <button onClick={() => handleRevoke(product)} className={style.deleteButton}><FaTrash />Desactivar</button>
                       ) : (
@@ -156,6 +181,13 @@ function Products() {
             ))}
           </tbody>
         </table>
+        {isModalOpen && (
+  <EditProductModal
+    product={selectedProduct}
+    closeModal={() => setIsModalOpen(false)}
+    updateProduct={updateProduct}
+  />
+)}
       </div>
       <div className={style.containerAdd}>
         <Link to="/dashboard/products/create" className={style.buttonsAdd}><IoMdAddCircle className={style.iconoAdd} /></Link>
