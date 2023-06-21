@@ -9,3 +9,18 @@
     -webkit-box-direction: normal;
     -webkit-text-size-adjust: 100%;
 }
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background-color: #6666667a;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #14539ace;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #14539ace;
+}

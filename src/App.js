@@ -10,16 +10,20 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import Profile from "./views/Profile/Profile";
+import { setId, setUserCart } from "./Redux/store/actions/actions";
+import { useDispatch } from "react-redux";
 
 function App() {
-  const { user, isAuthenticated, loginWithRedirect, isLoading } = useAuth0();
+
+  const dispatch = useDispatch();
+  const { user, isAuthenticated, loginWithRedirect, isLoading,logout } = useAuth0();
+
+
   const [currentUser, setCurrentUser] = useState(null);
   const [loadingStatus, setLoadingStatus] = useState(true);
 
-  const { logout } = useAuth0();
 
   useEffect(() => {
-    console.log(user)
     const postUser = async () => {
       const response = await axios.post(
         "http://localhost:3001/users/createuser",
@@ -29,11 +33,13 @@ function App() {
             "Content-Type": "application/json",
           },
         }
-      ).catch((err) => console.log(err.message));
+      ).catch((err) => {alert("error log");console.log(err)});
 
       const data = response?.data;
       if (data) {
+        dispatch(setId(data._id))
         setCurrentUser(data);
+        dispatch(setUserCart(data.cart))
         const emailSent = localStorage.getItem("emailSent");
         if (!emailSent) {
           await sendEmail(data);
@@ -61,6 +67,7 @@ function App() {
     setting();
   }, [user, isAuthenticated, isLoading]);
 
+  
   useEffect(() => {
     const userBanned = async () => {
       const userr = await axios.get(`http://localhost:3001/users/db/${user.email}`);

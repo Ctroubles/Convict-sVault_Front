@@ -1,0 +1,86 @@
+#container{
+    padding: 0 0 20px 0;
+}
+#leftSection{
+    display: flex;
+    padding-right: 80px;
+}
+#imgContainer{
+    width: 100px;
+    height: 100px;
+    padding: 0 10px 10px 0;
+}
+#imgContainer img{
+    width: 100%;
+}
+#dataSection{
+    padding: 10px 0 0 10px;
+}
+#leftSection h2{
+    font-size: 16px;
+    font-weight: 500;
+}
+#leftSection p{
+    font-size: 14px;
+    font-weight: 400;
+    color: #727070dc;
+    padding: 5px 0;
+}
+#leftSection label{
+    font-size: 14px;
+    font-weight: 400;
+}
+#quantitySection{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#quantitySection span{
+    padding: 2px 8px 0 8px;
+    display: inline-block;
+    font-weight: 400;
+    font-size: 16px;
+    border: 1px solid #0592ceb7;
+    height: 25px;
+    min-width: 27.52px;
+    color: #0081b8;
+}
+#quantitySection label{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 15px;
+    flex-shrink: 0;
+    font-weight: 700;
+    font-size: 20px;
+    color: #0591ce;
+    cursor: pointer;
+    border: 1px solid #0592ceb7;
+    height: 25px;
+    padding: 0 10px;
+}
+#quantitySection>:nth-child(1) label{
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-right-color: transparent;
+}
+#quantitySection>:nth-child(3) label{
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-left-color: transparent;
+}
+#xButton{
+    position: absolute;
+    top: 0px;
+    right: -10px;
+    font-size: 10px;
+    background-color: #0591ce;
+    width: 16px;
+    height: 16px;
+    padding-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;border-radius: 50%;
+    color: #ffffff;
+    cursor: pointer;
+}
