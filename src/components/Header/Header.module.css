@@ -84,6 +84,7 @@
 #shopping_cart img{
     width: 23px;
     height: 23px;
+    cursor: pointer;
 }
 #shopping_cart span{
     font-size: 13px;

@@ -1,6 +1,23 @@
 import style from "./Card.module.css";
+import { useDispatch } from "react-redux";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { setUserCart } from "../../Redux/store/actions/actions";
 
 const Card = ({brand,category,image,price,name,id}) =>{
+
+    const {id:userID} = useSelector(state=>state)
+    const dispatch = useDispatch()
+
+    const addToCar = async() =>{
+        const {data} = await axios.put("http://localhost:3001/cart/addItem",{
+            "userid":userID,
+            "itemid":id,
+        })
+        dispatch(setUserCart(data));
+    }
+
+
     return(
         <div id={style.Card}>
             <label>
@@ -31,7 +48,7 @@ const Card = ({brand,category,image,price,name,id}) =>{
                         </div>
                         <div>
                             <div id={style.buttonSection}>
-                                <button>
+                                <button onClick={()=>addToCar()}>
                                     Agregar
                                 </button>
                             </div>

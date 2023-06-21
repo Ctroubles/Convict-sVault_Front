@@ -22,7 +22,11 @@ function paginationArray (array, num) {
 }
 
 function capitalizeFirstLetter(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
+  if (typeof(str)==="string") {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }else{
+    return ""
+  }
 }
 
 export{

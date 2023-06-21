@@ -11,17 +11,21 @@ import { RiShieldUserFill } from "react-icons/ri"
 // import logo from "../../assets/logoAzul2-removebg-preview.png";
 // import logo2 from "../../assets/LogoAzul-removebg-preview.png"
 import { useAuth0 } from "@auth0/auth0-react";
-
+import {useSelector} from "react-redux"
+import Cart from "../cart/Cart";
 
 
 
 const Header = ({user}) =>{
 
+
+    const {cart} = useSelector(state => state)
     const {loginWithRedirect, logout} = useAuth0()
 
+    const [itemsCart, setItemsCart] = useState(0)
     const {pathname} = useLocation()
     const [category, setCategory] = useState(null)
-    const [isAdmin, setIsAdmin] = useState(false);
+    const [cartStatus, setCartStatus] = useState(false)
 
     useEffect(()=>{
         const arrurl = pathname.split("/");
@@ -29,15 +33,12 @@ const Header = ({user}) =>{
         setCategory(category);
     },[pathname])
 
-    // useEffect (() => {
-    //   const fetchUserData  = async()=>{
-    //     const response = await axios.get("http://localhost:3001/users/db")
-    //     const currentUser = response.data;
-    //     const isAdmin = currentUser.isAmin;
-    //     setIsAdmin(isAdmin);
-    //   }
-    //   fetchUserData(true);
-    //   }, []);
+    useEffect(()=>{
+        let quantity = 0;
+        cart.map(e=>quantity=quantity+e[Object.keys(e)[0]])
+        setItemsCart(quantity)
+    },[cart])
+
 
     return(
         <div>
@@ -96,16 +97,16 @@ const Header = ({user}) =>{
                                 <div>
                                     <div id={style.shopping_cart}>
                                         <label>
-                                            <img src={shopping_cart} alt="Carrito de compras" />
+                                            <img src={shopping_cart} onClick={()=>setCartStatus(!cartStatus)} alt="Carrito de compras" />
                                         </label>
-                                        <span>0</span>
+                                        <span>{itemsCart}</span>
                                     </div>
                                 </div>
                                 {
-                <Link to={"/dashboard"}>
-                  <RiShieldUserFill className={style.dashboardIcon} />
-                </Link>
-              }
+                                    <Link to={"/dashboard"}>
+                                    <RiShieldUserFill className={style.dashboardIcon} />
+                                    </Link>
+                                }
                             </div>
                         </div>
                         <div style={{backgroundColor:"#009fe3", display:"flex", padding:"0 16px", justifyContent:"center"}}>
@@ -135,6 +136,8 @@ const Header = ({user}) =>{
                         </div>
                     </div>
             </section>
+            {cartStatus?
+            <Cart setCartStatus={setCartStatus}/>:null}
         </div>
     )
 };

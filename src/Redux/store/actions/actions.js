@@ -1,7 +1,14 @@
-import { SEARCH_PRODUCT } from "./actions.type";
+import { SEARCH_PRODUCT, SET_ID, SET_USER_CART } from "./actions.type";
 import axios from "axios";
 
-export const searchProduct=(name)=>{
+const setId = (payload) =>{
+    return{
+        type: SET_ID,
+        payload
+    }
+};
+
+const searchProduct=(name)=>{
    return async dispatch=>{
     const {data}= await axios.get(`http://localhost:3001/products?name${name}`)
     .catch(error => console.log(error));
@@ -12,10 +19,16 @@ export const searchProduct=(name)=>{
    }
 };
 
-// export const numPagChange=(num)=>{
-//     return {
-//         type: SET_NUM_PAGE,
-//         payload: num
-//     }
-// }
+const setUserCart = (payload) =>{
+    return{
+        type: SET_USER_CART,
+        payload,
+    }
+}
 
+
+export {
+    setId,
+    searchProduct,
+    setUserCart,
+}
