@@ -15,10 +15,10 @@ const categorias = [
     "Ropa",
     "Mascotas",
     "Turismo",
-    "Artasania",
+    "Artesania",
     "Agropecuario",
     "Servicios",
-] 
+]
 
 function CreateProduct() {
     const [file, setFile] = useState(null);

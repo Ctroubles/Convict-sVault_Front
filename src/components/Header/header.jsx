@@ -8,7 +8,7 @@ import {useLocation} from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
 import { RiShieldUserFill } from "react-icons/ri"
-// import logo from "../../assets/logoAzul2-removebg-preview.png";
+import logo from "../../assets/logoAzul2-removebg-preview.png";
 // import logo2 from "../../assets/LogoAzul-removebg-preview.png"
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -46,6 +46,7 @@ const Header = ({user}) =>{
                         <div id={style.top}>
                             <div id={style.logoSection}>
                                 <h1>
+                                 <img src={logo} alt="" width={"50px"}/>
                                  Super Reo Y+
                                 </h1>
                             </div>
@@ -132,7 +133,7 @@ const Header = ({user}) =>{
                                     <Link to={"/category/equipaje"} style={category==="equipaje"?{backgroundColor:"#0e628b"}:undefined}><li >Equipaje</li></Link>      
                                     <Link to={"/category/mascotas"} style={category==="mascotas"?{backgroundColor:"#0e628b"}:undefined}><li >Mascotas</li></Link>      
                                     <Link to={"/category/turismo"} style={category==="turismo"?{backgroundColor:"#0e628b"}:undefined}><li >Turismo</li></Link>      
-                                    <Link to={"/category/artesanias"} style={category==="artesanias"?{backgroundColor:"#0e628b"}:undefined}><li >Artesanias</li></Link>      
+                                    <Link to={"/category/artesania"} style={category==="artesania"?{backgroundColor:"#0e628b"}:undefined}><li >Artesania</li></Link>      
                                     <Link to={"/category/agropecuario"} style={category==="agropecuario"?{backgroundColor:"#0e628b"}:undefined}><li >Agropecuario</li></Link>      
                                 </nav>  
                             </div>
