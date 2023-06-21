@@ -16,6 +16,18 @@ function Products() {
   const [filter, setFilter] = useState("active");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(15); 
+
+
+
+  const indexOfLastProduct = currentPage * productsPerPage;
+const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+
+
+const getProductNumber = (index) => {
+  return indexOfFirstProduct + index + 1;
+};
 
 
   const openModal = (product) => {
@@ -83,33 +95,42 @@ function Products() {
   }
 };
 
-  const getProducts = async () => {
-    try {
-      const { data } = await axios.get("http://localhost:3001/products");
-      setProducts(data);
-      setFilteredProducts(data);
-    } catch (error) {
-      console.error(error);
-      alert("Something went wrong");
-    }
-  };
-
-  const handleSearch = () => {
-    if (searchTerm === "") {
-      setFilteredProducts(products);
-    } else {
-      const filtered = products.filter((product) =>
+const getProducts = async () => {
+  try {
+    const { data } = await axios.get("http://localhost:3001/products");
+    const sortedProducts = data.sort((a, b) => a.name.localeCompare(b.name));
+    setProducts(sortedProducts);
+    setFilteredProducts(sortedProducts);
+    setCurrentPage(1); // Restablece la página actual a la primera al obtener los productos
+  } catch (error) {
+    console.error(error);
+    alert("Something went wrong");
+  }
+};
+const handleSearch = () => {
+  if (searchTerm === "") {
+    setFilteredProducts(products);
+  } else {
+    const filtered = products.filter(
+      (product) =>
         product.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-        ((filter === "active" && product.isActive) || (filter === "inactive" && !product.isActive))
-      );
-      setFilteredProducts(filtered);
-    }
-  };
-  
+        ((filter === "active" && product.isActive) ||
+          (filter === "inactive" && !product.isActive))
+    );
+    setFilteredProducts(filtered);
+  }
+
+  setCurrentPage(1); // Restablece la página actual a la primera al realizar una nueva búsqueda
+};
   useEffect(() => {
     getProducts();
   }, []);
 
+  useEffect(() => {
+    setFilteredProducts((prevFilteredProducts) =>
+      prevFilteredProducts.sort((a, b) => a.name.localeCompare(b.name))
+    );
+  }, [filteredProducts]);
   return (
     <div className={style.productsContainer}>
       <div className={style.searchContainer}>
@@ -147,6 +168,7 @@ function Products() {
         <table>
           <thead>
             <tr>
+              <th></th>
               <th>Name</th>
               <th>Brand</th>
               <th>Category</th>
@@ -158,8 +180,11 @@ function Products() {
             </tr>
           </thead>
           <tbody>
-            {filteredProducts.map((product) => (
+          {filteredProducts
+            .slice(indexOfFirstProduct, indexOfLastProduct)
+            .map((product, index) => (
               <tr key={product._id}>
+                <td>{getProductNumber(index)}</td>
                 <td>{product.name}</td>
                 <td>{product.brand}</td>
                 <td>{product.category}</td>
@@ -181,6 +206,21 @@ function Products() {
             ))}
           </tbody>
         </table>
+        <div className={style.pagination}>
+  {/* <span>Página {currentPage}</span> */}
+  <button
+    disabled={currentPage === 1}
+    onClick={() => setCurrentPage(currentPage - 1)}
+  >
+    Anterior
+  </button>
+  <button
+    disabled={indexOfLastProduct >= filteredProducts.length}
+    onClick={() => setCurrentPage(currentPage + 1)}
+  >
+    Siguiente
+  </button>
+</div>
         {isModalOpen && (
   <EditProductModal
     product={selectedProduct}
