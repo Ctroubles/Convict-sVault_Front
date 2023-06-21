@@ -131,6 +131,10 @@ const Header = ({user}) =>{
                                     <Link to={"/category/juguetes"} style={category==="juguetes"?{backgroundColor:"#0e628b"}:undefined}><li >Jeguetería</li></Link>    
                                     <Link to={"/category/belleza"} style={category==="belleza"?{backgroundColor:"#0e628b"}:undefined}><li >Belleza</li></Link>    
                                     <Link to={"/category/equipaje"} style={category==="equipaje"?{backgroundColor:"#0e628b"}:undefined}><li >Equipaje</li></Link>      
+                                    <Link to={"/category/mascotas"} style={category==="mascotas"?{backgroundColor:"#0e628b"}:undefined}><li >Mascotas</li></Link>      
+                                    <Link to={"/category/turismo"} style={category==="turismo"?{backgroundColor:"#0e628b"}:undefined}><li >Turismo</li></Link>      
+                                    <Link to={"/category/artesanias"} style={category==="artesanias"?{backgroundColor:"#0e628b"}:undefined}><li >Artesanias</li></Link>      
+                                    <Link to={"/category/agropecuario"} style={category==="agropecuario"?{backgroundColor:"#0e628b"}:undefined}><li >Agropecuario</li></Link>      
                                 </nav>  
                             </div>
                         </div>

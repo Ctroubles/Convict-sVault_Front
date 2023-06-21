@@ -188,3 +188,37 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
+
+  /* CSS para los estilos de los botones de paginado */
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination button {
+  display: inline-block;
+  margin: 0 5px;
+  padding: 8px 12px;
+  border: none;
+  background-color: #f0f0f0;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination button:hover {
+  background-color: #ccc;
+  color: #fff;
+}
+
+.pagination button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  margin: 0 5px;
+  color: #333;
+}
