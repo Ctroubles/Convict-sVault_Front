@@ -19,7 +19,7 @@ function EditProductModal({ product, closeModal, updateProduct }) {
     try {
        await axios.put(`http://localhost:3001/products/${editedProduct._id}`, editedProduct);
     //   console.log(product);
-      updateProduct(editedProduct); 
+      updateProduct(editedProduct);
       closeModal();
       swal.fire({
         title: 'Cambios guardados',
@@ -103,9 +103,8 @@ function EditProductModal({ product, closeModal, updateProduct }) {
               className={style.formInput}
             />
           </div>
-
           <div className={style.formButton}>
-            <button type="submit" className={style.buttonPrimary}>Save Changes</button>
+            <button type="submit" className={style.buttonPrimary}>Guardar</button>
             <button type="button" onClick={closeModal} className={style.buttonSecondary}>Cancel</button>
           </div>
         </form>

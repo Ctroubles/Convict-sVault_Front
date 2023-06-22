@@ -7,14 +7,16 @@ import Clients from "../../src/admin/Clients/Clients"
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Products from './Productos/Products';
 import CreateProduct from './CreateProduct/CreateProduct';
-
+import logotipo from "../../src/assets/logorecortadoooooo (1).png"
 
 function Dashboard() {
   return (
     <Router>
       <div className={style.dashboardContainer}>
         <nav>
-          <h1>Super Reo Y+</h1>
+          <h1 className={style.titleDashboard}>
+          <img src={logotipo} alt='' width={"30px"}/>
+            Super Reo Y+</h1>
           <div style={{ display: "flex" }}>
             <div>
               <SideBar />

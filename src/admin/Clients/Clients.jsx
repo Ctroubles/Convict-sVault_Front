@@ -6,6 +6,10 @@ import { FaEdit, FaTrash, FaUndo } from 'react-icons/fa';
 function Clients() {
   const [clients, setClients] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+const [clientsPerPage] = useState(13);
+const [sortDirection, setSortDirection] = useState('asc');
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,8 +39,8 @@ function Clients() {
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
+    setCurrentPage(1); // Reiniciar la página actual a la primera al realizar una nueva búsqueda
   };
-
   const handleRevoke = async (client) => {
     try {
       await axios.put(`http://localhost:3001/users/activate/${client._id}`, { isActive: false });
@@ -69,9 +73,17 @@ function Clients() {
     }
   };
 
-  const filteredClients = clients.filter((client) =>
-    client.name?.toLowerCase().includes(searchTerm?.toLowerCase())
-  );
+  const filteredClients = clients
+  .filter((client) => client.name?.toLowerCase().includes(searchTerm?.toLowerCase()))
+  .sort((a, b) => {
+    const nameA = a.name.toLowerCase();
+    const nameB = b.name.toLowerCase();
+    if (sortDirection === 'asc') {
+      return nameA.localeCompare(nameB);
+    } else {
+      return nameB.localeCompare(nameA);
+    }
+  });
 
   return (
     <div className={style.clientContainer}>
@@ -94,6 +106,7 @@ function Clients() {
           <table className={style.table}>
             <thead>
               <tr>
+                <th></th>
                 <th>Name</th>
                 <th>surname</th>
                 <th>Email</th>
@@ -103,8 +116,11 @@ function Clients() {
               </tr>
             </thead>
             <tbody>
-              {filteredClients.map((client) => (
+            {filteredClients
+          .slice((currentPage - 1) * clientsPerPage, currentPage * clientsPerPage)
+          .map((client, index) => (
                 <tr key={client._id}>
+                  <td>{(currentPage - 1) * clientsPerPage + index + 1}</td>
                   <td>{client.name}</td>
                   <td>{client.surname}</td>
                   <td>{client.email}</td>
@@ -127,7 +143,22 @@ function Clients() {
               ))}
             </tbody>
           </table>
+          
         )}
+        <div className={style.pagination}>
+  <button
+    disabled={currentPage === 1}
+    onClick={() => setCurrentPage(currentPage - 1)}
+  >
+    Anterior
+  </button>
+  <button
+    disabled={currentPage * clientsPerPage >= filteredClients.length}
+    onClick={() => setCurrentPage(currentPage + 1)}
+  >
+    Siguiente
+  </button>
+</div>
       </div>
     </div>
   );

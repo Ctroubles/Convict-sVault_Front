@@ -17,7 +17,7 @@ function Products() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(15); 
+  const [productsPerPage] = useState(13); 
 
 
 

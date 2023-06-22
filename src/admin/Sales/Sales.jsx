@@ -27,6 +27,8 @@ function CategoryChart({ categoryCounts, chartType }) {
             '#ff7675',
             '#00cec9',
             '#a29bfe',
+            '#71afbe',
+            '#d88bfe'
           ],
         },
       ],
@@ -36,13 +38,13 @@ function CategoryChart({ categoryCounts, chartType }) {
       responsive: true,
       maintainAspectRatio: false,
       legend: {
-        display: false, // Oculta la leyenda
+        display: false,
       },
       scales: {
         yAxes: [
           {
             ticks: {
-              beginAtZero: true, // Comienza en 0
+              beginAtZero: true,
             },
           },
         ],
@@ -87,20 +89,22 @@ function Sales() {
     const savedChartType = localStorage.getItem('chartType');
     return savedChartType || 'pie';
   });
-  const [visitsCount, setVisitsCount] = useState(1524); //hardcodeado
-  const [salesCount, setSalesCount] = useState(55);//hardcodeado
-  const [revenue, setRevenue] = useState(154956);//hardcodeado
+  const [visitsCount, setVisitsCount] = useState(0);
+  const [salesCount, setSalesCount] = useState(0);
+  const [revenue, setRevenue] = useState(0);
 
   useEffect(() => {
     getProducts();
-    // fetchVisitsCount();
-    // fetchSalesCount();
-    // fetchRevenue();
+    updateVisitsCount();
   }, []);
 
   useEffect(() => {
     localStorage.setItem('chartType', chartType);
   }, [chartType]);
+
+  useEffect(() => {
+    saveVisitsCount(visitsCount);
+  }, [visitsCount]);
 
   const getProducts = async () => {
     try {
@@ -114,32 +118,6 @@ function Sales() {
     }
   };
 
-  // const fetchVisitsCount = async () => {
-  //   try {
-  //     const response = await axios.get('http://localhost:3001/visits/count');
-  //     setVisitsCount(response.data.count);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  // const fetchSalesCount = async () => {
-  //   try {
-  //     const response = await axios.get('http://localhost:3001/sales/count');
-  //     setSalesCount(response.data.count);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  // const fetchRevenue = async () => {
-  //   try {
-  //     const response = await axios.get('http://localhost:3001/sales/revenue');
-  //     setRevenue(response.data.revenue);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
 
   const getCategoryCounts = (products) => {
     const categoryCounts = {};
@@ -152,6 +130,30 @@ function Sales() {
       }
     });
     return categoryCounts;
+  };
+
+  const updateVisitsCount = () => {
+    setVisitsCount((prevCount) => prevCount + 1);
+  };
+
+  const saveVisitsCount = async (count) => {
+    try {
+      await axios.post('http://localhost:3001/visit/totales', { visitasDiarias: count });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getVisit = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/products');
+      const products = response.data;
+      setSoldProducts(products.filter((product) => !product.isActive));
+      setStockProducts(products.filter((product) => product.isActive));
+      setCategoryCounts(getCategoryCounts(products));
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleChartTypeChange = (type) => {
@@ -188,7 +190,7 @@ function Sales() {
             <p>${revenue}</p>
           </div>
         </div>
-      </div>
+        </div>
       <div className={style.chart}>
         <CategoryChart categoryCounts={categoryCounts} chartType={chartType} />
       </div>
