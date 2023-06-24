@@ -105,9 +105,8 @@ function EditProductModal({ product, closeModal, updateProduct }) {
               className={style.formInput}
             />
           </div>
-
           <div className={style.formButton}>
-            <button type="submit" className={style.buttonPrimary}>Save Changes</button>
+            <button type="submit" className={style.buttonPrimary}>Guardar</button>
             <button type="button" onClick={closeModal} className={style.buttonSecondary}>Cancel</button>
           </div>
         </form>

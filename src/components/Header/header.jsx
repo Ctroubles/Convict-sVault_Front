@@ -8,7 +8,7 @@ import {useLocation} from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";
 import { RiShieldUserFill } from "react-icons/ri"
-import logo from "../../assets/logoAzul2-removebg-preview.png";
+import logo from "../../assets/logorecortadoooooo (1).png";
 // import logo2 from "../../assets/LogoAzul-removebg-preview.png"
 import { useAuth0 } from "@auth0/auth0-react";
 import {useSelector} from "react-redux"
@@ -47,7 +47,7 @@ const Header = ({user}) =>{
                         <div id={style.top}>
                             <div id={style.logoSection}>
                                 <h1>
-                                 <img src={logo} alt="" width={"50px"}/>
+                                 <img src={logo} alt="" width={"30px"}/>
                                  Super Reo Y+
                                 </h1>
                             </div>

@@ -1,18 +1,19 @@
 .sidebar {
   width: 14rem;
-  height: 100vmax;
+  height: 100vh;
   border-right: 1px solid gray;
   background-image: linear-gradient(to bottom left, #1064bc, #77ace9);
+  margin-bottom: 0;
+  text-decoration: none;
 }
 
 .ulist {
   list-style: none;
-  /* padding: 1rem 2rem; */
   width: 100%;
 }
 
 .buttons {
-  width: 100%; 
+  width: 100%;
   padding: 10px 20px;
   font-size: 19px;
   border: none;
@@ -20,6 +21,7 @@
   color: #fff;
   cursor: pointer;
   margin-bottom: 10px;
+  text-decoration: none;
 }
 
 .activeButton {
@@ -34,8 +36,8 @@
   display: block;
   margin: 0;
   margin-bottom: 2px;
+  text-decoration: none;
 }
-
 
 .buttons:hover {
   width: 125%;
@@ -49,10 +51,12 @@
   display: block;
   margin: 0;
   margin-bottom: 2px;
+  text-decoration: none;
 }
 
 .buttons:hover a {
   color: #0056b3;
+  text-decoration: none;
 }
 
 @media (max-width: 600px) {
@@ -68,8 +72,3 @@
 .icon {
   margin-right: 8px;
 }
-
-/* .active {
-  background-color: #007bff;
-  color: #fff;
-} */

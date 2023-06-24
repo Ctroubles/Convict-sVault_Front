@@ -1,139 +1,161 @@
 .clientContainer {
-    width: 100%;
-    margin: 0 auto;
-    padding: 0 150px;
-  }
-
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 150px;
+}
 
 .tableContainer {
-    position: relative;
-    overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.5);
-    
-  }
-  
-  .tableOverlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
-    
-  }
-  
-  .tableOverlayMessage {
-    font-size: 20px;
-    color: #007bff;
-  }
-  
-  .tableOverlayMessage span {
-    font-weight: bold;
-    color: #007bff;
-    
-  }
-  
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-    background-image: linear-gradient(to bottom left, #a5c9f2, #ffffff);
-  }
-  
-  .table th,
-  .table td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .table th {
-    font-weight: bold;
-  }
-  
-  .table td:last-child {
-    text-align: center;
-  }
-  
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.5);
+  background-image: linear-gradient(to bottom left, #a5c9f2, #ffffff);
+}
 
-  .searchContainer {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .searchInput {
-    padding: 10px;
-    width: 300px;
-    border: none;
-    border-bottom: 2px solid #ccc;
-    font-size: 14px;
-    outline: none;
-    transition: border-bottom-color 0.3s ease;
-    border-radius: 30px;
-  }
-  
-  .searchInput:focus {
-    border-bottom-color: #007bff;
-  }
+.tableOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
 
+.tableOverlayMessage {
+  font-size: 20px;
+  color: #007bff;
+}
 
-  .onlineStatus {
-    color: green;
-  }
-  
-  .offlineStatus {
-    color: red;
-  }
+.tableOverlayMessage span {
+  font-weight: bold;
+  color: #007bff;
+}
 
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
 
-  .restoreButton {
-    background-color: green;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-right: 5px;
-  }
+.table th,
+.table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
 
-  .restoreButton:hover {
-    background-color:darkgreen;
-  }
-  
+.table th {
+  font-weight: bold;
+}
 
-  .deleteButton {
-    background-color: #dc3545;
-    color: #fff;
-    border: none;
-    padding: 5px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .deleteButton:hover{
-    background-color: darkred;
-  }
+.table td:last-child {
+  text-align: center;
+}
 
-  
+.searchContainer {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
 
-  .editButton {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-right: 5px;
-  }
-  
-  .editButton {
-    background-color: #0558b0;
-  }
-  
+.searchInput {
+  padding: 10px;
+  width: 300px;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  font-size: 14px;
+  outline: none;
+  transition: border-bottom-color 0.3s ease;
+  border-radius: 30px;
+}
+
+.searchInput:focus {
+  border-bottom-color: #007bff;
+}
+
+.onlineStatus {
+  color: green;
+}
+
+.offlineStatus {
+  color: red;
+}
+
+.restoreButton {
+  background-color: green;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.restoreButton:hover {
+  background-color: darkgreen;
+}
+
+.deleteButton {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.deleteButton:hover {
+  background-color: darkred;
+}
+
+.editButton {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.editButton {
+  background-color: #0558b0;
+}
+
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination button {
+  display: inline-block;
+  margin: 0 5px;
+  padding: 8px 12px;
+  border: none;
+  background-color: #f0f0f0;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination button:hover {
+  background-color: #ccc;
+  color: #fff;
+}
+
+.pagination button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  margin: 0 5px;
+  color: #333;
+}

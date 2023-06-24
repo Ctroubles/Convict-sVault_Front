@@ -1,14 +1,23 @@
-
-.dashboardContainer {
+body {
   display: flex;
   flex-direction: column;
-  height: calc(100vmax);
-  background-color: #363a3e27; 
+  margin: 0;
+  background-color: #363a3e27;
 }
 
-  .adminTitle {
-    font-size: 35px;
-    border-bottom: 1px solid gray;
-    margin: 0;
-    padding: 0;
-  }
+.dashboardContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.titleDashboard {
+  font-size: 34px;
+  font-weight: bold;
+  /* background-image: url('ruta/a/la/imagen.jpg'); */
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  color: #007bff;
+  padding: 7px;
+}
