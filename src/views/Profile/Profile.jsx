@@ -5,13 +5,23 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useHistory } from 'react-router-dom';
 
+
+
+const editableStyle = {
+    border:"1px solid #C0C0C0",
+    minWidth:"220px",
+    backgroundColor:"#ffffff"
+}
+
+
 const Profile = ({user}) =>{
     
     const history = useHistory();
-
     const params = useParams()
-    const [section, setSection] = useState(null)
 
+
+    const [section, setSection] = useState(null)
+    const [editable, setEditable] = useState(false)
 
 
     useEffect(()=>{
@@ -100,17 +110,17 @@ const Profile = ({user}) =>{
                                                         <label>
                                                             Nombre
                                                         </label>
-                                                        <p style={{color:"#979899"}}>
-                                                            {user.name}
-                                                        </p>
+                                                        <div>
+                                                            <input style={editable?editableStyle:undefined} value={user.name} readOnly={!editable} />                                                            
+                                                        </div>
                                                     </div>
                                                     <div>
                                                         <label>
                                                             Apellido
                                                         </label>
-                                                        <p style={{color:"#979899"}}>
-                                                            {user.surname}
-                                                        </p>
+                                                        <div>
+                                                            <input style={editable?editableStyle:undefined} value={user.surname} readOnly={!editable}/>                                                            
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div className={style.wrapBin}>
@@ -118,14 +128,17 @@ const Profile = ({user}) =>{
                                                         <label>
                                                             E-mail
                                                         </label>
-                                                        <p style={{color:"#979899"}}>
-                                                            {user.email}
-                                                        </p>
+                                                        <div>
+                                                            <input style={editable?editableStyle:undefined} value={user.email} readOnly={!editable}/>                                                            
+                                                        </div>
                                                     </div>
                                                     <div>
                                                         <label>
                                                             Número de teléfono
                                                         </label>
+                                                        <div>
+                                                            <input style={editable?editableStyle:undefined} value={user.phone} readOnly={!editable}/>                                                            
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div className={style.wrapBin}>
@@ -133,11 +146,17 @@ const Profile = ({user}) =>{
                                                         <label>
                                                             Cédula
                                                         </label>
+                                                        <div>
+                                                            <input style={editable?editableStyle:undefined} value={user.dni} readOnly={!editable}/>                                                            
+                                                        </div>
                                                     </div>
                                                     <div>
                                                         <label>
                                                             Género
                                                         </label>
+                                                        <div>
+                                                            <input style={editable?editableStyle:undefined} value={user.gender} readOnly={!editable}/>                                                            
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div className={style.wrapBin}>
@@ -145,11 +164,18 @@ const Profile = ({user}) =>{
                                                 </div>
                                             </div>
                                             <div id={style.foot}>
-                                                <div>
-                                                    <button>
+                                                {!editable? (
+                                                    <div>
+                                                    <button onClick={()=>setEditable(true)}>
                                                         EDITAR
                                                     </button>
                                                 </div>
+                                                ):
+                                                   ( <div id={style.guardar}>
+                                                        <label><p onClick={()=>setEditable(false)}>Cancelar</p></label>
+                                                        <label><span onClick={()=>{}}>Guardar</span></label>
+                                                    </div>)
+                                                }
                                             </div>
                                         </div>
                                         ) : (

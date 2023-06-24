@@ -17,17 +17,19 @@ function EditProductModal({ product, closeModal, updateProduct }) {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
-       await axios.put(`http://localhost:3001/products/${editedProduct._id}`, editedProduct);
-    //   console.log(product);
-      updateProduct(editedProduct); 
-      closeModal();
-      swal.fire({
-        title: 'Cambios guardados',
-        text: 'Los cambios en el producto se han guardado exitosamente.',
-        icon: 'success',
-        confirmButtonText: 'Aceptar',
-        timerProgressBar: 2000
-      });
+       const respuesta = await axios.put(`http://localhost:3001/products/${editedProduct._id}`, editedProduct);
+       if (respuesta.status===200) {
+        updateProduct(editedProduct); 
+        closeModal();
+        swal.fire({
+          title: 'Cambios guardados',
+          text: 'Los cambios en el producto se han guardado exitosamente.',
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+          timerProgressBar: 2000
+        });
+       }
+
     } catch (error) {
       console.log(error);
       swal.fire({
