@@ -14,10 +14,9 @@ const FilterSideBar = () =>{
                         </div>
                     </div>
                 </div>
-                <div>
-                    <Filtro filtro={"Category"}/>
+                <div id={style.lineOptions}>
+                    <Filtro filtro={"Categoría"}/>
                     <Filtro filtro={"Marca"}/>
-                    <Filtro filtro={"Tipo"}/>
                     <Filtro filtro={"Precio"}/>
                 </div>
             </label>

@@ -34,20 +34,20 @@ const ByCategory = () =>{
         <div id={style.ByCategory}>
             <section>
                 <div style={{maxWidth:"1300px", width:"100%",}}>
-                    <div style={{display:"flex", alignItems:"end", padding:"0px 0 25px 0", }}>
-                        <div style={{width:"28px", height:"28px",}}>
-                            <img src={homeIcon} alt="Home" style={{width:"28px", height:"28px",}}/>
-                        </div>
-                        <div style={{display:"flex", alignItems:"center"}}>
-                            <div style={{fontWeight:"400", margin:"0 9px 0 9px", fontSize:"20px"}}>
-                                {">"}
-                            </div>
-                            <span style={{fontSize:"15px", color:"rgb(37, 44, 59)"}}>{capitalizeFirstLetter(cat?cat:"Categoría sin definir")}</span>
-                        </div>
-                    </div>
-                    <div style={{display:"flex" ,justifyContent:"space-between", alignItems:"stretch", width:"100%",}}>
-                        <div style={{paddingRight:"30px"}}>
+                    <div style={{paddingRight:"30px"}}>
                             <FilterSideBar/>
+                    </div>
+                    <div style={{width:"100%",}}>
+                        <div style={{display:"flex", alignItems:"end", padding:"0px 0 20px 10px", }}>
+                            <div style={{width:"28px", height:"28px",}}>
+                                <img src={homeIcon} alt="Home" style={{width:"28px", height:"28px",}}/>
+                            </div>
+                            <div style={{display:"flex", alignItems:"center"}}>
+                                <div style={{fontWeight:"400", margin:"0 9px 0 9px", fontSize:"20px"}}>
+                                    {">"}
+                                </div>
+                                <span style={{fontSize:"16px", color:"rgb(37, 44, 59)"}}>{capitalizeFirstLetter(cat?cat:"Categoría sin definir")}</span>
+                            </div>
                         </div>
                         <div style={{width:"100%",}}>
                             <div id={style.cardsContaier}>
