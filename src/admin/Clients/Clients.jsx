@@ -3,7 +3,7 @@ import axios from 'axios';
 import style from './Clients.module.css';
 import { FaEdit, FaTrash, FaUndo } from 'react-icons/fa';
 
-function Clients() {
+function Clients({darkMode}) {
   const [clients, setClients] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -97,7 +97,7 @@ const [sortDirection, setSortDirection] = useState('asc');
         />
       </div>
 
-      <div className={style.tableContainer}>
+      <div className={`${style.tableContainer} ${darkMode ? style.darkMode : ''}`}>
         {clients.length === 0 ? (
           <div className={style.tableOverlay}>
             <p className={style.tableOverlayMessage}>No clients found</p>

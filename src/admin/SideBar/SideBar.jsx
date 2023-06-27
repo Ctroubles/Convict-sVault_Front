@@ -3,10 +3,10 @@ import { NavLink, Link } from 'react-router-dom';
 import style from "./SideBar.module.css";
 import { FaRegChartBar, FaShoppingCart, FaUserEdit } from "react-icons/fa";
 
-function SideBar() {
+function SideBar({darkMode }) {
 
   return (
-    <div className={style.sidebar}>
+    <div className={`${style.sidebar} ${darkMode ? style.darkMode : ''}`}>
       <ul className={style.ulist}>
         <li className={style.buttons}>
           <NavLink

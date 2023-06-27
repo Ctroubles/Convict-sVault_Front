@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { useState } from "react";
 import CardCart from "./card_cart/CardCart";
-import { PayPalButtons } from "@paypal/react-paypal-js";
+// import { PayPalButtons } from "@paypal/react-paypal-js";
 import { useHistory } from "react-router-dom";
 
 

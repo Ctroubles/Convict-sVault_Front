@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import Cart from "../cart/Cart";
 import styles from "./PasarelaDePagos.module.css";
+import axios from "axios";
 
 function PasarelaDePagos() {
   const [nombre, setNombre] = useState("");
@@ -9,60 +10,71 @@ function PasarelaDePagos() {
   const [direccion, setDireccion] = useState("");
   const [celular, setCelular] = useState("");
 
-  const createOrder = (data, actions) => {
-    // Order is created on the server and the order id is returned
-    return fetch("/my-server/create-paypal-order", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      // use the "body" param to optionally pass additional order information
-      // like product skus and quantities
-      body: JSON.stringify({
-        cart: [
+  const { REACT_APP_PAYPAL_CLIENT_ID, APP_SECRET } = process.env;
+  const baseURL = {
+    sandbox: "https://api-m.sandbox.paypal.com",
+    production: "https://api-m.paypal.com",
+  };
+
+  async function createOrder() {
+    const accessToken = await generateAccessToken();
+    const url = `${baseURL.sandbox}/v2/checkout/orders`;
+    const response = await axios.post(
+      url,
+      {
+        intent: "CAPTURE",
+        purchase_units: [
           {
-            sku: "YOUR_PRODUCT_STOCK_KEEPING_UNIT",
-            quantity: "YOUR_PRODUCT_QUANTITY",
+            amount: {
+              currency_code: "USD",
+              value: "100.00",
+            },
           },
         ],
-        nombre,
-        ciudad,
-        direccion,
-        celular,
-      }),
-    })
-      .then((response) => response.json())
-      .then((order) => order.id);
-  };
-
-  const onApprove = (data, actions) => {
-    // Order is captured on the server and the response is returned to the browser
-    return fetch("/my-server/capture-paypal-order", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        orderID: data.orderID,
-      }),
-    }).then((response) => response.json());
-  };
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+    return response.data;
+  }
 
-  const handlePayNow = () => {
-    window.paypal
-      .Buttons({
-        createOrder: (data, actions) => {
-          // Lógica para crear la orden en PayPal y obtener el ID de la orden
-          // Aquí puedes utilizar la API de PayPal para crear la orden y obtener el ID correspondiente
+  async function capturePayment(orderId) {
+    const accessToken = await generateAccessToken();
+    const url = `${baseURL.sandbox}/v2/checkout/orders/${orderId}/capture`;
+    const response = await axios.post(
+      url,
+      {},
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
         },
-        onApprove: (data, actions) => {
-          // Lógica para capturar la orden en PayPal y realizar las acciones necesarias en tu aplicación
+      }
+    );
+    return response.data;
+  }
+
+  async function generateAccessToken() {
+    const auth = Buffer.from(
+      REACT_APP_PAYPAL_CLIENT_ID + ":" + APP_SECRET
+    ).toString("base64");
+    const response = await axios.post(
+      `${baseURL.sandbox}/v1/oauth2/token`,
+      "grant_type=client_credentials",
+      {
+        headers: {
+          Authorization: `Basic ${auth}`,
         },
-      })
-      .render("#paypal-button-container"); // ID del contenedor donde se renderizarán los botones de PayPal
-  };
+      }
+    );
+    return response.data.access_token;
+  }
+
   return (
-    
     <div className={styles["payment-form"]}>
       <h2>Formulario de Pago</h2>
       <div className={styles["form-group"]}>
@@ -103,13 +115,8 @@ function PasarelaDePagos() {
         />
       </div>
       {/* <Cart /> */}
-      <button className={styles["pay-button"]} onClick={handlePayNow}>
-  Ir a pagar
-</button>
-      <PayPalButtons
-        createOrder={(data, actions) => createOrder(data, actions)}
-        onApprove={(data, actions) => onApprove(data, actions)}
-      />
+      {/* <button className={styles["pay-button"]}>Ir a pagar</button> */}
+      <PayPalButtons createOrder={createOrder} />
     </div>
   );
 }

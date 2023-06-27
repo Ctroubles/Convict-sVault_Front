@@ -14,7 +14,7 @@ import { setId, setUserCart } from "./Redux/store/actions/actions";
 import { useDispatch } from "react-redux";
 import PasarelaDePagos from "./components/pasarelaDePagos/pasarelaDePagos";
 
-const {PAYPAL_CLIENT_ID}= process.env
+// const {PAYPAL_CLIENT_ID}= process.env
 
 function App() {
 

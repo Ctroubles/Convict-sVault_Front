@@ -9,7 +9,7 @@ import { IoMdAddCircle } from "react-icons/io";
 import EditProductModal from './EditProductModal';
 import swal from 'sweetalert2';
 
-function Products() {
+function Products({darkMode}) {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -17,7 +17,18 @@ function Products() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(13); 
+  const [productsPerPage] = useState(8); 
+  const [isMobile, setIsMobile] = useState(false);
+
+
+  //////darkmode///////
+  const [tableClassName, setTableClassName] = useState(style.table);
+
+  useEffect(() => {
+    const updatedTableClassName = darkMode ? `${style.table} ${style.darkModeTable}` : style.table;
+    setTableClassName(updatedTableClassName);
+  }, [darkMode]);
+
 
 
 
@@ -49,7 +60,7 @@ const getProductNumber = (index) => {
 
   const handleRevoke = async (product) => {
     try {
-      await axios.put(`http://localhost:3001/products/${product._id}`, {
+      await axios.put(`http://localhost:3001/products/isActive/${product._id}`, {
         isActive: false
       });
       getProducts();
@@ -73,7 +84,7 @@ const getProductNumber = (index) => {
 
   const handleRestore = async (product) => {
   try {
-    await axios.put(`http://localhost:3001/products/${product._id}`, {
+    await axios.put(`http://localhost:3001/products/isActive/${product._id}`, {
       isActive: true
     });
     getProducts();
@@ -131,8 +142,21 @@ const handleSearch = () => {
       prevFilteredProducts.sort((a, b) => a.name.localeCompare(b.name))
     );
   }, [filteredProducts]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    window.addEventListener('resize', handleResize);
+    handleResize();
+  
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
   return (
-    <div className={style.productsContainer}>
+    <div className={`${style.productsContainer} ${darkMode ? style.darkMode : ''}`}>
+
       <div className={style.searchContainer}>
   <input
     type="text"
@@ -157,7 +181,7 @@ const handleSearch = () => {
     </button>
   </div>
 </div>
-      <div className={`${style.tableContainer} ${style.table}`}>
+<div className={`${style.tableContainer} ${tableClassName}`}>
         {filteredProducts.length === 0 ? (
           <div className={style.tableOverlay}>
             <div className={style.tableOverlayMessage}>

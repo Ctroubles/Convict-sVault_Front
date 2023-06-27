@@ -222,3 +222,46 @@
   margin: 0 5px;
   color: #333;
 }
+
+
+/* darkmode */
+
+.darkMode {
+  background-color: #111;
+  color: #fff;
+}
+
+.darkModeTable {
+  background-color: #111;
+  color: #111;
+}
+
+.darkModeTable th,
+.darkModeTable td {
+  border-color: #fff;
+}
+
+/* Products.module.css */
+
+/* Estilos para la vista móvil */
+@media (max-width: 768px) {
+  .mobileTable {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .mobileTable thead {
+    display: none;
+  }
+
+  .mobileTable tbody,
+  .mobileTable tr,
+  .mobileTable td {
+    display: block;
+    width: 100%;
+  }
+
+  .mobileTable td {
+    text-align: left;
+  }
+}

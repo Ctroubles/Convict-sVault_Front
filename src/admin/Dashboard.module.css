@@ -21,3 +21,33 @@ body {
   color: #007bff;
   padding: 7px;
 }
+
+.darkMode {
+  background-color: #111;
+  color: #fff;
+}
+
+.darkMode h1 {
+  color: #fff;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 20px; /* Agrega un espaciado derecho para separar el botón del borde */
+}
+
+.titleDashboard {
+  margin: 0;
+  flex: 1; /* Permite que el título ocupe todo el espacio disponible */
+}
+
+.darkModeButton {
+  color: #fff;
+  margin-left: 10px; /* Agrega un margen izquierdo para separar el botón del título */
+}
+
+.content {
+  display: flex;
+}

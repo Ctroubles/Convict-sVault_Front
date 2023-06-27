@@ -159,3 +159,10 @@
   margin: 0 5px;
   color: #333;
 }
+
+
+/* darkmode */
+.darkMode {
+  background-color: #111;
+  color: #111;
+}
