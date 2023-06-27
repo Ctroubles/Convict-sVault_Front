@@ -22,19 +22,3 @@
     border: 3px solid #ccc;
     border-radius: 5px;
   }
-  
-  button {
-    display: block;
-    margin: 0 auto;
-    padding: 10px 20px;
-    background-color: #009fe3;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #0082bd;
-  }
-  

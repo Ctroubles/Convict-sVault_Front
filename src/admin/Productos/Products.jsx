@@ -158,101 +158,104 @@ const handleSearch = () => {
     <div className={`${style.productsContainer} ${darkMode ? style.darkMode : ''}`}>
 
       <div className={style.searchContainer}>
-  <input
-    type="text"
-    placeholder="Buscar producto"
-    value={searchTerm}
-    onChange={(e) => setSearchTerm(e.target.value)}
-    onKeyUp={handleSearch}
-    className={style.searchInput}
-  />
-  <div className={style.filterButtons}>
-    <button
-      className={filter === "active" ? style.activeFilterButton : style.filterButton}
-      onClick={() => setFilter("active")}
-    >
-      <FaFilter /> Activos
-    </button>
-    <button
-      className={filter === "inactive" ? style.activeFilterButton : style.filterButton}
-      onClick={() => setFilter("inactive")}
-    >
-      <FaFilter /> Inactivos
-    </button>
-  </div>
-</div>
-<div className={`${style.tableContainer} ${tableClassName}`}>
-        {filteredProducts.length === 0 ? (
-          <div className={style.tableOverlay}>
-            <div className={style.tableOverlayMessage}>
-              No se encontraron productos con el nombre "<span>{searchTerm}</span>"
-            </div>
-          </div>
-        ) : null}
-        <table>
-          <thead>
-            <tr>
-              <th></th>
-              <th>Name</th>
-              <th>Brand</th>
-              <th>Category</th>
-              <th>Price</th>
-              <th>ID</th>
-              <th>Stock</th>
-              <th>Estado</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-          {filteredProducts
-            .slice(indexOfFirstProduct, indexOfLastProduct)
-            .map((product, index) => (
-              <tr key={product._id}>
-                <td>{getProductNumber(index)}</td>
-                <td>{product.name}</td>
-                <td>{product.brand}</td>
-                <td>{product.category}</td>
-                <td>{product.price}</td>
-                <td>{product._id}</td>
-                <td>{product.stock}</td>
-                <td className={product.isActive ? style.onlineStatus : style.offlineStatus}>{product.isActive ? 'Activo' : 'Inactivo'}</td>
-                <td>
-                                <button className={style.editButton} onClick={() => openModal(product)}>
-                  <FaEdit /> Editar
-                </button>
-                      {product.isActive ? (
-                        <button onClick={() => handleRevoke(product)} className={style.deleteButton}><FaTrash />Desactivar</button>
-                      ) : (
-                        <button onClick={() => handleRestore(product)} className={style.restoreButton}><FaUndo />Activar</button>
-                      )}
-                    </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <div className={style.pagination}>
-  {/* <span>Página {currentPage}</span> */}
-  <button
-    disabled={currentPage === 1}
-    onClick={() => setCurrentPage(currentPage - 1)}
-  >
-    Anterior
-  </button>
-  <button
-    disabled={indexOfLastProduct >= filteredProducts.length}
-    onClick={() => setCurrentPage(currentPage + 1)}
-  >
-    Siguiente
-  </button>
-</div>
-        {isModalOpen && (
-  <EditProductModal
-    product={selectedProduct}
-    closeModal={() => setIsModalOpen(false)}
-    updateProduct={updateProduct}
-  />
-)}
+      <input
+        type="text"
+        placeholder="Buscar producto"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        onKeyUp={handleSearch}
+        className={style.searchInput}
+      />
+      <div className={style.filterButtons}>
+        <div id={style.containerButt}>
+          <button
+            className={filter === "active" ? style.activeFilterButton : style.filterButton}
+            onClick={() => setFilter("active")}
+          >
+            <FaFilter /> Activos
+          </button>
+        </div>
+        <button
+          className={filter === "inactive" ? style.activeFilterButton : style.filterButton}
+          onClick={() => setFilter("inactive")}
+        >
+          <FaFilter /> Inactivos
+        </button>
       </div>
+    </div>
+    <div style={{width:"100%", maxWidth:"1300px"}}>
+      <div id={style.tableContainer} className={`${tableClassName}`}>
+              {filteredProducts.length === 0 ? (
+                <div className={style.tableOverlay}>
+                  <div className={style.tableOverlayMessage}>
+                    No se encontraron productos con el nombre "<span>{searchTerm}</span>"
+                  </div>
+                </div>
+              ) : null}
+              <table>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Brand</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>ID</th>
+                    <th>Stock</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {filteredProducts
+                  .slice(indexOfFirstProduct, indexOfLastProduct)
+                  .map((product, index) => (
+                    <tr key={product._id}>
+                      <td>{getProductNumber(index)}</td>
+                      <td>{product.name}</td>
+                      <td>{product.brand}</td>
+                      <td>{product.category}</td>
+                      <td>{product.price}</td>
+                      <td>{product._id}</td>
+                      <td>{product.stock}</td>
+                      <td className={product.isActive ? style.onlineStatus : style.offlineStatus}>{product.isActive ? 'Activo' : 'Inactivo'}</td>
+                      <td>
+                                      <button className={style.editButton} onClick={() => openModal(product)}>
+                        <FaEdit /> Editar
+                      </button>
+                            {product.isActive ? (
+                              <button onClick={() => handleRevoke(product)} className={style.deleteButton}><FaTrash />Desactivar</button>
+                            ) : (
+                              <button onClick={() => handleRestore(product)} className={style.restoreButton}><FaUndo />Activar</button>
+                            )}
+                          </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <div className={style.pagination}>
+                  <button
+                    disabled={currentPage === 1}
+                    onClick={() => setCurrentPage(currentPage - 1)}
+                  >
+                    Anterior
+                  </button>
+                  <button
+                    disabled={indexOfLastProduct >= filteredProducts.length}
+                    onClick={() => setCurrentPage(currentPage + 1)}
+                  >
+                    Siguiente
+                  </button>
+                </div>
+                        {isModalOpen && (
+                  <EditProductModal
+                    product={selectedProduct}
+                    closeModal={() => setIsModalOpen(false)}
+                    updateProduct={updateProduct}
+                  />
+                )}
+            </div> 
+    </div>
       <div className={style.containerAdd}>
         <Link to="/dashboard/products/create" className={style.buttonsAdd}><IoMdAddCircle className={style.iconoAdd} /></Link>
       </div>
