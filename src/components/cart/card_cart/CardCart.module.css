@@ -59,6 +59,13 @@
     height: 25px;
     padding: 0 10px;
 }
+#quantitySection label:hover{
+    background-color: #11111120;
+}
+#quantitySection label:active{
+    background-color: #0591ce;
+    user-select: none;
+}
 #quantitySection>:nth-child(1) label{
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
@@ -83,4 +90,8 @@
     justify-content: center;border-radius: 50%;
     color: #ffffff;
     cursor: pointer;
+    transition: transform 0.2s ease;
+}
+#xButton:active{
+    transform: scale(1.25);
 }

@@ -92,4 +92,10 @@
     font-weight: 500;
     color: #ffffffff;
     cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+#buttonSection button:active{
+    background-color: rgb(0, 157, 255);
+    transform: scale(1.05);
 }

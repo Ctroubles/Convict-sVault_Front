@@ -53,7 +53,7 @@ const Cart = ({ setCartStatus }) => {
         <span></span>
       </div>
       <div style={{ height: "100vh" }}>
-        <div id={style.Card} style={!loading ? { transform: "translateX(0)" } : undefined}>
+        <div id={style.Card} style={!loading ? { transform: "translateX(0px)" } : undefined}>
           <div>
             <div style={{ padding: "12px 0 12px 15px", backgroundColor: "#009fe3" }}>
               <label id={style.tittle}>

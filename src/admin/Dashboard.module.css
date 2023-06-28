@@ -59,6 +59,7 @@
 .darkModeButton svg{
   width: 25px !important;
   height: 25px !important;
+  cursor: pointer;
 }
 #body {
   display: flex;

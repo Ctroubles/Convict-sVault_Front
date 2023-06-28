@@ -86,6 +86,9 @@
     letter-spacing: 0.8px;
     cursor: pointer;
 }
+#confirmButton:hover{
+    filter: brightness(95%);
+}
 #confirmButton::after{
     content: "";
     width: 0px;
