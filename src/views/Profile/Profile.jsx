@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom/cjs/react-router-dom";
 import style from "./Profile.module.css";
 import { useParams } from "react-router-dom/cjs/react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useState } from "react";
 import { useHistory } from 'react-router-dom';
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 
@@ -18,10 +19,13 @@ const Profile = ({user}) =>{
     
     const history = useHistory();
     const params = useParams()
+    const modalRef = useRef()
+    const {logout} = useAuth0()
 
 
     const [section, setSection] = useState(null)
     const [editable, setEditable] = useState(false)
+    const [modalQuit, setModalQuit] = useState(false)
 
 
     useEffect(()=>{
@@ -46,6 +50,28 @@ const Profile = ({user}) =>{
         }
     },[params])
 
+
+    const modalHandler = () =>{
+        if (modalRef.current) {
+            modalRef.current.className = style.desactive
+            setTimeout(()=>{
+                setModalQuit(false)
+            },200)
+        }else{
+            setModalQuit(true)
+        }
+    }    
+    
+    const modalClose = (e) =>{
+        if (e.target === e.currentTarget) {
+            if (modalRef.current) {
+                modalRef.current.className = style.desactive
+                setTimeout(()=>{
+                    setModalQuit(false)
+                },200)
+            }
+        }
+    }
 
     return(
         <div id={style.Container}>
@@ -82,7 +108,7 @@ const Profile = ({user}) =>{
                                         </label>
                                     </div>
                                     <div>
-                                        <label className={style.navLink}>
+                                        <label className={style.navLink} onClick={()=>modalHandler()}>
                                             <span>Salir</span>
                                         </label>
                                     </div>
@@ -172,8 +198,8 @@ const Profile = ({user}) =>{
                                                 </div>
                                                 ):
                                                    ( <div id={style.guardar}>
-                                                        <label><p onClick={()=>setEditable(false)}>Cancelar</p></label>
-                                                        <label><span onClick={()=>{}}>Guardar</span></label>
+                                                        <label><span onClick={()=>setEditable(false)}>CANCELAR</span></label>
+                                                        <label><p onClick={()=>{}}>GUARDAR</p></label>
                                                     </div>)
                                                 }
                                             </div>
@@ -201,6 +227,25 @@ const Profile = ({user}) =>{
                     </div>
                 </div>
             </div>
+            {   
+               modalQuit? ( 
+                    <div id={style.quit} ref={modalRef}>
+                        <div className={style.cover} onClick={(e)=>modalClose(e)}>
+                            <div className={style.contenido}>
+                                <div>
+                                    <h3>¿Quieres salir?</h3>
+                                </div>
+                                <div id={style.guardar}>
+                                    <label><span onClick={()=>modalHandler()}>CANCELAR</span></label>
+                                    <label><p onClick={()=>logout()}>SALIR</p></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ) : (
+                    null
+                )
+            }
         </div>
     )
 };
