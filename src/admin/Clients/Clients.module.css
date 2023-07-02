@@ -1,7 +1,10 @@
 .clientContainer {
   width: 100%;
   margin: 0 auto;
-  padding: 0 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 15px 0;
 }
 
 .tableContainer {
@@ -10,6 +13,8 @@
   border-radius: 10px;
   box-shadow: 0 15px 20px rgba(0, 0, 0, 0.5);
   background-image: linear-gradient(to bottom left, #a5c9f2, #ffffff);
+  width: 100%;
+  max-width: 1100px;
 }
 
 .tableOverlay {
@@ -45,6 +50,7 @@
   padding: 10px;
   text-align: left;
   border-bottom: 1px solid #ddd;
+  word-break: break-all;
 }
 
 .table th {

@@ -68,7 +68,6 @@ const SliderCategory = ({category,}) =>{
 
 
     useEffect(()=>{
-        console.log(quantity)
         if (!(position >= -products.length+4)) {
             setTimeout(()=>{
                 setSliderStyle({
@@ -86,9 +85,6 @@ const SliderCategory = ({category,}) =>{
         }
     },[position])
 
-    useEffect(()=>{
-        
-    },[])
 
     return(
         <div>

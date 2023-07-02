@@ -1,7 +1,8 @@
 #Container{
     display: flex;
-    justify-content: center;
+    align-items: center;
     min-height: calc(100vh - 551.48px);
+    flex-direction: column;
 }
 #coreBox{
     padding: 64px 0;
@@ -66,7 +67,7 @@
     border: 1px solid transparent;
     font-size: 16px;
     outline: none;
-    border-radius: 4px;
+    border-radius: 2px;
     color: #979899;
 }
 #picContainer{
@@ -91,4 +92,79 @@
 }
 #foot button:hover{
     background-color: #dbe9fd;
+}
+
+#guardar span, #guardar p{
+    display: inline-block;
+    padding: 6.5px 25px 6.5px 25px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+#guardar span{
+    color: #0f3e99;
+}
+#guardar span:hover{
+    background-color: #dbe9fd;
+}
+#guardar p{
+    margin: 0 0 0 10px;
+    background-color: #00a3e9;
+    color: #f1f1f1;
+}
+#guardar p:hover{
+    background-color: #026e9c;
+}
+
+#quit{
+    position: fixed;
+    top: 0;
+    z-index: 1000000;
+    transition: opacity 0.2s ease;
+    opacity: 1;
+    animation: getIn 0.2s ease;
+    user-select: none;
+}
+#quit.desactive{
+    opacity: 0;
+}
+#quit .cover{
+    width: 100vw;
+    background-color: hsl(0, 0%, 0%,0.7);
+    color: #f1f1f1;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+#quit .contenido{
+    background-color: #Ffffff;
+    border-radius: 6px;
+    padding: 30px 50px 40px;
+    color: #111111;
+    width: 100%;
+    max-width: 800px;
+}
+#quit .contenido h3{
+    font-size: 20px;
+    line-height: 25px;
+    font-weight: 400;
+    padding: 30px;
+    display: inline;
+}
+#quit .contenido #guardar{
+    margin-top: 50px;
+    text-align: end;
+}
+
+@keyframes getIn {
+    0%{
+        opacity: 0;
+    }    
+    100%{
+        opacity: 1;
+    }   
 }

@@ -1,11 +1,11 @@
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import { RiLoader4Line } from "react-icons/ri";
 import Landing from "./views/Landing/Landing";
 import Home from "./views/home/Home";
 import Dashboard from "./admin/Dashboard";
 import Header from "./components/Header/header";
 import ByCategory from "./views/ByCategory/ByCategory";
 import Footer from "./components/Footer/Footer.jsx"
+import "./app.css"
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -89,7 +89,7 @@ function App() {
     <div className="App">
       {loadingStatus ? (
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
-          <RiLoader4Line size={82} color="#999" />
+          <div id="spinner"></div>
         </div>
       ) : (
         

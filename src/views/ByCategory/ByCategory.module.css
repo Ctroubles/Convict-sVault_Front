@@ -5,7 +5,7 @@
     min-height: 570px;
 }
 #ByCategory>section:first-child{
-    padding-top: 40px;
+    padding-top: 45px;
     display: flex;
     width: 100%;
     justify-content: center;
@@ -14,5 +14,6 @@
     display: flex;
     width: 100%;
     flex-wrap: wrap;
+    justify-content: start;
 }
 

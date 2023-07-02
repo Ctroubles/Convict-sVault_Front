@@ -29,21 +29,32 @@ function Dashboard() {
   return (
     <Router>
       <div className={`${style.dashboardContainer} ${darkMode ? style.darkMode : ''}`}>
-        <nav>
-          <div className={style.header}>
-            <h1 className={style.titleDashboard}>
-              <img src={logotipo} alt="" width="30px" />
-              Super Reo Y+
-            </h1>
-            <button className={style.darkModeButton} onClick={toggleDarkMode}>
-              {darkMode ? <FaSun /> : <FaMoon />}
-            </button>
+          <div id={style.header}>
+            <div>
+                <div id={style.logoSection}>
+                  <div>
+                    <img src={logotipo} alt="" width="30px" />
+                  </div>
+                  <div>
+                    <label>
+                      <h1>
+                        Super Reo Y+
+                      </h1>
+                    </label>
+                  </div>
+                </div>
+                <div id={style.containerButton}>
+                  <button className={style.darkModeButton} onClick={toggleDarkMode} style={{color:"#00adef"}}>
+                    {darkMode ? <FaSun /> : <FaMoon />}
+                  </button>
+                </div>
+            </div>
           </div>
-          <div className={style.content}>
+          <div id={style.body}>
             <div>
               <SideBar darkMode={darkMode} />
             </div>
-            <div>
+            <div style={{width:"100%"}} id={style.contenedor}>
               <Route exact path="/dashboard/sales" component={Sales} />
               <Route exact path="/dashboard/clients" render={(props) => <Clients {...props} darkMode={darkMode} />} />
               <Route
@@ -54,7 +65,6 @@ function Dashboard() {
               <Route exact path="/dashboard/products/create" component={CreateProduct} />
             </div>
           </div>
-        </nav>
       </div>
     </Router>
   );
