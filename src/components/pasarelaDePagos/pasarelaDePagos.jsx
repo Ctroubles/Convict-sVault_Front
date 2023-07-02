@@ -15,7 +15,7 @@ function PasarelaDePagos() {
     sandbox: "https://api-m.sandbox.paypal.com",
     production: "https://api-m.paypal.com",
   };
-
+  
   async function createOrder() {
     const accessToken = await generateAccessToken();
     const url = `${baseURL.sandbox}/v2/checkout/orders`;
