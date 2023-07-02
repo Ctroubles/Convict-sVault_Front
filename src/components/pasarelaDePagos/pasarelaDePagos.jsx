@@ -15,37 +15,7 @@ function PasarelaDePagos() {
     production: "https://api-m.paypal.com",
   };
 
-  const createOrder = async () => {
-    try {
-      const accessToken = await generateAccessToken();
-  
-      const url = "https://api-m.sandbox.paypal.com/v2/checkout/orders";
-      const payload = {
-        intent: "CAPTURE",
-        purchase_units: [
-          {
-            amount: {
-              currency_code: "USD",
-              value: "100.00",
-            },
-          },
-        ],
-      };
-  
-      const headers = {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      };
-  
-      const response = await axios.post(url, payload, { headers });
-  
-      return response.data;
-    } catch (error) {
-      console.error("Error al crear la orden:", error);
-      throw error;
-    }
-  };
-  
+ 
   async function capturePayment(orderId) {
     const accessToken = await generateAccessToken();
     const url = `${baseURL.sandbox}/v2/checkout/orders/${orderId}/capture`;
@@ -88,6 +58,43 @@ function PasarelaDePagos() {
     }
   };
   
+
+  ////////////////////////////////////////////////////////////////////
+
+  const createOrder = (data, actions) => {
+    return actions.order.create({
+        purchase_units:[
+            {
+                description:"Compra en CompuShop",
+                amount: {
+                    value: 100,
+                }
+
+        }
+
+        ]
+    });
+     };
+
+
+const onApprove = async(data, actions) => {
+    // send()
+    const order = await actions.order.capture();
+    manejadorSucces(order)
+};
+
+
+const manejadorSucces = async(order) =>{
+  alert("all good")
+}
+
+
+  ////////////////////////////////////////////////////////////////////
+
+
+
+
+
   return (
     <div className={styles["payment-form"]}>
       <h2>Formulario de Pago</h2>
@@ -129,16 +136,18 @@ function PasarelaDePagos() {
         />
       </div>
       <PayPalButtons
-  createOrder={() => createOrder()}
-  onApprove={(data, actions) => {
-    return capturePayment(data.orderID)
-      .then((result) => {
-        console.log("Pago capturado:", result);
-      })
-      .catch((error) => {
-        console.error("Error al capturar el pago:", error);
-      });
-  }}
+            onClick={(data,action)=>{
+              console.log("Estás apunto de efectuar la compra")
+
+              if (100) {
+                  return action.resolve();
+              }else{
+                  return action.reject();
+              }
+             }}
+             createOrder={(data, actions) => createOrder(data, actions)}
+             onApprove={(data, actions) =>onApprove(data, actions)}
+             onError={(err)=>alert(err)}
 />
 
     </div>
