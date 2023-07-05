@@ -122,10 +122,7 @@ function PasarelaDePagos() {
 
 
 const onApprove = async(data, actions) => {
-<<<<<<< HEAD
-=======
     send()
->>>>>>> 714961049c1a37565afbc0783f8f3f9560282ada
     const order = await actions.order.capture();
     manejadorSucces(order)
 };
