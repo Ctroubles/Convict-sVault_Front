@@ -17,7 +17,7 @@ function Products({darkMode}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(8); 
+  const [productsPerPage] = useState(13); 
   const [isMobile, setIsMobile] = useState(false);
 
 

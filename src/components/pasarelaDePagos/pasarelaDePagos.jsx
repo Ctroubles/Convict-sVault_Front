@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import styles from "./PasarelaDePagos.module.css";
 import axios from "axios";
-
+import { useSelector } from "react-redux";
+import { useAuth0 } from "@auth0/auth0-react";
+import urlBack from "../../util/deploy_back";
 function PasarelaDePagos() {
+  const { user, isAuthenticated } = useAuth0()
+  console.log();
+
+  const {cart}  = useSelector((e) => e);
+
   const [nombre, setNombre] = useState("");
   const [ciudad, setCiudad] = useState("");
   const [direccion, setDireccion] = useState("");
@@ -14,6 +21,44 @@ function PasarelaDePagos() {
     sandbox: "https://api-m.sandbox.paypal.com",
     production: "https://api-m.paypal.com",
   };
+  const [total, setTotal] = useState(0);
+
+  const totalAPagar = async (cart) => {
+    let total = 0;
+    await Promise.all(
+      cart.map(async (e) => {
+        const key = Object.keys(e)[0];
+        const { data } = await axios.get(
+          `http://${urlBack}/products/${key}`
+        );
+        total = total + data.price * e[key];
+        console.log(total);
+        return { ...data, quantity: e[key] };
+      })
+    );
+    setTotal(total);
+  };
+
+  useEffect(() => {
+    totalAPagar(cart);
+  }, [cart]);
+
+
+  const send = async() => {
+    const sendData = {
+        fromMail: "labodegadelreo.122@gmail.com",
+        toMail: user.email,
+        name: user.name
+    }
+    const mailer = await fetch(`${urlBack}/pagos/mailer`, {
+        method: 'POST',
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify(sendData)
+    })
+    console.log("enviado")
+}
 
  
   async function capturePayment(orderId) {
@@ -64,7 +109,7 @@ function PasarelaDePagos() {
     return actions.order.create({
         purchase_units:[
             {
-                description:"Compra en CompuShop",
+                description:"Compra en SuperReoY+",
                 amount: {
                     value: 100,
                 }
@@ -77,13 +122,17 @@ function PasarelaDePagos() {
 
 
 const onApprove = async(data, actions) => {
+<<<<<<< HEAD
+=======
+    send()
+>>>>>>> 714961049c1a37565afbc0783f8f3f9560282ada
     const order = await actions.order.capture();
     manejadorSucces(order)
 };
 
 
 const manejadorSucces = async(order) =>{
-  alert("all good")
+  console.log("all good")
 }
 
 
