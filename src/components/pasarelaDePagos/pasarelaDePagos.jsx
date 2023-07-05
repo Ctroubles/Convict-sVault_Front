@@ -23,24 +23,32 @@ function PasarelaDePagos() {
   };
   const [total, setTotal] = useState(0);
 
+  ///////////////////////
+  useEffect(()=>{
+console.log(total)
+  }, [total])
+  ///////////////////////////
+
   const totalAPagar = async (cart) => {
     let total = 0;
     await Promise.all(
       cart.map(async (e) => {
+        console.log("ssadd")
         const key = Object.keys(e)[0];
         const { data } = await axios.get(
-          `http://${urlBack}/products/${key}`
+          `${urlBack}/products/${key}`
         );
         total = total + data.price * e[key];
-        console.log(total);
+      //  console.log(total)
         return { ...data, quantity: e[key] };
       })
-    );
+      );
     setTotal(total);
   };
 
   useEffect(() => {
     totalAPagar(cart);
+    console.log("hola");
   }, [cart]);
 
 
@@ -106,12 +114,13 @@ function PasarelaDePagos() {
 
 
   const createOrder = (data, actions) => {
+    console.log(total)
     return actions.order.create({
         purchase_units:[
             {
                 description:"Compra en SuperReoY+",
                 amount: {
-                    value: 100,
+                    value: total,
                 }
 
         }
