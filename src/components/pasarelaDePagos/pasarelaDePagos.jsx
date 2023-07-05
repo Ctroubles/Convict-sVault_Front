@@ -48,7 +48,8 @@ function PasarelaDePagos() {
     const sendData = {
         fromMail: "labodegadelreo.122@gmail.com",
         toMail: user.email,
-        name: user.name
+        name: user.name,
+        userId:user.id,
     }
     const mailer = await fetch(`${urlBack}/pagos/mailer`, {
         method: 'POST',
@@ -57,7 +58,7 @@ function PasarelaDePagos() {
         },
         body: JSON.stringify(sendData)
     })
-    console.log("enviado")
+    console.log(mailer)
 }
 
  
@@ -125,8 +126,8 @@ function PasarelaDePagos() {
      const onApprove = async(data, actions) => {
       send()
       const order = await actions.order.capture();
-      const capturedOrder = await capturePayment(order.id);
-      manejadorSucces(capturedOrder)
+      // const capturedOrder = await capturePayment(order.id);
+      manejadorSucces(order)
   };
   
 
