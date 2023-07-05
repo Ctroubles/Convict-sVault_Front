@@ -6,9 +6,14 @@
 }
 #logoSection{
     color: #009fe3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-height: 42px;
 }
 #logoSection h1{
     font-size: 35px;
+    padding: 5px 0 0 10px;
 }
 #searchBar{
     width: 100%;

@@ -62,13 +62,74 @@
     display: inline-block;
 }
 .wrapBin>div input{
-    background-color: transparent;
     padding: 5px;
     border: 1px solid transparent;
     font-size: 16px;
+    line-height: 20px;
     outline: none;
     border-radius: 2px;
     color: #979899;
+    height: 32px;
+}
+#genderBox{
+    border-bottom-color: transparent;
+    font-size: 16px;
+    line-height: 16px;
+    color: #979899;
+    width: 100%;
+    max-width: 220px;
+    position: relative;
+    box-sizing: border-box;
+}
+#genderBox > div:first-child{
+    padding: 5px 8px;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    cursor: pointer;
+    height: 32px;
+    border: 1px solid transparent;
+}
+#genderBox > div:first-child span{
+    height: 22px;
+    line-height: 22px;
+}
+#genderBox > div:first-child .arrowContainer{
+    width: 100%;
+    flex: 1;
+    text-align: end;
+    height: 22px;
+    max-height: 22px;
+}
+#genderBox > div:first-child .arrowContainer span{
+    transition: transform 0.3s ease;
+    transform: rotate(90deg);
+    padding: 0px 10px;
+    font-size: 22px;
+    display: inline-block;
+}
+#openBox{
+    display: none;
+    box-sizing: border-box;
+    position: absolute;
+    top: 100%;
+    list-style: none;
+    border: 1px solid #C0C0C0;
+    border-top-color: transparent;
+    width: calc(100%);    
+    left: 0;
+}
+#openBox li{
+    background-color: #ffffff;
+    list-style: none;
+    padding: 5px 8px;
+    cursor: pointer;
+    font-size: 15px;
+}
+#openBox li:hover{
+    filter: brightness(90%);
 }
 #picContainer{
     width: 60px;

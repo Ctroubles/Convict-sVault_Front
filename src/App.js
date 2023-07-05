@@ -40,6 +40,7 @@ function App() {
 
       const data = response?.data;
       if (data) {
+        console.log(data)
         dispatch(setId(data._id))
         setCurrentUser(data);
         dispatch(setUserCart(data.cart))
@@ -55,11 +56,7 @@ function App() {
       await axios.post(
         "http://localhost:3001/users/send-email",
         { userId: data.id, email: data.email },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+
       ).catch((err) => console.log(err.message));
     };
     const setting = async () => {

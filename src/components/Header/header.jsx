@@ -46,8 +46,8 @@ const Header = ({user}) =>{
                 <div>
                         <div id={style.top}>
                             <div id={style.logoSection}>
+                                <img src={logo} alt="" width={"30px"}/>
                                 <h1>
-                                 <img src={logo} alt="" width={"30px"}/>
                                  Super Reo Y+
                                 </h1>
                             </div>

@@ -5,6 +5,9 @@ import { useEffect, useRef } from "react";
 import { useState } from "react";
 import { useHistory } from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
+import { validators } from "../../util/validators";
+import axios from "axios";
+import { capitalizeEachWord } from "../../util";
 
 
 
@@ -26,6 +29,25 @@ const Profile = ({user}) =>{
     const [section, setSection] = useState(null)
     const [editable, setEditable] = useState(false)
     const [modalQuit, setModalQuit] = useState(false)
+    const [userData, setUserData] = useState({})
+    const [errors, setErrors] = useState({})
+    const [genderEdit, setGenderEdit] = useState(false)
+
+
+
+
+
+    useEffect(()=>{
+        setUserData({
+            name: user.name || "",
+            surname: user.surname || "",
+            email: user.email || "",
+            phone: user.phone || "",
+            dni: user.dni || "",
+            gender: user.gender || "",
+        })
+    },[user, editable])
+
 
 
     useEffect(()=>{
@@ -42,9 +64,7 @@ const Profile = ({user}) =>{
             case "authentication":
                 setSection(4)
                 break;
-        
             default:
-                console.log("??")
                 history.push("/account/profile")
                 break;
         }
@@ -72,6 +92,51 @@ const Profile = ({user}) =>{
             }
         }
     }
+
+    const handlerChange = (e)=>{
+        const target = e.target.name;
+        const value = e.target.value
+        setErrors({...errors,[target]:null})
+        if(validators(target,value)){
+            setUserData({...userData,[target]:value})
+        }
+    } 
+
+
+    const sendUpdate = async() =>{
+        try {
+            const setData = {
+                ...userData,
+                name:capitalizeEachWord(userData.name),
+                surname:capitalizeEachWord(userData.surname)
+            }
+            const {status} = await axios.put(`http://localhost:3001/users/update/${user._id}`,setData)
+            if (status === 200) {
+                window.location.reload();
+            }else alert("Hubo un error al actualizar el usuario, commpueba los datos (en genero solo se acepta M y F)")
+        } catch (error) {
+            alert("Hubo un error al actualizar el usuario, commpueba los datos (en genero solo se acepta M y F)",error)
+            console.log(error)
+        }
+    }
+
+
+    useEffect(() => {
+        const clickEventFunction = () => {
+            setGenderEdit(false);
+        };
+    
+        if (genderEdit) {
+            window.addEventListener("click", clickEventFunction);
+        } else {
+            window.removeEventListener("click", clickEventFunction);
+        }
+    
+
+        return () => {
+            window.removeEventListener("click", clickEventFunction);
+        };
+    }, [genderEdit]);
 
     return(
         <div id={style.Container}>
@@ -134,28 +199,10 @@ const Profile = ({user}) =>{
                                                 <div className={style.wrapBin}>
                                                     <div>
                                                         <label>
-                                                            Nombre
-                                                        </label>
-                                                        <div>
-                                                            <input style={editable?editableStyle:undefined} value={user.name} readOnly={!editable} />                                                            
-                                                        </div>
-                                                    </div>
-                                                    <div>
-                                                        <label>
-                                                            Apellido
-                                                        </label>
-                                                        <div>
-                                                            <input style={editable?editableStyle:undefined} value={user.surname} readOnly={!editable}/>                                                            
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className={style.wrapBin}>
-                                                    <div>
-                                                        <label>
                                                             E-mail
                                                         </label>
                                                         <div>
-                                                            <input style={editable?editableStyle:undefined} value={user.email} readOnly={!editable}/>                                                            
+                                                            <input  value={user.email} readOnly={true}/>                                                            
                                                         </div>
                                                     </div>
                                                     <div>
@@ -163,7 +210,25 @@ const Profile = ({user}) =>{
                                                             Número de teléfono
                                                         </label>
                                                         <div>
-                                                            <input style={editable?editableStyle:undefined} value={user.phone} readOnly={!editable}/>                                                            
+                                                            <input style={editable?editableStyle:undefined} value={userData.phone} name="phone" readOnly={!editable}  onChange={(e)=>handlerChange(e)}/>                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className={style.wrapBin}>
+                                                    <div>
+                                                        <label>
+                                                            Nombre
+                                                        </label>
+                                                        <div>
+                                                            <input style={editable?editableStyle:undefined} value={userData.name} name="name"  readOnly={!editable} onChange={(e)=>handlerChange(e)}/>                                                            
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <label>
+                                                            Apellido
+                                                        </label>
+                                                        <div>
+                                                            <input style={editable?editableStyle:undefined} value={userData.surname} name="surname" readOnly={!editable}  onChange={(e)=>handlerChange(e)}/>                                                            
                                                         </div>
                                                     </div>
                                                 </div>
@@ -173,7 +238,7 @@ const Profile = ({user}) =>{
                                                             Cédula
                                                         </label>
                                                         <div>
-                                                            <input style={editable?editableStyle:undefined} value={user.dni} readOnly={!editable}/>                                                            
+                                                            <input style={editable?editableStyle:undefined} value={userData.dni} name="dni" readOnly={!editable}  onChange={(e)=>handlerChange(e)}/>                                                            
                                                         </div>
                                                     </div>
                                                     <div>
@@ -181,7 +246,26 @@ const Profile = ({user}) =>{
                                                             Género
                                                         </label>
                                                         <div>
-                                                            <input style={editable?editableStyle:undefined} value={user.gender} readOnly={!editable}/>                                                            
+                                                            <div id={style.genderBox}  value={userData.gender} name="gender" readOnly={!editable}  onChange={(e)=>handlerChange(e)}>
+                                                                <div style={editable?editableStyle:undefined} onClick={()=>setGenderEdit(!genderEdit)}>
+                                                                    <span>{userData.gender === "S"? "Sin especificar": userData.gender === "M"? "Mujer" : userData.gender === "H"? "Hombre":""}</span> 
+                                                                    <div className={style.arrowContainer}>
+                                                                        {
+                                                                            editable ? ( 
+                                                                                    <span  style={genderEdit?{transform:"rotate(270deg)"}:undefined} >{">"}</span>
+
+                                                                            ) : null
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                                <div id={style.openBox} style={genderEdit?{display:"block"}:undefined}>
+                                                                    <ul>
+                                                                        <li onClick={()=>userData.gender = "S"}>Sin especificar</li>
+                                                                        <li onClick={()=>userData.gender = "H"}>Hombre</li>
+                                                                        <li onClick={()=>userData.gender = "M"}>Mujer</li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>                                                            
                                                         </div>
                                                     </div>
                                                 </div>
@@ -199,7 +283,7 @@ const Profile = ({user}) =>{
                                                 ):
                                                    ( <div id={style.guardar}>
                                                         <label><span onClick={()=>setEditable(false)}>CANCELAR</span></label>
-                                                        <label><p onClick={()=>{}}>GUARDAR</p></label>
+                                                        <label><p onClick={()=>sendUpdate()}>GUARDAR</p></label>
                                                     </div>)
                                                 }
                                             </div>

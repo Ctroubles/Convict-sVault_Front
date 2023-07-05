@@ -22,7 +22,7 @@ function LogoutButton() {
   };
 
   return (
-    <button className={style.LogoutButton}onClick={handleLogout}>Cerrar sesión</button>
+    <button className={style.LogoutButton}onClick={handleLogout}>CERRAR SESIÓN</button>
   );
 }
 

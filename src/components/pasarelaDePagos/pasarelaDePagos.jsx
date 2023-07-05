@@ -59,7 +59,6 @@ function PasarelaDePagos() {
   };
   
 
-  ////////////////////////////////////////////////////////////////////
 
   const createOrder = (data, actions) => {
     return actions.order.create({
@@ -78,7 +77,6 @@ function PasarelaDePagos() {
 
 
 const onApprove = async(data, actions) => {
-    // send()
     const order = await actions.order.capture();
     manejadorSucces(order)
 };
@@ -88,8 +86,6 @@ const manejadorSucces = async(order) =>{
   alert("all good")
 }
 
-
-  ////////////////////////////////////////////////////////////////////
 
 
 

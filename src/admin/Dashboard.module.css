@@ -22,10 +22,16 @@
   font-size: 28px;
   margin-left: 10px;
 }
-#logoSection{
+#logoSection > a:first-child{
   display: flex;
   align-items: center;
   justify-content: center;
+  text-decoration: none;
+  color: #00adef;
+  cursor: pointer;
+}
+#logoSection > a:first-child *{
+  pointer-events: none;
 }
 #containerButton{
   display: flex;
