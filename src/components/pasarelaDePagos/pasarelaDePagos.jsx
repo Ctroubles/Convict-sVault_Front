@@ -23,32 +23,24 @@ function PasarelaDePagos() {
   };
   const [total, setTotal] = useState(0);
 
-  ///////////////////////
-  useEffect(()=>{
-console.log(total)
-  }, [total])
-  ///////////////////////////
-
   const totalAPagar = async (cart) => {
     let total = 0;
     await Promise.all(
       cart.map(async (e) => {
-        console.log("ssadd")
         const key = Object.keys(e)[0];
         const { data } = await axios.get(
           `${urlBack}/products/${key}`
         );
         total = total + data.price * e[key];
-      //  console.log(total)
+        console.log(total);
         return { ...data, quantity: e[key] };
       })
-      );
+    );
     setTotal(total);
   };
 
   useEffect(() => {
     totalAPagar(cart);
-    console.log("hola");
   }, [cart]);
 
 
@@ -112,15 +104,15 @@ console.log(total)
   };
   
 
+  ////////////////////////////////////////////////////////////////////
 
   const createOrder = (data, actions) => {
-    console.log(total)
     return actions.order.create({
         purchase_units:[
             {
                 description:"Compra en SuperReoY+",
                 amount: {
-                    value: total,
+                    value: 100,
                 }
 
         }
@@ -130,17 +122,20 @@ console.log(total)
      };
 
 
-const onApprove = async(data, actions) => {
-    send()
-    const order = await actions.order.capture();
-    manejadorSucces(order)
-};
-
+     const onApprove = async(data, actions) => {
+      send()
+      const order = await actions.order.capture();
+      const capturedOrder = await capturePayment(order.id);
+      manejadorSucces(capturedOrder)
+  };
+  
 
 const manejadorSucces = async(order) =>{
   console.log("all good")
 }
 
+
+  ////////////////////////////////////////////////////////////////////
 
 
 
