@@ -40,21 +40,24 @@ function App() {
 
       const data = response?.data;
       if (data) {
-        dispatch(setId(data._id))
         setCurrentUser(data);
+        dispatch(setId(data._id))
         dispatch(setUserCart(data.cart))
         const emailSent = localStorage.getItem("emailSent");
         if (!emailSent) {
-          await sendEmail(data);
-          localStorage.setItem("emailSent", "true");
+          try {
+            await sendEmail(data);
+            localStorage.setItem("emailSent", "true");
+          } catch (error) {
+            console.log("Error al enviar el correo electrónico:", error.message)
+          }
         }
       }
     };
-
     const sendEmail = async (data) => {
       await axios.post(
         "http://localhost:3001/users/send-email",
-        { userId: data.id, email: data.email },
+        { userId: data.id, email: data.email, name: data.name },
         {
           headers: {
             "Content-Type": "application/json",

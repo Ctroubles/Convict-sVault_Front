@@ -9,7 +9,7 @@ import { useHistory } from "react-router-dom";
 
 
 const Cart = ({ setCartStatus }) => {
-  const { cart } = useSelector((e) => e);
+  const {cart}  = useSelector((e) => e);
 
   const [loading, setLoading] = useState(true);
   const [items, setItems] = useState([]);
@@ -19,7 +19,7 @@ const Cart = ({ setCartStatus }) => {
 
   const handleConfirmOrder = () => {
     // Realizar cualquier lógica adicional necesaria antes de redirigir
-    history.push("/pagos");
+    history.push(`/pagos`);
   };
   
 
@@ -29,10 +29,14 @@ const Cart = ({ setCartStatus }) => {
       cart.map(async (e) => {
         const key = Object.keys(e)[0];
         const { data } = await axios.get(`http://localhost:3001/products/${key}`);
+        if (!data.hasOwnProperty('price')) {
+          throw new Error('El objeto de producto no contiene una propiedad "price".');
+        }
         total = total + data.price * e[key];
         return { ...data, quantity: e[key] };
       })
     );
+
     setItems(carrito);
     setTotal(total);
     setLoading(false);
