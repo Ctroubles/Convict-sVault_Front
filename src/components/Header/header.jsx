@@ -106,10 +106,10 @@ const Header = ({user}) =>{
                                     </div>
                                 </div>
                                 {
-                            <Link to={"/dashboard"}>
-                                <RiShieldUserFill className={style.dashboardIcon} />
-                            </Link>
-                            }
+                                    <Link to={"/dashboard"}>
+                                    <RiShieldUserFill className={style.dashboardIcon} />
+                                    </Link>
+                                }
                             </div>
                         </div>
                         <div style={{backgroundColor:"#009fe3", display:"flex", padding:"0 16px", justifyContent:"center"}}>
