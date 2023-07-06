@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import style from "./EditProductModal.module.css";
 import axios from 'axios';
 import swal from 'sweetalert2';
-
+import Urlback from '../../util/deploy_back';
 function EditProductModal({ product, closeModal, updateProduct }) {
-  const [editedProduct, setEditedProduct] = useState(product);
+  const [editedProduct, setEditedProduct] = useState({ ...product });
 
   const handleInputChange = (event) => {
+    console.log("first")
     const { name, value } = event.target;
     setEditedProduct((prevProduct) => ({
       ...prevProduct,
@@ -17,9 +18,12 @@ function EditProductModal({ product, closeModal, updateProduct }) {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
-       const respuesta = await axios.put(`http://localhost:3001/products/${editedProduct._id}`, editedProduct);
-       if (respuesta.status===200) {
-        updateProduct(editedProduct); 
+      const response = await axios.put(
+        `${Urlback}/products/${editedProduct._id}`,
+        editedProduct
+      );
+      if (response.status === 200) {
+        updateProduct(editedProduct);
         closeModal();
         swal.fire({
           title: 'Cambios guardados',
@@ -28,8 +32,7 @@ function EditProductModal({ product, closeModal, updateProduct }) {
           confirmButtonText: 'Aceptar',
           timerProgressBar: 2000
         });
-       }
-
+      }
     } catch (error) {
       console.log(error);
       swal.fire({

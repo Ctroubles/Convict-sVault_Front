@@ -118,18 +118,7 @@ const getProducts = async () => {
     alert("Something went wrong");
   }
 };
-const handleSearch = () => {
-  if (searchTerm === "") {
-    setFilteredProducts(filtroProductos);
-  } else {
-    const filtered = filtroProductos.filter((product) =>
-      product.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFilteredProducts(filtered);
-  }
 
-  setCurrentPage(1);
-};
   useEffect(() => {
     getProducts();
   }, []);
@@ -158,23 +147,29 @@ const handleSearch = () => {
   const handleToggleFilter = (filter) => {
     setActiveFilter(filter);
     setCurrentPage(1);
+    const filtroProductos = products.filter((product) => {
+      if (filter === "activos") {
+        return product.isActive;
+      } else if (filter === "inactivos") {
+        return !product.isActive;
+      } else {
+        return true;
+      }
+    });
+    setFilteredProducts(filtroProductos);
   };
 
-
-
-  const filtroProductos= products.filter((product)=>{
-    if(activeFilter === "activos"){
-      return product.isActive;
-    }else if(activeFilter === "inactivos"){
-      return !product.isActive;
-    }else {
-      return true;
+  const handleSearch = () => {
+    if (searchTerm === "") {
+      handleToggleFilter(activeFilter); // Aplicar filtro actual
+    } else {
+      const filtered = filteredProducts.filter((product) =>
+        product.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredProducts(filtered);
     }
-  })
-
-  useEffect(() => {
-    setFilteredProducts(filtroProductos);
-  }, [filtroProductos]);
+    setCurrentPage(1);
+  };
   return (
     <div className={`${style.productsContainer} ${darkMode ? style.darkMode : ''}`}>
 
