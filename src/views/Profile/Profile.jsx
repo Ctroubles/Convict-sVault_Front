@@ -210,7 +210,7 @@ const Profile = ({user}) =>{
                                                             Número de teléfono
                                                         </label>
                                                         <div>
-                                                            <input style={editable?editableStyle:undefined} value={userData.phone} name="phone" readOnly={!editable}  onChange={(e)=>handlerChange(e)}/>                                                            
+                                                            <input style={editable?editableStyle:undefined} value={userData.phone} name="phone" readOnly={!editable} maxLength={10}  onChange={(e)=>handlerChange(e)}/>                                                            
                                                         </div>
                                                     </div>
                                                 </div>
@@ -238,7 +238,7 @@ const Profile = ({user}) =>{
                                                             Cédula
                                                         </label>
                                                         <div>
-                                                            <input style={editable?editableStyle:undefined} value={userData.dni} name="dni" readOnly={!editable}  onChange={(e)=>handlerChange(e)}/>                                                            
+                                                            <input style={editable?editableStyle:undefined} value={userData.dni} name="dni" readOnly={!editable} maxLength={10} onChange={(e)=>handlerChange(e)}/>                                                            
                                                         </div>
                                                     </div>
                                                     <div>

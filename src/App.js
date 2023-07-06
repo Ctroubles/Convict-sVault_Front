@@ -13,10 +13,13 @@ import Profile from "./views/Profile/Profile";
 import { setId, setUserCart } from "./Redux/store/actions/actions";
 import { useDispatch } from "react-redux";
 import PasarelaDePagos from "./components/pasarelaDePagos/pasarelaDePagos";
+import { Redirect, useHistory } from "react-router-dom/cjs/react-router-dom";
 
 // const {PAYPAL_CLIENT_ID}= process.env
 
 function App() {
+
+  const history = useHistory();
 
   const dispatch = useDispatch();
   const { user, isAuthenticated, loginWithRedirect, isLoading,logout } = useAuth0();
@@ -121,7 +124,8 @@ function App() {
               <Footer />
             </>)
           } />
-          <Route path={"/dashboard"} render={() => <Dashboard />} />
+          <Route path={"/dashboard"}render={()=><Dashboard/>}/>
+          {/* <Route path={"/dashboard"} render={()=>!isAuthenticated?loginWithRedirect():currentUser?.isAdmin?<Dashboard/>:<Redirect to="/home"/>}/> */}
         </Router>
       )}
     </div>
