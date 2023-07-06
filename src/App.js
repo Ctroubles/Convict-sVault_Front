@@ -90,10 +90,17 @@ function App() {
     }
   }, []);
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
-
+  function toggleDarkMode() {
+    const updatedDarkMode = !darkMode;
+    setDarkMode(updatedDarkMode);
+    localStorage.setItem('darkMode', JSON.stringify(updatedDarkMode));
+  }
+  useEffect(() => {
+    const savedDarkMode = localStorage.getItem('darkMode');
+    if (savedDarkMode) {
+      setDarkMode(JSON.parse(savedDarkMode));
+    }
+  }, []);
   return (
     <div className={`App ${darkMode ? "dark-mode" : ""}`}>
       {loadingStatus ? (
