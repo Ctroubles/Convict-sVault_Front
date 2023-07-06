@@ -95,16 +95,16 @@ function Sales() {
 
   useEffect(() => {
     getProducts();
-    updateVisitsCount();
+    // updateVisitsCount();
   }, []);
 
   useEffect(() => {
     localStorage.setItem('chartType', chartType);
   }, [chartType]);
 
-  useEffect(() => {
-    saveVisitsCount(visitsCount);
-  }, [visitsCount]);
+  // useEffect(() => {
+  //   saveVisitsCount(visitsCount);
+  // }, [visitsCount]);
 
   const getProducts = async () => {
     try {
@@ -132,29 +132,29 @@ function Sales() {
     return categoryCounts;
   };
 
-  const updateVisitsCount = () => {
-    setVisitsCount((prevCount) => prevCount + 1);
-  };
+  // const updateVisitsCount = () => {
+  //   setVisitsCount((prevCount) => prevCount + 1);
+  // };
 
-  const saveVisitsCount = async (count) => {
-    try {
-      await axios.post('http://localhost:3001/visit/totales', { visitasDiarias: count });
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const saveVisitsCount = async (count) => {
+  //   try {
+  //     await axios.post('http://localhost:3001/visit/totales', { visitasDiarias: count });
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
-  const getVisit = async () => {
-    try {
-      const response = await axios.get('http://localhost:3001/products');
-      const products = response.data;
-      setSoldProducts(products.filter((product) => !product.isActive));
-      setStockProducts(products.filter((product) => product.isActive));
-      setCategoryCounts(getCategoryCounts(products));
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const getVisit = async () => {
+  //   try {
+  //     const response = await axios.get('http://localhost:3001/products');
+  //     const products = response.data;
+  //     setSoldProducts(products.filter((product) => !product.isActive));
+  //     setStockProducts(products.filter((product) => product.isActive));
+  //     setCategoryCounts(getCategoryCounts(products));
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   const handleChartTypeChange = (type) => {
     setChartType(type);
@@ -163,7 +163,7 @@ function Sales() {
   return (
     <div className={style.salescontainer}>
       <div className={style.cardsContainer}>
-        <div className={style.card}>
+        {/* <div className={style.card}>
           <div className={style.cardIcon}>
             <FaUsers />
           </div>
@@ -171,7 +171,7 @@ function Sales() {
             <h3>Visitas</h3>
             <p>{visitsCount}</p>
           </div>
-        </div>
+        </div> */}
         <div className={style.card}>
           <div className={style.cardIcon}>
             <FaShoppingCart />

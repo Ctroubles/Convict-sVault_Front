@@ -167,34 +167,23 @@
   }
   
   .filterButton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #fff;
+    /* Estilos generales para los botones de filtrado */
+    padding: 8px 16px;
     border: none;
-    border-radius: 5px;
-    color: #007bff;
-    padding: 5px 10px;
-    margin-right: 10px;
+    border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    &:hover {
-      background-color: rgb(24, 85, 228);
-      color: #fff;
-    }
+    font-size: 14px;
+    font-weight: bold;
   }
   
   .activeFilterButton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: green;
-    border: none;
-    border-radius: 5px;
+    /* Estilos para el botón de filtrado activo */
+    background-color: #555;
     color: #fff;
-    padding: 5px 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  }
+  
+  .filterButton:first-child {
+    margin-right: 8px;
   }
 
   /* CSS para los estilos de los botones de paginado */

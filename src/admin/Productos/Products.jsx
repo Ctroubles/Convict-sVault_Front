@@ -19,7 +19,7 @@ function Products({darkMode}) {
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(13); 
   const [isMobile, setIsMobile] = useState(false);
-
+  const [ activeFilter, setActiveFilter] = useState("activos")
 
   //////darkmode///////
   const [tableClassName, setTableClassName] = useState(style.table);
@@ -120,18 +120,15 @@ const getProducts = async () => {
 };
 const handleSearch = () => {
   if (searchTerm === "") {
-    setFilteredProducts(products);
+    setFilteredProducts(filtroProductos);
   } else {
-    const filtered = products.filter(
-      (product) =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-        ((filter === "active" && product.isActive) ||
-          (filter === "inactive" && !product.isActive))
+    const filtered = filtroProductos.filter((product) =>
+      product.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredProducts(filtered);
   }
 
-  setCurrentPage(1); // Restablece la página actual a la primera al realizar una nueva búsqueda
+  setCurrentPage(1);
 };
   useEffect(() => {
     getProducts();
@@ -142,6 +139,8 @@ const handleSearch = () => {
       prevFilteredProducts.sort((a, b) => a.name.localeCompare(b.name))
     );
   }, [filteredProducts]);
+
+
 
   useEffect(() => {
     const handleResize = () => {
@@ -154,6 +153,28 @@ const handleSearch = () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+
+  const handleToggleFilter = (filter) => {
+    setActiveFilter(filter);
+    setCurrentPage(1);
+  };
+
+
+
+  const filtroProductos= products.filter((product)=>{
+    if(activeFilter === "activos"){
+      return product.isActive;
+    }else if(activeFilter === "inactivos"){
+      return !product.isActive;
+    }else {
+      return true;
+    }
+  })
+
+  useEffect(() => {
+    setFilteredProducts(filtroProductos);
+  }, [filtroProductos]);
   return (
     <div className={`${style.productsContainer} ${darkMode ? style.darkMode : ''}`}>
 
@@ -169,15 +190,15 @@ const handleSearch = () => {
       <div className={style.filterButtons}>
         <div id={style.containerButt}>
           <button
-            className={filter === "active" ? style.activeFilterButton : style.filterButton}
-            onClick={() => setFilter("active")}
+            className={`${style.filterButton} ${activeFilter === 'activos' ? style.activeFilterButton : ''}`}
+            onClick={() => handleToggleFilter("activos")}
           >
             <FaFilter /> Activos
           </button>
         </div>
         <button
-          className={filter === "inactive" ? style.activeFilterButton : style.filterButton}
-          onClick={() => setFilter("inactive")}
+          className={`${style.filterButton} ${activeFilter === 'inactivos' ? style.activeFilterButton : ''}`}
+          onClick={() => handleToggleFilter('inactivos')}
         >
           <FaFilter /> Inactivos
         </button>

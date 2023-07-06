@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import style from './Clients.module.css';
 import { FaEdit, FaTrash, FaUndo } from 'react-icons/fa';
+import Swal from 'sweetalert2';
+
 
 function Clients({darkMode}) {
   const [clients, setClients] = useState([]);
@@ -9,6 +11,8 @@ function Clients({darkMode}) {
   const [currentPage, setCurrentPage] = useState(1);
 const [clientsPerPage] = useState(13);
 const [sortDirection, setSortDirection] = useState('asc');
+const [filterActive, setFilterActive] = useState(true);
+const [activeFilter, setActiveFilter] = useState('activos');
 
 
   useEffect(() => {
@@ -37,19 +41,67 @@ const [sortDirection, setSortDirection] = useState('asc');
     }
   }, []);
 
+
+  ///////////ADMIN/////////////
+  const handleGiveAdmin = async (client) => {
+    try {
+      await axios.put(`http://localhost:3001/users/giveAdmin/${client._id}`);
+      const updatedClients = clients.map((c) => {
+        if (c._id === client._id) {
+          return { ...c, isAdmin: true };
+        }
+        return c;
+      });
+      setClients(updatedClients);
+      Swal.fire({
+        icon: 'success',
+        title: 'Se asigno el Rol admin',
+        text: 'Felicidades ahora este usuario es admin',
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
+  const handleRemoveAdmin = async (client) => {
+    try {
+      await axios.put(`http://localhost:3001/users/removeAdmin/${client._id}`);
+      const updatedClients = clients.map((c) => {
+        if (c._id === client._id) {
+          return { ...c, isAdmin: false };
+        }
+        return c;
+      });
+      setClients(updatedClients);
+      Swal.fire({
+        icon: 'success',
+        title: 'Rol admin retirado',
+        text: 'Se le quito el rol de admin satisfactoriamente',
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+    ///////////ADMIN/////////////
+
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
     setCurrentPage(1); // Reiniciar la página actual a la primera al realizar una nueva búsqueda
   };
   const handleRevoke = async (client) => {
     try {
-      await axios.put(`http://localhost:3001/users/activate/${client._id}`, { isActive: false });
+      await axios.put(`http://localhost:3001/users/desactivate/${client._id}`);
 
       const updatedClients = clients.map((c) => {
         if (c._id === client._id) {
           return { ...c, isActive: false };
         }
         return c;
+      });
+      Swal.fire({
+        icon: 'success',
+        title: 'Se desactivo este usuario',
+        text: 'Ahora este usuario esta desactivo',
       });
       setClients(updatedClients);
     } catch (error) {
@@ -67,13 +119,33 @@ const [sortDirection, setSortDirection] = useState('asc');
         }
         return c;
       });
+      Swal.fire({
+        icon: 'success',
+        title: 'Se activo este usuario',
+        text: 'Ahora este usuario esta disponible',
+      });
       setClients(updatedClients);
     } catch (error) {
       console.error(error);
     }
   };
 
+
+  const handleToggleFilter = (filter) => {
+    setActiveFilter(filter);
+    setCurrentPage(1);
+  };
+
   const filteredClients = clients
+  .filter((client) => {
+    if (activeFilter === 'activos') {
+      return client.isActive;
+    } else if (activeFilter === 'inactivos') {
+      return !client.isActive;
+    } else {
+      return true; // Mostrar todos los clientes si no hay filtro activo o inactivo seleccionado
+    }
+  })
   .filter((client) => client.name?.toLowerCase().includes(searchTerm?.toLowerCase()))
   .sort((a, b) => {
     const nameA = a.name.toLowerCase();
@@ -84,7 +156,6 @@ const [sortDirection, setSortDirection] = useState('asc');
       return nameB.localeCompare(nameA);
     }
   });
-
   return (
     <div className={style.clientContainer}>
       <div className={style.searchContainer}>
@@ -95,6 +166,20 @@ const [sortDirection, setSortDirection] = useState('asc');
           value={searchTerm}
           onChange={handleSearch}
         />
+        <div className={style.filterButtons}>
+        <button
+  className={`${style.filterButton} ${activeFilter === 'activos' ? style.activeFilterButton : ''}`}
+  onClick={() => handleToggleFilter('activos')}
+>
+  Activos
+</button>
+<button
+  className={`${style.filterButton} ${activeFilter === 'inactivos' ? style.activeFilterButton : ''}`}
+  onClick={() => handleToggleFilter('inactivos')}
+>
+  Inactivos
+</button>
+        </div>
       </div>
 
       <div className={`${style.tableContainer} ${darkMode ? style.darkMode : ''}`}>
@@ -113,6 +198,7 @@ const [sortDirection, setSortDirection] = useState('asc');
                 <th>ID</th>
                 <th>Active</th>
                 <th>Actions</th>
+                <th>Admin</th>
               </tr>
             </thead>
             <tbody>
@@ -138,27 +224,36 @@ const [sortDirection, setSortDirection] = useState('asc');
                         <FaUndo /> Activar
                       </button>
                     )}
-                  </td>
+                  </td> 
+                  <td>
+
+                    {client.isAdmin ? (
+                      <button onClick={() => handleRemoveAdmin(client)} className={style.removeAdminButton}>
+                  <FaUndo /> Remover
+                </button>
+              ) : (
+                <button onClick={() => handleGiveAdmin(client)} className={style.giveAdminButton}>
+                  <FaEdit /> asignar
+                </button>
+              )}
+              </td>
                 </tr>
               ))}
             </tbody>
           </table>
           
         )}
-        <div className={style.pagination}>
-  <button
-    disabled={currentPage === 1}
-    onClick={() => setCurrentPage(currentPage - 1)}
-  >
-    Anterior
-  </button>
-  <button
-    disabled={currentPage * clientsPerPage >= filteredClients.length}
-    onClick={() => setCurrentPage(currentPage + 1)}
-  >
-    Siguiente
-  </button>
-</div>
+         <div className={style.pagination}>
+          <button disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)}>
+            Anterior
+          </button>
+          <button
+            disabled={currentPage * clientsPerPage >= filteredClients.length}
+            onClick={() => setCurrentPage(currentPage + 1)}
+          >
+            Siguiente
+          </button>
+        </div>
       </div>
     </div>
   );
