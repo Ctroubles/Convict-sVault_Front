@@ -1,23 +1,31 @@
-import React, { useState } from 'react';
-import { NavLink, Link } from 'react-router-dom';
-import style from "./SideBar.module.css";
-import { FaRegChartBar, FaShoppingCart, FaUserEdit } from "react-icons/fa";
+import React, { useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
+import style from './SideBar.module.css';
+import { FaRegChartBar, FaShoppingCart, FaUserEdit } from 'react-icons/fa';
 
-function SideBar({darkMode }) {
-
+function SideBar({ darkMode }) {
   const [showSidebar, setShowSidebar] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   function toggleSidebar() {
     setShowSidebar(!showSidebar);
   }
 
+  useEffect(() => {
+    function handleResize() {
+      setIsMobile(window.innerWidth <= 768);
+    }
+
+    window.addEventListener('resize', handleResize);
+
+    // Limpia el listener cuando el componente se desmonta
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
     <div className={`${style.sidebar} ${darkMode ? style.darkMode : ''} ${showSidebar ? style.show : ''}`}>
-      <button className={style.menuButton} onClick={toggleSidebar}>
-      <div className={style.bar}></div>
-      <div className={style.bar}></div>
-      <div className={style.bar}></div>
-    </button>
       <ul className={style.ulist}>
         <li className={style.buttons}>
           <NavLink
@@ -26,7 +34,7 @@ function SideBar({darkMode }) {
             className={style.optionsSide}
           >
             <FaShoppingCart className={style.icon} />
-            <span className={style.label}>Productos</span>
+            {!isMobile && <span className={style.label}>Productos</span>}
           </NavLink>
         </li>
         <li className={style.buttons}>
@@ -36,7 +44,7 @@ function SideBar({darkMode }) {
             className={style.optionsSide}
           >
             <FaRegChartBar className={style.icon} />
-            <span className={style.label}>Ventas</span>
+            {!isMobile && <span className={style.label}>Ventas</span>}
           </NavLink>
         </li>
         <li className={style.buttons}>
@@ -46,7 +54,7 @@ function SideBar({darkMode }) {
             className={style.optionsSide}
           >
             <FaUserEdit className={style.icon} />
-            <span className={style.label}>Clientes</span>
+            {!isMobile && <span className={style.label}>Clientes</span>}
           </NavLink>
         </li>
       </ul>
