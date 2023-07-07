@@ -248,7 +248,8 @@ useEffect(() => {
     </button>
   ) : (
     <button onClick={() => handleGiveAdmin(client)} className={style.giveAdminButton}>
-      {isMobile ? <FaEdit /> : <><FaEdit /> Asignar</>}
+      {isMobile ? <FaEdit /> : <><FaEdit />Asignar</>}
+      
     </button>
   )}
 </td>
