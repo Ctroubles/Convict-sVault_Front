@@ -207,11 +207,51 @@
 }
 
 .activeFilterButton {
-  /* Estilos para el botón de filtrado activo */
   background-color: #555;
   color: #fff;
 }
 
 .filterButton:first-child {
   margin-right: 8px;
+}
+
+.table td.clientName {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+@media (max-width: 768px) {
+  /* .mobileTable th:nth-child(3),
+  .mobileTable th:nth-child(4),
+  .mobileTable th:nth-child(5),
+  .mobileTable td:nth-child(3),
+  .mobileTable td:nth-child(4),
+  .mobileTable td:nth-child(5) {
+    display: none;
+  } */
+  .table td.clientName {
+    max-width: 100px;
+  }
+  .mobileTable {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .mobileTable thead {
+    display: none;
+  }
+
+  .mobileTable tbody,
+  .mobileTable tr,
+  .mobileTable td {
+    display: block;
+    width: 100%;
+  }
+
+  .mobileTable td {
+    text-align: left;
+  }
 }

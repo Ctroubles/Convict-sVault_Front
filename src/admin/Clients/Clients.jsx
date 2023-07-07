@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import style from './Clients.module.css';
-import { FaEdit, FaTrash, FaUndo } from 'react-icons/fa';
+import { FaEdit, FaTrash, FaUndo, FaCircle } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 
 
@@ -13,6 +13,22 @@ const [clientsPerPage] = useState(13);
 const [sortDirection, setSortDirection] = useState('asc');
 const [filterActive, setFilterActive] = useState(true);
 const [activeFilter, setActiveFilter] = useState('activos');
+const [isMobile, setIsMobile] = useState(false);
+
+
+/////////RESPONSIVE//////////////
+useEffect(() => {
+  const handleResize = () => {
+    setIsMobile(window.innerWidth <= 800);
+  };
+  window.addEventListener('resize', handleResize);
+  handleResize();
+
+  return () => {
+    window.removeEventListener('resize', handleResize);
+  };
+}, []);
+/////////RESPONSIVE//////////////
 
 
   useEffect(() => {
@@ -192,12 +208,12 @@ const [activeFilter, setActiveFilter] = useState('activos');
             <thead>
               <tr>
                 <th></th>
-                <th>Name</th>
-                <th>surname</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
                 <th>Email</th>
-                <th>ID</th>
-                <th>Active</th>
-                <th>Actions</th>
+                {isMobile ? null : <th>ID</th>}
+                <th>Estado</th>
+                <th>Accion</th>
                 <th>Admin</th>
               </tr>
             </thead>
@@ -209,34 +225,33 @@ const [activeFilter, setActiveFilter] = useState('activos');
                   <td>{(currentPage - 1) * clientsPerPage + index + 1}</td>
                   <td>{client.name}</td>
                   <td>{client.surname}</td>
-                  <td>{client.email}</td>
-                  <td>{client._id}</td>
-                  <td className={client.isActive ? style.onlineStatus : style.offlineStatus}>
-                    {client.isActive ? 'Activo' : 'Inactivo'}
-                  </td>
+                  <td className={`${style.clientName}`}>{client.email}</td>
+                  {isMobile ? null : <td>{client._id}</td>}
                   <td>
-                    {client.isActive ? (
-                      <button onClick={() => handleRevoke(client)} className={style.deleteButton}>
-                        <FaTrash /> Desactivar
-                      </button>
-                    ) : (
-                      <button onClick={() => handleRestore(client)} className={style.restoreButton}>
-                        <FaUndo /> Activar
-                      </button>
-                    )}
-                  </td> 
-                  <td>
-
-                    {client.isAdmin ? (
-                      <button onClick={() => handleRemoveAdmin(client)} className={style.removeAdminButton}>
-                  <FaUndo /> Remover
-                </button>
-              ) : (
-                <button onClick={() => handleGiveAdmin(client)} className={style.giveAdminButton}>
-                  <FaEdit /> asignar
-                </button>
-              )}
-              </td>
+                      <FaCircle className={client.isActive ? style.onlineStatus : style.offlineStatus} />
+                    </td>
+                    <td>
+  {client.isActive ? (
+    <button onClick={() => handleRevoke(client)} className={style.deleteButton}>
+      {isMobile ? <FaTrash /> : <><FaTrash /> Desactivar</>}
+    </button>
+  ) : (
+    <button onClick={() => handleRestore(client)} className={style.restoreButton}>
+      {isMobile ? <FaUndo /> : <><FaUndo /> Activar</>}
+    </button>
+  )}
+</td>
+<td>
+  {client.isAdmin ? (
+    <button onClick={() => handleRemoveAdmin(client)} className={style.removeAdminButton}>
+      {isMobile ? <FaUndo /> : <><FaUndo /> Remover</>}
+    </button>
+  ) : (
+    <button onClick={() => handleGiveAdmin(client)} className={style.giveAdminButton}>
+      {isMobile ? <FaEdit /> : <><FaEdit /> Asignar</>}
+    </button>
+  )}
+</td>
                 </tr>
               ))}
             </tbody>

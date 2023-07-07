@@ -9,9 +9,9 @@
 
 .searchContainer {
   display: flex;
-  justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
+  justify-content: space-between;
+  margin-bottom: 1rem;
 }
 .searchInput {
   margin-top: 20px;
@@ -163,9 +163,8 @@
   .filterButtons {
     display: flex;
     align-items: center;
-    margin-top: 10px;
+    gap: 0.5rem;
   }
-  
   .filterButton {
     /* Estilos generales para los botones de filtrado */
     padding: 8px 16px;
@@ -237,10 +236,30 @@
   border-color: #fff;
 }
 
+
+.onlineIcon {
+  color: green;
+}
+
+.offlineIcon {
+  color: red;
+}
+
+
+.table td.productName {
+  max-width: 150px; /* Ajusta este valor según tus preferencias */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 /* Products.module.css */
 
 /* Estilos para la vista móvil */
-@media (max-width: 768px) {
+@media (max-width: 800px) {
+
+  .table td.productName {
+    max-width: 100px; /* Ajusta este valor según tus preferencias */
+  }
   .mobileTable {
     display: block;
     overflow-x: auto;
@@ -259,5 +278,13 @@
 
   .mobileTable td {
     text-align: left;
+  }
+  .searchContainer {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+  }
+  .filterButtons {
+    gap: 0.01rem;
   }
 }

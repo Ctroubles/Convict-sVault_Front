@@ -2,14 +2,14 @@ import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import style from "./Products.module.css";
-import { FaTrash, FaEdit, FaUndo, FaFilter } from "react-icons/fa";
+import { FaTrash, FaEdit, FaUndo, FaFilter, FaCircle } from "react-icons/fa";
 import CreateProduct from '../CreateProduct/CreateProduct';
 import { Link } from 'react-router-dom/cjs/react-router-dom';
 import { IoMdAddCircle } from "react-icons/io";
 import EditProductModal from './EditProductModal';
 import swal from 'sweetalert2';
 
-function Products({darkMode}) {
+function Products({ darkMode }) {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -17,9 +17,9 @@ function Products({darkMode}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(13); 
+  const [productsPerPage] = useState(13);
   const [isMobile, setIsMobile] = useState(false);
-  const [ activeFilter, setActiveFilter] = useState("activos")
+  const [activeFilter, setActiveFilter] = useState("activos");
 
   //////darkmode///////
   const [tableClassName, setTableClassName] = useState(style.table);
@@ -29,17 +29,12 @@ function Products({darkMode}) {
     setTableClassName(updatedTableClassName);
   }, [darkMode]);
 
-
-
-
   const indexOfLastProduct = currentPage * productsPerPage;
-const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
 
-
-const getProductNumber = (index) => {
-  return indexOfFirstProduct + index + 1;
-};
-
+  const getProductNumber = (index) => {
+    return indexOfFirstProduct + index + 1;
+  };
 
   const openModal = (product) => {
     setSelectedProduct(product);
@@ -56,7 +51,6 @@ const getProductNumber = (index) => {
     setProducts(updatedProducts);
     setFilteredProducts(updatedProducts);
   };
-
 
   const handleRevoke = async (product) => {
     try {
@@ -83,41 +77,41 @@ const getProductNumber = (index) => {
   };
 
   const handleRestore = async (product) => {
-  try {
-    await axios.put(`http://localhost:3001/products/isActive/${product._id}`, {
-      isActive: true
-    });
-    getProducts();
-    swal.fire({
-      title: 'Se restauró el producto con éxito',
-      icon: 'success',
-      confirmButtonText: 'Aceptar',
-      timerProgressBar: 2000
-    });
-  } catch (error) {
-    console.log(error);
-    swal.fire({
-      title: 'Error al restaurar el producto',
-      text: error.message,
-      icon: 'error',
-      confirmButtonText: 'Aceptar',
-      timerProgressBar: 3000
-    });
-  }
-};
+    try {
+      await axios.put(`http://localhost:3001/products/isActive/${product._id}`, {
+        isActive: true
+      });
+      getProducts();
+      swal.fire({
+        title: 'Se restauró el producto con éxito',
+        icon: 'success',
+        confirmButtonText: 'Aceptar',
+        timerProgressBar: 2000
+      });
+    } catch (error) {
+      console.log(error);
+      swal.fire({
+        title: 'Error al restaurar el producto',
+        text: error.message,
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+        timerProgressBar: 3000
+      });
+    }
+  };
 
-const getProducts = async () => {
-  try {
-    const { data } = await axios.get("http://localhost:3001/products");
-    const sortedProducts = data.sort((a, b) => a.name.localeCompare(b.name));
-    setProducts(sortedProducts);
-    setFilteredProducts(sortedProducts);
-    setCurrentPage(1); // Restablece la página actual a la primera al obtener los productos
-  } catch (error) {
-    console.error(error);
-    alert("Something went wrong");
-  }
-};
+  const getProducts = async () => {
+    try {
+      const { data } = await axios.get("http://localhost:3001/products");
+      const sortedProducts = data.sort((a, b) => a.name.localeCompare(b.name));
+      setProducts(sortedProducts);
+      setFilteredProducts(sortedProducts);
+      setCurrentPage(1); // Restablece la página actual a la primera al obtener los productos
+    } catch (error) {
+      console.error(error);
+      alert("Something went wrong");
+    }
+  };
 
   useEffect(() => {
     getProducts();
@@ -129,20 +123,17 @@ const getProducts = async () => {
     );
   }, [filteredProducts]);
 
-
-
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
+      setIsMobile(window.innerWidth <= 800);
     };
     window.addEventListener('resize', handleResize);
     handleResize();
-  
+
     return () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
-
 
   const handleToggleFilter = (filter) => {
     setActiveFilter(filter);
@@ -170,110 +161,137 @@ const getProducts = async () => {
     }
     setCurrentPage(1);
   };
+
   return (
     <div className={`${style.productsContainer} ${darkMode ? style.darkMode : ''}`}>
-
       <div className={style.searchContainer}>
-      <input
-        type="text"
-        placeholder="Buscar producto"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        onKeyUp={handleSearch}
-        className={style.searchInput}
-      />
-      <div className={style.filterButtons}>
-        <div id={style.containerButt}>
+        <input
+          type="text"
+          placeholder="Buscar producto"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          onKeyUp={handleSearch}
+          className={style.searchInput}
+        />
+        <div className={style.filterButtons}>
+          <div id={style.containerButt}>
+            <button
+              className={`${style.filterButton} ${activeFilter === 'activos' ? style.activeFilterButton : ''}`}
+              onClick={() => handleToggleFilter("activos")}
+            >
+              <FaFilter /> Activos
+            </button>
+          </div>
           <button
-            className={`${style.filterButton} ${activeFilter === 'activos' ? style.activeFilterButton : ''}`}
-            onClick={() => handleToggleFilter("activos")}
+            className={`${style.filterButton} ${activeFilter === 'inactivos' ? style.activeFilterButton : ''}`}
+            onClick={() => handleToggleFilter('inactivos')}
           >
-            <FaFilter /> Activos
+            <FaFilter /> Inactivos
           </button>
         </div>
-        <button
-          className={`${style.filterButton} ${activeFilter === 'inactivos' ? style.activeFilterButton : ''}`}
-          onClick={() => handleToggleFilter('inactivos')}
-        >
-          <FaFilter /> Inactivos
-        </button>
       </div>
-    </div>
-    <div style={{width:"100%", maxWidth:"1300px"}}>
-      <div id={style.tableContainer} className={`${tableClassName}`}>
-              {filteredProducts.length === 0 ? (
-                <div className={style.tableOverlay}>
-                  <div className={style.tableOverlayMessage}>
-                    No se encontraron productos con el nombre "<span>{searchTerm}</span>"
-                  </div>
-                </div>
-              ) : null}
-              <table>
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>Name</th>
-                    <th>Brand</th>
-                    <th>Category</th>
-                    <th>Price</th>
-                    <th>ID</th>
-                    <th>Stock</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
+      <div style={{ width: "100%", maxWidth: "1300px" }}>
+        <div id={style.tableContainer} className={`${tableClassName}`}>
+          {filteredProducts.length === 0 ? (
+            <div className={style.tableOverlay}>
+              <div className={style.tableOverlayMessage}>
+                No se encontraron productos con el nombre "<span>{searchTerm}</span>"
+              </div>
+            </div>
+          ) : null}
+           <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Nombre</th>
+                {isMobile ? null : <th>Marca</th>}
+                <th>Categoria</th>
+                <th>Precio</th>
+                {isMobile ? null : <th>ID</th>}
+                {isMobile ? null : <th>Stock</th>}
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredProducts
+                .slice(indexOfFirstProduct, indexOfLastProduct)
+                .map((product, index) => (
+                  <tr key={product._id}>
+                    <td>{getProductNumber(index)}</td>
+                    <td className={`${style.productName}`}>{product.name}</td>
+                    {isMobile ? null : <td>{product.brand}</td>}
+                    <td>{product.category}</td>
+                    <td>{product.price}</td>
+                    {isMobile ? null : <td>{product._id}</td>}
+                    {isMobile ? null : <td>{product.stock}</td>}
+                    <td>
+                      <FaCircle className={product.isActive ? style.onlineIcon : style.offlineIcon} />
+                    </td>
+                    <td>
+                      {isMobile ? (
+                        <div className={style.mobileActions}>
+                          <button className={style.editButton} onClick={() => openModal(product)}>
+                            <FaEdit />
+                          </button>
+                          {product.isActive ? (
+                            <button onClick={() => handleRevoke(product)} className={style.deleteButton}>
+                              <FaTrash />
+                            </button>
+                          ) : (
+                            <button onClick={() => handleRestore(product)} className={style.restoreButton}>
+                              <FaUndo />
+                            </button>
+                          )}
+                        </div>
+                      ) : (
+                        <div className={style.desktopActions}>
+                          <button className={style.editButton} onClick={() => openModal(product)}>
+                            <FaEdit /> Editar
+                          </button>
+                          {product.isActive ? (
+                            <button onClick={() => handleRevoke(product)} className={style.deleteButton}>
+                              <FaTrash /> Desactivar
+                            </button>
+                          ) : (
+                            <button onClick={() => handleRestore(product)} className={style.restoreButton}>
+                              <FaUndo /> Activar
+                            </button>
+                          )}
+                        </div>
+                      )}
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                {filteredProducts
-                  .slice(indexOfFirstProduct, indexOfLastProduct)
-                  .map((product, index) => (
-                    <tr key={product._id}>
-                      <td>{getProductNumber(index)}</td>
-                      <td>{product.name}</td>
-                      <td>{product.brand}</td>
-                      <td>{product.category}</td>
-                      <td>{product.price}</td>
-                      <td>{product._id}</td>
-                      <td>{product.stock}</td>
-                      <td className={product.isActive ? style.onlineStatus : style.offlineStatus}>{product.isActive ? 'Activo' : 'Inactivo'}</td>
-                      <td>
-                                      <button className={style.editButton} onClick={() => openModal(product)}>
-                        <FaEdit /> Editar
-                      </button>
-                            {product.isActive ? (
-                              <button onClick={() => handleRevoke(product)} className={style.deleteButton}><FaTrash />Desactivar</button>
-                            ) : (
-                              <button onClick={() => handleRestore(product)} className={style.restoreButton}><FaUndo />Activar</button>
-                            )}
-                          </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              <div className={style.pagination}>
-                  <button
-                    disabled={currentPage === 1}
-                    onClick={() => setCurrentPage(currentPage - 1)}
-                  >
-                    Anterior
-                  </button>
-                  <button
-                    disabled={indexOfLastProduct >= filteredProducts.length}
-                    onClick={() => setCurrentPage(currentPage + 1)}
-                  >
-                    Siguiente
-                  </button>
-                </div>
-                        {isModalOpen && (
-                  <EditProductModal
-                    product={selectedProduct}
-                    closeModal={() => setIsModalOpen(false)}
-                    updateProduct={updateProduct}
-                  />
-                )}
-            </div> 
-    </div>
+                ))}
+            </tbody>
+          </table>
+          <div className={style.pagination}>
+            <button
+              disabled={currentPage === 1}
+              onClick={() => setCurrentPage(currentPage - 1)}
+            >
+              Anterior
+            </button>
+            <button
+              disabled={indexOfLastProduct >= filteredProducts.length}
+              onClick={() => setCurrentPage(currentPage + 1)}
+            >
+              Siguiente
+            </button>
+          </div>
+          {isModalOpen && (
+            <EditProductModal
+              product={selectedProduct}
+              closeModal={() => setIsModalOpen(false)}
+              updateProduct={updateProduct}
+            />
+          )}
+        </div>
+      </div>
       <div className={style.containerAdd}>
-        <Link to="/dashboard/products/create" className={style.buttonsAdd}><IoMdAddCircle className={style.iconoAdd} /></Link>
+        <Link to="/dashboard/products/create" className={style.buttonsAdd}>
+          <IoMdAddCircle className={style.iconoAdd} />
+        </Link>
       </div>
     </div>
   );

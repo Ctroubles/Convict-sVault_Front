@@ -69,7 +69,7 @@
 
 /* responsive */
 
-@media (max-width: 768px) {
+@media (max-width: 801px) {
   .sidebar {
     width: 3rem; /* Ajusta el ancho del sidebar según tu preferencia */
   }
