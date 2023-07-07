@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import { FiMoon, FiSun } from "react-icons/fi";
+// import { FiMoon, FiSun } from "react-icons/fi";
 import Landing from "./views/Landing/Landing";
 import Home from "./views/home/Home";
 import Dashboard from "./admin/Dashboard";
@@ -25,7 +25,7 @@ function App() {
 
   const [currentUser, setCurrentUser] = useState(null);
   const [loadingStatus, setLoadingStatus] = useState(true);
-  const [darkMode, setDarkMode] = useState(false);
+
 
   useEffect(() => {
     const postUser = async () => {
@@ -90,19 +90,8 @@ function App() {
     }
   }, []);
 
-  function toggleDarkMode() {
-    const updatedDarkMode = !darkMode;
-    setDarkMode(updatedDarkMode);
-    localStorage.setItem('darkMode', JSON.stringify(updatedDarkMode));
-  }
-  useEffect(() => {
-    const savedDarkMode = localStorage.getItem('darkMode');
-    if (savedDarkMode) {
-      setDarkMode(JSON.parse(savedDarkMode));
-    }
-  }, []);
   return (
-    <div className={`App ${darkMode ? "dark-mode" : ""}`}>
+    <div className={`App`}>
       {loadingStatus ? (
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
           <div id="spinner"></div>
@@ -114,11 +103,6 @@ function App() {
           <Route path="/home" render={() =>
             <>
               <Header user={currentUser} />
-          <div className="mode-toggle">
-            <button className="darkModeButton" onClick={toggleDarkMode}>
-              {darkMode ? <FiSun /> : <FiMoon />}
-            </button>
-          </div>
               <Home />
               <Footer />
             </>

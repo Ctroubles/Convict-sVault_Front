@@ -62,16 +62,33 @@
 }
 
 
-@media (max-width: 600px) {
-  .container {
-    padding: 20px;
-  }
 
-  .buttons {
-    width: 100%;
-  }
+.show {
+  transform: translateX(0);
 }
 
-.icon {
-  margin-right: 8px;
+
+.bar {
+  width: 25px;
+  height: 2px;
+  background-color: #000;
+  margin-bottom: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.menuButton:hover .bar {
+  background-color: #007bff;
+}
+
+/* responsive */
+
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .show {
+    transform: translateX(0);
+  }
 }

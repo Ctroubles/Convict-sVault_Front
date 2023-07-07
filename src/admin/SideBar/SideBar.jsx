@@ -5,8 +5,19 @@ import { FaRegChartBar, FaShoppingCart, FaUserEdit } from "react-icons/fa";
 
 function SideBar({darkMode }) {
 
+  const [showSidebar, setShowSidebar] = useState(false);
+
+  function toggleSidebar() {
+    setShowSidebar(!showSidebar);
+  }
+
   return (
-    <div className={`${style.sidebar} ${darkMode?style.darkMode:''}`}>
+    <div className={`${style.sidebar} ${darkMode ? style.darkMode : ''} ${showSidebar ? style.show : ''}`}>
+      <button className={style.menuButton} onClick={toggleSidebar}>
+      <div className={style.bar}></div>
+      <div className={style.bar}></div>
+      <div className={style.bar}></div>
+    </button>
       <ul className={style.ulist}>
         <li className={style.buttons}>
           <NavLink

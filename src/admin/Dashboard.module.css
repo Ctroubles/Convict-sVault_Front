@@ -75,3 +75,27 @@
   width: 100%;
   overflow-y: auto;
 }
+
+
+
+/* responsive */
+
+@media (max-width: 768px) {
+  .dashboardContainer {
+    padding: 10px;
+  }
+
+  #header > :first-child {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #header > :first-child h1 {
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  #containerButton {
+    margin-top: 10px;
+  }
+}
