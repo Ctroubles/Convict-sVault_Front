@@ -1,0 +1,95 @@
+#Payment{
+   width: 100%;
+   background-color: #eee;
+}
+#Header{
+  background-color: #009fe3;
+  position: fixed;
+  width: 100vw;
+  z-index: 10;
+}
+#Header .container{
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #f1f1f1;
+}
+#logoSection{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#logoSection img{
+  height: 70px;
+}
+#back span{
+  cursor: pointer;
+}
+#container{
+  margin: 0 auto;
+  display: flex;
+  max-width: 1600px;
+  justify-content: center;
+} 
+#form {
+  width: 600px;
+  padding: 0px 20px;
+  margin-right: 80px;
+  position: fixed;  
+  top: 74px;
+  left: calc(50% - 600px);
+}
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  border: 3px solid #ccc;
+  border-radius: 5px;
+}
+#cart{
+  padding-top: 74px;
+  padding-left: 650px;
+}
+#loadingContainer{
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  position: fixed;
+  top: 0;
+}
+
+#loadingContainer span {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: #009fe3;
+  animation: scale 1.4s infinite;
+  margin: 0 5px;
+}
+
+#loadingContainer span:nth-child(1) {
+  animation-delay: 0.2s;
+}
+
+#loadingContainer span:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+#loadingContainer span:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+@keyframes scale {
+  0%, 100% {
+      transform: scale(1);
+  }
+  50% {
+      transform: scale(1.5);
+  }
+}
