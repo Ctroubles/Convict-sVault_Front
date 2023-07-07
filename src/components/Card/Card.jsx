@@ -9,7 +9,8 @@ const Card = ({brand,category,image,price,name,id}) =>{
     const {id:userID} = useSelector(state=>state)
     const dispatch = useDispatch()
 
-    const addToCar = async() =>{
+    const addToCar = async(e) =>{
+        e.stopPropagation();
         const {data} = await axios.put("http://localhost:3001/cart/addItem",{
             "userid":userID,
             "itemid":id,
@@ -20,7 +21,7 @@ const Card = ({brand,category,image,price,name,id}) =>{
 
     return(
         <div id={style.Card}>
-            <label>
+            <span>
                 <section>
                     <div id={style.ImgSection}>
                         <div>
@@ -48,14 +49,14 @@ const Card = ({brand,category,image,price,name,id}) =>{
                         </div>
                         <div>
                             <div id={style.buttonSection}>
-                                <button onClick={()=>addToCar()}>
+                                <button onClick={(e)=>addToCar(e)}>
                                     Agregar
                                 </button>
                             </div>
                         </div>
                     </div>
                 </section>
-            </label>
+            </span>
         </div>
     )
 };

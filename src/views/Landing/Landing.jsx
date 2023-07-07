@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import LoginButton from "./Login/LoginButton";
 import LogoutButton from "./Logout/LogoutButton";
 import { useAuth0 } from "@auth0/auth0-react";
-import logo from "../../assets/logo_superReoprincipal-removebg-preview.png"
+import logo from "../../assets/logo_superReoprincipal_model-4.png"
 import logo2 from "../../assets/LogoAzul-removebg-preview.png"
 import logo3 from "../../assets/logoAzul2-removebg-preview.png"
 import logo4 from "../../assets/logoAmarillo2-removebg-preview.png"

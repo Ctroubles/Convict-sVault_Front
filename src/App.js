@@ -12,7 +12,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Profile from "./views/Profile/Profile";
 import { setId, setUserCart } from "./Redux/store/actions/actions";
 import { useDispatch } from "react-redux";
-import PasarelaDePagos from "./components/pasarelaDePagos/pasarelaDePagos";
+import PasarelaDePagos from "./views/Payment/Payment.jsx";
 
 // const {PAYPAL_CLIENT_ID}= process.env
 
@@ -97,7 +97,7 @@ function App() {
       ) : (
         
         <Router>
-          <Route path={"/pagos"} render={()=> <PasarelaDePagos/>} />
+          <Route path={"/payment"} render={()=> <PasarelaDePagos user={currentUser}/>} />
           <Route exact path={"/"} render={() => <Landing />} />
           <Route path="/home" render={() =>
             <>

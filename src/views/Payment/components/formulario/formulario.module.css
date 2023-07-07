@@ -1,0 +1,108 @@
+#Form{
+    background-color: #ffffff;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    padding: 0 20px;
+}
+#Header{
+    padding: 20px 15px;
+}
+#Header h2{
+    font-size: 24px;
+    font-weight: 400;
+    letter-spacing: 0.3px;
+    color: #111111;
+}
+#content{
+    padding: 20px;
+}
+.section{
+    padding-bottom: 20px;
+}
+.section label{
+    color: #707070;
+    font-size: 16.5px;
+    cursor: pointer;
+}
+.inputsContainer{
+    padding: 10px 0px;
+    position: relative;
+}
+.inputsContainer input{
+    padding: 10px;
+    width: 100%;
+    border-radius: 4px;
+    background-color: transparent;
+    border: 1px solid #cccccc;
+    font-size: 16px;
+    line-height: 24px;
+    outline: none;
+}
+.inputsContainer input:focus {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    box-shadow: 0px 0px 5px #1111116c;
+}
+.optionsInputs{
+    position: absolute;
+    top: calc(100% - 10.5px);
+    left: 0;
+    width: 100%;
+    display: block;
+    background-color: #fefefe;
+    z-index: 1;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    overflow: hidden;
+    border-left: 1px solid #cccccc;
+    border-right: 1px solid #cccccc;
+    box-shadow: 0px 1px 5px #1111116c;
+    max-height: 275px;
+    overflow-y: auto;
+}
+.optionsInputs::-webkit-scrollbar-thumb {
+    background-color: #696969;
+    border-radius: 4px;
+}
+
+.optionsInputs::-webkit-scrollbar-thumb:hover {
+    background-color: #5e5e5e;
+}
+.optionsInputs::-webkit-scrollbar {
+    width: 8px;
+}
+.optionsInputs .options{
+    border-bottom: 1px solid #cccccc;
+    padding: 10px;
+    cursor: pointer;
+}
+.optionsInputs .options:hover{
+    background-color: #cccccc5e;
+}
+#inputPhone input{ 
+    padding-left: 75px;
+}
+#inputPhone::before{
+    content: "";
+    height: 20px;
+    width: 26px;
+    display: block;
+    position: absolute;
+    top: 22px;
+    left: 10px;
+    background: url("../../../../assets/icons/Flag_of_Colombia.png");
+    background-repeat: none;
+    background-position: left top;   
+    background-size: cover;
+    overflow: hidden;
+}
+#inputPhone::after{
+    content: "+57";
+    width: 30px;
+    font-size: 16px;
+    display: block;
+    position: absolute;
+    top: 23px;
+    left: 42px;
+    color: #666666;
+}

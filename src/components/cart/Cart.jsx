@@ -18,8 +18,7 @@ const Cart = ({ setCartStatus }) => {
   const history = useHistory();
 
   const handleConfirmOrder = () => {
-    // Realizar cualquier lógica adicional necesaria antes de redirigir
-    history.push(`/pagos`);
+    history.push(`/payment`);
   };
   
 
@@ -61,7 +60,7 @@ const Cart = ({ setCartStatus }) => {
           <div>
             <div style={{ padding: "12px 0 12px 15px", backgroundColor: "#009fe3" }}>
               <label id={style.tittle}>
-                <h1>Resumen de compra</h1>
+                <h1>Carrito</h1>
               </label>
             </div>
             <div>
@@ -112,7 +111,7 @@ const Cart = ({ setCartStatus }) => {
                   </div>
                 </div>
                 <button id={style.confirmButton} onClick={handleConfirmOrder}>
-            Confirmar orden
+             Confirmar orden
             </button>
               </div>
             </div>
