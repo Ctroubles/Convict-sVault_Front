@@ -12,8 +12,12 @@ import Home from '../../src/views/home/Home';
 import { FaSun, FaMoon } from 'react-icons/fa';
 
 
+
+
+
 function Dashboard() {
-  const [darkMode, setDarkMode] = useState(false);
+  const savedDarkMode = localStorage.getItem('darkMode');
+  const [darkMode, setDarkMode] = useState(savedDarkMode ? JSON.parse(savedDarkMode) : false);
 
   function toggleDarkMode() {
     const updatedDarkMode = !darkMode;
@@ -28,7 +32,7 @@ function Dashboard() {
   }, []);
   
   return (
-      <div className={`${style.dashboardContainer} ${darkMode ? style.darkMode : ''}`}>
+    <div className={`${style.dashboardContainer} ${darkMode ? style.darkMode : ''} `}>
           <div id={style.header}>
             <div>
                 <div id={style.logoSection}>

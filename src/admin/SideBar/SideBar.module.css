@@ -62,16 +62,23 @@
 }
 
 
-@media (max-width: 600px) {
-  .container {
-    padding: 20px;
-  }
 
-  .buttons {
-    width: 100%;
-  }
+.show {
+  transform: translateX(0);
 }
 
-.icon {
-  margin-right: 8px;
+/* responsive */
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 3rem; /* Ajusta el ancho del sidebar según tu preferencia */
+  }
+
+  .ulist {
+    padding: 0; /* Elimina el padding para que los elementos estén pegados */
+  }
+
+  .ulist a {
+    justify-content: center; /* Centra el contenido horizontalmente */
+  }
 }

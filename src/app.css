@@ -17,3 +17,33 @@
     }
 }
   
+
+.dark-mode {
+    background-color: #222;
+    color: #fff;
+  }
+  
+  /* Estilos específicos para componentes en modo oscuro */
+  .dark-mode h1 {
+    color: #fff;
+  }
+  
+  .dark-mode .header {
+    background-color: #222;
+  }
+  
+  .dark-mode .header a {
+    color: #fff;
+  }
+
+  .darkModeButton {
+    color: #007bff;
+    background: none;
+    border: none;
+    padding-right: 20px;
+  }
+  .darkModeButton svg{
+    width: 25px !important;
+    height: 25px !important;
+    cursor: pointer;
+  }

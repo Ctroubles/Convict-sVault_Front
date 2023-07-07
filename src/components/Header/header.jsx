@@ -18,6 +18,8 @@ import Cart from "../cart/Cart";
 
 const Header = ({user}) =>{
 
+    // console.log(user.isAdmin)
+
 
     const {cart} = useSelector(state => state)
     const {loginWithRedirect, logout} = useAuth0()
