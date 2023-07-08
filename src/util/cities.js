@@ -13,7 +13,8 @@ const cities = [
     "Pasto",
     "Pereira",
     "Santa Marta",
-    "Villavicencio"
+    "Villavicencio",
+    "Andes"
   ];
 
 export default cities;

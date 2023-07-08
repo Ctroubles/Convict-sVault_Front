@@ -247,18 +247,23 @@
 
 
 .table td.productName {
-  max-width: 150px; /* Ajusta este valor según tus preferencias */
+  max-width: 120px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-/* Products.module.css */
+.table td.productId {
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
 /* Estilos para la vista móvil */
-@media (max-width: 800px) {
+@media (max-width: 965px) {
 
   .table td.productName {
-    max-width: 100px; /* Ajusta este valor según tus preferencias */
+    max-width: 100px;
   }
   .mobileTable {
     display: block;

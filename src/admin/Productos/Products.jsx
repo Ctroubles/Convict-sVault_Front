@@ -125,7 +125,7 @@ function Products({ darkMode }) {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 800);
+      setIsMobile(window.innerWidth <= 965);
     };
     window.addEventListener('resize', handleResize);
     handleResize();
@@ -223,7 +223,7 @@ function Products({ darkMode }) {
                     {isMobile ? null : <td>{product.brand}</td>}
                     <td>{product.category}</td>
                     <td>{product.price}</td>
-                    {isMobile ? null : <td>{product._id}</td>}
+                    {isMobile ? null : <td className={`${style.productId}`}>{product._id}</td>}
                     {isMobile ? null : <td>{product.stock}</td>}
                     <td>
                       <FaCircle className={product.isActive ? style.onlineIcon : style.offlineIcon} />
@@ -247,15 +247,15 @@ function Products({ darkMode }) {
                       ) : (
                         <div className={style.desktopActions}>
                           <button className={style.editButton} onClick={() => openModal(product)}>
-                            <FaEdit /> Editar
+                            <FaEdit />
                           </button>
                           {product.isActive ? (
                             <button onClick={() => handleRevoke(product)} className={style.deleteButton}>
-                              <FaTrash /> Desactivar
+                              <FaTrash />
                             </button>
                           ) : (
                             <button onClick={() => handleRestore(product)} className={style.restoreButton}>
-                              <FaUndo /> Activar
+                              <FaUndo />
                             </button>
                           )}
                         </div>

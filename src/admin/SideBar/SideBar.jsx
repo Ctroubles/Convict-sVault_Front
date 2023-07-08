@@ -13,7 +13,7 @@ function SideBar({ darkMode }) {
 
   useEffect(() => {
     function handleResize() {
-      setIsMobile(window.innerWidth <= 801);
+      setIsMobile(window.innerWidth <= 965);
     }
 
     window.addEventListener('resize', handleResize);
