@@ -3,7 +3,7 @@ import CardCart from "../../../../components/cart/card_cart/CardCart";
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import urlBack from "../../../../util/deploy_back";
 import axios from "axios";
-
+// import Payu from "../payu";
 
 const Carrito = ({items, total, user}) =>{
 
