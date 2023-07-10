@@ -7,6 +7,7 @@ import CartComponent from "./components/carrito/carrito"
 import logoHeader from "../../assets/logo_superReoprincipal_model-4.png"
 import Formulario from "./components/formulario/formulario";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
+import Payu from "./components/payu";
 
 
 
@@ -83,6 +84,7 @@ function PaymentView({user}) {
               </div>
               <div id={styles.cart}>
                   <CartComponent loading={loading} items={items} total={total}/>
+                  <Payu loading={loading} items={items} total={total} user={user}/>
               </div>
             </div>
           )

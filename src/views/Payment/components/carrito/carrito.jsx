@@ -5,7 +5,6 @@ import urlBack from "../../../../util/deploy_back";
 import axios from "axios";
 
 
-
 const Carrito = ({items, total, user}) =>{
 
 
@@ -173,6 +172,7 @@ const Carrito = ({items, total, user}) =>{
                       onApprove={(data, actions) =>onApprove(data, actions)}
                       onError={(err)=>alert(err)}
                   />
+                  
               </div>
             </div>
           </div>

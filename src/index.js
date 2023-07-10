@@ -26,7 +26,6 @@ ReactDOM.render(
         options={{
           "client-id": paypalClientId,
           currency: "USD",
-          // enableFunding: "mercadopago"
         }}
       >
         <React.StrictMode>

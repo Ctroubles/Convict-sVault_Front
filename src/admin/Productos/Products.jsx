@@ -57,7 +57,13 @@ function Products({ darkMode }) {
       await axios.put(`http://localhost:3001/products/isActive/${product._id}`, {
         isActive: false
       });
-      getProducts();
+  
+      // Actualizar el estado del producto desactivado y sin stock
+      const updatedProduct = { ...product, isActive: false };
+      const updatedProducts = products.map((p) => (p._id === updatedProduct._id ? updatedProduct : p));
+      setProducts(updatedProducts);
+      setFilteredProducts(updatedProducts);
+  
       swal.fire({
         title: 'Se desactivó el producto con éxito',
         icon: 'success',
@@ -75,13 +81,19 @@ function Products({ darkMode }) {
       });
     }
   };
-
+  
   const handleRestore = async (product) => {
     try {
       await axios.put(`http://localhost:3001/products/isActive/${product._id}`, {
         isActive: true
       });
-      getProducts();
+  
+      // Actualizar el estado del producto activado
+      const updatedProduct = { ...product, isActive: true };
+      const updatedProducts = products.map((p) => (p._id === updatedProduct._id ? updatedProduct : p));
+      setProducts(updatedProducts);
+      setFilteredProducts(updatedProducts);
+  
       swal.fire({
         title: 'Se restauró el producto con éxito',
         icon: 'success',
@@ -100,6 +112,7 @@ function Products({ darkMode }) {
     }
   };
 
+  
   const getProducts = async () => {
     try {
       const { data } = await axios.get("http://localhost:3001/products");
@@ -214,55 +227,63 @@ function Products({ darkMode }) {
               </tr>
             </thead>
             <tbody>
-              {filteredProducts
-                .slice(indexOfFirstProduct, indexOfLastProduct)
-                .map((product, index) => (
-                  <tr key={product._id}>
-                    <td>{getProductNumber(index)}</td>
-                    <td className={`${style.productName}`}>{product.name}</td>
-                    {isMobile ? null : <td>{product.brand}</td>}
-                    <td>{product.category}</td>
-                    <td>{product.price}</td>
-                    {isMobile ? null : <td className={`${style.productId}`}>{product._id}</td>}
-                    {isMobile ? null : <td>{product.stock}</td>}
-                    <td>
-                      <FaCircle className={product.isActive ? style.onlineIcon : style.offlineIcon} />
-                    </td>
-                    <td>
-                      {isMobile ? (
-                        <div className={style.mobileActions}>
-                          <button className={style.editButton} onClick={() => openModal(product)}>
-                            <FaEdit />
-                          </button>
-                          {product.isActive ? (
-                            <button onClick={() => handleRevoke(product)} className={style.deleteButton}>
-                              <FaTrash />
-                            </button>
-                          ) : (
-                            <button onClick={() => handleRestore(product)} className={style.restoreButton}>
-                              <FaUndo />
-                            </button>
-                          )}
-                        </div>
-                      ) : (
-                        <div className={style.desktopActions}>
-                          <button className={style.editButton} onClick={() => openModal(product)}>
-                            <FaEdit />
-                          </button>
-                          {product.isActive ? (
-                            <button onClick={() => handleRevoke(product)} className={style.deleteButton}>
-                              <FaTrash />
-                            </button>
-                          ) : (
-                            <button onClick={() => handleRestore(product)} className={style.restoreButton}>
-                              <FaUndo />
-                            </button>
-                          )}
-                        </div>
-                      )}
-                    </td>
-                  </tr>
-                ))}
+            {filteredProducts
+  .slice(indexOfFirstProduct, indexOfLastProduct)
+  .map((product, index) => {
+    const isProductActive = product.isActive && product.stock > 0;
+    const isProductInactive = !product.isActive;
+    const isProductStockZero = product.stock === 0;
+
+    return (
+      <tr key={product._id}>
+        <td>{getProductNumber(index)}</td>
+        <td className={`${style.productName}`}>{product.name}</td>
+        {isMobile ? null : <td>{product.brand}</td>}
+        <td>{product.category}</td>
+        <td>{product.price}</td>
+        {isMobile ? null : <td className={`${style.productId}`}>{product._id}</td>}
+        {isMobile ? null : <td>{product.stock}</td>}
+        <td>
+          <FaCircle className={isProductActive ? style.onlineIcon : style.offlineIcon} />
+        </td>
+        <td>
+          {isMobile ? (
+            <div className={style.mobileActions}>
+              <button className={style.editButton} onClick={() => openModal(product)}>
+                <FaEdit />
+              </button>
+              {isProductActive && (
+                <button onClick={() => handleRevoke(product)} className={style.deleteButton}>
+                  <FaTrash />
+                </button>
+              )}
+              {isProductInactive && !isProductStockZero && (
+                <button onClick={() => handleRestore(product)} className={style.restoreButton}>
+                  <FaUndo />
+                </button>
+              )}
+            </div>
+          ) : (
+            <div className={style.desktopActions}>
+              <button className={style.editButton} onClick={() => openModal(product)}>
+                <FaEdit />
+              </button>
+              {isProductActive && (
+                <button onClick={() => handleRevoke(product)} className={style.deleteButton}>
+                  <FaTrash />
+                </button>
+              )}
+              {isProductInactive && !isProductStockZero && (
+                <button onClick={() => handleRestore(product)} className={style.restoreButton}>
+                  <FaUndo />
+                </button>
+              )}
+            </div>
+          )}
+        </td>
+      </tr>
+    );
+  })}
             </tbody>
           </table>
           <div className={style.pagination}>
