@@ -1,6 +1,7 @@
 import React from 'react';
 import dotenv from 'dotenv';
-import md5 from 'js-md5';
+
+const CryptoJS = require("crypto-js");
 
 dotenv.config();
 
@@ -10,15 +11,15 @@ function PAYU({total, user, items}) {
     // console.log(api_key)
     console.log(total)
     console.log(user.email)
-    console.log(items[0]._id)
-    const merchantId = '508029';
-    const amount = total;
-    const currency = 'COP';
-    const referenceCode= `PAGO002`;
+    // console.log(items[0]._id)
 
-    const signatureString = `${api_key}~${merchantId}~${referenceCode}~${amount}~${currency}`;
-    const signature = md5(signatureString);
-    // console.log(signature)
+let apiKey = "4Vj8eK4rloUd272L48hsrarnUA";
+let merchantId = "508029";
+let referenceCode = `PAGO${items[0]._id}`;
+let mont = total;
+
+let signature = CryptoJS.MD5(apiKey + "~" + merchantId + "~" + referenceCode + "~" + mont + "~COP").toString();
+console.log(signature)
   return (
     <div>
       <h1>
@@ -27,11 +28,11 @@ function PAYU({total, user, items}) {
           <input name="accountId" type="hidden" value="512321" />
           <input name="description" type="hidden" value="VENTAS EN LINEA" />
           <input name="referenceCode" type="hidden" value={referenceCode} />
-          <input name="amount" type="hidden" value={total} />
+          <input name="amount" type="hidden" value={mont} />
           <input name="tax" type="hidden" value="0" />
           <input name="taxReturnBase" type="hidden" value="0" />
           <input name="currency" type="hidden" value="COP" />
-          <input name="signature" type="hidden" value="a8e440863ad8d6d67b1ac133a2ec2cc9" />
+          <input name="signature" type="hidden" value={signature} />
           <input name="test" type="hidden" value="1" />
           <input name="buyerEmail" type="hidden" value={user.email} />
           <input name="responseUrl" type="hidden" value="http://localhost:3000/response" />
@@ -50,12 +51,15 @@ function PAYU({total, user, items}) {
                     cursor: 'pointer',
                     width: "350px",
                     
-                }}
-/>
+                    }}
+                />  
+        <input name="shippingAddress"    type="hidden"  value="calle 93 n 47 - 65"   />
+        <input name="shippingCity"       type="hidden"  value="Andes" />
+        <input name="shippingCountry"    type="hidden"  value="CO"  />
         </form>
       </h1>
     </div>
   );
 }
 
-export default PAYU;
+export default PAYU;
