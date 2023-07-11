@@ -8,7 +8,7 @@ const CryptoJS = require("crypto-js");
 
 function PAYU({total, user, items}) {
 
-
+console.log(user)
 
   let apiKey = "4Vj8eK4rloUd272L48hsrarnUA";
   let merchantId = "508029";
@@ -33,12 +33,13 @@ function PAYU({total, user, items}) {
             <input name="signature" type="hidden" value={signature} />
             <input name="test" type="hidden" value="1" />
             <input name="buyerEmail" type="hidden" value={user.email} />
+            <input name="buyerFullName" type="hidden" value={`${user.name} ${user.surname}`} />
             <input name="responseUrl" type="hidden" value="http://localhost:3000/response" />
             <input name="confirmationUrl" type="hidden" value="http://localhost:3000/confirmation" />
             <input name="Submit" type="submit" value="Pagar con Payu" id={style.paymentButton} />  
             <input name="shippingAddress"    type="hidden"  value="calle 93 n 47 - 65"   />
             <input name="shippingCity"       type="hidden"  value="Andes" />
-            <input name="shippingCountry"    type="hidden"  value="CO"  />
+            <input name="shippingCountry"    type="hidden"  value="CO" />
           </form>
       </div>
     );

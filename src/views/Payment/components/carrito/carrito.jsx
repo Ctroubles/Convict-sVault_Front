@@ -63,7 +63,7 @@ const Carrito = ({loading, items, total, user}) =>{
                   </div>
                 </div>
                 <div id={styles.containerPaymentButton}>
-                    <PAYU loading={loading} items={items} total={total} user={user}/>
+                    <PAYU loading={loading} total={total} user={user} />
                 </div>                                  
               </div>
             </div>
