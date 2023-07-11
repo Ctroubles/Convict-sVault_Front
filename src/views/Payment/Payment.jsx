@@ -86,8 +86,6 @@ function PaymentView({user}) {
     
     </div>
   );
-
-
  
 }
 
