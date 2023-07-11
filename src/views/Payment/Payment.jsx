@@ -2,13 +2,11 @@ import React, { useEffect, useState } from "react";
 import styles from "./Payment.module.css";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { useAuth0 } from "@auth0/auth0-react";
 import CartComponent from "./components/carrito/carrito"
 import logoHeader from "../../assets/logo_superReoprincipal_model-4.png"
 import Formulario from "./components/formulario/formulario";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
-
-
-
 
 
 
@@ -47,7 +45,6 @@ function PaymentView({user}) {
   useEffect(() => {
     getData(cart);
   }, [cart]);
-
 
 
 
@@ -94,4 +91,4 @@ function PaymentView({user}) {
  
 }
 
-export default PaymentView;
+export default PaymentView;

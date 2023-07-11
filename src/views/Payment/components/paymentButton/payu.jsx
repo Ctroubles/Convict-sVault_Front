@@ -16,7 +16,6 @@ function PAYU({total, user, items}) {
     const signatureString = (`${api_key}~${merchantId}~${referenceCode}~${amount}~${currency}`);
     const signature = md5(signatureString);
 
-  console.log(signature)
     return (
       <div id={style.formCotainer}>
           <form method="post" action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/">
