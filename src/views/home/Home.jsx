@@ -10,7 +10,7 @@ const Home = ()=>{
         <div>
             <section id={style.body}>
                 <div style={{maxWidth:"1350px", width:"100%", padding:"0 20px"}}>
-                    <label>
+                    <label htmlFor="">
                         <div>
                             <SliderCategory category={"Equipaje"}/>
                             <SliderCategory category={"Belleza"}/>

@@ -89,4 +89,9 @@
     top: 5px;
     right: 0px;
   }
-  
+  #containerPaymentButton{
+    padding: 10px 0 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }

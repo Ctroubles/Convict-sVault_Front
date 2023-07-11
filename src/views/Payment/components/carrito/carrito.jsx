@@ -1,11 +1,10 @@
 import styles from "./carrito.module.css";
 import CardCart from "../../../../components/cart/card_cart/CardCart";
-import { PayPalButtons } from "@paypal/react-paypal-js";
 import urlBack from "../../../../util/deploy_back";
 import axios from "axios";
-// import Payu from "../payu";
+import PAYU from "../paymentButton/payu";
 
-const Carrito = ({items, total, user}) =>{
+const Carrito = ({loading, items, total, user}) =>{
 
 
   const { REACT_APP_PAYPAL_CLIENT_ID, REACT_APP_PAYPAL_SECRET } = process.env;
@@ -160,19 +159,9 @@ const Carrito = ({items, total, user}) =>{
                     </div>
                   </div>
                 </div>
-                <PayPalButtons
-                      onClick={(data,action)=>{
-                        if (100) {
-                            return action.resolve();
-                        }else{
-                            return action.reject();
-                        }
-                      }}
-                      createOrder={(data, actions) => createOrder(data, actions)}
-                      onApprove={(data, actions) =>onApprove(data, actions)}
-                      onError={(err)=>alert(err)}
-                  />
-                  
+                <div id={styles.containerPaymentButton}>
+                    <PAYU loading={loading} items={items} total={total} user={user}/>
+                </div>                                  
               </div>
             </div>
           </div>
