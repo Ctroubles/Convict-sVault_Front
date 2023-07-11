@@ -19,12 +19,12 @@ const validators = (target,value) =>{
             if(value.length===0)result = true
             break;
         case "dni":
-                if (!isNaN(value) && value.length<=8) result=true;
+                if (!isNaN(value) && value.length<=10) result=true;
                 else result =false
                 if (value.length===0)result=true
                 break;     
         case "phone":
-                if (!isNaN(value) && value.length<=9) result=true;
+                if (!isNaN(value) && value.length<=10) result=true;
                 else result =false
                  if (value.length===0)result=true
             break;      

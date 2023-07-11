@@ -93,15 +93,21 @@ const Profile = ({user}) =>{
         }
     }
 
-    const handlerChange = (e)=>{
+    const handlerChange = (e) => {
         const target = e.target.name;
-        const value = e.target.value
-        setErrors({...errors,[target]:null})
-        if(validators(target,value)){
-            setUserData({...userData,[target]:value})
+        let value = e.target.value;
+        
+        // Verificar y recortar el valor si excede la longitud máxima
+        const maxLength = 11; // Cambiar a 11 para aceptar 10 números
+        if (value.length > maxLength) {
+          value = value.slice(0, maxLength);
         }
-    } 
-
+        
+        setErrors({ ...errors, [target]: null });
+        if (validators(target, value)) {
+          setUserData({ ...userData, [target]: value });
+        }
+      };
 
     const sendUpdate = async() =>{
         try {
@@ -210,7 +216,7 @@ const Profile = ({user}) =>{
                                                             Número de teléfono
                                                         </label>
                                                         <div>
-                                                            <input style={editable?editableStyle:undefined} value={userData.phone} name="phone" readOnly={!editable} maxLength={10}  onChange={(e)=>handlerChange(e)}/>                                                            
+                                                            <input style={editable?editableStyle:undefined} value={userData.phone} name="phone" readOnly={!editable} maxLength={11}  onChange={(e)=>handlerChange(e)}/>                                                            
                                                         </div>
                                                     </div>
                                                 </div>
@@ -238,7 +244,7 @@ const Profile = ({user}) =>{
                                                             Cédula
                                                         </label>
                                                         <div>
-                                                            <input style={editable?editableStyle:undefined} value={userData.dni} name="dni" readOnly={!editable} maxLength={10} onChange={(e)=>handlerChange(e)}/>                                                            
+                                                            <input style={editable?editableStyle:undefined} value={userData.dni} name="dni" readOnly={!editable} maxLength={11} onChange={(e)=>handlerChange(e)}/>                                                            
                                                         </div>
                                                     </div>
                                                     <div>
