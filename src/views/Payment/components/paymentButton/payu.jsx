@@ -34,9 +34,9 @@ function PAYU({total, user, items}) {
             <input name="responseUrl" type="hidden" value="http://localhost:3000/response" />
             <input name="confirmationUrl" type="hidden" value="http://localhost:3000/confirmation" />
             <input name="Submit" type="submit" value="Pagar con Payu" id={style.paymentButton} />  
-          <input name="shippingAddress"    type="hidden"  value="calle 93 n 47 - 65"   />
-          <input name="shippingCity"       type="hidden"  value="Andes" />
-          <input name="shippingCountry"    type="hidden"  value="CO"  />
+            <input name="shippingAddress"    type="hidden"  value="calle 93 n 47 - 65"   />
+            <input name="shippingCity"       type="hidden"  value="Andes" />
+            <input name="shippingCountry"    type="hidden"  value="CO"  />
           </form>
       </div>
     );
