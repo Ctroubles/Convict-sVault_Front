@@ -1,20 +1,23 @@
 import React from 'react';
 import md5 from 'js-md5';
 import style from "./paymentButton.module.css"
+import { v4 as uuidv4 } from 'uuid';
 
+const CryptoJS = require("crypto-js");
 
 
 function PAYU({total, user, items}) {
 
-  const api_key = process.env.REACT_APP_PAYU_API_KEY2;
 
-    const merchantId = '508029';
-    const amount = total;
-    const currency = 'COP';
-    const referenceCode= `PAGO010`;
 
-    const signatureString = (`${api_key}~${merchantId}~${referenceCode}~${amount}~${currency}`);
-    const signature = md5(signatureString);
+  let apiKey = "4Vj8eK4rloUd272L48hsrarnUA";
+  let merchantId = "508029";
+  const referenceCode = `PAGO${uuidv4()}`;
+  console.log(referenceCode)
+  let mont = total;
+
+    let signature = CryptoJS.MD5(apiKey + "~" + merchantId + "~" + referenceCode + "~" + mont + "~COP").toString();
+    console.log(signature)
 
     return (
       <div id={style.formCotainer}>

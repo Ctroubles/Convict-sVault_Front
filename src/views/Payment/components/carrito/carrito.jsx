@@ -6,7 +6,6 @@ import PAYU from "../paymentButton/payu";
 
 const Carrito = ({loading, items, total, user}) =>{
 
-
     return (
         <div style={{}}>
         <div id={styles.Cart}>
