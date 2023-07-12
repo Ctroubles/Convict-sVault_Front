@@ -204,7 +204,8 @@ useEffect(() => {
             <p className={style.tableOverlayMessage}>No clients found</p>
           </div>
         ) : (
-          <table className={style.table}>
+          <div className="tableContainerInner">
+    <table className={style.table}>
             <thead>
               <tr>
                 <th></th>
@@ -212,7 +213,7 @@ useEffect(() => {
                 <th>Apellido</th>
                 <th>Email</th>
                 {isMobile ? null : <th>ID</th>}
-                <th>Estado</th>
+                {isMobile ? null : <th>Estado</th>}
                 <th>Accion</th>
                 <th>Admin</th>
               </tr>
@@ -227,28 +228,29 @@ useEffect(() => {
                   <td>{client.surname}</td>
                   <td className={`${style.clientName}`}>{client.email}</td>
                   {isMobile ? null : <td>{client._id}</td>}
-                  <td>
+                  {isMobile ? null : <td>
                       <FaCircle className={client.isActive ? style.onlineStatus : style.offlineStatus} />
-                    </td>
+                    </td>}
+                  
                     <td>
   {client.isActive ? (
     <button onClick={() => handleRevoke(client)} className={style.deleteButton}>
-      {isMobile ? <FaTrash /> : <><FaTrash /> Desactivar</>}
+      {isMobile ? <FaTrash /> : <><FaTrash /></>}
     </button>
   ) : (
     <button onClick={() => handleRestore(client)} className={style.restoreButton}>
-      {isMobile ? <FaUndo /> : <><FaUndo /> Activar</>}
+      {isMobile ? <FaUndo /> : <><FaUndo /></>}
     </button>
   )}
 </td>
 <td>
   {client.isAdmin ? (
     <button onClick={() => handleRemoveAdmin(client)} className={style.removeAdminButton}>
-      {isMobile ? <FaUndo /> : <><FaUndo /> Remover</>}
+      {isMobile ? <FaUndo /> : <><FaUndo /></>}
     </button>
   ) : (
     <button onClick={() => handleGiveAdmin(client)} className={style.giveAdminButton}>
-      {isMobile ? <FaEdit /> : <><FaEdit />Asignar</>}
+      {isMobile ? <FaEdit /> : <><FaEdit /></>}
       
     </button>
   )}
@@ -257,7 +259,7 @@ useEffect(() => {
               ))}
             </tbody>
           </table>
-          
+          </div>
         )}
          <div className={style.pagination}>
           <button disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)}>

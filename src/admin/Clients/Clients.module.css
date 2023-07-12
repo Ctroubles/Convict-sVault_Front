@@ -9,12 +9,21 @@
 
 .tableContainer {
   position: relative;
-  overflow: hidden;
+  overflow: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
   border-radius: 10px;
   box-shadow: 0 15px 20px rgba(0, 0, 0, 0.5);
   background-image: linear-gradient(to bottom left, #a5c9f2, #ffffff);
   width: 100%;
   max-width: 1100px;
+}
+
+.tableContainerInner {
+  max-height: 500px;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto; 
 }
 
 .tableOverlay {
@@ -64,9 +73,9 @@
 .searchContainer {
   margin-top: 20px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
 }
 
 .searchInput {
@@ -194,7 +203,11 @@
 }
 
 
-
+.filterButtons {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
 
 .filterButton {
   /* Estilos generales para los botones de filtrado */
@@ -222,19 +235,35 @@
   white-space: nowrap;
 }
 
+   /* RESPONSIVE */
+
+@media (max-width: 940px) {
+  .tableContainerInner {
+    overflow-x: scroll;
+    width: 120%;
+  }
+}
 
 @media (max-width: 768px) {
-  /* .mobileTable th:nth-child(3),
-  .mobileTable th:nth-child(4),
-  .mobileTable th:nth-child(5),
-  .mobileTable td:nth-child(3),
-  .mobileTable td:nth-child(4),
-  .mobileTable td:nth-child(5) {
-    display: none;
-  } */
   .table td.clientName {
     max-width: 100px;
   }
+
+  .searchContainer {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .filterButtons {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .filterButton {
+    width: 100px;
+    margin-top: 0.5rem;
+  }
+
   .mobileTable {
     display: block;
     overflow-x: auto;
@@ -253,5 +282,38 @@
 
   .mobileTable td {
     text-align: left;
+  }
+}
+
+@media (max-width: 520px) {
+  .table td {
+    white-space: nowrap;
+  }
+
+  .table td.clientName {
+    max-width: 100px;
+  }
+
+  .pagination {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .pagination button {
+    margin: 5px;
+  }
+
+  .searchInput {
+    width: 220px;
+  }
+
+  .filterButton {
+    width: 100px;
+  }
+}
+
+@media (max-width: 350px) {
+  .searchInput {
+    width: 150px;
   }
 }

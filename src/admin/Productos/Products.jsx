@@ -148,6 +148,18 @@ function Products({ darkMode }) {
     };
   }, []);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 520);
+    };
+    window.addEventListener('resize', handleResize);
+    handleResize();
+  
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   const handleToggleFilter = (filter) => {
     setActiveFilter(filter);
     setCurrentPage(1);
@@ -165,7 +177,7 @@ function Products({ darkMode }) {
 
   const handleSearch = () => {
     if (searchTerm === "") {
-      handleToggleFilter(activeFilter); // Aplicar filtro actual
+      handleToggleFilter(activeFilter);
     } else {
       const filtered = filteredProducts.filter((product) =>
         product.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -192,14 +204,14 @@ function Products({ darkMode }) {
               className={`${style.filterButton} ${activeFilter === 'activos' ? style.activeFilterButton : ''}`}
               onClick={() => handleToggleFilter("activos")}
             >
-              <FaFilter /> Activos
+            Activos
             </button>
           </div>
           <button
             className={`${style.filterButton} ${activeFilter === 'inactivos' ? style.activeFilterButton : ''}`}
             onClick={() => handleToggleFilter('inactivos')}
           >
-            <FaFilter /> Inactivos
+            Inactivos
           </button>
         </div>
       </div>
@@ -212,6 +224,7 @@ function Products({ darkMode }) {
               </div>
             </div>
           ) : null}
+          <div className="tableContainerInner">
            <table>
             <thead>
               <tr>
@@ -222,7 +235,7 @@ function Products({ darkMode }) {
                 <th>Precio</th>
                 {isMobile ? null : <th>ID</th>}
                 {isMobile ? null : <th>Stock</th>}
-                <th>Estado</th>
+                {isMobile ? null : <th>Estado</th>}
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -232,7 +245,7 @@ function Products({ darkMode }) {
   .map((product, index) => {
     const isProductActive = product.isActive && product.stock > 0;
     const isProductInactive = !product.isActive;
-    const isProductStockZero = product.stock === 0;
+    
 
     return (
       <tr key={product._id}>
@@ -243,49 +256,30 @@ function Products({ darkMode }) {
         <td>{product.price}</td>
         {isMobile ? null : <td className={`${style.productId}`}>{product._id}</td>}
         {isMobile ? null : <td>{product.stock}</td>}
+        {isMobile? null: 
         <td>
           <FaCircle className={isProductActive ? style.onlineIcon : style.offlineIcon} />
         </td>
+        }
         <td>
-          {isMobile ? (
-            <div className={style.mobileActions}>
-              <button className={style.editButton} onClick={() => openModal(product)}>
-                <FaEdit />
-              </button>
-              {isProductActive && (
-                <button onClick={() => handleRevoke(product)} className={style.deleteButton}>
-                  <FaTrash />
-                </button>
-              )}
-              {isProductInactive && !isProductStockZero && (
-                <button onClick={() => handleRestore(product)} className={style.restoreButton}>
-                  <FaUndo />
-                </button>
-              )}
-            </div>
-          ) : (
             <div className={style.desktopActions}>
               <button className={style.editButton} onClick={() => openModal(product)}>
                 <FaEdit />
               </button>
-              {isProductActive && (
-                <button onClick={() => handleRevoke(product)} className={style.deleteButton}>
-                  <FaTrash />
-                </button>
-              )}
-              {isProductInactive && !isProductStockZero && (
-                <button onClick={() => handleRestore(product)} className={style.restoreButton}>
-                  <FaUndo />
-                </button>
-              )}
+              {product.isActive && product.stock>0? (
+                              <button onClick={() => handleRevoke(product)} className={style.deleteButton}><FaTrash /></button>
+                            ) : (
+                              <button onClick={() => handleRestore(product)} className={style.restoreButton}><FaUndo /></button>
+                            )}
             </div>
-          )}
+          
         </td>
       </tr>
     );
   })}
             </tbody>
           </table>
+          </div>
           <div className={style.pagination}>
             <button
               disabled={currentPage === 1}

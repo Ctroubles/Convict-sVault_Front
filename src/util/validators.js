@@ -67,11 +67,12 @@ const validatorsLevel2 = (setErrorsForm, currentForm) =>{
                     if (isNaN(currentForm[prop]) || currentForm[prop].length!==10) errors[prop]=true;
                 }
                     break;     
-            case "phone":
-                if(currentForm[prop]){
-                    if (isNaN(currentForm[prop]) || currentForm[prop].length!==10) errors[prop]=true;
-                    if (currentForm[prop].charAt(0)!=="3") errors[prop]=true;
-                }
+                    case "phone":
+                        if (currentForm[prop]) {
+                          if (isNaN(currentForm[prop]) || currentForm[prop].length !== 10 || currentForm[prop].charAt(0) !== "3") {
+                            errors[prop] = true;
+                          }
+                        }
                 break;           
             case "email":
                     const expresionRegular = /\S+@\S+\.\S+/;

@@ -5,6 +5,14 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.tableContainerInner {
+  max-height: 500px;
+  display: flex;
+  flex-wrap: nowrap;
 }
 
 .searchContainer {
@@ -13,6 +21,7 @@
   justify-content: space-between;
   margin-bottom: 1rem;
 }
+
 .searchInput {
   margin-top: 20px;
   padding: 10px;
@@ -24,16 +33,19 @@
   transition: border-bottom-color 0.3s ease;
   border-radius: 30px;
 }
+
 .searchInput:focus {
   border-bottom-color: #007bff;
 }
-#containerButt{
+
+#containerButt {
   margin: 0 12px;
 }
+
 #tableContainer {
   width: 100%;
   background-image: linear-gradient(to bottom left, #a5c9f2, #ffffff);
-  overflow: hidden;
+  overflow-x: auto;
   border-radius: 10px;
   box-shadow: 0 15px 20px rgba(0, 0, 0, 0.5);
   margin: 20px 0 0 0;
@@ -62,13 +74,12 @@
 }
 
 .tableOverlayMessage span {
-  
   font-weight: bold;
   color: #333;
 }
 
 .table {
-  width: 150%;
+  width: fit-content;
   border-collapse: collapse;
   margin-bottom: 30px;
 }
@@ -104,7 +115,7 @@
   cursor: pointer;
 }
 
-.deleteButton:hover{
+.deleteButton:hover {
   background-color: darkred;
 }
 
@@ -136,56 +147,53 @@
 .iconoAdd {
   font-size: 75px;
 }
+
 .onlineStatus {
-    color: green;
-  }
-  
-  .offlineStatus {
-    color: red;
-  }
+  color: green;
+}
 
+.offlineStatus {
+  color: red;
+}
 
-  .restoreButton {
-    background-color: green;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-right: 5px;
-  }
-  
-  .restoreButton:hover {
-    background-color:darkgreen;
-  }
-  
+.restoreButton {
+  background-color: green;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 5px;
+}
 
-  .filterButtons {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .filterButton {
-    /* Estilos generales para los botones de filtrado */
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-  }
-  
-  .activeFilterButton {
-    /* Estilos para el botón de filtrado activo */
-    background-color: #555;
-    color: #fff;
-  }
-  
-  .filterButton:first-child {
-    margin-right: 8px;
-  }
+.restoreButton:hover {
+  background-color: darkgreen;
+}
 
-  /* CSS para los estilos de los botones de paginado */
+.filterButtons {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.filterButton {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.activeFilterButton {
+  background-color: #555;
+  color: #fff;
+}
+
+.filterButton:first-child {
+  margin-right: 8px;
+}
+
 .pagination {
   margin-top: 20px;
   display: flex;
@@ -219,7 +227,6 @@
   color: #333;
 }
 
-
 /* darkmode */
 
 .darkMode {
@@ -227,7 +234,6 @@
 }
 
 .darkModeTable {
-  /* background-color: #111111e3; */
   color: #111;
 }
 
@@ -235,7 +241,6 @@
 .darkModeTable td {
   border-color: #fff;
 }
-
 
 .onlineIcon {
   color: green;
@@ -245,13 +250,13 @@
   color: red;
 }
 
-
 .table td.productName {
   max-width: 120px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
 .table td.productId {
   max-width: 120px;
   overflow: hidden;
@@ -259,7 +264,7 @@
   white-space: nowrap;
 }
 
-/* Estilos para la vista móvil */
+/* RESPONSIVE */
 @media (max-width: 965px) {
 
   .table td.productName {
@@ -288,8 +293,55 @@
     flex-direction: column;
     align-items: flex-start;
     margin-bottom: 0.5rem;
+    gap: 0.5rem;
   }
   .filterButtons {
     gap: 0.01rem;
+  }
+  .filterButton {
+    width: 100px;
+    margin-top: 0.5rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .table {
+    width: 120%;
+  }
+  .table td {
+    white-space: nowrap;
+  }
+  .table td.productName {
+    max-width: 80px;
+  }
+  .mobileActions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+  .mobileActions button {
+    margin-right: 0.5rem;
+  }
+  .mobileActions button:last-child {
+    margin-right: 0;
+  }
+  .pagination {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .pagination button {
+    margin: 5px;
+  }
+  .searchInput {
+    width: 220px;
+  }
+  
+}
+
+@media (max-width: 350px) {
+  .searchInput {
+    width: 200px;
+    
   }
 }
