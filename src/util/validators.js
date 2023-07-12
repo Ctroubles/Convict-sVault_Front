@@ -64,13 +64,13 @@ const validatorsLevel2 = (setErrorsForm, currentForm) =>{
                 break;
             case "dni":
                 if(currentForm[prop]){
-                    if (isNaN(currentForm[prop]) || currentForm[prop].length!==8) errors[prop]=true;
+                    if (isNaN(currentForm[prop]) || currentForm[prop].length!==10) errors[prop]=true;
                 }
                     break;     
             case "phone":
                 if(currentForm[prop]){
-                    if (isNaN(currentForm[prop]) || currentForm[prop].length!==9) errors[prop]=true;
-                    if (currentForm[prop].charAt(0)!=="9") errors[prop]=true;
+                    if (isNaN(currentForm[prop]) || currentForm[prop].length!==10) errors[prop]=true;
+                    if (currentForm[prop].charAt(0)!=="3") errors[prop]=true;
                 }
                 break;           
             case "email":
