@@ -308,7 +308,7 @@
     width: 120%;
   }
   .table td.productName {
-    max-width: 80px;
+    max-width: 85px;
   }
   .mobileActions {
     display: flex;
@@ -332,7 +332,14 @@
   .searchInput {
     width: 220px;
   }
-  
+  .buttonsAdd {
+    width: 50px;
+    height: 50px;
+    font-size: 18px;
+  }
+  .iconoAdd {
+    font-size: 50px;
+  }
 }
 
 @media (max-width: 350px) {
