@@ -1,6 +1,7 @@
 import React, { useEffect, useState, ChangeEvent } from 'react';
 import style from "./CreateProduct.module.css";
 import { useFormik } from "formik";
+import * as Yup from "yup";
 import axios from 'axios';
 import swal from 'sweetalert2';
 
@@ -29,14 +30,40 @@ function CreateProduct({ darkMode }) {
     }
   };
 
+  const validationSchema = Yup.object().shape({
+    category: Yup.string().required("Debe seleccionar una categoría"),
+    name: Yup.string().required("Debe ingresar un nombre").max(100, "El nombre debe tener como máximo 100 caracteres"),
+    price: Yup.number().required("Debe ingresar un precio").positive("El precio debe ser positivo").integer("El precio debe ser un número entero").min(1, "El precio debe ser mayor o igual a 1"),
+    stock: Yup.number().required("Debe ingresar una cantidad de stock").positive("La cantidad de stock debe ser positiva").integer("La cantidad de stock debe ser un número entero").min(1, "La cantidad de stock debe ser mayor o igual a 1"),
+    image: Yup.mixed().test('fileSize', 'La imagen debe tener un tamaño de 640x640 píxeles', (value) => {
+      if (!value) return true; // Permite que el campo sea opcional si no se ha seleccionado una imagen
+  
+      const file = value.file; // Accede al archivo seleccionado
+  
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.src = URL.createObjectURL(file);
+  
+        img.onload = function () {
+          if (img.width === 640 && img.height === 640) {
+            resolve(true); // El tamaño de la imagen es válido
+          } else {
+            reject(false); // El tamaño de la imagen no es válido
+          }
+        };
+      });
+    }),
+  });
+
   const formik = useFormik({
-    initialValues: {
+    initialValues: JSON.parse(localStorage.getItem("productForm")) || {
       name: "",
       price: 0,
       category: "",
       brand: "",
       stock: 0
     },
+    validationSchema: validationSchema,
     onSubmit: async (values, { setSubmitting }) => {
       try {
         if (values.stock === 0) {
@@ -83,6 +110,10 @@ function CreateProduct({ darkMode }) {
       }
     }
   });
+  useEffect(() => {
+    // Guardar los valores del formulario en el almacenamiento local
+    localStorage.setItem("productForm", JSON.stringify(formik.values));
+  }, [formik.values]);
 
   return (
     <div className={`${style.createContainer} ${darkMode ? style.darkMode : ''}`}>
@@ -112,6 +143,9 @@ function CreateProduct({ darkMode }) {
                 ))}
               </select>
             </div>
+            {formik.touched.category && formik.errors.category && (
+              <div className={style.error}>{formik.errors.category}</div>
+            )}
           </div>
           <div className={style.formGroup}>
             <label htmlFor="name">Nombre</label>
@@ -120,9 +154,13 @@ function CreateProduct({ darkMode }) {
               id="name"
               name="name"
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               value={formik.values.name}
               className={style.input}
             />
+            {formik.touched.name && formik.errors.name && (
+              <div className={style.error}>{formik.errors.name}</div>
+            )}
           </div>
           <div className={style.formGroup}>
             <label htmlFor="price">Precio</label>
@@ -131,10 +169,13 @@ function CreateProduct({ darkMode }) {
               id="price"
               name="price"
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               value={formik.values.price}
-              min={1}
               className={style.input}
             />
+            {formik.touched.price && formik.errors.price && (
+              <div className={style.error}>{formik.errors.price}</div>
+            )}
           </div>
           <div className={style.formGroup}>
             <label htmlFor="brand">Marca</label>
@@ -143,9 +184,13 @@ function CreateProduct({ darkMode }) {
               id="brand"
               name="brand"
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               value={formik.values.brand}
               className={style.input}
             />
+            {formik.touched.brand && formik.errors.brand && (
+              <div className={style.error}>{formik.errors.brand}</div>
+            )}
           </div>
           <div className={style.formGroup}>
             <label htmlFor="stock">Stock</label>
@@ -154,9 +199,13 @@ function CreateProduct({ darkMode }) {
               id="stock"
               name="stock"
               onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               value={formik.values.stock}
               className={style.input}
             />
+            {formik.touched.stock && formik.errors.stock && (
+              <div className={style.error}>{formik.errors.stock}</div>
+            )}
           </div>
           <div className={style.formGroup}>
             <label htmlFor="image">Imagen del Producto</label>
@@ -167,6 +216,9 @@ function CreateProduct({ darkMode }) {
               className={style.inputFile}
             />
           </div>
+          {formik.touched.image && formik.errors.image && (
+              <div className={style.error}>{formik.errors.image}</div>
+            )}
           <div className={style.formGroup}>
             <input type="submit" value="Agregar" className={style.button} />
           </div>
