@@ -138,6 +138,7 @@ const Header = ({user}) =>{
                                     <Link to={"/category/turismo"} style={category==="turismo"?{backgroundColor:"#0e628b"}:undefined}><li >Turismo</li></Link>      
                                     <Link to={"/category/artesania"} style={category==="artesania"?{backgroundColor:"#0e628b"}:undefined}><li >Artesania</li></Link>      
                                     <Link to={"/category/agropecuario"} style={category==="agropecuario"?{backgroundColor:"#0e628b"}:undefined}><li >Agropecuario</li></Link>      
+                                    <Link to={"/category/servicios"} style={category==="servicios"?{backgroundColor:"#0e628b"}:undefined}><li >servicios</li></Link>      
                                 </nav>  
                             </div>
                         </div>
