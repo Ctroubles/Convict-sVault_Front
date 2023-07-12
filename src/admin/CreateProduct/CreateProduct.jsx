@@ -37,8 +37,7 @@ function CreateProduct({ darkMode }) {
     stock: Yup.number().required("Debe ingresar una cantidad de stock").positive("La cantidad de stock debe ser positiva").integer("La cantidad de stock debe ser un número entero").min(1, "La cantidad de stock debe ser mayor o igual a 1"),
     image: Yup.mixed().test('fileSize', 'La imagen debe tener un tamaño de 640x640 píxeles', (value) => {
       if (!value) return true; // Permite que el campo sea opcional si no se ha seleccionado una imagen
-  
-      const file = value.file; // Accede al archivo seleccionado
+      const file = value.file;
   
       return new Promise((resolve, reject) => {
         const img = new Image();

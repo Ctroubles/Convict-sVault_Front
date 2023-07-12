@@ -1,6 +1,6 @@
 .createContainer {
-    width: 70%;
-    height: 87%;
+    width: 100%;
+    height: 100%;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
