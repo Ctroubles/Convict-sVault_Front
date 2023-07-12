@@ -245,6 +245,9 @@
 }
 
 @media (max-width: 768px) {
+  .table td {
+    white-space: nowrap;
+  }
   .table td.clientName {
     max-width: 100px;
   }
@@ -286,9 +289,6 @@
 }
 
 @media (max-width: 520px) {
-  .table td {
-    white-space: nowrap;
-  }
 
   .table td.clientName {
     max-width: 100px;
@@ -314,6 +314,6 @@
 
 @media (max-width: 350px) {
   .searchInput {
-    width: 150px;
+    width: 220px;
   }
 }

@@ -150,7 +150,7 @@ function Products({ darkMode }) {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 520);
+      setIsMobile(window.innerWidth <= 768);
     };
     window.addEventListener('resize', handleResize);
     handleResize();
