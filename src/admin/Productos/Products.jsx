@@ -20,7 +20,7 @@ function Products({ darkMode }) {
   const [productsPerPage] = useState(13);
   const [isMobile, setIsMobile] = useState(false);
   const [activeFilter, setActiveFilter] = useState("activos");
-
+  const [sortDirection, setSortDirection] = useState('asc');
   //////darkmode///////
   const [tableClassName, setTableClassName] = useState(style.table);
 
@@ -163,30 +163,31 @@ function Products({ darkMode }) {
   const handleToggleFilter = (filter) => {
     setActiveFilter(filter);
     setCurrentPage(1);
-    const filtroProductos = products.filter((product) => {
-      if (filter === "activos") {
-        return product.isActive;
-      } else if (filter === "inactivos") {
-        return !product.isActive;
-      } else {
-        return true;
-      }
-    });
-    setFilteredProducts(filtroProductos);
   };
-
-  const handleSearch = () => {
-    if (searchTerm === "") {
-      handleToggleFilter(activeFilter);
+  const filtroProducts = products
+  .filter((product) => {
+    if (activeFilter === 'activos') {
+      return product.isActive && product.stock>0;
+    } else if (activeFilter === 'inactivos') {
+      return !product.isActive || product.stock===0;
     } else {
-      const filtered = filteredProducts.filter((product) =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      setFilteredProducts(filtered);
+      return true; // Mostrar todos los productos si no hay filtro activo o inactivo seleccionado
     }
-    setCurrentPage(1);
+  })
+  .filter((product) => product.name?.toLowerCase().includes(searchTerm?.toLowerCase()))
+  .sort((a, b) => {
+    const nameA = a.name.toLowerCase();
+    const nameB = b.name.toLowerCase();
+    if (sortDirection === 'asc') {
+      return nameA.localeCompare(nameB);
+    } else {
+      return nameB.localeCompare(nameA);
+    }
+  })
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+    setCurrentPage(1); // Reiniciar la página actual a la primera al realizar una nueva búsqueda
   };
-
   return (
     <div className={`${style.productsContainer} ${darkMode ? style.darkMode : ''}`}>
       <div className={style.searchContainer}>
@@ -240,13 +241,11 @@ function Products({ darkMode }) {
               </tr>
             </thead>
             <tbody>
-            {filteredProducts
+            {filtroProducts
   .slice(indexOfFirstProduct, indexOfLastProduct)
   .map((product, index) => {
     const isProductActive = product.isActive && product.stock > 0;
-    const isProductInactive = !product.isActive;
     
-
     return (
       <tr key={product._id}>
         <td>{getProductNumber(index)}</td>
