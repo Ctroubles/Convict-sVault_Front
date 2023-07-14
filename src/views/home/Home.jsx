@@ -24,6 +24,7 @@ const Home = ()=>{
                             <SliderCategory category={"Turismo"}/>
                             <SliderCategory category={"Artesanias"}/>
                             <SliderCategory category={"Agropecuario"}/>
+                            <SliderCategory category={"Servicios"}/>
                         </div>
                     </label>
                 </div>

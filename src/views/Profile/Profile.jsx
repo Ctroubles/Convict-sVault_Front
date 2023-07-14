@@ -99,10 +99,13 @@ const Profile = ({user}) =>{
 
         setErrors({ ...errors, [target]: null });
         if (validators(target, value)) {
-          setUserData({ ...userData, [target]: value });
+          if (target === "phone" && value.charAt(0) !== "3") {
+            setErrors({ ...errors, [target]: true });
+          } else {
+            setUserData({ ...userData, [target]: value });
+          }
         }
       };
-
     const sendUpdate = async() =>{
         try {
             const setData = {
@@ -210,7 +213,15 @@ const Profile = ({user}) =>{
                                                             Número de teléfono
                                                         </label>
                                                         <div>
-                                                            <input style={editable?editableStyle:undefined} value={userData.phone} name="phone" readOnly={!editable} maxLength={11}  onChange={(e)=>handlerChange(e)}/>                                                            
+                                                        <input
+                                                    style={editable ? editableStyle : undefined}
+                                                    value={userData.phone}
+                                                    name="phone"
+                                                    readOnly={!editable}
+                                                    maxLength={11}
+                                                    onChange={(e) => handlerChange(e)}
+                                                    />
+                                         {errors.phone && <p>El número de teléfono debe comenzar con '3'.</p>}                                                      
                                                         </div>
                                                     </div>
                                                 </div>

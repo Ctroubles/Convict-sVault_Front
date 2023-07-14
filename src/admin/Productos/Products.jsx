@@ -20,7 +20,7 @@ function Products({ darkMode }) {
   const [productsPerPage] = useState(13);
   const [isMobile, setIsMobile] = useState(false);
   const [activeFilter, setActiveFilter] = useState("activos");
-
+  const [sortDirection, setSortDirection] = useState('asc');
   //////darkmode///////
   const [tableClassName, setTableClassName] = useState(style.table);
 
@@ -148,33 +148,46 @@ function Products({ darkMode }) {
     };
   }, []);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    window.addEventListener('resize', handleResize);
+    handleResize();
+  
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   const handleToggleFilter = (filter) => {
     setActiveFilter(filter);
     setCurrentPage(1);
-    const filtroProductos = products.filter((product) => {
-      if (filter === "activos") {
-        return product.isActive;
-      } else if (filter === "inactivos") {
-        return !product.isActive;
-      } else {
-        return true;
-      }
-    });
-    setFilteredProducts(filtroProductos);
   };
-
-  const handleSearch = () => {
-    if (searchTerm === "") {
-      handleToggleFilter(activeFilter); // Aplicar filtro actual
+  const filtroProducts = products
+  .filter((product) => {
+    if (activeFilter === 'activos') {
+      return product.isActive && product.stock>0;
+    } else if (activeFilter === 'inactivos') {
+      return !product.isActive || product.stock===0;
     } else {
-      const filtered = filteredProducts.filter((product) =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      setFilteredProducts(filtered);
+      return true; // Mostrar todos los productos si no hay filtro activo o inactivo seleccionado
     }
-    setCurrentPage(1);
+  })
+  .filter((product) => product.name?.toLowerCase().includes(searchTerm?.toLowerCase()))
+  .sort((a, b) => {
+    const nameA = a.name.toLowerCase();
+    const nameB = b.name.toLowerCase();
+    if (sortDirection === 'asc') {
+      return nameA.localeCompare(nameB);
+    } else {
+      return nameB.localeCompare(nameA);
+    }
+  })
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+    setCurrentPage(1); // Reiniciar la página actual a la primera al realizar una nueva búsqueda
   };
-
   return (
     <div className={`${style.productsContainer} ${darkMode ? style.darkMode : ''}`}>
       <div className={style.searchContainer}>
@@ -192,14 +205,14 @@ function Products({ darkMode }) {
               className={`${style.filterButton} ${activeFilter === 'activos' ? style.activeFilterButton : ''}`}
               onClick={() => handleToggleFilter("activos")}
             >
-              <FaFilter /> Activos
+            Activos
             </button>
           </div>
           <button
             className={`${style.filterButton} ${activeFilter === 'inactivos' ? style.activeFilterButton : ''}`}
             onClick={() => handleToggleFilter('inactivos')}
           >
-            <FaFilter /> Inactivos
+            Inactivos
           </button>
         </div>
       </div>
@@ -212,6 +225,7 @@ function Products({ darkMode }) {
               </div>
             </div>
           ) : null}
+          <div className="tableContainerInner">
            <table>
             <thead>
               <tr>
@@ -222,70 +236,42 @@ function Products({ darkMode }) {
                 <th>Precio</th>
                 {isMobile ? null : <th>ID</th>}
                 {isMobile ? null : <th>Stock</th>}
-                <th>Estado</th>
                 <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
-            {filteredProducts
+            {filtroProducts
   .slice(indexOfFirstProduct, indexOfLastProduct)
   .map((product, index) => {
-    const isProductActive = product.isActive && product.stock > 0;
-    const isProductInactive = !product.isActive;
-    const isProductStockZero = product.stock === 0;
-
+    
     return (
       <tr key={product._id}>
         <td>{getProductNumber(index)}</td>
         <td className={`${style.productName}`}>{product.name}</td>
-        {isMobile ? null : <td>{product.brand}</td>}
-        <td>{product.category}</td>
+        {isMobile ? null : <td>{product.brand || 'Sin marca'}</td>}
+        <td>{product.category[0]}</td>
         <td>{product.price}</td>
         {isMobile ? null : <td className={`${style.productId}`}>{product._id}</td>}
         {isMobile ? null : <td>{product.stock}</td>}
         <td>
-          <FaCircle className={isProductActive ? style.onlineIcon : style.offlineIcon} />
-        </td>
-        <td>
-          {isMobile ? (
-            <div className={style.mobileActions}>
-              <button className={style.editButton} onClick={() => openModal(product)}>
-                <FaEdit />
-              </button>
-              {isProductActive && (
-                <button onClick={() => handleRevoke(product)} className={style.deleteButton}>
-                  <FaTrash />
-                </button>
-              )}
-              {isProductInactive && !isProductStockZero && (
-                <button onClick={() => handleRestore(product)} className={style.restoreButton}>
-                  <FaUndo />
-                </button>
-              )}
-            </div>
-          ) : (
             <div className={style.desktopActions}>
               <button className={style.editButton} onClick={() => openModal(product)}>
                 <FaEdit />
               </button>
-              {isProductActive && (
-                <button onClick={() => handleRevoke(product)} className={style.deleteButton}>
-                  <FaTrash />
-                </button>
-              )}
-              {isProductInactive && !isProductStockZero && (
-                <button onClick={() => handleRestore(product)} className={style.restoreButton}>
-                  <FaUndo />
-                </button>
-              )}
+              {product.isActive && product.stock>0? (
+                              <button onClick={() => handleRevoke(product)} className={style.deleteButton}><FaTrash /></button>
+                            ) : (
+                              <button onClick={() => handleRestore(product)} className={style.restoreButton}><FaUndo /></button>
+                            )}
             </div>
-          )}
+          
         </td>
       </tr>
     );
   })}
             </tbody>
           </table>
+          </div>
           <div className={style.pagination}>
             <button
               disabled={currentPage === 1}

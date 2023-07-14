@@ -1,4 +1,6 @@
 .createContainer {
+    width: 100%;
+    height: 100%;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -8,43 +10,31 @@
     background-color: #e5dfdf;
     color: #007bff;
     box-shadow: 0 15px 20px rgba(0, 0, 0, 0.5);
-}
-
+  }
 
 .formCreate {
-    
-    width: 1000px;
-    height: 500px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+  width: 100%;
+  height: 500px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .formGroup {
     margin-bottom: 10px;
     text-align: center;
-}
+  }
 
 .label {
-    
     font-weight: bold;
     margin-bottom: 5px;
-}
-
-.input {
-    
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
+  }
+.input,
 .select {
-    
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .input:focus,
@@ -57,7 +47,7 @@
 .inputFile {
     width: 100%;
     cursor: pointer;
-}
+  }
 
 .button {
     width: 25%;
@@ -67,8 +57,7 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
-}
-
+  }
 .button:hover {
     background-color: #0056b3;
 }
@@ -82,4 +71,70 @@
 .darkMode {
     background-color: #111;
     color: #fff;
+  }
+
+
+  /* VALIDATION ERROR */
+  .error {
+    color: red;
+    font-size: 12px;
+    /* margin-top: 1px; */
+    text-align: center;
+  }
+
+  /* RESPONSIVE */
+
+  @media (max-width: 965px) {
+    .createContainer {
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+  
+    .formCreate {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+      }
+      .button {
+        width: 100%;
+      }
+      .select {
+        max-width: 100%;
+      }
+  }
+  
+  @media (max-width: 540px) {
+    .createContainer {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  
+    .formCreate {
+      width: 100%;
+      height: auto;
+      max-width: 400px;
+    }
+  
+    .button {
+      width: 100%;
+    }
+    .select {
+        max-width: 100%;
+      }
+  }
+  
+  @media (max-width: 350px) {
+    .createContainer {
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+  
+    .formCreate {
+      width: 100%;
+      height: auto;
+      max-width: 250px;
+    }
+    .select {
+        max-width: 100%;
+      }
   }
