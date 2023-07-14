@@ -8,6 +8,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { validators } from "../../util/validators";
 import axios from "axios";
 import { capitalizeEachWord } from "../../util";
+import Direcciones from "./sections/direcciones/direcciones";
+import Pedidos from "./sections/pedidos/Pedidos";
 
 
 
@@ -34,7 +36,7 @@ const Profile = ({user}) =>{
     const [genderEdit, setGenderEdit] = useState(false)
 
 
-
+    console.log(user)
 
 
     useEffect(()=>{
@@ -60,10 +62,7 @@ const Profile = ({user}) =>{
                 break;            
             case "orders":
                 setSection(3)
-                break;            
-            case "authentication":
-                setSection(4)
-                break;
+                break;            ;
             default:
                 history.push("/account/profile")
                 break;
@@ -97,12 +96,7 @@ const Profile = ({user}) =>{
         const target = e.target.name;
         let value = e.target.value;
         
-        // Verificar y recortar el valor si excede la longitud máxima
-        const maxLength = 11; // Cambiar a 11 para aceptar 10 números
-        if (value.length > maxLength) {
-          value = value.slice(0, maxLength);
-        }
-        
+
         setErrors({ ...errors, [target]: null });
         if (validators(target, value)) {
           setUserData({ ...userData, [target]: value });
@@ -121,7 +115,7 @@ const Profile = ({user}) =>{
                 window.location.reload();
             }else alert("Hubo un error al actualizar el usuario, commpueba los datos (en genero solo se acepta M y F)")
         } catch (error) {
-            alert("Hubo un error al actualizar el usuario, commpueba los datos (en genero solo se acepta M y F)",error)
+            alert("Hubo un error al actualizar el usuario, commpueba los datos (en genero solo se acepta M y F)")
             console.log(error)
         }
     }
@@ -173,11 +167,11 @@ const Profile = ({user}) =>{
                                             <span style={section===3?{color:"#000", fontWeight:"600"}:undefined}>Pedidos</span>
                                         </label>
                                     </div>
-                                    <div>
+                                    {/* <div>
                                         <label className={style.navLink} style={section===4?{borderColor:"#009fe3"}:undefined} onClick={()=>history.push("/account/authentication")}>
                                             <span style={section===4?{color:"#000", fontWeight:"600"}:undefined}>Autenticación</span>
                                         </label>
-                                    </div>
+                                    </div> */}
                                     <div>
                                         <label className={style.navLink} onClick={()=>modalHandler()}>
                                             <span>Salir</span>
@@ -191,8 +185,8 @@ const Profile = ({user}) =>{
                         <div>
                             <div>
                                 <label>
-                                    <h1 style={{padding:"40px", marginTop:"40px",fontSize:"35px"}}>
-                                        {section===1?"Perfil":section===2?"Direcciones":section===3?"Pedidos":section===4?"Autenticación":undefined}
+                                    <h1 style={{padding:"40px", marginTop:"40px",fontSize:"34px"}}>
+                                        {section===1?"Perfil":section===2?"Direcciones":section===3?"Pedidos":undefined}
                                     </h1>
                                 </label>
                             </div>
@@ -295,16 +289,13 @@ const Profile = ({user}) =>{
                                             </div>
                                         </div>
                                         ) : (
-                                            <div style={{padding:"20px",textAlign:"center"}}>
+                                            <div>
                                                 <div>
                                                     <div>
-                                                        <p style={{color:"rgb(151, 152, 153)", fontSize:"24px", fontWeight:400}}>
-                                                            {
-                                                                section===2?"No tienes ninguna dirección registrada.":
-                                                                section===3?"Aún no haz realizando ningún pedido":
-                                                                section===4?"En construcción":undefined
-                                                            }
-                                                        </p>
+                                                        {
+                                                            section===2?(<Direcciones addresses={user.addresses}/>):
+                                                            section===3?(<Pedidos pedidos={user.order}/>):null
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>

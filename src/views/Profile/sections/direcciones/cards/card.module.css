@@ -1,0 +1,132 @@
+#Card{
+    padding: 0 25px 25px 0;
+    max-width: 365px;
+    min-width: 33.33333px;
+    flex-basis: 33.33333%;
+    width: 33.33333%;
+}
+#Card article{
+    border: 1px solid rgb(183, 186, 188);
+    border-radius: 4px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+#Card article main{
+    padding: 50px 40px;
+    width: 100%;
+}
+#Card article main span{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+    display: inline-block;
+    overflow: hidden;
+    color: #979899;
+    line-height: 30px;
+    font-size: 16px;
+}
+#Card article footer{
+    padding: 0 15px 15px;
+    text-align: end;
+}
+#Card article footer button{
+    background-color: transparent;
+    margin-right: 10px;
+    border-radius: 4px;
+    padding: 7px 15px 5px;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+}
+#Card article footer button.update{
+    color: #0f3e99;
+}
+#Card article footer button.update:hover{
+    background-color: #dbe9fd;
+}
+#Card article footer button.delete{
+    color: #e13232;
+}
+#Card article footer button.delete:hover{
+    background-color: #fddbdb;
+}
+#quit{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000000;
+    transition: opacity 0.2s ease;
+    opacity: 1;
+    animation: getIn 0.2s ease;
+    user-select: none;
+}
+#quit.desactive{
+    opacity: 0;
+}
+#quit .cover{
+    width: 100vw;
+    background-color: hsla(0, 0%, 0%, 0.555);
+    color: #f1f1f1;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+#quit .contenido{
+    background-color: #Ffffff;
+    border-radius: 6px;
+    padding: 30px 30px 30px;
+    color: #111111;
+    width: 100%;
+    max-width: 450px;
+}
+#quit .contenido h3{
+    font-size: 20px;
+    line-height: 25px;
+    font-weight: 400;
+    display: inline;
+}
+#quit .contenido #guardar{
+    margin-top: 30px;
+    text-align: end;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+#guardar span, #guardar p{
+    display: inline-block;
+    padding: 6.5px 15px 6.5px 15px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    line-height: 20px;
+}
+#guardar span{
+    color: #0f3e99;
+}
+#guardar span:hover{
+    background-color: #dbe9fd;
+}
+#guardar p{
+    margin: 0 0 0 10px;
+    color: #e13232;
+}
+#guardar p:hover{
+    background-color: #fddbdb;
+}
+
+@keyframes getIn {
+    0%{
+        opacity: 0;
+    }    
+    100%{
+        opacity: 1;
+    }   
+}

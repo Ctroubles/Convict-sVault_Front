@@ -1,0 +1,150 @@
+#Formulario{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+}
+#Formulario .container{
+    padding: 30px 40px;
+    border: 1px solid #b7babc;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 450px;
+}
+#title{
+    padding-bottom: 35px;
+}
+#title h4{
+    font-size: 20px;
+    font-weight: 500;
+}
+.select{
+    padding-bottom: 30px;
+}
+.spanStyle{
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 15px;
+    display: block;
+}
+.inputTopStyle{
+    padding: 4px 10px 10px 15px; 
+}
+.inputStyle{
+    position: relative;
+}
+.inputStyle label{
+    padding: 0 15px 0 15px;
+    border: 1px solid rgb(183, 186, 188);
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+}
+.inputStyle label.danger{
+    border-color: #e13232;
+}
+.inputStyle p{
+    font-size: 16px;
+    font-weight: 400;
+}
+.inputStyle input{
+    font-size: 16px;
+    font-weight: 400;
+    padding: 15px 0;
+    border: none;
+    outline: none;
+    width: 100%;
+    background-color: transparent;
+}
+.inputStyle input::placeholder{
+    color: #979899;
+}
+.inputStyle:focus-within {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    box-shadow: 0px 0px 5px #1111116c;
+}
+.optionsInputs{
+    position: absolute;
+    top: calc(100%);
+    left: 0;
+    width: 100%;
+    display: block;
+    background-color: #fefefe;
+    z-index: 1;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    overflow: hidden;
+    border-left: 1px solid #cccccc;
+    border-right: 1px solid #cccccc;
+    box-shadow: 0px 1px 5px #1111116c;
+    max-height: 275px;
+    overflow-y: auto;
+}
+.optionsInputs::-webkit-scrollbar-thumb {
+    background-color: #696969;
+    border-radius: 4px;
+}
+
+.optionsInputs::-webkit-scrollbar-thumb:hover {
+    background-color: #5e5e5e;
+}
+.optionsInputs::-webkit-scrollbar {
+    width: 8px;
+}
+.optionsInputs .options{
+    border-bottom: 1px solid #cccccc;
+    padding: 10px;
+    cursor: pointer;
+    background-color: #ffffff;
+    font-size: unset;
+}
+.optionsInputs .options p{
+    font-size: 15.5px;
+    line-height: 20px;
+}
+.nonOption{
+    border-bottom: 1px solid #cccccc;
+    padding: 10px;
+    background-color: #ffffff;
+    font-size: unset;
+}
+.nonOption span{
+    font-size: 14px;
+    line-height: 16px;
+    display: block;
+    color: #5a5a5a;
+}
+.optionsInputs .options:hover{
+    background-color: #cccccc5e;
+}
+#addButton button{
+    border: none;
+    background-color: rgb(242, 244, 245);
+    width: 100%;
+    color: rgb(151, 152, 153);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 12px 20px 11px;
+    cursor: not-allowed;
+    border-radius: 4px;
+    text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+#addButton button.active{
+    background-color: rgb(0, 159, 227);
+    cursor: pointer;
+    color: #ffffff;
+    transition: background-color 0.15s ease, transform 0.15s ease;
+}
+#addButton button.active:active{
+    transform: scale(1.02);
+    background-color: rgb(0, 179, 255);
+}
+.error p{
+    color: #e13232;
+    font-size: 14px;
+    line-height: 14px;
+    margin-top: 5px;
+}

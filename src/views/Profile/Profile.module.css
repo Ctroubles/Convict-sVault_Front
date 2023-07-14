@@ -181,6 +181,7 @@
 #quit{
     position: fixed;
     top: 0;
+    left: 0;
     z-index: 1000000;
     transition: opacity 0.2s ease;
     opacity: 1;

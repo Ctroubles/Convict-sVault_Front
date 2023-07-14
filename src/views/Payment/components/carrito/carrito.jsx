@@ -1,7 +1,6 @@
 import styles from "./carrito.module.css";
 import CardCart from "../../../../components/cart/card_cart/CardCart";
-import urlBack from "../../../../util/deploy_back";
-import axios from "axios";
+
 import PAYU from "../paymentButton/payu";
 
 const Carrito = ({loading, items, total, user}) =>{
