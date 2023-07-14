@@ -36,9 +36,6 @@ const Profile = ({user}) =>{
     const [genderEdit, setGenderEdit] = useState(false)
 
 
-    console.log(user)
-
-
     useEffect(()=>{
         setUserData({
             name: user.name || "",
@@ -49,8 +46,6 @@ const Profile = ({user}) =>{
             gender: user.gender || "",
         })
     },[user, editable])
-
-
 
     useEffect(()=>{
         switch (params.sec) {
