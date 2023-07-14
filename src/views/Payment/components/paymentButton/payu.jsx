@@ -39,9 +39,9 @@ console.log(user)
             <input name="payerDocument" type="hidden" value={user.dni} />
             <input name="confirmationUrl" type="hidden" value="http://localhost:3000/confirmation" />
             <input name="Submit" type="submit" value="Pagar con Payu" id={style.paymentButton} />  
-            <input name="shippingAddress"    type="hidden"  value="calle 93 n 47 - 65"   />
+            {/* <input name="shippingAddress"    type="hidden"  value={user.addresses}  />
             <input name="shippingCity"       type="hidden"  value="Andes" />
-            <input name="shippingCountry"    type="hidden"  value="CO" />
+            <input name="shippingCountry"    type="hidden"  value="CO" /> */}
           </form>
       </div>
     );

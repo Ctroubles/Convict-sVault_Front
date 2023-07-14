@@ -15,6 +15,10 @@ import { setId, setUserCart } from "./Redux/store/actions/actions";
 import { useDispatch } from "react-redux";
 import PasarelaDePagos from "./views/Payment/Payment.jsx";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
+import PayUResponseSummary from "./views/Payment/components/paymentButton/PayuResponse/PayuResponsePage";
+import PayUConfirmationPage from "./views/Payment/components/paymentButton/PayuConfirmationPage";
+import ErrorPage from "./views/Payment/components/paymentButton/ErrorPage";
+import SuccesPage from "./views/Payment/components/paymentButton/SuccesPage";
 
 
 // const {PAYPAL_CLIENT_ID}= process.env
@@ -102,6 +106,10 @@ function App() {
       ) : (
         <Router>
           <Route path={"/payment"} render={()=> <PasarelaDePagos user={currentUser}/>} />
+          <Route path={"/response"} render={()=> <PayUResponseSummary/>}/>
+          <Route path={"/confirmation"} render={()=> <PayUConfirmationPage/>}/>
+          <Route path={"/success"} render={() =><SuccesPage />}/>
+          <Route path={"/error"} render={()=> <ErrorPage/>} />
           <Route exact path={"/"} render={() => <Landing />} />
           <Route path="/home" render={() =>
             <>
