@@ -82,6 +82,9 @@
     text-align: center;
   }
 
+  .inputError {
+    border-color: red;
+  }
   /* RESPONSIVE */
 
   @media (max-width: 965px) {
@@ -138,3 +141,5 @@
         max-width: 100%;
       }
   }
+
+  

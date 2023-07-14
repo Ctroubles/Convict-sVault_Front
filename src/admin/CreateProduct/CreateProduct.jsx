@@ -1,9 +1,8 @@
-import React, { useEffect, useState, ChangeEvent } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from "./CreateProduct.module.css";
-import { useFormik } from "formik";
-import * as Yup from "yup";
 import axios from 'axios';
 import swal from 'sweetalert2';
+import { validadorLevel2, validadores } from '../util/validadores';
 
 const categorias = [
   "Equipaje",
@@ -23,96 +22,90 @@ const categorias = [
 
 function CreateProduct({ darkMode }) {
   const [file, setFile] = useState(null);
+  const [values, setValues] = useState({
+    category: "",
+    name: "",
+    price: 0,
+    brand: "",
+    stock: 0
+  });
+  const [errors, setErrors] = useState({});
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  
+    const newErrors = validadores(name, value);
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: newErrors[name],
+    }));
+  };
   const handleFileChange = (e) => {
     if (e.target.value) {
       setFile(e.target.files[0]);
     }
   };
 
-  const validationSchema = Yup.object().shape({
-    category: Yup.string().required("Debe seleccionar una categoría"),
-    name: Yup.string().required("Debe ingresar un nombre").max(100, "El nombre debe tener como máximo 100 caracteres"),
-    price: Yup.number().required("Debe ingresar un precio").positive("El precio debe ser positivo").integer("El precio debe ser un número entero").min(1, "El precio debe ser mayor o igual a 1"),
-    stock: Yup.number().required("Debe ingresar una cantidad de stock").positive("La cantidad de stock debe ser positiva").integer("La cantidad de stock debe ser un número entero").min(1, "La cantidad de stock debe ser mayor o igual a 1"),
-    image: Yup.mixed().test('fileSize', 'La imagen debe tener un tamaño de 640x640 píxeles', (value) => {
-      if (!value) return true; // Permite que el campo sea opcional si no se ha seleccionado una imagen
-      const file = value.file;
-  
-      return new Promise((resolve, reject) => {
-        const img = new Image();
-        img.src = URL.createObjectURL(file);
-  
-        img.onload = function () {
-          if (img.width === 640 && img.height === 640) {
-            resolve(true); // El tamaño de la imagen es válido
-          } else {
-            reject(false); // El tamaño de la imagen no es válido
-          }
-        };
-      });
-    }),
-  });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  const formik = useFormik({
-    initialValues: JSON.parse(localStorage.getItem("productForm")) || {
-      name: "",
-      price: 0,
-      category: "",
-      brand: "",
-      stock: 0
-    },
-    validationSchema: validationSchema,
-    onSubmit: async (values, { setSubmitting }) => {
-      try {
-        if (values.stock === 0) {
-          swal.fire({
-            title: 'Error',
-            text: 'Por favor ingrese una cantidad válida',
-            icon: 'error',
-            confirmButtonText: 'Aceptar',
-            allowOutsideClick: false,
-            allowEnterKey: true
-          });
-          return;
-        }
+    const newErrors = validadorLevel2(setErrors, values);
 
-        var data = new FormData();
-        data.append('image', file);
-        data.append('name', values.name);
-        data.append('category', values.category);
-        data.append('price', values.price);
-        data.append('brand', values.brand);
-        data.append('stock', values.stock);
-
-        const { data: data2 } = await axios.post(`http://localhost:3001/upload/`, data);
-        console.log(data2);
-        swal.fire({
-          title: `Su componente se ha creado con éxito`,
-          icon: 'success',
-          confirmButtonText: 'Aceptar',
-          allowOutsideClick: false,
-          allowEnterKey: true
-        });
-      } catch (error) {
-        console.error(error);
-        swal.fire({
-          title: 'Error al crear el producto',
-          text: error.message,
-          icon: 'error',
-          confirmButtonText: 'Aceptar',
-          timer: 3000,
-          timerProgressBar: true
-        });
-      } finally {
-        setSubmitting(false);
-      }
+    if (Object.keys(newErrors).length > 0) {
+      return;
     }
-  });
+
+    if (values.stock === 0) {
+      swal.fire({
+        title: 'Error',
+        text: 'Por favor ingrese una cantidad válida',
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+        allowOutsideClick: false,
+        allowEnterKey: true
+      });
+      return;
+    }
+
+    try {
+      var data = new FormData();
+      data.append('image', file);
+      data.append('name', values.name);
+      data.append('category', values.category);
+      data.append('price', values.price);
+      data.append('brand', values.brand);
+      data.append('stock', values.stock);
+
+      const { data: data2 } = await axios.post(`http://localhost:3001/upload/`, data);
+      console.log(data2);
+      swal.fire({
+        title: `Su componente se ha creado con éxito`,
+        icon: 'success',
+        confirmButtonText: 'Aceptar',
+        allowOutsideClick: false,
+        allowEnterKey: true
+      });
+    } catch (error) {
+      console.error(error);
+      swal.fire({
+        title: 'Error al crear el producto',
+        text: error.message,
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+        timer: 3000,
+        timerProgressBar: true
+      });
+    }
+  };
+
   useEffect(() => {
     // Guardar los valores del formulario en el almacenamiento local
-    localStorage.setItem("productForm", JSON.stringify(formik.values));
-  }, [formik.values]);
+    localStorage.setItem("productForm", JSON.stringify(values));
+  }, [values]);
 
   return (
     <div className={`${style.createContainer} ${darkMode ? style.darkMode : ''}`}>
@@ -121,7 +114,7 @@ function CreateProduct({ darkMode }) {
         <h1 className={style.tituloCreate}>Agregar producto</h1>
       </div>
       <div>
-        <form onSubmit={formik.handleSubmit} className={style.formCreate}>
+        <form onSubmit={handleSubmit} className={style.formCreate}>
           <div className={style.formGroup}>
             <div>
               <label htmlFor="category">Categoría</label>
@@ -130,11 +123,11 @@ function CreateProduct({ darkMode }) {
               <select
                 id="category"
                 name="category"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.category}
-                className={style.select}
+                onChange={handleInputChange}
+                value={values.category}
+                className={`${style.select} ${errors.category && style.inputError}`}
               >
+                <option value="">Seleccione una categoría</option>
                 {categorias.map((categoria) => (
                   <option key={categoria} value={categoria}>
                     {categoria}
@@ -142,9 +135,9 @@ function CreateProduct({ darkMode }) {
                 ))}
               </select>
             </div>
-            {formik.touched.category && formik.errors.category && (
-              <div className={style.error}>{formik.errors.category}</div>
-            )}
+            {errors.category && <div className={style.error}>
+              <p>Debe seleccionar una categoría</p>
+              </div>}
           </div>
           <div className={style.formGroup}>
             <label htmlFor="name">Nombre</label>
@@ -152,14 +145,13 @@ function CreateProduct({ darkMode }) {
               type="text"
               id="name"
               name="name"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.name}
-              className={style.input}
+              onChange={handleInputChange}
+              value={values.name}
+              className={`${style.input} ${errors.name && style.inputError}`}
             />
-            {formik.touched.name && formik.errors.name && (
-              <div className={style.error}>{formik.errors.name}</div>
-            )}
+            {errors.name && <div className={style.error}>
+              <p>Debe ingresar un nombre con maximo 100 caracteres</p>
+              </div>}
           </div>
           <div className={style.formGroup}>
             <label htmlFor="price">Precio</label>
@@ -167,14 +159,13 @@ function CreateProduct({ darkMode }) {
               type="number"
               id="price"
               name="price"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.price}
-              className={style.input}
+              onChange={handleInputChange}
+              value={values.price}
+              className={`${style.input} ${errors.price && style.inputError}`}
             />
-            {formik.touched.price && formik.errors.price && (
-              <div className={style.error}>{formik.errors.price}</div>
-            )}
+            {errors.price && <div className={style.error}>
+              <p>Debe ingresar un precio mayor o igual que 1, tambien debe ser entero</p>
+              </div>}
           </div>
           <div className={style.formGroup}>
             <label htmlFor="brand">Marca</label>
@@ -182,49 +173,45 @@ function CreateProduct({ darkMode }) {
               type="text"
               id="brand"
               name="brand"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.brand}
-              className={style.input}
-            />
-            {formik.touched.brand && formik.errors.brand && (
-              <div className={style.error}>{formik.errors.brand}</div>
-            )}
-          </div>
-          <div className={style.formGroup}>
-            <label htmlFor="stock">Stock</label>
-            <input
-              type="text"
-              id="stock"
-              name="stock"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.stock}
-              className={style.input}
-            />
-            {formik.touched.stock && formik.errors.stock && (
-              <div className={style.error}>{formik.errors.stock}</div>
-            )}
-          </div>
-          <div className={style.formGroup}>
-            <label htmlFor="image">Imagen del Producto</label>
-            <input
-              type="file"
-              id="image"
-              onChange={handleFileChange}
-              className={style.inputFile}
-            />
-          </div>
-          {formik.touched.image && formik.errors.image && (
-              <div className={style.error}>{formik.errors.image}</div>
-            )}
-          <div className={style.formGroup}>
-            <input type="submit" value="Agregar" className={style.button} />
-          </div>
-        </form>
-      </div>
-    </div>
-  );
+              onChange={handleInputChange}
+value={values.brand}
+className={`${style.input} ${errors.brand && style.inputError}`}
+/>
+{errors.brand && <div className={style.error}>
+  <p>Este campo tiene un maximo de 50 caracteres</p>
+  </div>}
+</div>
+<div className={style.formGroup}>
+<label htmlFor="stock">Stock</label>
+<input
+           type="text"
+           id="stock"
+           name="stock"
+           onChange={handleInputChange}
+           value={values.stock}
+           className={`${style.input} ${errors.stock && style.inputError}`}
+         />
+{errors.stock && <div className={style.error}>
+  <p>Debe ingresar una cantidad de estoy mayor o igual a 1</p>
+  </div>}
+</div>
+<div className={style.formGroup}>
+<label htmlFor="image">Imagen del Producto</label>
+<input
+           type="file"
+           id="image"
+           onChange={handleFileChange}
+           className={style.inputFile}
+         />
+</div>
+{errors.image && <div className={style.error}>{errors.image}</div>}
+<div className={style.formGroup}>
+<input type="submit" value="Agregar" className={style.button} />
+</div>
+</form>
+</div>
+</div>
+);
 }
 
 export default CreateProduct;
