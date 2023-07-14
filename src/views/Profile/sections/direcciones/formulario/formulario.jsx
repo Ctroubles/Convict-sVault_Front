@@ -67,9 +67,17 @@ const Formulario = ({id, updating, data}) =>{
 
     const submitHandler = async() =>{
         try {
-            const aproved = validatorsLevel2(setErrors,formAddress)
+            const DataToSend = {
+                ...formAddress,
+                department: capitalizeFirstLetter(formAddress.department),
+                city: capitalizeFirstLetter(formAddress.city),
+                extraData: capitalizeFirstLetter(formAddress.extraData),
+                street: capitalizeFirstLetter(formAddress.street),
+                number: capitalizeFirstLetter(formAddress.number),
+            }
+            const aproved = validatorsLevel2(setErrors,DataToSend)
             if(aproved){
-                 const {status} = await axios.post(`${Url_deploy_back}/users/update/address/${id}`,formAddress);
+                 const {status} = await axios.post(`${Url_deploy_back}/users/update/address/${id}`,DataToSend);
                 if (status === 200) {
                     window.location.reload();
                 }else throw new Error()
@@ -127,7 +135,7 @@ const Formulario = ({id, updating, data}) =>{
                     </div>
                 </div>
                 <SelectDep setErrors={setErrors} errors={errors} formValue={"department"} form={formAddress} setForm={setFormAddress} title={"Departamento"} options={Object.keys(DEPARTAMENTOS)} targetMenu={targetMenu} handlerMenu={handlerMenu}/>
-                <SelectCity setErrors={setErrors} errors={errors} formValue={"city"} form={formAddress} setForm={setFormAddress} title={"Ciudad"} options={DEPARTAMENTOS[formAddress.department]} targetMenu={targetMenu} handlerMenu={handlerMenu}/>
+                <SelectCity setErrors={setErrors} errors={errors} formValue={"city"} form={formAddress} setForm={setFormAddress} title={"Ciudad"} options={DEPARTAMENTOS[capitalizeFirstLetter(formAddress.department)]} targetMenu={targetMenu} handlerMenu={handlerMenu}/>
                 <div>
                     <div className={style.select} id={formAddress.department?undefined:style.deseabledInput}>
                         <div>
@@ -135,7 +143,7 @@ const Formulario = ({id, updating, data}) =>{
                         </div>
                         <div className={style.inputStyle}>
                             <label className={errors.street?style.danger:undefined}>
-                                <input type="text" name="street" value={formAddress.street} onChange={(e)=>handlerChange(e)} autoComplete="off"/>                                
+                                <input type="text" name="street" value={formAddress.street} onChange={(e)=>handlerChange(e)} autoComplete="off" onFocus={()=>handlerMenu(null)} tabIndex={formAddress.department ?  undefined: -1}/>                                
                             </label>
                         </div>
                         {
@@ -152,7 +160,7 @@ const Formulario = ({id, updating, data}) =>{
                         </div>
                         <div className={`${style.inputStyle}`} >
                             <label className={errors.number?style.danger:undefined}>
-                                <input type="text" name="number"  value={formAddress.number} onChange={(e)=>handlerChange(e)} autoComplete="off"/>                               
+                                <input type="text" name="number"  value={formAddress.number} onChange={(e)=>handlerChange(e)} autoComplete="off" onFocus={()=>handlerMenu(null)} tabIndex={formAddress.department ?  undefined: -1}/>                               
                             </label>
                         </div>
                         {
@@ -169,7 +177,7 @@ const Formulario = ({id, updating, data}) =>{
                         </div>
                         <div className={style.inputStyle}>
                             <label className={errors.extraData?style.danger:undefined}>
-                                <input type="text" name="extraData" value={formAddress.extraData} onChange={(e)=>handlerChange(e)} autoComplete="off"/>                               
+                                <input type="text" name="extraData" value={formAddress.extraData} onChange={(e)=>handlerChange(e)} autoComplete="off" onFocus={()=>handlerMenu(null)} tabIndex={formAddress.department ?  undefined: -1}/>   
                             </label>
                         </div>
                         {
@@ -204,7 +212,6 @@ const SelectDep = ({title, options = [], handlerMenu, targetMenu, setForm, form,
         if(validators(formValue, e.target.value)){
             const value = e.target.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
             const coincidence = options.filter(e=>e.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(value.trim()));
-            console.log(coincidence);
             setOptiones(coincidence);
             setForm({...form, [formValue]:e.target.value})
         }      
@@ -231,7 +238,7 @@ const SelectDep = ({title, options = [], handlerMenu, targetMenu, setForm, form,
                             autoComplete="off"
                             onFocus={()=>handlerMenu(title)}
                             name={title}
-                            placeholder={title}
+                            placeholder={title} 
                         />
                         <div style={{display:"flex", alignItems:"center", justifyContent:"center", pointerEvents:"none"}}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><g fill="##0f3e99"><path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"></path></g></svg>
@@ -294,8 +301,8 @@ const SelectCity = ({title, options = [], handlerMenu, targetMenu, setForm, form
     },[form[formValue]])
 
     useEffect(()=>{
-        if (DEPARTAMENTOS[form.department]) {
-            setOptiones(DEPARTAMENTOS[form.department])
+        if (DEPARTAMENTOS[capitalizeFirstLetter(form.department)]) {
+            setOptiones(DEPARTAMENTOS[capitalizeFirstLetter(form.department)])
         }else setOptiones([])
     },[form.department])
 
@@ -315,6 +322,7 @@ const SelectCity = ({title, options = [], handlerMenu, targetMenu, setForm, form
                             name={title}
                             placeholder={title}
                             readOnly={!form.department}
+                            tabIndex={form.department ? undefined: -1}
                         />
                         <div style={{display:"flex", alignItems:"center", justifyContent:"center", pointerEvents:"none"}}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><g fill="##0f3e99"><path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"></path></g></svg>
