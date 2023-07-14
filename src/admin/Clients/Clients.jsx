@@ -211,9 +211,9 @@ useEffect(() => {
                 <th></th>
                 <th>Nombre</th>
                 <th>Apellido</th>
+                <th>Celular</th>
                 <th>Email</th>
                 {isMobile ? null : <th>ID</th>}
-                {isMobile ? null : <th>Estado</th>}
                 <th>Accion</th>
                 <th>Admin</th>
               </tr>
@@ -224,14 +224,11 @@ useEffect(() => {
           .map((client, index) => (
                 <tr key={client._id}>
                   <td>{(currentPage - 1) * clientsPerPage + index + 1}</td>
-                  <td>{client.name}</td>
-                  <td>{client.surname}</td>
+                  <td>{client.name || 'Sin nombre'}</td>
+                  <td>{client.surname || 'Sin apellido'}</td>
+                  <td>{client.phone ? client.phone : 'No disponible'}</td>
                   <td className={`${style.clientName}`}>{client.email}</td>
                   {isMobile ? null : <td>{client._id}</td>}
-                  {isMobile ? null : <td>
-                      <FaCircle className={client.isActive ? style.onlineStatus : style.offlineStatus} />
-                    </td>}
-                  
                     <td>
   {client.isActive ? (
     <button onClick={() => handleRevoke(client)} className={style.deleteButton}>

@@ -66,9 +66,9 @@
   font-weight: bold;
 }
 
-.table td:last-child {
+/* .table td:last-child {
   text-align: center;
-}
+} */
 
 .searchContainer {
   margin-top: 20px;
@@ -235,12 +235,22 @@
   white-space: nowrap;
 }
 
+.table td:first-child {
+  text-align: center;
+}
+
    /* RESPONSIVE */
 
-@media (max-width: 940px) {
+@media (max-width: 965px) {
   .tableContainerInner {
     overflow-x: scroll;
     width: 120%;
+  }
+  .table td.productName {
+    max-width: 110px;
+  }
+  .table td {
+    white-space: nowrap;
   }
 }
 

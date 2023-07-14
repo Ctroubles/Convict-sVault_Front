@@ -236,7 +236,6 @@ function Products({ darkMode }) {
                 <th>Precio</th>
                 {isMobile ? null : <th>ID</th>}
                 {isMobile ? null : <th>Stock</th>}
-                {isMobile ? null : <th>Estado</th>}
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -244,22 +243,16 @@ function Products({ darkMode }) {
             {filtroProducts
   .slice(indexOfFirstProduct, indexOfLastProduct)
   .map((product, index) => {
-    const isProductActive = product.isActive && product.stock > 0;
     
     return (
       <tr key={product._id}>
         <td>{getProductNumber(index)}</td>
         <td className={`${style.productName}`}>{product.name}</td>
-        {isMobile ? null : <td>{product.brand}</td>}
-        <td>{product.category}</td>
+        {isMobile ? null : <td>{product.brand || 'Sin marca'}</td>}
+        <td>{product.category[0]}</td>
         <td>{product.price}</td>
         {isMobile ? null : <td className={`${style.productId}`}>{product._id}</td>}
         {isMobile ? null : <td>{product.stock}</td>}
-        {isMobile? null: 
-        <td>
-          <FaCircle className={isProductActive ? style.onlineIcon : style.offlineIcon} />
-        </td>
-        }
         <td>
             <div className={style.desktopActions}>
               <button className={style.editButton} onClick={() => openModal(product)}>
