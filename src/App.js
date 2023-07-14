@@ -17,13 +17,14 @@ import PasarelaDePagos from "./views/Payment/Payment.jsx";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import PayUResponseSummary from "./views/Payment/components/paymentButton/PayuResponse/PayuResponsePage";
 import PayUConfirmationPage from "./views/Payment/components/paymentButton/PayuConfirmationPage";
-import ErrorPage from "./views/Payment/components/paymentButton/ErrorPage";
 import SuccesPage from "./views/Payment/components/paymentButton/SuccesPage";
+import ErrorPage from "./views/Payment/components/paymentButton/ErrorPage";
+import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 
 
-// const {PAYPAL_CLIENT_ID}= process.env
 
 function App() {
+
   const history = useHistory();
 
   const dispatch = useDispatch();
@@ -135,8 +136,18 @@ function App() {
               </>
             )
           } />
-          <Route path={"/dashboard"} render={() => <Dashboard />} />
-          {/* <Route path={"/dashboard"} render={() => !isAuthenticated ? loginWithRedirect() : currentUser?.isAdmin ? <Dashboard /> : <Redirect to="/home" />} /> */}
+            <Route
+              path="/dashboard"
+              render={() =>
+                !isAuthenticated ? (
+                  loginWithRedirect()
+                ) : currentUser?.isAdmin ? (
+                  <Dashboard />
+                ) : (
+                  <Redirect to="/home" />
+                )
+              }
+            />
         </Router>
       )}
     </div>

@@ -8,6 +8,7 @@ function PayUResponseSummary() {
   const location = useLocation();
   const history = useHistory();
 
+  
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const transactionState = searchParams.get('transactionState');

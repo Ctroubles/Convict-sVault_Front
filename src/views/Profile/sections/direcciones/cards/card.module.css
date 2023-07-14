@@ -14,7 +14,7 @@
     justify-content: space-between;
 }
 #Card article main{
-    padding: 50px 40px;
+    padding: 50px 40px 20px;
     width: 100%;
 }
 #Card article main span{

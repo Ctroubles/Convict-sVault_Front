@@ -18,7 +18,7 @@ import Cart from "../cart/Cart";
 
 const Header = ({user}) =>{
 
-    // console.log(user.isAdmin)
+    console.log(user)
 
 
     const {cart} = useSelector(state => state)
@@ -74,6 +74,16 @@ const Header = ({user}) =>{
                                                         <span>{user.email}</span>
                                                     </label>
                                                 </div>
+                                                {
+                                                    user.isAdmin?(
+                                                        <Link className={style.options} to={"/dashboard"}>
+                                                            <label>
+                                                                <RiShieldUserFill className={style.dashboardIcon} />
+                                                                <span>Admin dashboard</span>  
+                                                            </label>
+                                                        </Link>
+                                                    ) : null
+                                                }                                                                 
                                                 <Link className={style.options} to="/account/profile" >
                                                     <label>
                                                         <span>Mi perfil</span>
@@ -104,12 +114,7 @@ const Header = ({user}) =>{
                                         </label>
                                         <span>{itemsCart}</span>
                                     </div>
-                                </div>
-                                {
-                                    <Link to={"/dashboard"}>
-                                    <RiShieldUserFill className={style.dashboardIcon} />
-                                    </Link>
-                                }
+                                </div>                   
                             </div>
                         </div>
                         <div style={{backgroundColor:"#009fe3", display:"flex", padding:"0 16px", justifyContent:"center"}}>
