@@ -183,7 +183,7 @@ const Formulario = ({id, updating, data}) =>{
                 </div>
                 <div>
                     <div id={style.addButton} >
-                        <button className={(errors.city || errors.country || errors.department || errors.extraData || errors.number || errors.province || errors.street) ? undefined: style.active} onClick={updating ?()=>updateHandler():()=>submitHandler()}>
+                        <button className={ !formAddress.department || (errors.city || errors.country || errors.department || errors.extraData || errors.number || errors.province || errors.street) ? undefined: style.active} onClick={updating ?()=>updateHandler():()=>submitHandler()}>
                             {
                                 updating ? "ACTUALIZAR DIRECCIÓN" : "AÑADIR DIRECCIÓN"
                             }                            

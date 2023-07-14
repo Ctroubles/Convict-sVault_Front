@@ -252,13 +252,14 @@ const validatorsLevel2 = (setErrorsForm, currentForm) =>{
             case "country":        
                 break;
             case "department":
-                if(!DEPARTAMENTOS.includes(currentForm[prop])){
+                if(!Object.keys(DEPARTAMENTOS).includes(currentForm[prop])){
                     errors[prop]=true;
                     aproved = false
                 }
                 break;     
             case "city":
-                if(!DEPARTAMENTOS[currentForm.department].includes(currentForm[prop])){
+                console.log(DEPARTAMENTOS[currentForm.department]);
+                if(!DEPARTAMENTOS[currentForm.department]?.includes(currentForm[prop])){
                     errors[prop]=true;
                     aproved = false
                 }
