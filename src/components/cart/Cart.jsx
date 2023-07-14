@@ -6,6 +6,7 @@ import { useState } from "react";
 import CardCart from "./card_cart/CardCart";
 // import { PayPalButtons } from "@paypal/react-paypal-js";
 import { useHistory } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
 const Cart = ({ setCartStatus }) => {
@@ -31,16 +32,18 @@ const Cart = ({ setCartStatus }) => {
         if (!data.hasOwnProperty('price')) {
           throw new Error('El objeto de producto no contiene una propiedad "price".');
         }
+  
+        // Verificar si la cantidad es mayor al stock
+       
         total = total + data.price * e[key];
         return { ...data, quantity: e[key] };
       })
     );
-
+  
     setItems(carrito);
     setTotal(total);
     setLoading(false);
   };
-
   useEffect(() => {
     obtenerProductos(cart);
   }, [cart]);
@@ -75,6 +78,7 @@ const Cart = ({ setCartStatus }) => {
                       brand={e.brand}
                       id={e._id}
                       quantity={e.quantity}
+                      stock={e.stock}
                     />
                   ))}
                 </div>

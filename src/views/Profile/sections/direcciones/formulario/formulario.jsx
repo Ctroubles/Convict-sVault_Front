@@ -3,7 +3,7 @@ import style from "./formulario.module.css";
 import { useRef } from "react";
 import Url_deploy_back from "../../../../../util/deploy_back";
 import axios from "axios";
-import { CIUDADES, DEPARTAMENTOS, PROVINCIAS, validators, validatorsLevel2 } from "../utils/utils";
+import { DEPARTAMENTOS, validators, validatorsLevel2 } from "../utils/utils";
 import { capitalizeFirstLetter } from "../../../../../util";
 
 const Formulario = ({id, updating, data}) =>{
@@ -128,8 +128,8 @@ const Formulario = ({id, updating, data}) =>{
                     </div>
                 </div>
                 <Select setErrors={setErrors} errors={errors} formValue={"department"} form={formAddress} setForm={setFormAddress} title={"Departamento"} options={DEPARTAMENTOS} targetMenu={targetMenu} handlerMenu={handlerMenu}/>
-                <Select setErrors={setErrors} errors={errors} formValue={"province"} form={formAddress} setForm={setFormAddress} title={"Provincia"} options={PROVINCIAS} targetMenu={targetMenu} handlerMenu={handlerMenu}/>
-                <Select setErrors={setErrors} errors={errors} formValue={"city"} form={formAddress} setForm={setFormAddress} title={"Ciudad"} options={CIUDADES} targetMenu={targetMenu} handlerMenu={handlerMenu}/>
+                {/* <Select setErrors={setErrors} errors={errors} formValue={"province"} form={formAddress} setForm={setFormAddress} title={"Provincia"} options={PROVINCIAS} targetMenu={targetMenu} handlerMenu={handlerMenu}/> */}
+                {/* <Select setErrors={setErrors} errors={errors} formValue={"city"} form={formAddress} setForm={setFormAddress} title={"Ciudad"} options={CIUDADES} targetMenu={targetMenu} handlerMenu={handlerMenu}/> */}
                 <div>
                     <div className={style.select}>
                         <div>

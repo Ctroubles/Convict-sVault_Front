@@ -4,20 +4,27 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { setUserCart } from "../../../Redux/store/actions/actions";
+import { useState } from "react";
 
 
-const CardCart = ({name, img, price, brand, id, quantity}) =>{
+const CardCart = ({name, img, price, brand, id, quantity, stock}) =>{
+    const [isMaxQuantityReached, setIsMaxQuantityReached] = useState(quantity >= stock);
 
     const {id:userID} = useSelector(state=>state)
     const dispatch = useDispatch()
 
-    const addToCar = async() =>{
-        const {data} = await axios.put("http://localhost:3001/cart/addItem",{
-            "userid":userID,
-            "itemid":id,
-        })
-        dispatch(setUserCart(data));
-    }
+    const addToCar = async () => {
+        if (quantity < stock) {
+          const { data } = await axios.put("http://localhost:3001/cart/addItem", {
+            userid: userID,
+            itemid: id,
+          });
+          dispatch(setUserCart(data));
+        }
+        // Actualizar la variable de estado
+        setIsMaxQuantityReached(quantity + 1 >= stock);
+      };
+    
 
     const subtractToCar = async() =>{
         const {data} = await axios.put("http://localhost:3001/cart/subtractItem",{
@@ -61,7 +68,7 @@ const CardCart = ({name, img, price, brand, id, quantity}) =>{
                         <div id={style.quantitySection}>
                             <div><label onClick={()=>subtractToCar()}>-</label></div>
                             <div><span>{quantity}</span></div>
-                            <div><label onClick={()=>addToCar()}>+</label></div>
+                            <div> <label onClick={() => addToCar()} disabled={quantity >= stock}/></div>
                         </div>
                     </div>
                 </div>
