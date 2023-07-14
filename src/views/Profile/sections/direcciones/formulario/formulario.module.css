@@ -35,7 +35,7 @@
 }
 .inputStyle label{
     padding: 0 15px 0 15px;
-    border: 1px solid rgb(183, 186, 188);
+    border: 1px solid rgb(163, 166, 168);
     border-radius: 4px;
     display: flex;
     justify-content: space-between;
@@ -147,4 +147,11 @@
     font-size: 14px;
     line-height: 14px;
     margin-top: 5px;
+}
+#deseabledInput{
+    opacity: 0.5;
+    pointer-events: none;
+}
+#deseabledInput *{
+    pointer-events: none;
 }

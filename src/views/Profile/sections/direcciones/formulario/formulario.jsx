@@ -15,7 +15,6 @@ const Formulario = ({id, updating, data}) =>{
     const [formAddress, setFormAddress] = useState(!updating && !data ? {
         country:"Colombia",
         department:"",
-        province:"",
         city:"",
         street:"",
         number:"",
@@ -23,7 +22,6 @@ const Formulario = ({id, updating, data}) =>{
     } : {
         country:"Colombia",
         department: data.department,
-        province:data.province,
         city: data.city,
         street: data.street,
         number: data.number,
@@ -33,7 +31,6 @@ const Formulario = ({id, updating, data}) =>{
     const [errors, setErrors] = useState({
         country:null,
         department:false,
-        province:false,
         city:false,
         street:false,
         number:false,
@@ -61,7 +58,10 @@ const Formulario = ({id, updating, data}) =>{
 
 
     const handlerChange = ({target}) =>{
-        if(validators(target.name, target.value)) setFormAddress({...formAddress, [target.name]:target.value})        
+        if(validators(target.name, target.value)){ 
+            setFormAddress({...formAddress, [target.name]:target.value})  
+            setErrors({...errors,[target.name]:null})
+        }      
     }
 
 
@@ -85,7 +85,6 @@ const Formulario = ({id, updating, data}) =>{
             const DataToSend = {
                 ...formAddress,
                 department: capitalizeFirstLetter(formAddress.department),
-                province: capitalizeFirstLetter(formAddress.province),
                 city: capitalizeFirstLetter(formAddress.city),
                 extraData: capitalizeFirstLetter(formAddress.extraData),
                 street: capitalizeFirstLetter(formAddress.street),
@@ -127,11 +126,10 @@ const Formulario = ({id, updating, data}) =>{
                         </div>
                     </div>
                 </div>
-                <Select setErrors={setErrors} errors={errors} formValue={"department"} form={formAddress} setForm={setFormAddress} title={"Departamento"} options={DEPARTAMENTOS} targetMenu={targetMenu} handlerMenu={handlerMenu}/>
-                {/* <Select setErrors={setErrors} errors={errors} formValue={"province"} form={formAddress} setForm={setFormAddress} title={"Provincia"} options={PROVINCIAS} targetMenu={targetMenu} handlerMenu={handlerMenu}/> */}
-                {/* <Select setErrors={setErrors} errors={errors} formValue={"city"} form={formAddress} setForm={setFormAddress} title={"Ciudad"} options={CIUDADES} targetMenu={targetMenu} handlerMenu={handlerMenu}/> */}
+                <SelectDep setErrors={setErrors} errors={errors} formValue={"department"} form={formAddress} setForm={setFormAddress} title={"Departamento"} options={Object.keys(DEPARTAMENTOS)} targetMenu={targetMenu} handlerMenu={handlerMenu}/>
+                <SelectCity setErrors={setErrors} errors={errors} formValue={"city"} form={formAddress} setForm={setFormAddress} title={"Ciudad"} options={DEPARTAMENTOS[formAddress.department]} targetMenu={targetMenu} handlerMenu={handlerMenu}/>
                 <div>
-                    <div className={style.select}>
+                    <div className={style.select} id={formAddress.department?undefined:style.deseabledInput}>
                         <div>
                             <span className={style.spanStyle}>Calle (Jirón, Avenida)</span>
                         </div>
@@ -148,7 +146,7 @@ const Formulario = ({id, updating, data}) =>{
                             ) : null
                         }
                     </div>
-                    <div className={style.select}>
+                    <div className={style.select} id={formAddress.department?undefined:style.deseabledInput}>
                         <div>
                             <span className={style.spanStyle}>Número</span>
                         </div>
@@ -165,7 +163,7 @@ const Formulario = ({id, updating, data}) =>{
                             ) : null
                         }
                     </div>                    
-                    <div className={style.select}>
+                    <div className={style.select} id={formAddress.department?undefined:style.deseabledInput}>
                         <div>
                             <span className={style.spanStyle}>Información adicional (Ej.: Frente a la plaza principal)</span>
                         </div>
@@ -197,7 +195,86 @@ const Formulario = ({id, updating, data}) =>{
     )
 };
 
-const Select = ({title, options = [], handlerMenu, targetMenu, setForm, form, formValue, errors, setErrors}) =>{
+const SelectDep = ({title, options = [], handlerMenu, targetMenu, setForm, form, formValue, errors, setErrors}) =>{
+
+
+    const [optionsArr, setOptiones] = useState(options)
+    
+    const handlerChange = (e) =>{
+        if(validators(formValue, e.target.value)){
+            const value = e.target.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            const coincidence = options.filter(e=>e.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(value.trim()));
+            console.log(coincidence);
+            setOptiones(coincidence);
+            setForm({...form, [formValue]:e.target.value})
+        }      
+    }
+
+
+    useEffect(()=>{
+        setErrors({...errors, [formValue]:null})
+    },[form[formValue]])    
+    
+
+
+    return(
+        <div className={style.select}>
+            <div>
+                <span className={style.spanStyle}>{title}</span>
+            </div>
+            <div>
+                <div className={style.inputStyle} htmlFor={title}>
+                    <label htmlFor={title} className={errors[formValue]?style.danger:null}>
+                        <input id={title} type="text" 
+                            value={form[formValue]}
+                            onChange={(e) => handlerChange(e)}
+                            autoComplete="off"
+                            onFocus={()=>handlerMenu(title)}
+                            name={title}
+                            placeholder={title}
+                        />
+                        <div style={{display:"flex", alignItems:"center", justifyContent:"center", pointerEvents:"none"}}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><g fill="##0f3e99"><path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"></path></g></svg>
+                        </div>
+                    </label>
+                    <div className={style.optionsInputs}>
+                             {
+                                 targetMenu === title ? (
+                                    <div>
+                                        {
+                                            optionsArr.length ?
+                                            optionsArr.map((e,i)=> (
+                                                            <div onClick={()=>setForm({...form, [formValue]:e})} key={i} className={style.options}>
+                                                                <p>{e}</p>
+                                                            </div>
+                                                            ))
+                                            : (
+                                                <div className={style.nonOption}>
+                                                    <span>No hay coicidencia.</span>
+                                                </div>
+                                            ) 
+                                            
+                                        }
+                                     </div>
+                                ) : null
+                            }
+                    </div>
+                </div>
+            </div>
+           {
+                errors[formValue] ? (
+                    <div className={style.error}>
+                        <p>Ingresa un valor válido para {title}</p>
+                    </div>
+                ) : null
+           }     
+        </div>
+    )
+}
+
+
+
+const SelectCity = ({title, options = [], handlerMenu, targetMenu, setForm, form, formValue, errors, setErrors}) =>{
 
 
     const [optionsArr, setOptiones] = useState(options)
@@ -216,13 +293,19 @@ const Select = ({title, options = [], handlerMenu, targetMenu, setForm, form, fo
         setErrors({...errors, [formValue]:null})
     },[form[formValue]])
 
+    useEffect(()=>{
+        if (DEPARTAMENTOS[form.department]) {
+            setOptiones(DEPARTAMENTOS[form.department])
+        }else setOptiones([])
+    },[form.department])
+
     return(
-        <div className={style.select}>
+        <div className={style.select} id={form.department?undefined:style.deseabledInput}>
             <div>
                 <span className={style.spanStyle}>{title}</span>
             </div>
             <div>
-                <div className={style.inputStyle} htmlFor={title}>
+                <div className={style.inputStyle} htmlFor={title} >
                     <label htmlFor={title} className={errors[formValue]?style.danger:null}>
                         <input id={title} type="text" 
                             value={form[formValue]}
@@ -231,6 +314,7 @@ const Select = ({title, options = [], handlerMenu, targetMenu, setForm, form, fo
                             onFocus={()=>handlerMenu(title)}
                             name={title}
                             placeholder={title}
+                            readOnly={!form.department}
                         />
                         <div style={{display:"flex", alignItems:"center", justifyContent:"center", pointerEvents:"none"}}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><g fill="##0f3e99"><path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"></path></g></svg>

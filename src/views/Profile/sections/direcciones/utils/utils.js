@@ -199,7 +199,7 @@ const DEPARTAMENTOS = {
       Vichada: [
       "Puerto Carreño", "Cumaribo", "La Primavera", "Santa Rosalía", "San José de Ocune"
       ]
-      };
+};
 const validators = (target,value) =>{
     let result = false;
 
@@ -211,12 +211,6 @@ const validators = (target,value) =>{
             break;        
         case "department":
             if(regex.test(value))result = true
-            else result = false
-            if(value.length>25)result=false;
-            if(value.length===0)result = true
-            break;
-        case "province":
-             if(regex.test(value))result = true
             else result = false
             if(value.length>25)result=false;
             if(value.length===0)result = true
@@ -262,15 +256,9 @@ const validatorsLevel2 = (setErrorsForm, currentForm) =>{
                     errors[prop]=true;
                     aproved = false
                 }
-                break;
-            case "province":
-                if(!PROVINCIAS.includes(currentForm[prop])){
-                    errors[prop]=true;
-                    aproved = false
-                }
-                    break;     
+                break;     
             case "city":
-                if(!CIUDADES.includes(currentForm[prop])){
+                if(!DEPARTAMENTOS[currentForm.department].includes(currentForm[prop])){
                     errors[prop]=true;
                     aproved = false
                 }
