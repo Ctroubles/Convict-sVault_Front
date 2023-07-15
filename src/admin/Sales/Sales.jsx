@@ -101,7 +101,18 @@ function Sales() {
   useEffect(() => {
     getProducts();
     getTotalRevenue();
+    getApprovedCount();
   }, []);
+
+  const getApprovedCount = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/transactions/approved-count');
+      const { approvedCount } = response.data;
+      setSalesCount(approvedCount);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const getProducts = async () => {
     try {
