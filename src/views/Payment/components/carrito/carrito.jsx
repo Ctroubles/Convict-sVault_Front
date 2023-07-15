@@ -4,7 +4,6 @@ import CardCart from "../../../../components/cart/card_cart/CardCart";
 import PAYU from "../paymentButton/payu";
 
 const Carrito = ({loading, items, total, user}) =>{
-
     return (
         <div style={{}}>
         <div id={styles.Cart}>
@@ -62,7 +61,7 @@ const Carrito = ({loading, items, total, user}) =>{
                   </div>
                 </div>
                 <div id={styles.containerPaymentButton}>
-                    <PAYU loading={loading} total={total} user={user} />
+                    <PAYU loading={loading} total={total} user={user} items={items} />
                 </div>                                  
               </div>
             </div>

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useLocation, useHistory, Link } from 'react-router-dom';
 import styles from './PayuResponse.module.css';
+import Sales from '../../../../../admin/Sales/Sales';
 
 const CryptoJS = require("crypto-js");
 
@@ -8,7 +9,6 @@ function PayUResponseSummary() {
   const location = useLocation();
   const history = useHistory();
 
-  
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const transactionState = searchParams.get('transactionState');
@@ -24,8 +24,9 @@ function PayUResponseSummary() {
       // history.push('/error');
     }
   }, [location.search, history]);
+
   const searchParams = new URLSearchParams(location.search);
-  const TX_VALUE = searchParams.get('TX_VALUE');
+  const TX_VALUE = parseFloat(searchParams.get('TX_VALUE'));
   const transactionState = searchParams.get('transactionState');
   const cus = searchParams.get('cus');
   const extra1 = searchParams.get('description');
@@ -35,7 +36,6 @@ function PayUResponseSummary() {
 
   if (transactionState === '4') {
     estadoTx = 'Transacción aprobada';
-    
   } else if (transactionState === '5') {
     estadoTx = 'Transacción expirada';
   } else if (transactionState === '6') {
@@ -44,10 +44,10 @@ function PayUResponseSummary() {
     estadoTx = 'Pago pendiente';
   } else if (transactionState === '104') {
     estadoTx = 'Error';
-  }  else {
+  } else {
     estadoTx = searchParams.get('mensaje');
   }
-
+ console.log(TX_VALUE)
   return (
     <div className={styles.container}>
       <div className={styles.summary}>
@@ -82,6 +82,7 @@ function PayUResponseSummary() {
           Volver al inicio
         </Link>
       </div>
+      <Sales txValue={TX_VALUE} />
     </div>
   );
 }

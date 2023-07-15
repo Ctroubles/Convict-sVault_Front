@@ -81,7 +81,7 @@ function CategoryChart({ categoryCounts, chartType }) {
   );
 }
 
-function Sales() {
+function Sales({ txValue }) {
   const [soldProducts, setSoldProducts] = useState([]);
   const [stockProducts, setStockProducts] = useState([]);
   const [categoryCounts, setCategoryCounts] = useState([]);
@@ -89,22 +89,30 @@ function Sales() {
     const savedChartType = localStorage.getItem('chartType');
     return savedChartType || 'pie';
   });
-  const [visitsCount, setVisitsCount] = useState(0);
   const [salesCount, setSalesCount] = useState(0);
-  const [revenue, setRevenue] = useState(0);
+  const [txValue2, setTxValue2] = useState(0);
+  const [totalRevenue, setTotalRevenue] = useState(0);
+  const [transactionHistory, setTransactionHistory] = useState([]);
+
+  console.log(txValue);
+
+  useEffect(()=>{
+    setTotalRevenue(txValue)
+  })
 
   useEffect(() => {
     getProducts();
-    // updateVisitsCount();
   }, []);
 
   useEffect(() => {
     localStorage.setItem('chartType', chartType);
   }, [chartType]);
 
-  // useEffect(() => {
-  //   saveVisitsCount(visitsCount);
-  // }, [visitsCount]);
+  useEffect(() => {
+    setTransactionHistory((prevTransactionHistory) => [...prevTransactionHistory, txValue]);
+    setTotalRevenue((prevTotalRevenue) => prevTotalRevenue + Number.parseFloat(txValue));
+  }, [txValue]);
+  
 
   const getProducts = async () => {
     try {
@@ -117,7 +125,6 @@ function Sales() {
       console.error(error);
     }
   };
-
 
   const getCategoryCounts = (products) => {
     const categoryCounts = {};
@@ -132,46 +139,19 @@ function Sales() {
     return categoryCounts;
   };
 
-  // const updateVisitsCount = () => {
-  //   setVisitsCount((prevCount) => prevCount + 1);
-  // };
-
-  // const saveVisitsCount = async (count) => {
-  //   try {
-  //     await axios.post('http://localhost:3001/visit/totales', { visitasDiarias: count });
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  // const getVisit = async () => {
-  //   try {
-  //     const response = await axios.get('http://localhost:3001/products');
-  //     const products = response.data;
-  //     setSoldProducts(products.filter((product) => !product.isActive));
-  //     setStockProducts(products.filter((product) => product.isActive));
-  //     setCategoryCounts(getCategoryCounts(products));
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
   const handleChartTypeChange = (type) => {
     setChartType(type);
+  };
+
+  const handleSale = (saleValue) => {
+    // Actualiza el estado de las ventas y el total de ingresos acumulados
+    setSalesCount(salesCount + 1);
+    setTotalRevenue(totalRevenue + saleValue);
   };
 
   return (
     <div className={style.salescontainer}>
       <div className={style.cardsContainer}>
-        {/* <div className={style.card}>
-          <div className={style.cardIcon}>
-            <FaUsers />
-          </div>
-          <div className={style.cardInfo}>
-            <h3>Visitas</h3>
-            <p>{visitsCount}</p>
-          </div>
-        </div> */}
         <div className={style.card}>
           <div className={style.cardIcon}>
             <FaShoppingCart />
@@ -187,10 +167,10 @@ function Sales() {
           </div>
           <div className={style.cardInfo}>
             <h3>Ingresos</h3>
-            <p>${revenue}</p>
+            <p>${totalRevenue.toFixed(0)}</p>
           </div>
         </div>
-        </div>
+      </div>
       <div className={style.chart}>
         <CategoryChart categoryCounts={categoryCounts} chartType={chartType} />
       </div>

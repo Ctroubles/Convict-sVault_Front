@@ -8,21 +8,23 @@ import { useState } from "react";
 
 
 const CardCart = ({name, img, price, brand, id, quantity, stock}) =>{
+    // console.log(stock)
     const [isMaxQuantityReached, setIsMaxQuantityReached] = useState(quantity >= stock);
 
     const {id:userID} = useSelector(state=>state)
     const dispatch = useDispatch()
 
     const addToCar = async () => {
-        if (quantity < stock) {
+        if (quantity <= stock) {
+            // console.log("hola",data.stock)
           const { data } = await axios.put("http://localhost:3001/cart/addItem", {
-            userid: userID,
-            itemid: id,
-          });
+              userid: userID,
+              itemid: id,
+            });
           dispatch(setUserCart(data));
         }
         // Actualizar la variable de estado
-        setIsMaxQuantityReached(quantity + 1 >= stock);
+        setIsMaxQuantityReached(quantity  >= stock);
       };
     
 
@@ -68,7 +70,7 @@ const CardCart = ({name, img, price, brand, id, quantity, stock}) =>{
                         <div id={style.quantitySection}>
                             <div><label onClick={()=>subtractToCar()}>-</label></div>
                             <div><span>{quantity}</span></div>
-                            <div> <label onClick={() => addToCar()} disabled={quantity >= stock}/></div>
+                            <div> <label onClick={() => addToCar()} disabled={isMaxQuantityReached}>+</label></div>
                         </div>
                     </div>
                 </div>
