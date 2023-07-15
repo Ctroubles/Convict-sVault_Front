@@ -77,7 +77,12 @@ function CategoryChart({ categoryCounts, chartType }) {
   return (
     <div className={style.salescontainer}>
       <h2>Categorías</h2>
-      <canvas ref={chartRef} style={{ width: '400px', height: '400px' }}></canvas>
+      <div className={style.chartContainer}>
+  <canvas
+    ref={chartRef}
+    className={style.chartCanvas}
+  ></canvas>
+</div>
     </div>
   );
 }
@@ -149,8 +154,8 @@ function Sales() {
             <p>{salesCount}</p>
           </div>
         </div>
-          <Link to="/history" className={style.cardLink}>
         <div className={style.card}>
+        <Link to="/history" className={style.cardLink} id="cardLink">
           <div className={style.cardIcon}>
             <FaMoneyBillWave />
           </div>
@@ -158,8 +163,8 @@ function Sales() {
             <h3>Ingresos</h3>
             <p>${totalRevenue}</p>
           </div>
-        </div>
           </Link>
+        </div>
       </div>
       <div className={style.chart}>
         <CategoryChart categoryCounts={categoryCounts} chartType={chartType} />
