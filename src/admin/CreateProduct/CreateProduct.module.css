@@ -1,16 +1,17 @@
 .createContainer {
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 50px;
-    margin-left: 180px;
-    background-color: #e5dfdf;
-    color: #007bff;
-    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.5);
-  }
+  width: 600px;
+  height: 750px;
+  max-width: calc(100% - 40px); /* Ajusta el ancho máximo según tu preferencia */
+  max-height: calc(100% - 40px); /* Ajusta la altura máxima según tu preferencia */
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 50px auto; /* Centra vertical y horizontalmente */
+  background-color: #e5dfdf;
+  color: #007bff;
+  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.5);
+}
 
 .formCreate {
   width: 100%;
@@ -91,55 +92,29 @@
     .createContainer {
       margin-left: 20px;
       margin-right: 20px;
+      margin: 50px auto; /* Agrega esta línea para centrar vertical y horizontalmente */
     }
-  
-    .formCreate {
-        width: 100%;
-        max-width: 100%;
-        height: auto;
-      }
-      .button {
-        width: 100%;
-      }
-      .select {
-        max-width: 100%;
-      }
   }
   
   @media (max-width: 540px) {
     .createContainer {
       margin-left: 10px;
       margin-right: 10px;
+      margin: 50px auto; /* Agrega esta línea para centrar vertical y horizontalmente */
     }
-  
-    .formCreate {
-      width: 100%;
-      height: auto;
-      max-width: 400px;
-    }
-  
-    .button {
-      width: 100%;
-    }
-    .select {
-        max-width: 100%;
-      }
   }
   
   @media (max-width: 350px) {
     .createContainer {
       margin-left: 5px;
       margin-right: 5px;
+      margin: 50px auto; /* Agrega esta línea para centrar vertical y horizontalmente */
+      height: 700px;
     }
-  
-    .formCreate {
-      width: 100%;
-      height: auto;
-      max-width: 250px;
+    .button{
+      width: 100px;
     }
-    .select {
-        max-width: 100%;
-      }
+    .tituloCreate{
+      text-align: center;
+    }
   }
-
-  
