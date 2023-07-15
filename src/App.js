@@ -20,6 +20,7 @@ import PayUConfirmationPage from "./views/Payment/components/paymentButton/PayuC
 import SuccesPage from "./views/Payment/components/paymentButton/SuccesPage";
 import ErrorPage from "./views/Payment/components/paymentButton/ErrorPage";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
+import TransactionHistory from "./admin/transactionsHistory/transactionHistory";
 
 
 
@@ -112,6 +113,7 @@ function App() {
           <Route path={"/success"} render={() =><SuccesPage />}/>
           <Route path={"/error"} render={()=> <ErrorPage/>} />
           <Route exact path={"/"} render={() => <Landing />} />
+          <Route path={"/history"} render={() => <TransactionHistory />} />
           <Route path="/home" render={() =>
             <>
               <Header user={currentUser} />

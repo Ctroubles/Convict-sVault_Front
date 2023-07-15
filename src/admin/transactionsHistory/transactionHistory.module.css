@@ -1,0 +1,187 @@
+.transactionHistoryContainer {
+  margin: 20px;
+}
+
+h2 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 16px;
+  color: #007bff;
+}
+
+.transactionTable {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  counter-reset: rowNumber;
+}
+
+.transactionTable th,
+.transactionTable td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.transactionTable th {
+  font-weight: bold;
+  background-color: #007bff;
+  color: #fff;
+}
+
+.transactionTable td:first-child {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.transactionTable td:first-child:hover {
+  overflow: visible;
+  white-space: normal;
+  word-break: break-word;
+  max-width: 200px; /* Ajusta el valor según tus necesidades */
+  position: absolute;
+  z-index: 9999;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 8px;
+}
+
+.transactionTable tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.transactionTable td:nth-child(4) {
+  text-align: center;
+}
+
+.transactionTable td:nth-child(1) {
+  text-align: left;
+}
+
+.transactionTable tr:hover {
+  background-color: #fafafa;
+}
+
+.transactionTable td:first-child::before {
+  counter-increment: rowNumber;
+  content: counter(rowNumber);
+  min-width: 24px;
+  display: inline-block;
+  text-align: center;
+  margin-right: 15px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 8px 16px;
+  margin: 0 4px;
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.pagination button:hover {
+  background-color: #e0e0e0;
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.goBackButton {
+  display: block;
+  margin: 20px auto;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.goBackButton:hover {
+  background-color: #0558b0;
+}
+
+
+@media (max-width: 965px) {
+  .transactionTable th,
+  .transactionTable td {
+    padding: 8px;
+  }
+  
+  .transactionTable td:first-child::before {
+    margin-right: 4px;
+  }
+  
+  .pagination button {
+    padding: 6px 12px;
+  }
+  
+  .goBackButton {
+    padding: 6px 12px;
+  }
+}
+
+@media (max-width: 540px) {
+  .transactionTable th,
+  .transactionTable td {
+    padding: 6px;
+  }
+  
+  .transactionTable td:first-child {
+    max-width: 150px;
+  }
+  .transactionTable td:last-child {
+    max-width: 150px;
+  }
+  .transactionTable td:nth-child(3) {
+    max-width: 100px;
+  }
+
+  .transactionTable td:first-child::before {
+    margin-right: 2px;
+  }
+  
+  .pagination button {
+    padding: 4px 8px;
+    margin: 0 2px;
+  }
+  
+  .goBackButton {
+    padding: 4px 8px;
+  }
+}
+
+@media (max-width: 350px) {
+  .transactionTable th,
+  .transactionTable td {
+    padding: 4px;
+    font-size: 12px;
+  }
+  
+  .transactionTable td:first-child::before {
+    margin-right: 2px;
+    font-size: 10px;
+  }
+  
+  .pagination button {
+    padding: 4px 6px;
+    margin: 0 2px;
+    font-size: 12px;
+  }
+  
+  .goBackButton {
+    padding: 4px 6px;
+    font-size: 12px;
+  }
+}

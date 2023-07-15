@@ -3,6 +3,7 @@ import axios from 'axios';
 import Chart from 'chart.js';
 import style from './Sales.module.css';
 import { FaChartPie, FaChartBar, FaUsers, FaShoppingCart, FaMoneyBillWave } from 'react-icons/fa';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 function CategoryChart({ categoryCounts, chartType }) {
   const chartRef = useRef(null);
@@ -81,7 +82,7 @@ function CategoryChart({ categoryCounts, chartType }) {
   );
 }
 
-function Sales({ txValue }) {
+function Sales() {
   const [soldProducts, setSoldProducts] = useState([]);
   const [stockProducts, setStockProducts] = useState([]);
   const [categoryCounts, setCategoryCounts] = useState([]);
@@ -148,6 +149,7 @@ function Sales({ txValue }) {
             <p>{salesCount}</p>
           </div>
         </div>
+          <Link to="/history" className={style.cardLink}>
         <div className={style.card}>
           <div className={style.cardIcon}>
             <FaMoneyBillWave />
@@ -157,6 +159,7 @@ function Sales({ txValue }) {
             <p>${totalRevenue}</p>
           </div>
         </div>
+          </Link>
       </div>
       <div className={style.chart}>
         <CategoryChart categoryCounts={categoryCounts} chartType={chartType} />
