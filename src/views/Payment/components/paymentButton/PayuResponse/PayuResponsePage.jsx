@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useLocation, useHistory, Link } from 'react-router-dom';
 import styles from './PayuResponse.module.css';
 import Sales from '../../../../../admin/Sales/Sales';
-
+import Url_deploy_back from "../../../../../util/deploy_back"
 const CryptoJS = require("crypto-js");
 
 function PayUResponseSummary() {
@@ -47,6 +47,32 @@ function PayUResponseSummary() {
   } else {
     estadoTx = searchParams.get('mensaje');
   }
+  useEffect(() => {
+    const saveTransaction = async () => {
+      try {
+        const response = await fetch(`${Url_deploy_back}/transactions/create`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            transactionId,
+            total: TX_VALUE,
+            description: extra1,
+            state: transactionState,
+          }),
+        });
+        if (response.ok) {
+          console.log('Transacción guardada en la base de datos');
+        } else {
+          console.error('Error al guardar la transacción en la base de datos');
+        }
+      } catch (error) {
+        console.error('Error al realizar la solicitud POST:', error.message);
+      }
+    };
+    saveTransaction();
+  }, [transactionId, TX_VALUE, extra1, transactionState]);
  console.log(TX_VALUE)
   return (
     <div className={styles.container}>
@@ -82,7 +108,6 @@ function PayUResponseSummary() {
           Volver al inicio
         </Link>
       </div>
-      <Sales txValue={TX_VALUE} />
     </div>
   );
 }

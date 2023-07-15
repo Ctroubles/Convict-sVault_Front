@@ -90,29 +90,12 @@ function Sales({ txValue }) {
     return savedChartType || 'pie';
   });
   const [salesCount, setSalesCount] = useState(0);
-  const [txValue2, setTxValue2] = useState(0);
   const [totalRevenue, setTotalRevenue] = useState(0);
-  const [transactionHistory, setTransactionHistory] = useState([]);
-
-  console.log(txValue);
-
-  useEffect(()=>{
-    setTotalRevenue(txValue)
-  })
 
   useEffect(() => {
     getProducts();
+    getTotalRevenue();
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem('chartType', chartType);
-  }, [chartType]);
-
-  useEffect(() => {
-    setTransactionHistory((prevTransactionHistory) => [...prevTransactionHistory, txValue]);
-    setTotalRevenue((prevTotalRevenue) => prevTotalRevenue + Number.parseFloat(txValue));
-  }, [txValue]);
-  
 
   const getProducts = async () => {
     try {
@@ -143,10 +126,14 @@ function Sales({ txValue }) {
     setChartType(type);
   };
 
-  const handleSale = (saleValue) => {
-    // Actualiza el estado de las ventas y el total de ingresos acumulados
-    setSalesCount(salesCount + 1);
-    setTotalRevenue(totalRevenue + saleValue);
+  const getTotalRevenue = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/transactions/ingresos');
+      const { ingresos } = response.data;
+      setTotalRevenue(ingresos);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -167,7 +154,7 @@ function Sales({ txValue }) {
           </div>
           <div className={style.cardInfo}>
             <h3>Ingresos</h3>
-            <p>${totalRevenue.toFixed(0)}</p>
+            <p>${totalRevenue}</p>
           </div>
         </div>
       </div>
