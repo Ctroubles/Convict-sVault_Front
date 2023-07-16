@@ -57,6 +57,7 @@ const Formulario = ({user,formRef, errors, setErrors}) =>{
         const target = e.target.id; 
         if (validators(target,value)) {
             if(e.target.id !== "name" && e.target.id !== "phone")setSelectedRadioOption({other:true})
+            setErrors({...errors,[e.target.id]:null})
             setForm({...form,[target]:value})
         }
        
@@ -64,8 +65,8 @@ const Formulario = ({user,formRef, errors, setErrors}) =>{
     const inputsOptionsHandlerChange = (e) =>{
 
         if (validators(e.target.name,e.target.value)) {
-
             setSelectedRadioOption({other:true})
+            setErrors({...errors,[e.target.name]:null})
             const value = e.target.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
             const target = e.target.name;
             if (value) {

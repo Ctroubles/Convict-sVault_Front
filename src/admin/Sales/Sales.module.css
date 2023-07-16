@@ -23,12 +23,14 @@
   margin-top: 30px;
   margin-left: 50px;
   background-image: linear-gradient(to bottom left, #a5c9f2, #ffffff);
+  
 }
 
 .cardIcon {
   color: #585e61d6;
   font-size: 40px;
   margin-bottom: 10px;
+  text-align: center;
 }
 
 .cardInfo {
@@ -45,13 +47,20 @@
   font-size: 36px;
   font-weight: bold;
 }
-
-
-
-
-
-
-
+.chartContainer {
+  width: 700px;
+  height: 700px;
+  max-width: 100%;
+  max-height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+.chartCanvas {
+  max-width: 100%;
+  max-height: 100%;
+}
 .chartTypeButtons {
   display: flex;
   justify-content: center;
@@ -75,4 +84,58 @@
   font-size: 24px;
   margin: 0 8px;
   color: #007bff;
+}
+#cardLink {
+  text-decoration: none;
+}
+@media (max-width: 965px) {
+  .cardsContainer {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .card {
+    flex-basis: 100%;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+  .cardIcon{
+    text-align: center;
+  }
+}
+
+/* Estilos para pantallas de hasta 540px */
+@media (max-width: 540px) {
+  .card{
+    width: 200px;
+  }
+  .cardInfo h3 {
+    font-size: 20px;
+  }
+  
+  .cardInfo p {
+    font-size: 28px;
+  }
+  .cardIcon{
+    text-align: center;
+  }
+}
+
+/* Estilos para pantallas de hasta 350px */
+@media (max-width: 350px) {
+  .card{
+    width: 150px;
+    height: 150px;
+  }
+  .cardIcon{
+    text-align: center;
+  }
+  .cardInfo h3 {
+    text-align: center;
+    font-size: 13px;
+  }
+  
+  .cardInfo p {
+    font-size: 20px;
+  }
 }

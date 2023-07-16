@@ -62,7 +62,7 @@ const Carrito = ({loading, items, total, user, formRef, setErrors}) =>{
                   </div>
                 </div>
                 <div id={styles.containerPaymentButton}>
-                    <PAYU loading={loading} total={total} user={user} formRef={formRef} setErrors={setErrors}/>
+                    <PAYU loading={loading} total={total} user={user} formRef={formRef} setErrors={setErrors} items={items}/>
                 </div>                                  
               </div>
             </div>

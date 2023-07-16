@@ -32,7 +32,6 @@ const Cart = ({ setCartStatus }) => {
         if (!data.hasOwnProperty('price')) {
           throw new Error('El objeto de producto no contiene una propiedad "price".');
         }
-  
         // Verificar si la cantidad es mayor al stock
        
         total = total + data.price * e[key];

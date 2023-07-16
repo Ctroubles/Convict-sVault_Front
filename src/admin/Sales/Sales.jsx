@@ -3,6 +3,7 @@ import axios from 'axios';
 import Chart from 'chart.js';
 import style from './Sales.module.css';
 import { FaChartPie, FaChartBar, FaUsers, FaShoppingCart, FaMoneyBillWave } from 'react-icons/fa';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 function CategoryChart({ categoryCounts, chartType }) {
   const chartRef = useRef(null);
@@ -76,7 +77,12 @@ function CategoryChart({ categoryCounts, chartType }) {
   return (
     <div className={style.salescontainer}>
       <h2>Categorías</h2>
-      <canvas ref={chartRef} style={{ width: '400px', height: '400px' }}></canvas>
+      <div className={style.chartContainer}>
+  <canvas
+    ref={chartRef}
+    className={style.chartCanvas}
+  ></canvas>
+</div>
     </div>
   );
 }
@@ -89,22 +95,24 @@ function Sales() {
     const savedChartType = localStorage.getItem('chartType');
     return savedChartType || 'pie';
   });
-  const [visitsCount, setVisitsCount] = useState(0);
   const [salesCount, setSalesCount] = useState(0);
-  const [revenue, setRevenue] = useState(0);
+  const [totalRevenue, setTotalRevenue] = useState(0);
 
   useEffect(() => {
     getProducts();
-    // updateVisitsCount();
+    getTotalRevenue();
+    getApprovedCount();
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem('chartType', chartType);
-  }, [chartType]);
-
-  // useEffect(() => {
-  //   saveVisitsCount(visitsCount);
-  // }, [visitsCount]);
+  const getApprovedCount = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/transactions/approved-count');
+      const { approvedCount } = response.data;
+      setSalesCount(approvedCount);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const getProducts = async () => {
     try {
@@ -117,7 +125,6 @@ function Sales() {
       console.error(error);
     }
   };
-
 
   const getCategoryCounts = (products) => {
     const categoryCounts = {};
@@ -132,46 +139,23 @@ function Sales() {
     return categoryCounts;
   };
 
-  // const updateVisitsCount = () => {
-  //   setVisitsCount((prevCount) => prevCount + 1);
-  // };
-
-  // const saveVisitsCount = async (count) => {
-  //   try {
-  //     await axios.post('http://localhost:3001/visit/totales', { visitasDiarias: count });
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  // const getVisit = async () => {
-  //   try {
-  //     const response = await axios.get('http://localhost:3001/products');
-  //     const products = response.data;
-  //     setSoldProducts(products.filter((product) => !product.isActive));
-  //     setStockProducts(products.filter((product) => product.isActive));
-  //     setCategoryCounts(getCategoryCounts(products));
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
   const handleChartTypeChange = (type) => {
     setChartType(type);
+  };
+
+  const getTotalRevenue = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/transactions/ingresos');
+      const { ingresos } = response.data;
+      setTotalRevenue(ingresos);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <div className={style.salescontainer}>
       <div className={style.cardsContainer}>
-        {/* <div className={style.card}>
-          <div className={style.cardIcon}>
-            <FaUsers />
-          </div>
-          <div className={style.cardInfo}>
-            <h3>Visitas</h3>
-            <p>{visitsCount}</p>
-          </div>
-        </div> */}
         <div className={style.card}>
           <div className={style.cardIcon}>
             <FaShoppingCart />
@@ -182,15 +166,17 @@ function Sales() {
           </div>
         </div>
         <div className={style.card}>
+        <Link to="/history" className={style.cardLink} id="cardLink">
           <div className={style.cardIcon}>
             <FaMoneyBillWave />
           </div>
           <div className={style.cardInfo}>
             <h3>Ingresos</h3>
-            <p>${revenue}</p>
+            <p>${totalRevenue}</p>
           </div>
+          </Link>
         </div>
-        </div>
+      </div>
       <div className={style.chart}>
         <CategoryChart categoryCounts={categoryCounts} chartType={chartType} />
       </div>

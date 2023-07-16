@@ -6,7 +6,7 @@ import { validatorsLevel2 } from '../../validators';
 const CryptoJS = require("crypto-js");
 
 
-function PAYU({total, user, formRef, setErrors}) {
+function PAYU({total, user, formRef, setErrors, items}) {
 
   let apiKey = "4Vj8eK4rloUd272L48hsrarnUA";
   let merchantId = "508029";
@@ -28,7 +28,7 @@ function PAYU({total, user, formRef, setErrors}) {
           <form method="post" action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/" onSubmit={handleSubmit}>
             <input name="merchantId" type="hidden" value="508029" />
             <input name="accountId" type="hidden" value="512321" />
-            <input name="description" type="hidden" value="VENTAS EN LINEA" />
+            <input name="description" type="hidden" value={`${items[0].name} x ${items[0].quantity}`} />
             <input name="referenceCode" type="hidden" value={referenceCode} />
             <input name="amount" type="hidden" value={total} />
             <input name="tax" type="hidden" value="0" />

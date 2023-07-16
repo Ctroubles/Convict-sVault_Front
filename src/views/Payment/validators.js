@@ -68,7 +68,7 @@ const validatorsLevel2 = (setErrorsForm, currentForm) =>{
                 }
                 break; 
             case "phone":
-                if(!currentForm[prop] || currentForm[prop].length > 10 || currentForm[prop]?.charAt(0) !== "3" || !/^[0-9]+$/.test(currentForm[prop])){
+                if(!currentForm[prop] || currentForm[prop].length !== 10 || currentForm[prop]?.charAt(0) !== "3" || !/^[0-9]+$/.test(currentForm[prop])){
                     errors[prop]=true;
                     aproved = false
                 }
