@@ -103,11 +103,11 @@ const SliderCategory = ({category,}) =>{
                                 <img src={promocional} alt="" />
                             </div>
                             <div id={style.rigthSide}>
-                                <div style={{height:"100%"}}>
-                                    <div style={{height:"100%"}}>
-                                        <section style={{height:"100%", position:"relative", paddingRight:"24px"}}>
+                                <div style={{height:"100%", width:"100%"}}>
+                                    <div style={{height:"100%",  width:"100%"}}>
+                                        <section style={{height:"100%", position:"relative", paddingRight:"24px", width:"100%"}}>
                                             <div id={style.frame}>
-                                                <div id={style.cardsContainer} style={{width:`calc(33.3% * ${products?.length})`, minWidth:`calc(33.3% * ${products?.length})`, ...sliderStyle, transform:`translate3d(calc((100% / ${products?.length}) * ${position}),0,0)`, }}>
+                                                <div id={style.cardsContainer} style={{width:`calc(33.3% * ${products?.length})`, minWidth:`calc(33.3% * ${products?.length})`, maxWidth:`calc(33.3% * ${products?.length})` ,...sliderStyle, transform:`translate3d(calc((100% / ${products?.length}) * ${position}),0,0)`, }}>
                                                     {
                                                         products.map((e,i)=> <OtherCard key={e._id+i} brand={e.brand} category={e.category} image={e.image} price ={e.price} name={e.name} id={e._id}/>                                                        )
                                                     }

@@ -3,6 +3,11 @@
     justify-content: center;
     min-height: calc(100vh - 552.53px);
 }
+#body #container{
+    max-width: 1450px;
+    width: 100%; 
+    padding: 0 40px;
+}
 .searchInput {
     padding: 12px;
     font-size: 18px;

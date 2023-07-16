@@ -96,6 +96,42 @@
     margin-left: 3px;
     font-weight: 500;
 }
+#buttonMenuPhone{
+    color:#ffffff;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+    display: none;
+}
+#buttonMenuPhone > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color:#ffffff;
+    text-decoration: none;
+    padding: 10px 10px 10px 60px;
+}
+#buttonMenuPhone > div > label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#buttonMenuPhone > div *{
+    pointer-events: none;
+}
+#buttonMenuPhone img{
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
+#buttonMenuPhone p{
+    font-size: 16px;
+    font-weight: 500;
+}
+#navContainer{
+    display: flex;
+}
 #buttonMenu{
     color:#ffffff;
     display: flex;
@@ -110,6 +146,11 @@
     cursor: pointer;
     color:#ffffff;
     text-decoration: none;
+}
+#buttonMenu a > label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 #buttonMenu a *{
     pointer-events: none;
@@ -213,6 +254,33 @@
 
 
 
+@media screen and (max-width:1400px) {
+    #navContainer{
+        display: none;
+    }
+    #buttonMenuPhone{
+        display: flex;
+    }
+}
 
+
+@media screen and (max-width:980px) {
+    #top{
+        padding: 20px 20px;
+    }
+}
+
+
+@media screen and (max-width:600px) {
+    #logoSection h1{
+        font-size: 25px;
+    }
+    #top{
+        padding: 20px 10px 20px 14px;
+    }
+    #account{
+        padding: 0 15px 0 14px;
+    }
+}
 
 

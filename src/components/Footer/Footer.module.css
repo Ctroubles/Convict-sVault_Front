@@ -1,9 +1,11 @@
 #nav{
-    padding: 50px 0;
+    padding: 50px 0 45px;
     display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 #nav>div{
-    flex: 1 1 auto;
+    flex: 1 1 0;
     align-items: center;
     display: flex;
     justify-content: center;
@@ -21,6 +23,7 @@
     font-weight: 400;
     color: #0f191e;
     margin-left: 5px;
+    display: inline;
 }
 #infSuperReo{
     display: flex;
@@ -98,4 +101,19 @@
     text-align: center;
     padding: 4px 0px 3px 0;
     font-size: 14px;
+}
+
+
+
+@media screen and (max-width:900px) {
+    #nav{
+        gap: 0;
+    }
+    #nav>div{
+        flex-basis: 50%;
+        max-width: 50%;
+        justify-content: start;
+        padding: 0px 10px;
+        margin: 10px 0;
+    }
 }

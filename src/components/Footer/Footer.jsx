@@ -14,7 +14,7 @@ const Footer = ()=>{
     return(
         <div>
             <label>
-                <section style={{display:"flex", justifyContent:"center"}}>
+                <section style={{display:"flex", justifyContent:"center", backgroundColor:"#dff2fb"}}>
                     <div style={{maxWidth:"1200px",width:"100%",padding:"0 20px",}}>
                         <section id={style.nav}>
                             <div>

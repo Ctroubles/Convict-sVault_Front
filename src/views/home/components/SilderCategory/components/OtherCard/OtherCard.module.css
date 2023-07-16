@@ -1,24 +1,22 @@
 #CardContainer{
-    padding: 8px;
     display: flex;
     flex-direction: column;
-    max-width: 320px;
-    height: 100%;
+    flex-grow: 1;
+    flex-shrink: 1;
 }
 #card{
-    max-width: 300px;
     height: 100%;
 }
 #card>:nth-child(1){
     display: flex;
-    margin:  4%;
+    margin:  0 4%;
     flex-direction: column;
     height: 100%;
 }
 #card>:nth-child(1) section{
     max-width: 300px;
     border: 1px solid #bfc0c2;
-    padding: 8px 0;
+    padding: 0 0 10px;
     border-radius: 8px;
     height: 100%;
     display: flex;
@@ -28,25 +26,34 @@
 }
 #ImgSection{
     display: block;
+    padding: 14px;
 }
 #ImgSection>:nth-child(1){
-    padding: 15px;
     width: 100%;
     overflow: hidden;
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
 }
 #ImgSection>:nth-child(1) img{
-    width: 100% !important;
-    max-height: 252px !important;
     object-fit: cover;
-    max-width: 200px;
+    border-radius: 8px;    
+    width: 100%;
+    object-fit: cover;
 }
 #nameSection{
     padding: 15px 7px 10px 7px;
     border-bottom: 1px solid #d4d8dd;
     border-top: 1px solid #d4d8dd;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    width: 100%;
+    overflow: hidden;
 }
 #nameSection label{
-    padding: 0 5px 9px 5px;
+    padding: 0 5px 0px 5px;
     display: block;
 }
 #nameSection p{
@@ -63,8 +70,19 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    -moz-line-clamp: 2;
+    display: box;
+    box-orient: vertical;
+    line-clamp: 2;
     overflow: hidden;
     text-overflow: ellipsis;
+    line-break: anywhere;
+    hyphens: auto;
+    hyphenate-character: "-";
+    overflow-wrap: break-word;
+    word-break: keep-all;
 }
 #priceSection{
     height: 100%;

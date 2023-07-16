@@ -18,7 +18,7 @@ const OtherCard = ({brand,category,image,price,name,id}) =>{
     }
 
     return(
-        <div id={style.CardContainer} style={{height:"100%", flexBasis:`calc(100% / ${3})`, maxWidth:`calc(100% / ${3})`}} >
+        <div id={style.CardContainer} style={{flexBasis:`0`, width:`calc(100%)`, maxWidth:`calc(100% / ${3})`}} >
             <div id={style.card} style={{height:"100%",}}>
                 <span >
                     <section>
