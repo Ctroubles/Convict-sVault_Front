@@ -7,7 +7,7 @@ const CryptoJS = require("crypto-js");
 
 
 function PAYU({total, user, formRef, setErrors, items}) {
-
+console.log(items)
   let apiKey = "4Vj8eK4rloUd272L48hsrarnUA";
   let merchantId = "508029";
   const referenceCode = `PAGO${uuidv4()}`;
