@@ -1,5 +1,5 @@
 #Cart{
-    /* padding: 0 0px 0px 0px; */
+    height: 100%;
     background-color: #ffffff;
     overflow-y: auto;
     overflow-X: hidden;
@@ -8,21 +8,6 @@
     justify-content: space-between;
     transition: transform 0.5s ease;
     min-height: calc(100vh - 74px);
-  }
-  #Cart::-webkit-scrollbar {
-    width: 8px;
-  }
-  #Cart::-webkit-scrollbar-track {
-    background-color: #666666b4;
-  }
-  
-  #Cart::-webkit-scrollbar-thumb {
-    background-color: #00223196;
-    border-radius: 4px;
-  }
-  
-  #Cart::-webkit-scrollbar-thumb:hover {
-    background-color: #00223196;
   }
   #tittle h1{
     font-size: 24px;

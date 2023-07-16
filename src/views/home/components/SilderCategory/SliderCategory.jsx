@@ -5,11 +5,11 @@ import { useEffect, useState } from "react";
 import axios from "axios"
 import OtherCard from "./components/OtherCard/OtherCard";
 import arrow from "../../../../assets/icons/arrow_icon.svg"
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 
 const SliderCategory = ({category,}) =>{
 
-    const [quantity, setQuantity] = useState(null)
     const [products, setProducts] = useState([])
     const [position, setPositon] = useState(-1)
     const [sliderStyle, setSliderStyle] = useState({})
@@ -25,7 +25,6 @@ const SliderCategory = ({category,}) =>{
                 transition: `transform 300ms ease`,
             })
             setProducts(arrSlider);
-            setQuantity(arrSlider.length);
         } catch (error) {
             console.log(error);
             alert(`Error al traer Data en la categoría ${category}, checar en consola para más información.`)
@@ -90,8 +89,10 @@ const SliderCategory = ({category,}) =>{
             <section id={style.container}>
                 <div id={style.top}>
                     <label>
-                        <img src={icon} alt="" />
-                        <h1>{category}</h1>
+                        <Link to={`/category/${category.toLowerCase()}`}>
+                            <img src={icon} alt={category} />
+                            <h1>{category}</h1>
+                        </Link>                      
                     </label>
                     <div id={style.deco}></div>
                 </div>

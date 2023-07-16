@@ -1,24 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./Payment.module.css";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { useAuth0 } from "@auth0/auth0-react";
 import CartComponent from "./components/carrito/carrito"
 import logoHeader from "../../assets/logo_superReoprincipal_model-4.png"
 import Formulario from "./components/formulario/formulario";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
 
-
-
 function PaymentView({user}) {
 
   const history = useHistory();
+  const formRef = useRef(null)
+
 
   const {cart}  = useSelector((e) => e);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
   const [items, setItems] = useState([]);
+  const [errors, setErrors] = useState({});
 
 
 
@@ -75,10 +75,10 @@ function PaymentView({user}) {
           ) : (
             <div id={styles.container}>
               <div id={styles.form}>
-                  <Formulario user={user}/>
+                  <Formulario user={user} formRef={formRef} errors={errors} setErrors={setErrors}/>
               </div>
               <div id={styles.cart}>
-                  <CartComponent loading={loading} items={items} total={total} user={user}/>
+                  <CartComponent loading={loading} items={items} total={total} user={user} formRef={formRef} setErrors={setErrors}/>
               </div>
             </div>
           )

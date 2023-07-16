@@ -14,7 +14,6 @@ import Profile from "./views/Profile/Profile";
 import { setId, setUserCart } from "./Redux/store/actions/actions";
 import { useDispatch } from "react-redux";
 import PasarelaDePagos from "./views/Payment/Payment.jsx";
-import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import { Redirect } from 'react-router-dom';
 
 
@@ -22,7 +21,6 @@ import { Redirect } from 'react-router-dom';
 
 function App() {
 
-  const history = useHistory();
 
   const dispatch = useDispatch();
   const { user, isAuthenticated, loginWithRedirect, isLoading, logout } =

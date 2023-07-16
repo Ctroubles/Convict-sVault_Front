@@ -2,7 +2,7 @@
     background-color: #ffffff;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
-    padding: 0 20px;
+    padding: 0 20px 30px;
 }
 #Header{
     padding: 20px 15px;
@@ -24,6 +24,29 @@
     font-size: 16.5px;
     cursor: pointer;
 }
+#radioInputs{
+    padding-bottom: 20px;
+}
+#radioInputs .optionsRadio{
+    display: flex;
+    align-items: start;
+    justify-content: start;
+}
+#radioInputs input{
+    margin: 1px 10px 0 0;
+    height: 13px;
+    max-height: 13px;
+    cursor: pointer;
+}
+#radioInputs label{
+    margin: 0 0 12px;
+    display: inline-block;
+    font-size: 14.5px;
+    line-height: 15px;
+    letter-spacing: 0.4px;
+    word-spacing: 2px;
+    cursor: pointer;
+}
 .inputsContainer{
     padding: 10px 0px;
     position: relative;
@@ -37,6 +60,9 @@
     font-size: 16px;
     line-height: 24px;
     outline: none;
+}
+.inputsContainer.danger input{
+    border-color: #e13232 !important;
 }
 .inputsContainer input:focus {
     border-bottom-left-radius: 0px;
@@ -57,8 +83,11 @@
     border-left: 1px solid #cccccc;
     border-right: 1px solid #cccccc;
     box-shadow: 0px 1px 5px #1111116c;
-    max-height: 275px;
+    max-height: 190px;
     overflow-y: auto;
+}
+.inputsContainer.danger .optionsInputs{
+    top: calc(100% - 22.5px);
 }
 .optionsInputs::-webkit-scrollbar-thumb {
     background-color: #696969;
@@ -105,4 +134,11 @@
     top: 23px;
     left: 42px;
     color: #666666;
+}
+.error p{
+    color: #e13232;
+    font-size: 14px;
+    padding-top: 4px;
+    height: 14px;
+    max-height: 14px;
 }
