@@ -38,13 +38,13 @@ function PAYU({total, user, formRef, setErrors, items}) {
             <input name="test" type="hidden" value="1" />
             <input name="buyerEmail" type="hidden" value={user.email} />
             <input name="responseUrl" type="hidden" value="http://localhost:3000/response" />
-            <input name="payerFullName" type="hidden" value={formRef.name} />
+            <input name="payerFullName" type="hidden" value={formRef.current.name} />
             <input name="payerMobilePhone" type="hidden" value={user.phone} />
             <input name="payerDocument" type="hidden" value={user.dni} />
             <input name="confirmationUrl" type="hidden" value="http://localhost:3000/confirmation" />
             <input name="Submit" type="submit" value="Pagar con Payu" id={style.paymentButton} />  
-            <input name="shippingAddress"    type="hidden"  value={formRef.address}   />
-            <input name="shippingCity"       type="hidden"  value={formRef.city} />
+            <input name="shippingAddress"    type="hidden"  value={formRef.current.address}   />
+            <input name="shippingCity"       type="hidden"  value={formRef.current.city} />
             <input name="shippingCountry"    type="hidden"  value="CO" />
           </form>
       </div>
