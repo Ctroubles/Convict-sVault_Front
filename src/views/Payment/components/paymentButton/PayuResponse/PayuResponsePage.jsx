@@ -116,7 +116,6 @@ function PayUResponseSummary({ user }) {
       console.error('Error al enviar el correo electrónico:', error);
     }
   };
-
   return (
     <div className={styles.container}>
       <div className={styles.summary}>
