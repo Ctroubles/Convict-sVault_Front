@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
 import { useLocation, useHistory, Link } from 'react-router-dom';
 import styles from './PayuResponse.module.css';
-import Sales from '../../../../../admin/Sales/Sales';
 import Url_deploy_back from "../../../../../util/deploy_back"
-const CryptoJS = require("crypto-js");
+import axios from 'axios';
 
-function PayUResponseSummary() {
+function PayUResponseSummary({ user }) {
   const location = useLocation();
   const history = useHistory();
 
@@ -47,7 +46,30 @@ function PayUResponseSummary() {
   } else {
     estadoTx = searchParams.get('mensaje');
   }
+
   useEffect(() => {
+    const checkEmailSent = () => {
+      const emailSentData = localStorage.getItem('emailSent');
+      let emailSentList = [];
+      if (emailSentData) {
+        emailSentList = JSON.parse(emailSentData);
+      }
+      return emailSentList.includes(transactionId);
+    };
+  
+    const sendEmail = async () => {
+      try {
+        await axios.post(`${Url_deploy_back}/pagos/mailer`, {
+          fromMail: 'labodegadelreo.122@gmail.com',
+          toMail: user.email,
+          name: user.name,
+        });
+        console.log('Correo enviado');
+      } catch (error) {
+        console.error('Error al enviar el correo electrónico:', error);
+      }
+    };
+  
     const saveTransaction = async () => {
       try {
         const response = await fetch(`${Url_deploy_back}/transactions/create`, {
@@ -71,9 +93,30 @@ function PayUResponseSummary() {
         console.error('Error al realizar la solicitud POST:', error.message);
       }
     };
-    saveTransaction();
-  }, [transactionId, TX_VALUE, extra1, transactionState]);
- console.log(TX_VALUE)
+  
+    const emailSent = checkEmailSent();
+  
+    if (!emailSent) {
+      sendEmail();
+      saveTransaction();
+      const emailSentList = [...emailSent, transactionId];
+      localStorage.setItem('emailSent', JSON.stringify(emailSentList));
+    }
+  }, [transactionId, TX_VALUE, extra1, transactionState, user.email, user.name]);
+  
+  const sendEmail = async () => {
+    try {
+      const response = await axios.post(`${Url_deploy_back}/pagos/mailer`, {
+        fromMail: 'labodegadelreo.122@gmail.com',
+        toMail: user.email,
+        name: user.name,
+      });
+      console.log('Correo enviado:', response.data);
+    } catch (error) {
+      console.error('Error al enviar el correo electrónico:', error);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.summary}>

@@ -108,7 +108,7 @@ function App() {
       ) : (
         <Router>
           <Route path={"/payment"} render={()=> <PasarelaDePagos user={currentUser}/>} />
-          <Route path={"/response"} render={()=> <PayUResponseSummary/>}/>
+          <Route path={"/response"} render={()=> <PayUResponseSummary user={currentUser}/>}/>
           <Route path={"/confirmation"} render={()=> <PayUConfirmationPage/>}/>
           <Route path={"/success"} render={() =><SuccesPage />}/>
           <Route path={"/error"} render={()=> <ErrorPage/>} />
