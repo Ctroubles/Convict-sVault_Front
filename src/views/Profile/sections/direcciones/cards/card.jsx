@@ -6,10 +6,10 @@ import Url_deploy_back from "../../../../../util/deploy_back";
 const Card = ({data, id, openForm}) =>{
 
     const modalRef = useRef()
-    const {_id:ID, city,country,department, extraData, number, province,street} = data;
+    const {_id:ID, city,country,department, extraData, number ,street} = data;
 
     const direccion = `${street?street:""}${number && street?", "+number:number?number:""}${extraData && (street||number)?", "+extraData:extraData?extraData:""}`;
-    const provincia = `${province?province:""}${department && province?", "+department:department?department:""}`
+    const ciudad = `${department?department:""}${city && department?", "+city:city?city:""}`
 
 
     const [modalDelete, setModalDelete] = useState(false)
@@ -69,10 +69,7 @@ const Card = ({data, id, openForm}) =>{
                             <span title={direccion}>{direccion}</span>
                         </div>                       
                         <div>
-                            <span title={city}>{city}</span>  
-                        </div>
-                        <div>
-                            <span title={provincia}>{provincia}</span>
+                            <span title={ciudad}>{ciudad}</span>
                         </div>
                        <div>
                         <span title={country}>{country}</span>

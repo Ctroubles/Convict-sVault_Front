@@ -8,6 +8,12 @@ import { useParams } from "react-router-dom";
 import { capitalizeFirstLetter } from "../../util";
 
 const ByCategory = () => {
+
+  useEffect(()=>{
+    window.scrollTo(0,0)
+  },[])
+
+
   const { cat } = useParams();
 
   const [products, setProducts] = useState([]);

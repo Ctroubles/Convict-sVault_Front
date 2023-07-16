@@ -14,19 +14,18 @@ import Profile from "./views/Profile/Profile";
 import { setId, setUserCart } from "./Redux/store/actions/actions";
 import { useDispatch } from "react-redux";
 import PasarelaDePagos from "./views/Payment/Payment.jsx";
+import { Redirect } from 'react-router-dom';
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import PayUResponseSummary from "./views/Payment/components/paymentButton/PayuResponse/PayuResponsePage";
 import PayUConfirmationPage from "./views/Payment/components/paymentButton/PayuConfirmationPage";
 import SuccesPage from "./views/Payment/components/paymentButton/SuccesPage";
 import ErrorPage from "./views/Payment/components/paymentButton/ErrorPage";
-import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import TransactionHistory from "./admin/transactionsHistory/transactionHistory";
 
 
 
 function App() {
 
-  const history = useHistory();
 
   const dispatch = useDispatch();
   const { user, isAuthenticated, loginWithRedirect, isLoading, logout } =

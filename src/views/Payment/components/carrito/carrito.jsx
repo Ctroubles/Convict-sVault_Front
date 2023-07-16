@@ -3,9 +3,10 @@ import CardCart from "../../../../components/cart/card_cart/CardCart";
 
 import PAYU from "../paymentButton/payu";
 
-const Carrito = ({loading, items, total, user}) =>{
+const Carrito = ({loading, items, total, user, formRef, setErrors}) =>{
+
     return (
-        <div style={{}}>
+        <div style={{height:"100%"}}>
         <div id={styles.Cart}>
           <div>
             <div style={{ padding: "20px 0 0px 15px" }}>
@@ -61,7 +62,7 @@ const Carrito = ({loading, items, total, user}) =>{
                   </div>
                 </div>
                 <div id={styles.containerPaymentButton}>
-                    <PAYU loading={loading} total={total} user={user} items={items} />
+                    <PAYU loading={loading} total={total} user={user} formRef={formRef} setErrors={setErrors} items={items}/>
                 </div>                                  
               </div>
             </div>
