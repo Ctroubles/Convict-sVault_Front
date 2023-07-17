@@ -15,12 +15,14 @@ function PayUResponseSummary() {
 
     // Realiza las acciones necesarias según el estado de la transacción y el código de respuesta
     // Puedes redirigir al usuario a una página de éxito, error, etc.
-    if (transactionState === 'APPROVED') {
-      // Transacción aprobada exitosamente
-      // history.push('/confirmation');
-    } else {
-      // Transacción fallida u otro caso
-      // history.push('/error');
+    try {
+      
+      if (transactionState === 'APPROVED') {
+        // Transacción aprobada exitosamente
+        // history.push('/confirmation');
+      } 
+    } catch (error) {
+      console.log(error)
     }
 
     saveTransaction(); // Guarda la transacción en la base de datos al cargar el componente

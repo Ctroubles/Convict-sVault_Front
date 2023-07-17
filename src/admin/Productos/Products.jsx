@@ -167,9 +167,9 @@ function Products({ darkMode }) {
   const filtroProducts = products
   .filter((product) => {
     if (activeFilter === 'activos') {
-      return product.isActive && product.stock>0;
+      return product.isActive;
     } else if (activeFilter === 'inactivos') {
-      return !product.isActive || product.stock===0;
+      return !product.isActive;
     } else {
       return true; // Mostrar todos los productos si no hay filtro activo o inactivo seleccionado
     }
@@ -258,7 +258,7 @@ function Products({ darkMode }) {
               <button className={style.editButton} onClick={() => openModal(product)}>
                 <FaEdit />
               </button>
-              {product.isActive && product.stock>0? (
+              {product.isActive? (
                               <button onClick={() => handleRevoke(product)} className={style.deleteButton}><FaTrash /></button>
                             ) : (
                               <button onClick={() => handleRestore(product)} className={style.restoreButton}><FaUndo /></button>
