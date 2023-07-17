@@ -10,6 +10,7 @@ import axios from "axios";
 import { capitalizeEachWord } from "../../util";
 import Direcciones from "./sections/direcciones/direcciones";
 import Pedidos from "./sections/pedidos/Pedidos";
+import Url_deploy_back from "../../util/deploy_back";
 
 
 
@@ -108,7 +109,7 @@ const Profile = ({user}) =>{
                 name:capitalizeEachWord(userData.name),
                 surname:capitalizeEachWord(userData.surname)
             }
-            const {status} = await axios.put(`http://localhost:3001/users/update/${user._id}`,setData)
+            const {status} = await axios.put(`${Url_deploy_back}/users/update/${user._id}`,setData)
             if (status === 200) {
                 window.location.reload();
             }else alert("Hubo un error al actualizar el usuario, commpueba los datos (en genero solo se acepta M y F)")

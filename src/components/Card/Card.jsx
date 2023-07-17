@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { setUserCart } from "../../Redux/store/actions/actions";
+import Url_deploy_back from "../../util/deploy_back";
+
 
 const Card = ({brand,category,image,price,name,id}) =>{
 
@@ -11,7 +13,7 @@ const Card = ({brand,category,image,price,name,id}) =>{
 
     const addToCar = async(e) =>{
         e.stopPropagation();
-        const {data} = await axios.put("http://localhost:3001/cart/addItem",{
+        const {data} = await axios.put(`${Url_deploy_back}/cart/addItem`,{
             "userid":userID,
             "itemid":id,
         })

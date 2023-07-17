@@ -6,6 +6,8 @@ import axios from "axios"
 import OtherCard from "./components/OtherCard/OtherCard";
 import arrow from "../../../../assets/icons/arrow_icon.svg"
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import Url_deploy_back from "../../../../util/deploy_back";
+
 
 
 const SliderCategory = ({category,}) =>{
@@ -16,7 +18,7 @@ const SliderCategory = ({category,}) =>{
 
     const getProducts = async() =>{
         try {
-            const {data} = await axios.get(`http://localhost:3001/products/category/${category}`);
+            const {data} = await axios.get(`${Url_deploy_back}/products/category/${category}`);
             const arrSlider = data;
             for (let i = 0; i < 4; i++) {
                  arrSlider.push(data[i]);
@@ -108,9 +110,11 @@ const SliderCategory = ({category,}) =>{
                                         <section style={{height:"100%", position:"relative", paddingRight:"24px", width:"100%"}}>
                                             <div id={style.frame}>
                                                 <div id={style.cardsContainer} style={{width:`calc(33.3% * ${products?.length})`, minWidth:`calc(33.3% * ${products?.length})`, maxWidth:`calc(33.3% * ${products?.length})` ,...sliderStyle, transform:`translate3d(calc((100% / ${products?.length}) * ${position}),0,0)`, }}>
-                                                    {
-                                                        products.map((e,i)=> <OtherCard key={e._id+i} brand={e.brand} category={e.category} image={e.image} price ={e.price} name={e.name} id={e._id}/>                                                        )
-                                                    }
+                                                {
+                                                    products
+                                                        .filter((product) => product.isActive) 
+                                                        .map((e, i) => <OtherCard key={e._id + i} brand={e.brand} category={e.category} image={e.image} price={e.price} name={e.name} id={e._id} />)
+                                                }
                                                 </div>
                                             </div>
                                             <button id={style.leftArrow} onClick={()=> backwardHandler()}>

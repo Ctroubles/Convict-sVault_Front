@@ -4,9 +4,8 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { useState } from "react";
 import CardCart from "./card_cart/CardCart";
-// import { PayPalButtons } from "@paypal/react-paypal-js";
+import Url_deploy_back from "../../util/deploy_back";
 import { useHistory } from "react-router-dom";
-import Swal from "sweetalert2";
 
 
 const Cart = ({ setCartStatus }) => {
@@ -28,7 +27,7 @@ const Cart = ({ setCartStatus }) => {
     const carrito = await Promise.all(
       cart.map(async (e) => {
         const key = Object.keys(e)[0];
-        const { data } = await axios.get(`http://localhost:3001/products/${key}`);
+        const { data } = await axios.get(`${Url_deploy_back}/products/${key}`);
         if (!data.hasOwnProperty('price')) {
           throw new Error('El objeto de producto no contiene una propiedad "price".');
         }

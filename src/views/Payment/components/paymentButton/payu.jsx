@@ -2,6 +2,9 @@ import React from 'react';
 import style from "./paymentButton.module.css"
 import { v4 as uuidv4 } from 'uuid';
 import { validatorsLevel2 } from '../../validators';
+import Url_deploy_back from '../../../../util/deploy_back';
+
+
 
 const CryptoJS = require("crypto-js");
 
@@ -45,11 +48,11 @@ console.log(items)
         <input name="signature" type="hidden" value={signature} />
         <input name="test" type="hidden" value="1" />
         <input name="buyerEmail" type="hidden" value={user.email} />
-        <input name="responseUrl" type="hidden" value="http://localhost:3000/response"/>
+        <input name="responseUrl" type="hidden" value={`${Url_deploy_back}/response`} />
         <input name="payerFullName" type="hidden" value={formRef.current?.name} />
         <input name="payerMobilePhone" type="hidden" value={user.phone} />
         <input name="payerDocument" type="hidden" value={user.dni} />
-        <input name="confirmationUrl" type="hidden" value="http://localhost:3000/confirmation" />
+        <input name="confirmationUrl" type="hidden" value={`${Url_deploy_back}/confirmation`}/>
         <input name="Submit" type="submit" value="Pagar con Payu" id={style.paymentButton} />  
         <input name="shippingAddress" type="hidden" value={formRef.current?.address} />
         <input name="shippingCity" type="hidden" value={formRef.current?.city} />

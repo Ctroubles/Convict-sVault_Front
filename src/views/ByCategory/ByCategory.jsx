@@ -6,6 +6,9 @@ import Card from "../../components/Card/Card";
 import homeIcon from "./assets/home_icon.svg";
 import { useParams } from "react-router-dom";
 import { capitalizeFirstLetter } from "../../util";
+import Url_deploy_back from "../../util/deploy_back";
+
+
 
 const ByCategory = () => {
 
@@ -20,7 +23,7 @@ const ByCategory = () => {
 
   const getProducts = async () => {
     try {
-      const { data } = await axios.get(`http://localhost:3001/products/category/${cat}`);
+      const { data } = await axios.get(`${Url_deploy_back}/products/category/${cat}`);
       setProducts(data);
     } catch (error) {
       console.log(error);

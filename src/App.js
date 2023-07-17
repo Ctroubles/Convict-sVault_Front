@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Route } from "react-router-dom";
-// import { FiMoon, FiSun } from "react-icons/fi";
 import Landing from "./views/Landing/Landing";
 import Home from "./views/home/Home";
 import Dashboard from "./admin/Dashboard";
@@ -15,12 +14,13 @@ import { setId, setUserCart } from "./Redux/store/actions/actions";
 import { useDispatch } from "react-redux";
 import PasarelaDePagos from "./views/Payment/Payment.jsx";
 import { Redirect } from 'react-router-dom';
-import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import PayUResponseSummary from "./views/Payment/components/paymentButton/PayuResponse/PayuResponsePage";
 import PayUConfirmationPage from "./views/Payment/components/paymentButton/PayuConfirmationPage";
 import SuccesPage from "./views/Payment/components/paymentButton/SuccesPage";
 import ErrorPage from "./views/Payment/components/paymentButton/ErrorPage";
 import TransactionHistory from "./admin/transactionsHistory/transactionHistory";
+import Url_deploy_back from "./util/deploy_back";
+
 
 
 
@@ -38,7 +38,7 @@ function App() {
   useEffect(() => {
     const postUser = async () => {
       const response = await axios.post(
-        "http://localhost:3001/users/createuser",
+        `${Url_deploy_back}/users/createuser`,
         { ...user },
         {
           headers: {
@@ -66,7 +66,7 @@ function App() {
 
     const sendEmail = async (data) => {
       await axios.post(
-        "http://localhost:3001/users/send-email",
+        `${Url_deploy_back}/users/send-email`,
         { userId: data.id, email: data.email, name: data.name },
         {
           headers: {
@@ -86,7 +86,7 @@ function App() {
 
   useEffect(() => {
     const userBanned = async () => {
-      const userr = await axios.get(`http://localhost:3001/users/db/${user.email}`);
+      const userr = await axios.get(`${Url_deploy_back}/users/db/${user.email}`);
       if (userr.data.isActive === false) {
         alert("User is banned. Please contact us for more information");
         logout({ returnTo: window.location.origin });

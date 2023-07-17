@@ -9,7 +9,6 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { RiShieldUserFill } from "react-icons/ri"
 import logo from "../../assets/logorecortadoooooo (1).png";
-// import logo2 from "../../assets/LogoAzul-removebg-preview.png"
 import { useAuth0 } from "@auth0/auth0-react";
 import {useSelector} from "react-redux"
 import Cart from "../cart/Cart";
@@ -17,9 +16,6 @@ import Cart from "../cart/Cart";
 
 
 const Header = ({user}) =>{
-
-    console.log(user)
-
 
     const {cart} = useSelector(state => state)
     const {loginWithRedirect, logout} = useAuth0()

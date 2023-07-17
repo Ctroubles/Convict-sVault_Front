@@ -6,6 +6,7 @@ import CartComponent from "./components/carrito/carrito"
 import logoHeader from "../../assets/logo_superReoprincipal_model-4.png"
 import Formulario from "./components/formulario/formulario";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
+import Url_deploy_back from "../../util/deploy_back";
 
 
 function PaymentView({user}) {
@@ -27,7 +28,7 @@ function PaymentView({user}) {
     const carrito = await Promise.all(
       cart.map(async (e) => {
         const key = Object.keys(e)[0];
-        const { data } = await axios.get(`http://localhost:3001/products/${key}`);
+        const { data } = await axios.get(`${Url_deploy_back}/products/${key}`);
         if (!data.hasOwnProperty('price')) {
           throw new Error('El objeto de producto no contiene una propiedad "price".');
         }

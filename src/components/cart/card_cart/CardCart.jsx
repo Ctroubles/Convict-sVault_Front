@@ -5,38 +5,36 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { setUserCart } from "../../../Redux/store/actions/actions";
 import { useState } from "react";
+import Url_deploy_back from "../../../util/deploy_back"
 
 
 const CardCart = ({name, img, price, brand, id, quantity, stock}) =>{
-    // console.log(stock)
-    const [isMaxQuantityReached, setIsMaxQuantityReached] = useState(quantity >= stock);
 
+    const [isMaxQuantityReached, setIsMaxQuantityReached] = useState(quantity >= stock);
     const {id:userID} = useSelector(state=>state)
     const dispatch = useDispatch()
 
     const addToCar = async () => {
-        if (quantity <= stock) {
-            // console.log("hola",data.stock)
-          const { data } = await axios.put("http://localhost:3001/cart/addItem", {
+        if (quantity  < stock) {            
+          const { data } = await axios.put(`${Url_deploy_back}/cart/addItem`, {
               userid: userID,
               itemid: id,
             });
           dispatch(setUserCart(data));
         }
-        // Actualizar la variable de estado
-        setIsMaxQuantityReached(quantity  >= stock);
+        setIsMaxQuantityReached(quantity  >= stock);;
       };
     
 
     const subtractToCar = async() =>{
-        const {data} = await axios.put("http://localhost:3001/cart/subtractItem",{
+        const {data} = await axios.put(`${Url_deploy_back}/cart/subtractItem`,{
             "userid":userID,
             "itemid":id,
         })
         dispatch(setUserCart(data));
     }
     const removeToCar = async() =>{
-        const {data} = await axios.put("http://localhost:3001/cart/removeItem",{
+        const {data} = await axios.put(`${Url_deploy_back}/cart/removeItem`,{
             "userid":userID,
             "itemid":id,
         })
