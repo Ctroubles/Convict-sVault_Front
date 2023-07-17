@@ -1,8 +1,8 @@
 #ByCategory{
     display: flex;
     justify-content: center;
-    /* min-height: calc(100vh - 552.53px); */
-    min-height: 570px;
+    min-height: calc(100vh - 549.53px);
+    padding: 0 20px;
 }
 #ByCategory>section:first-child{
     padding-top: 45px;
