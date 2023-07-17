@@ -24,7 +24,7 @@ const Formulario = ({user,formRef, errors, setErrors}) =>{
         departament:"",
         city:"",
         address:"",
-        phone:String(user.phone),
+        phone: user.phone?String(user.phone): "",
     })
     const [selectedRadioOption, setSelectedRadioOption] = useState({});
 

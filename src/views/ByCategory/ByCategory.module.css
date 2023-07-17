@@ -21,13 +21,10 @@
 
 @media screen and (max-width:620px) {
     #ByCategory>section:first-child{
-        padding-top: 25px;
+        padding-top: 26px;
     }
 }
 @media screen and (max-width:500px) {
-    #ByCategory>section:first-child{
-        padding-top: 20px;
-    }
     #ByCategory{
         padding: 0 10px;
     }

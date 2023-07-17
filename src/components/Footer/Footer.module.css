@@ -13,6 +13,7 @@
 #nav>div img{
     width: 42px;
     height: 42px;
+    margin-right: 3px;
 }
 #nav>div label{
     display: block;
@@ -70,6 +71,7 @@
 .contact{
     display: flex;
     align-items: center;
+    margin-bottom: 25px;
 }
 .contact img{
     width: 36px;
@@ -117,7 +119,7 @@
         max-width: 50%;
         justify-content: start;
         padding: 0px 10px;
-        margin: 10px 0;
+        margin: 25px 0;
     }
     #infSuperReo{
         display: flex;
@@ -174,6 +176,9 @@
         font-size: 15px;
         font-weight: 400;
         color: rgb(15, 25, 30);
-        padding-bottom: 10px;
+        padding-bottom: 15px;
+    }
+    .contact{
+        margin-bottom: 15px;
     }
 }

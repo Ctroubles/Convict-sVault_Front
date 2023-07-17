@@ -72,7 +72,7 @@ const Footer = ()=>{
                                 <div>
                                     <p>Conversa con nosotros de lunes a viernes de 8:00 am a 5:00 pm y sabado de 9:00 am a 1:00 pm </p>
                                 </div>
-                                <div className={style.contact} style={{marginBottom:"25px"}}>
+                                <div className={style.contact}>
                                     <img src={headphones} alt="" />
                                     <span>Llamanos al </span>
                                     <span className={style.blueSpan}> 999 999 999</span>
