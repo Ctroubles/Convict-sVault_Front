@@ -75,6 +75,31 @@ function PayUResponseSummary() {
     }
   };
 
+  const handleCapturePayment = async (paymentId) => {
+    try {
+      // Realiza una solicitud POST a la API de PayU para capturar el pago
+      const response = await axios.post(
+        `https://api.payulatam.com/payments-api/${paymentId}/capture`,
+        {
+          // Aquí debes proporcionar los parámetros necesarios para capturar el pago, como la clave de la API y otros datos específicos
+        }
+      );
+      
+      // El pago se capturó exitosamente
+      console.log('Pago capturado:', response.data);
+    } catch (error) {
+      // Ocurrió un error al capturar el pago
+      if (error.response && error.response.data) {
+        console.error('Error al capturar el pago:', error.response.data);
+      } else {
+        console.error('Error al capturar el pago:', error.message);
+      }
+    }
+  };
+  useEffect(()=>{
+    handleCapturePayment()
+   })
+
   return (
     <div className={styles.container}>
       <div className={styles.summary}>
