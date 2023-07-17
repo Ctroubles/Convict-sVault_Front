@@ -1,22 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useLocation, useHistory, Link } from 'react-router-dom';
 import styles from './PayuResponse.module.css';
-import Url_deploy_back from "../../../../../util/deploy_back"
+import Url_deploy_back from "../../../../../util/deploy_back";
 import axios from 'axios';
 
 function PayUResponseSummary() {
   const location = useLocation();
   const history = useHistory();
+  // const processedTransactionIdsRef = useRef(new Set());
 
   useEffect(() => {
+
     const searchParams = new URLSearchParams(location.search);
     const transactionState = searchParams.get('transactionState');
     const responseCode = searchParams.get('responseCode');
-
+  
     // Realiza las acciones necesarias según el estado de la transacción y el código de respuesta
     // Puedes redirigir al usuario a una página de éxito, error, etc.
     try {
-      
       if (transactionState === 'APPROVED') {
         // Transacción aprobada exitosamente
         // history.push('/confirmation');
@@ -24,9 +25,35 @@ function PayUResponseSummary() {
     } catch (error) {
       console.log(error)
     }
-
+  
     saveTransaction(); // Guarda la transacción en la base de datos al cargar el componente
+    updateStockFromDescription();
   }, [location.search, history]);
+  const updateProductStock = async (productId, quantity) => {
+    try {
+      // Obtener datos del producto
+      const { data } = await axios.get(`${Url_deploy_back}/products/${productId}`);
+      const { name, price, image, brand, category, stock } = data;
+  
+      // Actualizar el stock
+      const updatedStock = stock - quantity;
+      console.log(updatedStock)
+  
+      // Realizar la solicitud PUT para actualizar el stock del producto
+      await axios.put(`${Url_deploy_back}/products/${productId}`, {
+        name,
+        price,
+        image,
+        brand,
+        category,
+        stock: updatedStock,
+      });
+  
+      console.log(`Se actualizó el stock del producto ${productId}`);
+    } catch (error) {
+      console.error(`Error al actualizar el stock del producto ${productId}`, error);
+    }
+  };
 
   const searchParams = new URLSearchParams(location.search);
   const TX_VALUE = parseFloat(searchParams.get('TX_VALUE'));
@@ -75,31 +102,22 @@ function PayUResponseSummary() {
     }
   };
 
-  const handleCapturePayment = async (paymentId) => {
-    try {
-      // Realiza una solicitud POST a la API de PayU para capturar el pago
-      const response = await axios.post(
-        `https://api.payulatam.com/payments-api/${paymentId}/capture`,
-        {
-          // Aquí debes proporcionar los parámetros necesarios para capturar el pago, como la clave de la API y otros datos específicos
-        }
-      );
-      
-      // El pago se capturó exitosamente
-      console.log('Pago capturado:', response.data);
-    } catch (error) {
-      // Ocurrió un error al capturar el pago
-      if (error.response && error.response.data) {
-        console.error('Error al capturar el pago:', error.response.data);
-      } else {
-        console.error('Error al capturar el pago:', error.message);
+  const updateStockFromDescription = () => {
+    const description = searchParams.get('description');
+    const productInfoArray = description.split(', ');
+  
+    productInfoArray.forEach(async (productInfo) => {
+      const [productId, quantityString] = productInfo
+        .replace('ID: ', '')
+        .split(' - Nombre: ');
+    
+      const quantity = parseInt(/\(Cantidad: (\d+)\)/.exec(quantityString)[1], 10);
+  
+      if (!isNaN(quantity)) {
+        await updateProductStock(productId, quantity);
       }
-    }
+    });
   };
-  useEffect(()=>{
-    handleCapturePayment()
-   })
-
   return (
     <div className={styles.container}>
       <div className={styles.summary}>
