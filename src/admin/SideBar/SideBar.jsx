@@ -61,5 +61,4 @@ function SideBar({ darkMode }) {
     </div>
   );
 }
-
 export default SideBar;
