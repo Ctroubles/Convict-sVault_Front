@@ -81,4 +81,7 @@
   .ulist a {
     justify-content: center; /* Centra el contenido horizontalmente */
   }
+  .labelHidden {
+    display: none; /* Oculta los nombres de los íconos en dispositivos móviles */
+  }
 }
