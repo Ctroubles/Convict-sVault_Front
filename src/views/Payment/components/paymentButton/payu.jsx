@@ -48,11 +48,11 @@ console.log(items)
         <input name="signature" type="hidden" value={signature} />
         <input name="test" type="hidden" value="1" />
         <input name="buyerEmail" type="hidden" value={user.email} />
-        <input name="responseUrl" type="hidden" value={`${Url_deploy_back}/response`} />
+        <input name="responseUrl" type="hidden" value={`https://convict-s-vault-back.vercel.app/response`} />
         <input name="payerFullName" type="hidden" value={formRef.current?.name} />
         <input name="payerMobilePhone" type="hidden" value={user.phone} />
         <input name="payerDocument" type="hidden" value={user.dni} />
-        <input name="confirmationUrl" type="hidden" value={`${Url_deploy_back}/confirmation`}/>
+        <input name="confirmationUrl" type="hidden" value={`https://convict-s-vault-back.vercel.app/confirmation`}/>
         <input name="Submit" type="submit" value="Pagar con Payu" id={style.paymentButton} />  
         <input name="shippingAddress" type="hidden" value={formRef.current?.address} />
         <input name="shippingCity" type="hidden" value={formRef.current?.city} />
