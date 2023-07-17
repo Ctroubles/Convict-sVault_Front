@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useLocation, useHistory, Link } from 'react-router-dom';
 import styles from './PayuResponse.module.css';
-import Url_deploy_back from "../../../../../util/deploy_back";
+import Url_deploy_back from '../../../../../util/deploy_back';
 import axios from 'axios';
 
 function PayUResponseSummary() {
