@@ -28,7 +28,7 @@ const Card = ({brand,category,image,price,name,id}) =>{
                             <img src={image} alt={name} />
                         </div>
                     </div>
-                    <div style={{height:"100%", flex:"1", display:"flex", flexDirection:"column"}}>
+                    <div style={{height:"100%", display:"flex", flexDirection:"column"}}>
                         <div id={style.nameSection}>
                             <label>
                                  <p>{brand}</p>

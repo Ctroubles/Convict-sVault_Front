@@ -9,7 +9,7 @@ const Home = ()=>{
     return(
         <div>
             <section id={style.body}>
-                <div style={{maxWidth:"1350px", width:"100%", padding:"0 20px"}}>
+                <div id={style.container} >
                     <label htmlFor="">
                         <div>
                             <SliderCategory category={"Equipaje"}/>

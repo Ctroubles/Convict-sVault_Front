@@ -1,5 +1,4 @@
 #CartModal{
-    
     background-color: #00000080;
     position: fixed;
     right: 0;
@@ -9,7 +8,7 @@
     display: flex;
     justify-content: end;
     align-items: center;
-    z-index: 1;
+    z-index: 10;
 }
 #CartModal #Card{
     padding: 0 0px 15px 0px;

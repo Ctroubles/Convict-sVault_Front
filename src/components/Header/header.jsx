@@ -117,8 +117,18 @@ const Header = ({user}) =>{
                                 </div>                   
                             </div>
                         </div>
-                        <div style={{backgroundColor:"#009fe3", display:"flex", padding:"0 16px", justifyContent:"center"}}>
-                            <div style={{display:"flex", padding:"0 16px", justifyContent:"space-between", width:"100%", maxWidth:"1500px"}}>
+                        <div style={{backgroundColor:"#009fe3", display:"flex", justifyContent:"center"}}>
+                                <div id={style.buttonMenuPhone}>
+                                    <div>
+                                            <label>
+                                                <img src={lines_menu} alt="Menu" />
+                                            </label>
+                                            <label>
+                                                <p>Todas las categorías</p>
+                                            </label>
+                                    </div>
+                                </div>
+                            <div style={{padding:"0 30px", justifyContent:"space-between", width:"100%", maxWidth:"1500px"}} id={style.navContainer}>
                                 <div id={style.buttonMenu}>
                                     <div>
                                         <Link to={"/home"}>
