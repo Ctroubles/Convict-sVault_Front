@@ -21,7 +21,7 @@ function PAYU({total, user, formRef, setErrors, items}) {
     try {
       // Realiza una solicitud POST a la API de PayU para capturar el pago
       const response = await axios.post(
-        'https://api.payulatam.com/payments-api/' + paymentId + '/capture',
+        `https://api.payulatam.com/payments-api/${paymentId}/capture`,
         {
           // Aquí debes proporcionar los parámetros necesarios para capturar el pago, como la clave de la API y otros datos específicos
         }
@@ -38,16 +38,6 @@ function PAYU({total, user, formRef, setErrors, items}) {
       }
     }
   };
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    if (!validatorsLevel2(setErrors, formRef.current)) {
-      return;
-    }
-    await createPayment();
-    console.log("hola", paymentId);
-    await handleCapturePayment(paymentId);
-  };
 
   const createPayment = async () => {
     try {
@@ -60,6 +50,18 @@ function PAYU({total, user, formRef, setErrors, items}) {
     } catch (error) {
       console.error('Error al crear el pago:', error);
     }
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (!validatorsLevel2(setErrors, formRef.current)) {
+      return;
+    }
+    
+    await createPayment();
+    console.log("hola", paymentId);
+    await handleCapturePayment(paymentId);
   };
 
   return (
