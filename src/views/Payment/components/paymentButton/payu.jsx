@@ -3,6 +3,7 @@ import style from "./paymentButton.module.css"
 import { v4 as uuidv4 } from 'uuid';
 import { validatorsLevel2 } from '../../validators';
 import axios from 'axios';
+import Url_deploy_back from '../../../../util/deploy_back';
 
 const CryptoJS = require("crypto-js");
 
@@ -29,6 +30,16 @@ function PAYU({total, user, formRef, setErrors, items}) {
   
       // El pago se capturó exitosamente
       console.log('Pago capturado:', response.data);
+  
+      // Envía los datos del pago capturado a la base de datos
+      const transactionData = {
+        paymentId: paymentId,
+        amount: response.data.amount,
+        // Otros datos relevantes del pago que desees enviar a la base de datos
+      };
+  
+      const databaseResponse = await axios.post(`${Url_deploy_back}/transactions/create`, transactionData);
+      console.log('Pago enviado a la base de datos:', databaseResponse.data);
     } catch (error) {
       // Ocurrió un error al capturar el pago
       if (error.response && error.response.data) {
@@ -44,7 +55,6 @@ function PAYU({total, user, formRef, setErrors, items}) {
       const response = await axios.post('https://api.payu.com/v2_1/payments', {
         // ... otros parámetros necesarios para crear el pago
       });
-
       const paymentId = response.data.id;
       setPaymentId(paymentId);
     } catch (error) {
