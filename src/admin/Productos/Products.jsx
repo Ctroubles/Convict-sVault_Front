@@ -8,6 +8,9 @@ import { Link } from 'react-router-dom/cjs/react-router-dom';
 import { IoMdAddCircle } from "react-icons/io";
 import EditProductModal from './EditProductModal';
 import swal from 'sweetalert2';
+import Url_deploy_back from '../../util/deploy_back';
+
+
 
 function Products({ darkMode }) {
   const [products, setProducts] = useState([]);
@@ -54,7 +57,7 @@ function Products({ darkMode }) {
 
   const handleRevoke = async (product) => {
     try {
-      await axios.put(`http://localhost:3001/products/isActive/${product._id}`, {
+      await axios.put(`${Url_deploy_back}/products/isActive/${product._id}`, {
         isActive: false
       });
   
@@ -84,7 +87,7 @@ function Products({ darkMode }) {
   
   const handleRestore = async (product) => {
     try {
-      await axios.put(`http://localhost:3001/products/isActive/${product._id}`, {
+      await axios.put(`${Url_deploy_back}/products/isActive/${product._id}`, {
         isActive: true
       });
   
@@ -115,7 +118,7 @@ function Products({ darkMode }) {
   
   const getProducts = async () => {
     try {
-      const { data } = await axios.get("http://localhost:3001/products");
+      const { data } = await axios.get(`${Url_deploy_back}/products`);
       const sortedProducts = data.sort((a, b) => a.name.localeCompare(b.name));
       setProducts(sortedProducts);
       setFilteredProducts(sortedProducts);

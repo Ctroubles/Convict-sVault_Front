@@ -4,6 +4,9 @@ import Chart from 'chart.js';
 import style from './Sales.module.css';
 import { FaChartPie, FaChartBar, FaUsers, FaShoppingCart, FaMoneyBillWave } from 'react-icons/fa';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import Url_deploy_back from '../../util/deploy_back';
+
+
 
 function CategoryChart({ categoryCounts, chartType }) {
   const chartRef = useRef(null);
@@ -106,7 +109,7 @@ function Sales() {
 
   const getApprovedCount = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/transactions/approved-count');
+      const response = await axios.get(`${Url_deploy_back}/transactions/approved-count`);
       const { approvedCount } = response.data;
       setSalesCount(approvedCount);
     } catch (error) {
@@ -116,7 +119,7 @@ function Sales() {
 
   const getProducts = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/products');
+      const response = await axios.get(`${Url_deploy_back}/products`);
       const products = response.data;
       setSoldProducts(products.filter((product) => !product.isActive));
       setStockProducts(products.filter((product) => product.isActive));
@@ -145,7 +148,7 @@ function Sales() {
 
   const getTotalRevenue = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/transactions/ingresos');
+      const response = await axios.get(`${Url_deploy_back}/transactions/ingresos`);
       const { ingresos } = response.data;
       setTotalRevenue(ingresos);
     } catch (error) {

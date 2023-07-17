@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import style from './transactionHistory.module.css';
-
+import Url_deploy_back from '../../util/deploy_back';
 function TransactionHistory() {
   const [transactions, setTransactions] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -9,7 +9,7 @@ function TransactionHistory() {
   const history = useHistory();
 
   useEffect(() => {
-    fetch('http://localhost:3001/transactions')
+    fetch(`${Url_deploy_back}/transactions`)
       .then(response => response.json())
       .then(data => setTransactions(data))
       .catch(error => console.error(error));

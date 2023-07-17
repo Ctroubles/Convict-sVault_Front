@@ -3,6 +3,8 @@ import style from "./CreateProduct.module.css";
 import axios from 'axios';
 import swal from 'sweetalert2';
 import { validadorLevel2, validadores } from '../util/validadores';
+import Url_deploy_back from '../../util/deploy_back';
+
 
 const categorias = [
   "Equipaje",
@@ -80,7 +82,7 @@ function CreateProduct({ darkMode }) {
       data.append('brand', values.brand);
       data.append('stock', values.stock);
 
-      const { data: data2 } = await axios.post(`http://localhost:3001/upload/`, data);
+      const { data: data2 } = await axios.post(`${Url_deploy_back}/upload/`, data);
       console.log(data2);
       swal.fire({
         title: `Su componente se ha creado con éxito`,

@@ -3,6 +3,7 @@ import axios from 'axios';
 import style from './Clients.module.css';
 import { FaEdit, FaTrash, FaUndo, FaCircle } from 'react-icons/fa';
 import Swal from 'sweetalert2';
+import Url_deploy_back from '../../util/deploy_back';
 
 
 function Clients({darkMode}) {
@@ -34,7 +35,7 @@ useEffect(() => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/users/db');
+        const response = await axios.get(`${Url_deploy_back}/users/db`);
         setClients(response.data);
       } catch (error) {
         console.error(error);
@@ -61,7 +62,7 @@ useEffect(() => {
   ///////////ADMIN/////////////
   const handleGiveAdmin = async (client) => {
     try {
-      await axios.put(`http://localhost:3001/users/giveAdmin/${client._id}`);
+      await axios.put(`${Url_deploy_back}/users/giveAdmin/${client._id}`);
       const updatedClients = clients.map((c) => {
         if (c._id === client._id) {
           return { ...c, isAdmin: true };
@@ -81,7 +82,7 @@ useEffect(() => {
   
   const handleRemoveAdmin = async (client) => {
     try {
-      await axios.put(`http://localhost:3001/users/removeAdmin/${client._id}`);
+      await axios.put(`${Url_deploy_back}/users/removeAdmin/${client._id}`);
       const updatedClients = clients.map((c) => {
         if (c._id === client._id) {
           return { ...c, isAdmin: false };
@@ -106,7 +107,7 @@ useEffect(() => {
   };
   const handleRevoke = async (client) => {
     try {
-      await axios.put(`http://localhost:3001/users/desactivate/${client._id}`);
+      await axios.put(`${Url_deploy_back}/users/desactivate/${client._id}`);
 
       const updatedClients = clients.map((c) => {
         if (c._id === client._id) {
@@ -127,7 +128,7 @@ useEffect(() => {
 
   const handleRestore = async (client) => {
     try {
-      await axios.put(`http://localhost:3001/users/activate/${client._id}`, { isActive: true });
+      await axios.put(`${Url_deploy_back}/users/activate/${client._id}`, { isActive: true });
 
       const updatedClients = clients.map((c) => {
         if (c._id === client._id) {
