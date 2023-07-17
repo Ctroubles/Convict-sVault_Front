@@ -131,3 +131,8 @@
         max-width: 50%;
     }
 }
+@media screen and (max-width:500px) {
+    #Card{
+        padding: 5px;
+    }
+}
