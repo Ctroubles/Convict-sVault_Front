@@ -264,7 +264,6 @@ function Products({ darkMode }) {
                               <button onClick={() => handleRestore(product)} className={style.restoreButton}><FaUndo /></button>
                             )}
             </div>
-          
         </td>
       </tr>
     );
