@@ -35,5 +35,11 @@
   
   .button {
     width: 100%;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+  
+  .button:hover {
+    background-color: #0056b3;
   }
 }

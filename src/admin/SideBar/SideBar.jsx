@@ -34,7 +34,7 @@ function SideBar({ darkMode }) {
             className={style.optionsSide}
           >
             <FaShoppingCart className={style.icon} />
-            {!isMobile && <span className={style.label}>Productos</span>}
+            {!isMobile && !showSidebar && <span className={style.labelHidden}>Productos</span>}
           </NavLink>
         </li>
         <li className={style.buttons}>
@@ -44,7 +44,7 @@ function SideBar({ darkMode }) {
             className={style.optionsSide}
           >
             <FaRegChartBar className={style.icon} />
-            {!isMobile && <span className={style.label}>Ventas</span>}
+            {!isMobile && !showSidebar &&<span className={style.labelHidden}>Ventas</span>}
           </NavLink>
         </li>
         <li className={style.buttons}>
@@ -54,12 +54,11 @@ function SideBar({ darkMode }) {
             className={style.optionsSide}
           >
             <FaUserEdit className={style.icon} />
-            {!isMobile && <span className={style.label}>Clientes</span>}
+            {!isMobile && !showSidebar && <span className={style.labelHidden}>Clientes</span>}
           </NavLink>
         </li>
       </ul>
     </div>
   );
 }
-
 export default SideBar;

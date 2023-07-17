@@ -14,8 +14,10 @@
   }
   
   @media (max-width: 600px) {
-    .LoginButton {
+    .LogoutButton {
       width: 100%;
+      margin-right: 0;
+      margin-bottom: 10px;
     }
   }
   
