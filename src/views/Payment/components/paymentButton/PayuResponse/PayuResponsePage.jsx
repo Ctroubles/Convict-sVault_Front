@@ -7,10 +7,9 @@ import axios from 'axios';
 function PayUResponseSummary() {
   const location = useLocation();
   const history = useHistory();
-  // const processedTransactionIdsRef = useRef(new Set());
+  const processedTransactionIdsRef = useRef(new Set());
 
   useEffect(() => {
-
     const searchParams = new URLSearchParams(location.search);
     const transactionState = searchParams.get('transactionState');
     const responseCode = searchParams.get('responseCode');
@@ -36,7 +35,8 @@ function PayUResponseSummary() {
       const { name, price, image, brand, category, stock } = data;
   
       // Actualizar el stock
-      const updatedStock = stock - quantity;
+      let updatedStock = stock - quantity;
+    updatedStock = Math.max(updatedStock, 0);
       console.log(updatedStock)
   
       // Realizar la solicitud PUT para actualizar el stock del producto
@@ -110,11 +110,20 @@ function PayUResponseSummary() {
       const [productId, quantityString] = productInfo
         .replace('ID: ', '')
         .split(' - Nombre: ');
-    
+  
       const quantity = parseInt(/\(Cantidad: (\d+)\)/.exec(quantityString)[1], 10);
   
       if (!isNaN(quantity)) {
+        // Check if the transaction ID has already been processed
+        if (localStorage.getItem(transactionId)) {
+          console.log(`Stock update for transaction ${transactionId} has already been processed`);
+          return;
+        }
+  
         await updateProductStock(productId, quantity);
+  
+        // Store the transaction ID in local storage to mark it as processed
+        localStorage.setItem(transactionId, 'processed');
       }
     });
   };
