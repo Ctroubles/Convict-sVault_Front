@@ -1,6 +1,6 @@
 #butSec{
     text-align: end;
-    padding: 0 50px 0 8px;
+    padding: 0 28px 20px 8px;
 }
 #butSec button{
     margin: 0;
@@ -32,4 +32,10 @@
 }
 #noData p{
     font-size:24px; 
+}
+
+@media screen and (max-width:600px) {
+    #butSec{
+        padding: 0 4px 20px 8px;
+    }
 }

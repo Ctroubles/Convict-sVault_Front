@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import styles from "./index.module.css";
 import Landing from "./views/Landing/Landing";
 import Home from "./views/home/Home";
 import Dashboard from "./admin/Dashboard";
@@ -34,6 +35,7 @@ function App() {
 
   const [currentUser, setCurrentUser] = useState(null);
   const [loadingStatus, setLoadingStatus] = useState(true);
+  const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
 
 
   useEffect(() => {
@@ -99,6 +101,23 @@ function App() {
     }
   }, []);
 
+
+
+  const handleResize = () => {
+    setViewportWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+
+
   return (
     <div className={`App`}>
       {loadingStatus ? (
@@ -117,25 +136,37 @@ function App() {
           <Route path={"/history"} render={() => <TransactionHistory />} />
           <Route path="/home" render={() =>
             <>
-              <Header user={currentUser} />
-              <Home />
-              <Footer />
+              <div className={styles.headerContainer}>
+                <Header user={currentUser} viewportWidth={viewportWidth} />
+              </div>
+              <div  className={styles.bodyContainer}>
+                <Home />
+                <Footer />
+              </div>             
             </>
           } />
           <Route path="/category/:cat" render={() =>
             <>
-              <Header user={currentUser} />
-              <ByCategory />
-              <Footer />
+              <div className={styles.headerContainer}>
+                <Header user={currentUser} viewportWidth={viewportWidth} />
+              </div>
+              <div className={styles.bodyContainer}>
+                <ByCategory />
+                <Footer />
+              </div>              
             </>
           } />
           <Route path="/account/:sec?" render={() =>
             !isAuthenticated ? loginWithRedirect() :
             (
               <>
-                <Header user={currentUser} />
-                <Profile user={currentUser} />
-                <Footer />
+                <div className={styles.headerContainer}>
+                  <Header user={currentUser} viewportWidth={viewportWidth}/>
+                </div>
+                <div className={styles.bodyContainer}>
+                  <Profile user={currentUser} viewportWidth={viewportWidth}/>
+                  <Footer />
+                </div>
               </>
             )
           } />

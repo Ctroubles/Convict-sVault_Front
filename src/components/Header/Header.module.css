@@ -130,7 +130,15 @@
     font-weight: 500;
 }
 #navContainer{
+    width:100%;
+    max-width: 1500px;
+    animation-duration: 0s;
+}
+#navContainer>div:first-child{
     display: flex;
+    padding: 0 30px; 
+    justify-content: space-between; 
+    width:100%;
 }
 #buttonMenu{
     color:#ffffff;
@@ -256,10 +264,118 @@
 
 @media screen and (max-width:1400px) {
     #navContainer{
-        display: none;
+        position: fixed;
+        background-color:rgb(0, 0, 0,0.45);
+        left: 0;
+        top: 0;
+        height: 100vh;
+        width: 100vw;
+        padding: 0 0; 
+        width:100%;
+        flex-direction: column;
+        align-items: start;
+        justify-content: start;
+        display: flex;
+        opacity: 0;
+    }
+    #navContainer.nonDisplay{
+        display: none !important;
+    }
+    #navContainer.active{
+        animation: sideGetIn 0.15s linear forwards;
+        display: flex;
+    }    
+    #navContainer.desactive{
+        animation: sideGetOut 0.15s linear forwards;
+    }
+    @keyframes sideGetIn {
+        0%{
+            opacity: 0;
+        }
+        100%{
+            opacity: 1;
+        }
+    }    
+    @keyframes sideGetOut {
+        0%{
+            opacity: 1;
+        }
+        100%{
+            opacity: 0;
+        }
+    }
+    #navContainer>div:first-child{
+        padding: 0 0px; 
+        justify-content: start; 
+        width:auto;
+        flex-direction: column;
+        align-items: stretch;
+        height: 100%;
+        background-color: #009fe3;
+    }
+    #buttonMenu{
+        width: auto;
+        padding: 20px 120px 25px 20px;
+        border-bottom: 1px solid #ffffff;
+        text-align: start;
+        display: block;
+        position: relative;
+    }
+    #quitButton{
+        display: block;
+        font-size: 22px;
+        font-weight: 500;
+        position: absolute;
+        top: 50%;
+        transform: translate(0,-50%);
+        right: 10px;
+        width: 22px;
+        height: 22px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    #quitButton span{
+        display: block;
+        height: 3px;
+        background-color: #ffffff;
+        width: 100%;
+    }
+    #quitButton>:nth-child(1){
+        transform: translate(0, 7px) rotate(45deg);
+    }   
+    #quitButton>:nth-child(2){
+        transform: translate(0, -12px) rotate(-50deg);
+    }
+    #buttonMenu a {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        cursor: pointer;
+        color:#ffffff;
+        text-decoration: none;
+        width:max-content;
+        padding: 4px;
+    }
+    #navBar{
+        display: flex;
+        flex-direction: column;
+        flex: 0;
+    }
+    #navBar a{
+        font-size: 16px;
+        padding: 15px 20px 15px 25px;
+        font-weight: 500;
+        flex: 1 1 auto;
+        text-align: start;
+        color:#ffffff;
+        text-decoration: none;
     }
     #buttonMenuPhone{
         display: flex;
+    }
+    #top{
+        padding: 20px 30px;
     }
 }
 
