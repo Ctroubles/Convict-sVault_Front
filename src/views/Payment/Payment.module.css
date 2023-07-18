@@ -16,6 +16,7 @@
   align-items: center;
   justify-content: space-between;
   color: #f1f1f1;
+  width: 100%;
 }
 #logoSection{
   display: flex;
@@ -31,17 +32,15 @@
 #container{
   margin: 0 auto;
   display: flex;
-  max-width: 1600px;
-  justify-content: center;
+  max-width: 1300px;
+  justify-content: space-between;
   align-items: stretch;
+  padding-top: 74px;
+  gap: 20px;
 } 
 #form {
   width: 100%;
-  padding: 74px 20px 0 0;
-  margin-right: 80px;
-  top: 74px;
   max-width: 700px;
-  padding-bottom: 40px;
 }
 .form-group input {
   width: 100%;
@@ -50,10 +49,8 @@
   border-radius: 5px;
 }
 #cart{
-  padding-top: 74px;
   width: 100%;
   max-width: 500px;
-  background-color: blue;
 }
 #loadingContainer{
   height: 100vh;
@@ -95,4 +92,31 @@
   50% {
       transform: scale(1.5);
   }
+}
+
+
+
+@media screen and (max-width:1600px) {
+  #Header .container{
+    padding: 0 25px 0 4px;
+  } 
+}
+@media screen and (max-width:920px) {
+  #container{
+    gap: 0px;
+    flex-direction: column;
+  }
+  #form {
+    max-width: 100%;
+  }
+  #cart{
+    width: 100%;
+    max-width: 100%;
+    padding: 0 0px;
+  }
+}
+@media screen and (max-width:750px) {
+  #Header .container{
+    padding: 0 20px 0 0;
+  } 
 }

@@ -15,7 +15,7 @@ const Carrito = ({loading, items, total, user, formRef, setErrors}) =>{
               </label>
             </div>
             <div>
-              <div style={{ padding: "15px 28px 0 5px" }}>
+              <div >
                 <div id={styles.cardsContainer}>
                   {items.map((e) => (
                     <CardCart
