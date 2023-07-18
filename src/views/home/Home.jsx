@@ -1,10 +1,13 @@
+import { useEffect } from "react";
 import style from "./Home.module.css"
 import SliderCategory from "./components/SilderCategory/SliderCategory";
 
 
 const Home = ()=>{
 
-   
+    useEffect(()=>{
+        window.scrollTo(0,0)
+      },[])
 
     return(
         <div>

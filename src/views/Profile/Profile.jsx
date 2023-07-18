@@ -49,7 +49,9 @@ const Profile = ({user, viewportWidth}) =>{
         })
     },[user, editable])
 
+
     useEffect(() => {
+        window.scrollTo(0,0)
         if (viewportWidth > 600) {
             if (statusBox) setStatusBox(null)
             switch (params.sec) {
