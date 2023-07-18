@@ -3,10 +3,11 @@ import style from "./paymentButton.module.css";
 import { v4 as uuidv4 } from 'uuid';
 import { validatorsLevel2 } from '../../validators';
 import Url_deploy_back from '../../../../util/deploy_back';
-
+import PayU from "payu";
 const CryptoJS = require("crypto-js");
 
 function PAYU({ total, user, formRef, setErrors, items }) {
+  const formRef2 = useRef(null);
   console.log(items);
   let apiKey = "4Vj8eK4rloUd272L48hsrarnUA";
   let merchantId = "508029";
@@ -25,19 +26,28 @@ function PAYU({ total, user, formRef, setErrors, items }) {
     try {
       const response = await fetch("https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/", {
         method: "POST",
-        body: new FormData(formRef.current),
+        body: new FormData(formRef2.current),
       });
 
       // Process the response as needed
-      console.log(response);
+      console.log("hola", response);
+
+      // Call PayU capture method
+      const paymentId = response.paymentId; // Replace with the actual payment ID from the response
+      const captureResponse = await PayU.capturePayment(paymentId);
+
+      // Process the capture response as needed
+      console.log(captureResponse);
     } catch (error) {
       console.error("Error submitting form:", error);
     }
   };
 
+  PayU.paymentsUrl = "https://api.payulatam.com/payments-api/";
+
   return (
     <div id={style.formCotainer}>
-      <form onSubmit={handleSubmit} ref={formRef}>
+      <form onSubmit={handleSubmit} ref={formRef2}>
         <input name="merchantId" type="hidden" value="508029" />
         <input name="accountId" type="hidden" value="512321" />
         <input
