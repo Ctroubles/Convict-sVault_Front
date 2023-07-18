@@ -14,7 +14,7 @@ function PayUQueries() {
         language: 'en',
         command: 'ORDER_DETAIL',
         merchant: {
-          apiLogin: 'pRRXKOl8ikMmt9u',
+          apiLogin: 'iMs8HTQwddSM26Q',
           apiKey: '4Vj8eK4rloUd272L48hsrarnUA',
         },
         details: {
