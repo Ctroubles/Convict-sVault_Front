@@ -116,7 +116,7 @@ const Header = ({user, viewportWidth}) =>{
                                                         </Link>
                                                     ) : null
                                                 }                                                                 
-                                                <Link className={style.options} to="/account/profile" >
+                                                <Link className={style.options} to="/account" >
                                                     <label>
                                                         <span>Mi perfil</span>
                                                     </label>
