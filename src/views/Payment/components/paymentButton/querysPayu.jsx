@@ -10,8 +10,8 @@ function PayUQueries() {
   const handleQueryByOrderId = async () => {
     try {
       const response = await axios.post('https://sandbox.api.payulatam.com/reports-api/4.0/service.cgi', {
-        test: false,
-        language: 'en',
+        test: true,
+        language: 'es',
         command: 'ORDER_DETAIL',
         merchant: {
           apiLogin: 'iMs8HTQwddSM26Q',
