@@ -115,6 +115,35 @@ function Products({ darkMode }) {
     }
   };
 
+
+  const getActiveProducts = async () => {
+    try {
+      const { data } = await axios.get(`http://localhost:3001/products/active`);
+    console.log("first")
+      const sortedProducts = data.sort((a, b) => a.name.localeCompare(b.name));
+      setProducts(sortedProducts);
+      setFilteredProducts(sortedProducts);
+      setCurrentPage(1); // Restablece la página actual a la primera al obtener los productos
+    } catch (error) {
+      console.error(error);
+      alert("Something went wrong");
+    }
+  };
+
+  const getInactiveProducts = async () => {
+    try {
+      console.log("222")
+      const { data } = await axios.get(`http://localhost:3001/products/inactive`);
+      const sortedProducts = data.sort((a, b) => a.name.localeCompare(b.name));
+      setProducts(sortedProducts);
+      setFilteredProducts(sortedProducts);
+      setCurrentPage(1); // Restablece la página actual a la primera al obtener los productos
+    } catch (error) {
+      console.error(error);
+      alert("Something went wrong");
+    }
+  };
+
   
   const getProducts = async () => {
     try {
@@ -132,6 +161,15 @@ function Products({ darkMode }) {
   useEffect(() => {
     getProducts();
   }, []);
+
+
+  useEffect(() => {
+    if (activeFilter === 'activos') {
+      getActiveProducts();
+    } else if (activeFilter === 'inactivos') {
+      getInactiveProducts();
+    }
+  }, [activeFilter]);
 
   useEffect(() => {
     setFilteredProducts((prevFilteredProducts) =>
@@ -151,18 +189,6 @@ function Products({ darkMode }) {
     };
   }, []);
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-    window.addEventListener('resize', handleResize);
-    handleResize();
-  
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
   const handleToggleFilter = (filter) => {
     setActiveFilter(filter);
     setCurrentPage(1);
@@ -174,7 +200,7 @@ function Products({ darkMode }) {
     } else if (activeFilter === 'inactivos') {
       return !product.isActive;
     } else {
-      return true; // Mostrar todos los productos si no hay filtro activo o inactivo seleccionado
+      return true;
     }
   })
   .filter((product) => product.name?.toLowerCase().includes(searchTerm?.toLowerCase()))
@@ -189,7 +215,7 @@ function Products({ darkMode }) {
   })
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
-    setCurrentPage(1); // Reiniciar la página actual a la primera al realizar una nueva búsqueda
+    setCurrentPage(1);
   };
   return (
     <div className={`${style.productsContainer} ${darkMode ? style.darkMode : ''}`}>
