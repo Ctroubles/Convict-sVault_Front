@@ -26,7 +26,9 @@ function PAYU({ total, user, formRef, setErrors, items }) {
           paymentId: paymentId,
           // Otros parámetros relevantes para la captura del pago
         }
-      );
+        );
+        setPaymentId(paymentId)
+        console.log("holaaaaaaaaaaaaaaa",paymentId)
 
       // El pago se capturó exitosamente
       console.log('Pago capturado:', response.data);
@@ -50,33 +52,35 @@ function PAYU({ total, user, formRef, setErrors, items }) {
     }
   };
 
-  const createPayment = async () => {
-    try {
-      const response = await axios.post('https://sandbox.api.payulatam.com/payments-api/4.0/service.cgi/v2_1/payments', {
-        // ... otros parámetros necesarios para crear el pago
-      });
-      const paymentId = response.data.id;
-      setPaymentId(paymentId);
-      console.log('Pago creado:', paymentId);
-    } catch (error) {
-      console.error('Error al crear el pago:', error);
-    }
-  };
+  // const createPayment = async () => {
+  //   try {
+  //     const response = await axios.post('https://sandbox.api.payulatam.com/payments-api/4.0/service.cgi/', {
+  //       sourceUrl: window.location.href,
+  //     });
+  //     const paymentId = response.data.id;
+  //     setPaymentId(paymentId);
+  //     console.log('Pago creado:', paymentId);
+  //   } catch (error) {
+  //     console.error('Error al crear el pago:', error);
+  //   }
+  // };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    if (!validatorsLevel2(setErrors, formRef.current)) {
+  const handleSubmit = async(event) => {
+    if (!validatorsLevel2(setErrors,formRef.current)) {
+      event.preventDefault(); 
+      setTimeout(() => {
+        formRef.current.submit();
+      }, 10000);
       return;
     }
-
-    await createPayment();
+        // await createPayment();
     await handleCapturePayment(paymentId);
   };
+  
 
   return (
     <div id={style.formCotainer}>
-      <form onSubmit={handleSubmit}>
+      <form method="post" action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/" onSubmit={handleSubmit}>
         <input name="merchantId" type="hidden" value="508029" />
         <input name="accountId" type="hidden" value="512321" />
         <input
@@ -106,6 +110,7 @@ function PAYU({ total, user, formRef, setErrors, items }) {
         <input name="shippingAddress" type="hidden" value={formRef.current?.address} />
         <input name="shippingCity" type="hidden" value={formRef.current?.city} />
         <input name="shippingCountry" type="hidden" value="CO" />
+        <input name="sourceUrl" type="hidden" value={window.location.href} />
       </form>
     </div>
   );

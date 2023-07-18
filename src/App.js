@@ -126,7 +126,7 @@ function App() {
         </div>
       ) : (
         <Router>
-          <Route path={"/queris"} render={()=> <PayUQueries user={currentUser}/>} />
+          {/* <Route path={"/queris"} render={()=> <PayUQueries user={currentUser}/>} /> */}
           <Route path={"/payment"} render={()=> <PasarelaDePagos user={currentUser}/>} />
           <Route path={"/response"} render={()=> <PayUResponseSummary user={currentUser}/>}/>
           <Route path={"/confirmation"} render={()=> <PayUConfirmationPage/>}/>
