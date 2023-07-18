@@ -3,7 +3,7 @@ import style from "./Home.module.css"
 import SliderCategory from "./components/SilderCategory/SliderCategory";
 
 
-const Home = ()=>{
+const Home = ({viewportWidth})=>{
 
     useEffect(()=>{
         window.scrollTo(0,0)
@@ -15,19 +15,19 @@ const Home = ()=>{
                 <div id={style.container} >
                     <label htmlFor="">
                         <div>
-                            <SliderCategory category={"Belleza"}/>
-                            <SliderCategory category={"Joyeria"}/>
-                            <SliderCategory category={"Tecnologia"}/>
-                            <SliderCategory category={"Calzado"}/>
-                            <SliderCategory category={"Juguetes"}/>
-                            <SliderCategory category={"Muebles"}/>
-                            <SliderCategory category={"Ropa"}/>
-                            <SliderCategory category={"Mascotas"}/>
-                            <SliderCategory category={"Turismo"}/>
-                            <SliderCategory category={"Artesanias"}/>
-                            <SliderCategory category={"Agropecuario"}/>
-                            <SliderCategory category={"Equipaje"}/>
-                            <SliderCategory category={"Servicios"}/>
+                            <SliderCategory viewportWidth={viewportWidth} category={"Belleza"}/>
+                            <SliderCategory viewportWidth={viewportWidth} category={"Joyeria"}/>
+                            <SliderCategory viewportWidth={viewportWidth} category={"Tecnologia"}/>
+                            <SliderCategory viewportWidth={viewportWidth} category={"Calzado"}/>
+                            <SliderCategory viewportWidth={viewportWidth} category={"Juguetes"}/>
+                            <SliderCategory viewportWidth={viewportWidth} category={"Muebles"}/>
+                            <SliderCategory viewportWidth={viewportWidth} category={"Ropa"}/>
+                            <SliderCategory viewportWidth={viewportWidth} category={"Mascotas"}/>
+                            <SliderCategory viewportWidth={viewportWidth} category={"Turismo"}/>
+                            <SliderCategory viewportWidth={viewportWidth} category={"Artesanias"}/>
+                            <SliderCategory viewportWidth={viewportWidth} category={"Agropecuario"}/>
+                            <SliderCategory viewportWidth={viewportWidth} category={"Equipaje"}/>
+                            <SliderCategory viewportWidth={viewportWidth} category={"Servicios"}/>
                         </div>
                     </label>
                 </div>

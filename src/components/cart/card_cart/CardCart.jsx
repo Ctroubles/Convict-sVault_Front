@@ -45,7 +45,7 @@ const CardCart = ({name, img, price, brand, id, quantity, stock}) =>{
     return(
         <div style={{position:"relative"}}>
             <div id={style.container}>
-                <div style={{display:"flex", justifyContent:"space-between", alignItems:"center"}}>
+                <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", width:"100%"}}>
                     <div id={style.leftSection}>
                         <div id={style.imgContainer}>
                             <img src={img} alt={name} />
