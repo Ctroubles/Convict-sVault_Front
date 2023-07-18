@@ -1,20 +1,76 @@
-import React, { useEffect, useRef } from 'react';
-import style from "./paymentButton.module.css";
+import React, { useState } from 'react';
+import style from "./paymentButton.module.css"
 import { v4 as uuidv4 } from 'uuid';
 import { validatorsLevel2 } from '../../validators';
 import Url_deploy_back from '../../../../util/deploy_back';
-import PayU from "payu";
+import axios from 'axios';
+
+
+
 const CryptoJS = require("crypto-js");
 
-function PAYU({ total, user, formRef, setErrors, items }) {
-  const formRef2 = useRef(null);
-  console.log(items);
+
+function PAYU({total, user, formRef, setErrors, items}) {
+console.log(items)
   let apiKey = "4Vj8eK4rloUd272L48hsrarnUA";
   let merchantId = "508029";
   const referenceCode = `PAGO${uuidv4()}`;
   let mont = total;
 
   let signature = CryptoJS.MD5(apiKey + "~" + merchantId + "~" + referenceCode + "~" + mont + "~COP").toString();
+    
+  // const handleSubmit = (event) => {
+  //   if (!validatorsLevel2(setErrors,formRef.current)) {
+  //     event.preventDefault(); 
+  //     return;
+  //   }
+  // };
+
+  const [paymentId, setPaymentId] = useState('');
+
+  const handleCapturePayment = async (paymentId) => {
+    try {
+      // Realiza una solicitud POST a la API de PayU para capturar el pago
+      const response = await axios.post(
+        `https://api.payulatam.com/payments-api/${paymentId}/capture`,
+        {
+          // Aquí debes proporcionar los parámetros necesarios para capturar el pago, como la clave de la API y otros datos específicos
+        }
+      );
+  
+      // El pago se capturó exitosamente
+      console.log('Pago capturado:', response.data);
+  
+      // Envía los datos del pago capturado a la base de datos
+      const transactionData = {
+        paymentId: paymentId,
+        amount: response.data.amount,
+        // Otros datos relevantes del pago que desees enviar a la base de datos
+      };
+  
+      const databaseResponse = await axios.post(`${Url_deploy_back}/transactions/create`, transactionData);
+      console.log('Pago enviado a la base de datos:', databaseResponse.data);
+    } catch (error) {
+      // Ocurrió un error al capturar el pago
+      if (error.response && error.response.data) {
+        console.error('Error al capturar el pago:', error.response.data);
+      } else {
+        console.error('Error al capturar el pago:', error.message);
+      }
+    }
+  };
+
+  const createPayment = async () => {
+    try {
+      const response = await axios.post('https://api.payu.com/v2_1/payments', {
+        // ... otros parámetros necesarios para crear el pago
+      });
+      const paymentId = response.data.id;
+      setPaymentId(paymentId);
+    } catch (error) {
+      console.error('Error al crear el pago:', error);
+    }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -22,32 +78,17 @@ function PAYU({ total, user, formRef, setErrors, items }) {
     if (!validatorsLevel2(setErrors, formRef.current)) {
       return;
     }
-
-    try {
-      const response = await fetch("https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/", {
-        method: "POST",
-        body: new FormData(formRef2.current),
-      });
-
-      // Process the response as needed
-      console.log("hola", response);
-
-      // Call PayU capture method
-      const paymentId = response.paymentId; // Replace with the actual payment ID from the response
-      const captureResponse = await PayU.capturePayment(paymentId);
-
-      // Process the capture response as needed
-      console.log(captureResponse);
-    } catch (error) {
-      console.error("Error submitting form:", error);
-    }
+    
+    await createPayment();
+    console.log("hola", paymentId);
+    await handleCapturePayment(paymentId);
   };
 
-  PayU.paymentsUrl = "https://api.payulatam.com/payments-api/";
+  // https://checkout.payulatam.com/ppp-web-gateway-payu/
 
   return (
     <div id={style.formCotainer}>
-      <form onSubmit={handleSubmit} ref={formRef2}>
+      <form method="post" action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/" onSubmit={handleSubmit}>
         <input name="merchantId" type="hidden" value="508029" />
         <input name="accountId" type="hidden" value="512321" />
         <input
