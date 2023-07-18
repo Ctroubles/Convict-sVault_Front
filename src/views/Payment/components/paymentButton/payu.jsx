@@ -31,7 +31,7 @@ console.log(items)
   const handleCapturePayment = async (paymentId) => {
     try {
       const response = await axios.post(
-        `https://api.payulatam.com/payments-api/${paymentId}/capture`,
+        `https://sandbox.api.payulatam.com/payments-api/${paymentId}/capture`,
         {
           apiKey: "4Vj8eK4rloUd272L48hsrarnUA",
           merchantId: "508029",
@@ -64,7 +64,7 @@ console.log(items)
 
   const createPayment = async () => {
     try {
-      const response = await axios.post('https://api.payu.com/v2_1/payments', {
+      const response = await axios.post('https://sandbox.api.payu.com/v2_1/payments', {
         // ... otros parámetros necesarios para crear el pago
       });
       const paymentId = response.data.id;
