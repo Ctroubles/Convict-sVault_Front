@@ -68,6 +68,7 @@ console.log(items)
         // ... otros parámetros necesarios para crear el pago
       });
       const paymentId = response.data.id;
+      console.log("hi",paymentId)
       setPaymentId(paymentId);
     } catch (error) {
       console.error('Error al crear el pago:', error);
