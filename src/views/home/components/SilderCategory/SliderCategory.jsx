@@ -10,7 +10,7 @@ import Url_deploy_back from "../../../../util/deploy_back";
 
 
 
-const SliderCategory = ({category,}) =>{
+const SliderCategory = ({category, viewportWidth}) =>{
 
     const [products, setProducts] = useState([])
     const [position, setPositon] = useState(-1)
@@ -66,9 +66,6 @@ const SliderCategory = ({category,}) =>{
       }, 300);
     };
 
-
-
-
     useEffect(()=>{
         if (!(position >= -products.length+4)) {
             setTimeout(()=>{
@@ -87,6 +84,18 @@ const SliderCategory = ({category,}) =>{
         }
     },[position])
 
+
+    function sizeCardSlider(){
+        let size;
+        if (viewportWidth > 680) {
+            size = "33.3333333%";
+        }else if(viewportWidth > 480){
+            size = "50%"
+        }else{
+            size = "100%"
+        }
+        return size
+    };
 
     return(
         <div>
@@ -111,7 +120,7 @@ const SliderCategory = ({category,}) =>{
                                     <div style={{height:"100%",  width:"100%"}}>
                                         <section style={{height:"100%", position:"relative", paddingRight:"24px", width:"100%"}}>
                                             <div id={style.frame}>
-                                                <div id={style.cardsContainer} style={{width:`calc(33.3333333% * ${products?.length})`, minWidth:`calc(33.3333333% * ${products?.length})`, maxWidth:`calc(33.3333333%* ${products?.length})` ,...sliderStyle, transform:`translate3d(calc((100% / ${products?.length}) * ${position}),0,0)`, }}>
+                                                <div id={style.cardsContainer} style={{width:`calc(${sizeCardSlider()}* ${products?.length})`, minWidth:`calc(${sizeCardSlider()} * ${products?.length})`, maxWidth:`calc(${sizeCardSlider()} * ${products?.length})` ,...sliderStyle, transform:`translate3d(calc((100% / ${products?.length}) * ${position}),0,0)`, }}>
                                                 {
                                                     products.map((e, i) => <OtherCard key={e._id + i} brand={e.brand} category={e.category} image={e.image} price={e.price} name={e.name} id={e._id} />)
                                                 }

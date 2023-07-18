@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import style from "./Cart.module.css";
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -9,6 +9,8 @@ import { useHistory } from "react-router-dom";
 
 
 const Cart = ({ setCartStatus }) => {
+
+  const refModal = useRef(null)
   const {cart}  = useSelector((e) => e);
 
   const [loading, setLoading] = useState(true);
@@ -30,9 +32,7 @@ const Cart = ({ setCartStatus }) => {
         const { data } = await axios.get(`${Url_deploy_back}/products/${key}`);
         if (!data.hasOwnProperty('price')) {
           throw new Error('El objeto de producto no contiene una propiedad "price".');
-        }
-        // Verificar si la cantidad es mayor al stock
-       
+        }       
         total = total + data.price * e[key];
         return { ...data, quantity: e[key] };
       })
@@ -46,26 +46,47 @@ const Cart = ({ setCartStatus }) => {
     obtenerProductos(cart);
   }, [cart]);
 
+
+  const modalClose = ({target}) =>{
+    if (target.id === style.CartModal) {
+      refModal.current.classList.add(style.getOut);
+      setLoading(true)
+      setTimeout(()=>{
+        setCartStatus(false)
+      },600)
+    }
+  };
+   
+  const handlerClose = () =>{
+      setLoading(true)
+      refModal.current.classList.add(style.getOut);
+      setTimeout(()=>{
+        setCartStatus(false)
+      },600)
+  };
+
   return (
-    <div id={style.CartModal}>
+    <div id={style.CartModal} onClick={(e)=>modalClose(e)} ref={refModal}>
       <div
         id={style.closeButton}
-        onClick={() => setCartStatus(false)}
+        onClick={() => handlerClose()}
         className={!loading ? style.open : undefined}
       >
-        <span></span>
-        <span></span>
+        <div>
+          <span></span>
+          <span></span>
+        </div>         
       </div>
-      <div style={{ height: "100vh" }}>
+      <div id={style.cartContainer}>
         <div id={style.Card} style={!loading ? { transform: "translateX(0px)" } : undefined}>
           <div>
-            <div style={{ padding: "12px 0 12px 15px", backgroundColor: "#009fe3" }}>
-              <label id={style.tittle}>
+            <div id={style.tittle}>
+              <label>
                 <h1>Carrito</h1>
               </label>
             </div>
             <div>
-              <div style={{ padding: "15px 28px 0 5px" }}>
+              <div style={{ padding: "10px 28px 0 5px" }}>
                 <div id={style.cardsContainer}>
                   {items.map((e) => (
                     <CardCart

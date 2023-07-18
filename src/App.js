@@ -140,7 +140,7 @@ function App() {
                 <Header user={currentUser} viewportWidth={viewportWidth} />
               </div>
               <div  className={styles.bodyContainer}>
-                <Home />
+                <Home viewportWidth={viewportWidth}/>
                 <Footer />
               </div>             
             </>
