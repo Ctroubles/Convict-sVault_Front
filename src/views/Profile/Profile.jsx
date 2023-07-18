@@ -21,7 +21,7 @@ const editableStyle = {
 }
 
 
-const Profile = ({user}) =>{
+const Profile = ({user, viewportWidth}) =>{
     
     const history = useHistory();
     const params = useParams()
@@ -35,6 +35,7 @@ const Profile = ({user}) =>{
     const [userData, setUserData] = useState({})
     const [errors, setErrors] = useState({})
     const [genderEdit, setGenderEdit] = useState(false)
+    const [statusBox, setStatusBox] = useState(null)
 
 
     useEffect(()=>{
@@ -48,22 +49,44 @@ const Profile = ({user}) =>{
         })
     },[user, editable])
 
-    useEffect(()=>{
-        switch (params.sec) {
-            case "profile":
-                setSection(1)
-                break;          
-            case "addresses":
-                setSection(2)
-                break;            
-            case "orders":
-                setSection(3)
-                break;            ;
-            default:
-                history.push("/account/profile")
-                break;
-        }
-    },[params])
+    useEffect(() => {
+        if (viewportWidth > 600) {
+            if (statusBox) setStatusBox(null)
+            switch (params.sec) {
+                case "profile":
+                    setSection(1);
+                    break;          
+                case "addresses":
+                    setSection(2);
+                    break;            
+                case "orders":
+                    setSection(3);
+                    break;            
+                default:
+                    history.push("/account/profile");
+                    break;
+            }
+        }else{
+            switch (params.sec) {
+                case "profile":
+                    setSection(1);
+                    setStatusBox(2)
+                    break;          
+                case "addresses":
+                    setSection(2);
+                    setStatusBox(2)
+                    break;            
+                case "orders":
+                    setSection(3);
+                    setStatusBox(2)
+                    break;            
+                default:
+                    setStatusBox(1)
+                    setSection(null);
+                    break;
+            }
+        }           
+    }, [params]);
 
 
     const modalHandler = () =>{
@@ -137,15 +160,16 @@ const Profile = ({user}) =>{
         };
     }, [genderEdit]);
 
+    
     return(
         <div id={style.Container}>
             <div style={{ width:"100%", maxWidth:"1350px"}}>
                 <div id={style.coreBox}>
-                    <div style={{padding:"0 40px"}}>
+                    <div id={style.sideNav} style={statusBox===2?{display:"none"}:undefined}>
                         <div style={{display:"flex", alignItems:"end", margin:"0 0 40px 0"}}>
-                            <div id={style.picContainer}><img src={user.picture} alt="Profile pic" style={{width:"60px", height:"60px"}} /></div>
+                            <div id={style.picContainer}><img src={user.picture} alt="Profile pic" /></div>
                             <div id={style.namne}>
-                                <h3 style={{whiteSpace:"nowrap"}}>Hola, {user.name}</h3>
+                                <h3 style={{whiteSpace:"nowrap"}} title={"Hola, "+user.name}>Hola, {user.name}</h3>
                             </div>
                         </div>
                         <div>
@@ -180,11 +204,20 @@ const Profile = ({user}) =>{
                             </nav>
                         </div>
                     </div>
-                    <div style={{width:"100%",}}>
+                    <div style={statusBox===1?{display:"none",width:"100%"}:{width:"100%"}} >
                         <div>
-                            <div>
+                            {
+                                viewportWidth <= 600 ? (
+                                    <div id={style.backButton}>
+                                        <Link to={"/account"}>
+                                            {"< "}&nbsp;ATRÁS
+                                        </Link>
+                                    </div>
+                                ):null
+                            }
+                            <div id={style.topDataBox}>
                                 <label>
-                                    <h1 style={{padding:"40px", marginTop:"40px",fontSize:"34px"}}>
+                                    <h1 style={{}}>
                                         {section===1?"Perfil":section===2?"Direcciones":section===3?"Pedidos":undefined}
                                     </h1>
                                 </label>
@@ -194,7 +227,7 @@ const Profile = ({user}) =>{
                                     {
                                         section===1?(
                                             <div id={style.dataBox} style={{maxWidth:"1000px"}}>
-                                            <div style={{padding:"35px 40px 28px 40px"}}>
+                                            <div id={style.dataBoxMain}>
                                                 <div className={style.wrapBin}>
                                                     <div>
                                                         <label>

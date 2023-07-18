@@ -1,7 +1,6 @@
 #Card{
     padding: 0 25px 25px 0;
-    max-width: 365px;
-    min-width: 33.33333px;
+    min-width: 33.33333%;
     flex-basis: 33.33333%;
     width: 33.33333%;
 }
@@ -129,4 +128,21 @@
     100%{
         opacity: 1;
     }   
+}
+
+
+
+@media screen and (max-width:1200px) {
+    #Card{
+        min-width: 50%;
+        flex-basis: 50%;
+        width: 50%;
+    }
+}
+@media screen and (max-width:900px) {
+    #Card{
+        min-width: 100%;
+        flex-basis: 100%;
+        width: 100%;
+    }
 }

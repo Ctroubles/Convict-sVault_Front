@@ -12,23 +12,29 @@ import logo from "../../assets/logorecortadoooooo (1).png";
 import { useAuth0 } from "@auth0/auth0-react";
 import {useSelector} from "react-redux"
 import Cart from "../cart/Cart";
+import { useRef } from "react";
 
 
 
-const Header = ({user}) =>{
+const Header = ({user, viewportWidth}) =>{
 
     const {cart} = useSelector(state => state)
     const {loginWithRedirect, logout} = useAuth0()
+    const  navRef = useRef(null)
 
     const [itemsCart, setItemsCart] = useState(0)
     const {pathname} = useLocation()
     const [category, setCategory] = useState(null)
     const [cartStatus, setCartStatus] = useState(false)
+    const [navStatus, setNavStatus] = useState(false)
 
     useEffect(()=>{
         const arrurl = pathname.split("/");
         const category = arrurl[arrurl.length-1];
         setCategory(category);
+        if (navStatus) {
+            setNavStatus(false)
+        }
     },[pathname])
 
     useEffect(()=>{
@@ -37,6 +43,36 @@ const Header = ({user}) =>{
         setItemsCart(quantity)
     },[cart])
 
+
+    useEffect(()=>{
+        if (viewportWidth <= 1400 && navRef.current) {
+            if (navStatus ) {
+                navRef.current.classList.remove(style.nonDisplay);
+            }else{
+                setTimeout(() => {
+                    navRef.current.classList.add(style.nonDisplay);
+                }, 150);
+            }
+        }else{
+            navRef.current.classList.remove(style.nonDisplay);
+        }
+    },[navStatus])
+
+    useEffect(()=>{
+        if (viewportWidth > 1400 && navRef.current) {
+            navRef.current.classList.remove(style.nonDisplay);
+        }else if(viewportWidth <= 1400 || !navStatus){
+            navRef.current.classList.add(style.nonDisplay);
+            setNavStatus(false)
+        }
+    },[viewportWidth])
+
+
+    const closeNavSide = (e) =>{
+        if (e.target.id === style.navContainer || e.target.id === style.buttonNav) {
+            setNavStatus(false)
+        }
+    }
 
     return(
         <div>
@@ -114,43 +150,49 @@ const Header = ({user}) =>{
                             </div>
                         </div>
                         <div style={{backgroundColor:"#009fe3", display:"flex", justifyContent:"center"}}>
-                                <div id={style.buttonMenuPhone}>
+                                <div id={style.buttonMenuPhone} onClick={()=>setNavStatus(!navStatus)}>
                                     <div>
                                             <label>
                                                 <img src={lines_menu} alt="Menu" />
                                             </label>
                                             <label>
-                                                <p>Todas las categorías</p>
+                                                <p>Categorías</p>
                                             </label>
                                     </div>
                                 </div>
-                            <div style={{padding:"0 30px", justifyContent:"space-between", width:"100%", maxWidth:"1500px"}} id={style.navContainer}>
-                                <div id={style.buttonMenu}>
-                                    <div>
-                                        <Link to={"/home"}>
-                                            <label>
-                                                <img src={lines_menu} alt="Menu" />
-                                            </label>
-                                            <label>
-                                                <p>Todas las categorías</p>
-                                            </label>
-                                        </Link>
+                            <div id={style.navContainer} ref={navRef} className={!navStatus?style.desactive:style.active} onClick={(e)=>closeNavSide(e)}>
+                                <div>
+                                    <div id={style.buttonMenu} >
+                                        <div>
+                                            <Link to={"/home"} className={style.buttonNav}>
+                                                <label>
+                                                    <img src={lines_menu} alt="Menu" />
+                                                </label>
+                                                <label>
+                                                    <p>Todas las categorías</p>
+                                                </label>
+                                            </Link>
+                                        </div>
+                                        <div id={style.quitButton} onClick={()=>setNavStatus(false)}>
+                                            <span></span>
+                                            <span></span>
+                                        </div>
                                     </div>
-                                </div>
-                                <nav id={style.navBar}>
-                                    <Link to={"/category/ropa"} style={category==="ropa"?{backgroundColor:"#0e628b"}:undefined}><li >Ropa</li></Link>    
-                                    <Link to={"/category/calzado"} style={category==="calzado"?{backgroundColor:"#0e628b"}:undefined}><li >Calzado</li></Link>    
-                                    <Link to={"/category/joyeria"} style={category==="joyeria"?{backgroundColor:"#0e628b"}:undefined}><li >Joyería</li></Link>    
-                                    <Link to={"/category/muebles"} style={category==="muebles"?{backgroundColor:"#0e628b"}:undefined}><li >Muebles</li></Link>    
-                                    <Link to={"/category/juguetes"} style={category==="juguetes"?{backgroundColor:"#0e628b"}:undefined}><li >Jeguetería</li></Link>    
-                                    <Link to={"/category/belleza"} style={category==="belleza"?{backgroundColor:"#0e628b"}:undefined}><li >Belleza</li></Link>    
-                                    <Link to={"/category/equipaje"} style={category==="equipaje"?{backgroundColor:"#0e628b"}:undefined}><li >Equipaje</li></Link>      
-                                    <Link to={"/category/mascotas"} style={category==="mascotas"?{backgroundColor:"#0e628b"}:undefined}><li >Mascotas</li></Link>      
-                                    <Link to={"/category/turismo"} style={category==="turismo"?{backgroundColor:"#0e628b"}:undefined}><li >Turismo</li></Link>      
-                                    <Link to={"/category/artesania"} style={category==="artesania"?{backgroundColor:"#0e628b"}:undefined}><li >Artesania</li></Link>      
-                                    <Link to={"/category/agropecuario"} style={category==="agropecuario"?{backgroundColor:"#0e628b"}:undefined}><li >Agropecuario</li></Link>      
-                                    <Link to={"/category/servicios"} style={category==="servicios"?{backgroundColor:"#0e628b"}:undefined}><li >servicios</li></Link>      
-                                </nav>  
+                                    <nav id={style.navBar}>
+                                        <Link to={"/category/ropa"} className={style.buttonNav} style={category==="ropa"?{backgroundColor:"#0e628b"}:undefined}><li >Ropa</li></Link>    
+                                        <Link to={"/category/calzado"} className={style.buttonNav} style={category==="calzado"?{backgroundColor:"#0e628b"}:undefined}><li >Calzado</li></Link>    
+                                        <Link to={"/category/joyeria"} className={style.buttonNav} style={category==="joyeria"?{backgroundColor:"#0e628b"}:undefined}><li >Joyería</li></Link>    
+                                        <Link to={"/category/muebles"} className={style.buttonNav} style={category==="muebles"?{backgroundColor:"#0e628b"}:undefined}><li >Muebles</li></Link>    
+                                        <Link to={"/category/juguetes"} className={style.buttonNav} style={category==="juguetes"?{backgroundColor:"#0e628b"}:undefined}><li >Jeguetería</li></Link>    
+                                        <Link to={"/category/belleza"} className={style.buttonNav} style={category==="belleza"?{backgroundColor:"#0e628b"}:undefined}><li >Belleza</li></Link>    
+                                        <Link to={"/category/equipaje"} className={style.buttonNav} style={category==="equipaje"?{backgroundColor:"#0e628b"}:undefined}><li >Equipaje</li></Link>      
+                                        <Link to={"/category/mascotas"} className={style.buttonNav} style={category==="mascotas"?{backgroundColor:"#0e628b"}:undefined}><li >Mascotas</li></Link>      
+                                        <Link to={"/category/turismo"} className={style.buttonNav} style={category==="turismo"?{backgroundColor:"#0e628b"}:undefined}><li >Turismo</li></Link>      
+                                        <Link to={"/category/artesania"} className={style.buttonNav} style={category==="artesania"?{backgroundColor:"#0e628b"}:undefined}><li >Artesania</li></Link>      
+                                        <Link to={"/category/agropecuario"} className={style.buttonNav} style={category==="agropecuario"?{backgroundColor:"#0e628b"}:undefined}><li >Agropecuario</li></Link>      
+                                        <Link to={"/category/servicios"} className={style.buttonNav} style={category==="servicios"?{backgroundColor:"#0e628b"}:undefined}><li >servicios</li></Link>      
+                                    </nav>  
+                                </div>                               
                             </div>
                         </div>
                     </div>

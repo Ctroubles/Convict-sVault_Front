@@ -213,7 +213,7 @@ const SelectDep = ({title, options = [], handlerMenu, targetMenu, setForm, form,
             const value = e.target.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
             const coincidence = options.filter(e=>e.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(value.trim()));
             setOptiones(coincidence);
-            setForm({...form, [formValue]:e.target.value})
+            setForm({...form, [formValue]:e.target.value, city:""})
         }      
     }
 
@@ -251,7 +251,7 @@ const SelectDep = ({title, options = [], handlerMenu, targetMenu, setForm, form,
                                         {
                                             optionsArr.length ?
                                             optionsArr.map((e,i)=> (
-                                                            <div onClick={()=>setForm({...form, [formValue]:e})} key={i} className={style.options}>
+                                                            <div onClick={()=>setForm({...form, [formValue]:e, city:""})} key={i} className={style.options}>
                                                                 <p>{e}</p>
                                                             </div>
                                                             ))

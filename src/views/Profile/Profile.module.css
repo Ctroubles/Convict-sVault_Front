@@ -5,8 +5,13 @@
     flex-direction: column;
 }
 #coreBox{
-    padding: 64px 0;
+    padding: 64px 30px 64px;
     display: flex;
+}
+#sideNav{
+    padding: 0 15px 0 0;
+    width: 100%;
+    max-width: 250px;
 }
 #span{
     border: none;
@@ -31,11 +36,27 @@
 .navLink:hover > span {
     color: #3f3f40;
 }
+#picContainer{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+#picContainer img{
+    width: 100%;
+    height: 100%;
+}
 #namne{
-    padding-bottom: 10px;
+    padding-bottom: 6px;
+    width: calc(100% - 75px);
+    flex-shrink: 1;
 }
 #namne h3{
     font-weight: 400;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 .navLink span{
     color: rgb(114, 114, 115);
@@ -43,11 +64,14 @@
     font-size: 14px;
 }
 #dataBoxContainer{
-    padding: 0px 20px 20px 20px;
+    padding: 0 0 20px 20px;
 }
 #dataBox{
     border: 1px solid #b7babc;
     border-radius: 4px;
+}
+#dataBox #dataBoxMain{
+    padding: 35px 40px 28px 40px;
 }
 .wrapBin{
     display: flex;
@@ -71,6 +95,19 @@
     color: #979899;
     height: 32px;
 }
+#backButton{
+    font-size: 15px;
+    font-weight: 600;
+}
+#backButton a{
+    text-decoration: none;
+    color: #026e9c;
+}
+#topDataBox h1{
+    padding: 40px; 
+    margin-top: 40px;
+    font-size: 34px;
+}
 #genderBox{
     border-bottom-color: transparent;
     font-size: 16px;
@@ -86,7 +123,6 @@
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
     display: flex;
-    /* justify-content: space-between; */
     align-items: center;
     cursor: pointer;
     height: 32px;
@@ -130,13 +166,6 @@
 }
 #openBox li:hover{
     filter: brightness(90%);
-}
-#picContainer{
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin-right: 25px;
 }
 #foot{
     padding: 0 30px 15px 20px;
@@ -229,4 +258,62 @@
     100%{
         opacity: 1;
     }   
+}
+
+
+
+
+@media screen and (max-width: 1050px){
+    #coreBox{
+        padding: 50px 14px 50px;
+    }
+    #sideNav{
+        max-width: 230px;
+        padding: 0 24px 0 0;
+    }
+    #picContainer{
+        width: 50px;
+        height: 50px;
+        margin-right: 12px;
+    }
+    #namne{
+        padding-bottom: 6px;
+        width: calc(100% - 62px);
+    }
+    #dataBoxContainer{
+        padding: 0 0 20px 0;
+    }
+    #topDataBox h1{
+        padding: 40px 20px; 
+        margin-top: 0px;
+        font-size: 34px;
+    }
+}
+
+@media screen and (max-width: 980px){
+    .wrapBin{
+        flex-direction: column;
+    }
+    .wrapBin>div input{
+        padding: 15px 10px;
+        border-radius: 4px;
+        height: 42px;
+        width: 100%;
+    }
+}
+@media screen and (max-width: 620px){
+    #dataBox #dataBoxMain{
+        padding: 32px 25px 25px 25px;
+    }
+}
+@media screen and (max-width: 600px){
+    #coreBox{
+        flex-direction: column;
+        padding: 50px 20px 50px;
+    }
+    #topDataBox h1{
+        padding: 30px 20px 35px; 
+        margin-top: 0px;
+        font-size: 34px;
+    }
 }

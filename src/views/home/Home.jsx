@@ -12,7 +12,6 @@ const Home = ()=>{
                 <div id={style.container} >
                     <label htmlFor="">
                         <div>
-                            <SliderCategory category={"Equipaje"}/>
                             <SliderCategory category={"Belleza"}/>
                             <SliderCategory category={"Joyeria"}/>
                             <SliderCategory category={"Tecnologia"}/>
@@ -24,6 +23,7 @@ const Home = ()=>{
                             <SliderCategory category={"Turismo"}/>
                             <SliderCategory category={"Artesanias"}/>
                             <SliderCategory category={"Agropecuario"}/>
+                            <SliderCategory category={"Equipaje"}/>
                             <SliderCategory category={"Servicios"}/>
                         </div>
                     </label>
