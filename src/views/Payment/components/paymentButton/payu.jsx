@@ -30,11 +30,13 @@ console.log(items)
 
   const handleCapturePayment = async (paymentId) => {
     try {
-      // Realiza una solicitud POST a la API de PayU para capturar el pago
       const response = await axios.post(
         `https://api.payulatam.com/payments-api/${paymentId}/capture`,
         {
-          // Aquí debes proporcionar los parámetros necesarios para capturar el pago, como la clave de la API y otros datos específicos
+          apiKey: "4Vj8eK4rloUd272L48hsrarnUA",
+          merchantId: "508029",
+          paymentId: paymentId,
+          // Otros parámetros relevantes para la captura del pago
         }
       );
   
