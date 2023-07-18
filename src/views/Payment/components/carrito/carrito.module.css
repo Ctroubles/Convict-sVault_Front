@@ -9,6 +9,9 @@
     transition: transform 0.5s ease;
     min-height: calc(100vh - 74px);
   }
+  #tittle{
+    padding: 35px 0 0px 15px;
+  }
   #tittle h1{
     font-size: 24px;
     font-weight: 400;
@@ -91,10 +94,16 @@
     min-height: auto;
     gap: 50px;
   }
+  #tittle{
+    padding: 10px 0 0px 0px;
+  }
 }  
 @media screen and (max-width:540px) {
   #Cart{
     padding: 0 0px;
+  }
+  #tittle{
+    padding: 10px 0 0px 12px;
   }
 }  
 @media screen and (max-width:410px) {
