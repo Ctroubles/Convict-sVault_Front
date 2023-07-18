@@ -4,52 +4,40 @@ import { v4 as uuidv4 } from 'uuid';
 import { validatorsLevel2 } from '../../validators';
 import Url_deploy_back from '../../../../util/deploy_back';
 import axios from 'axios';
+import CryptoJS from 'crypto-js';
 
-
-
-const CryptoJS = require("crypto-js");
-
-
-function PAYU({total, user, formRef, setErrors, items}) {
-console.log(items)
+function PAYU({ total, user, formRef, setErrors, items }) {
   let apiKey = "4Vj8eK4rloUd272L48hsrarnUA";
   let merchantId = "508029";
   const referenceCode = `PAGO${uuidv4()}`;
   let mont = total;
 
   let signature = CryptoJS.MD5(apiKey + "~" + merchantId + "~" + referenceCode + "~" + mont + "~COP").toString();
-    
-  // const handleSubmit = (event) => {
-  //   if (!validatorsLevel2(setErrors,formRef.current)) {
-  //     event.preventDefault(); 
-  //     return;
-  //   }
-  // };
 
   const [paymentId, setPaymentId] = useState('');
 
   const handleCapturePayment = async (paymentId) => {
     try {
       const response = await axios.post(
-        `https://sandbox.api.payulatam.com/payments-api/${paymentId}/capture`,
+        `https://sandbox.api.payulatam.com/payments-api/4.0/service.cgi/${paymentId}/capture`,
         {
-          apiKey: "4Vj8eK4rloUd272L48hsrarnUA",
-          merchantId: "508029",
+          apiKey: apiKey,
+          merchantId: merchantId,
           paymentId: paymentId,
           // Otros parámetros relevantes para la captura del pago
         }
       );
-  
+
       // El pago se capturó exitosamente
       console.log('Pago capturado:', response.data);
-  
+
       // Envía los datos del pago capturado a la base de datos
       const transactionData = {
         paymentId: paymentId,
         amount: response.data.amount,
         // Otros datos relevantes del pago que desees enviar a la base de datos
       };
-  
+
       const databaseResponse = await axios.post(`${Url_deploy_back}/transactions/create`, transactionData);
       console.log('Pago enviado a la base de datos:', databaseResponse.data);
     } catch (error) {
@@ -64,12 +52,12 @@ console.log(items)
 
   const createPayment = async () => {
     try {
-      const response = await axios.post('https://sandbox.api.payu.com/v2_1/payments', {
+      const response = await axios.post('https://sandbox.api.payulatam.com/payments-api/4.0/service.cgi/v2_1/payments', {
         // ... otros parámetros necesarios para crear el pago
       });
       const paymentId = response.data.id;
-      console.log("hi",paymentId)
       setPaymentId(paymentId);
+      console.log('Pago creado:', paymentId);
     } catch (error) {
       console.error('Error al crear el pago:', error);
     }
@@ -81,29 +69,26 @@ console.log(items)
     if (!validatorsLevel2(setErrors, formRef.current)) {
       return;
     }
-    
+
     await createPayment();
-    console.log("hola", paymentId);
     await handleCapturePayment(paymentId);
   };
 
-  // https://checkout.payulatam.com/ppp-web-gateway-payu/
-
   return (
     <div id={style.formCotainer}>
-      <form method="post" action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/" onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <input name="merchantId" type="hidden" value="508029" />
         <input name="accountId" type="hidden" value="512321" />
         <input
-        name="description"
-        type="hidden"
-        value={items
-          .map((item) => {
-            const { _id, name, quantity } = item;
-            return `ID: ${_id} - Nombre: ${name} (Cantidad: ${quantity})`;
-          })
-          .join(", ")}
-      />
+          name="description"
+          type="hidden"
+          value={items
+            .map((item) => {
+              const { _id, name, quantity } = item;
+              return `ID: ${_id} - Nombre: ${name} (Cantidad: ${quantity})`;
+            })
+            .join(", ")}
+        />
         <input name="referenceCode" type="hidden" value={referenceCode} />
         <input name="amount" type="hidden" value={total} />
         <input name="tax" type="hidden" value="0" />
@@ -116,8 +101,8 @@ console.log(items)
         <input name="payerFullName" type="hidden" value={formRef.current?.name} />
         <input name="payerMobilePhone" type="hidden" value={user.phone} />
         <input name="payerDocument" type="hidden" value={user.dni} />
-        <input name="confirmationUrl" type="hidden" value={`https://convict-s-vault-front.vercel.app/confirmation`}/>
-        <input name="Submit" type="submit" value="Pagar con Payu" id={style.paymentButton} />  
+        <input name="confirmationUrl" type="hidden" value={`https://convict-s-vault-front.vercel.app/confirmation`} />
+        <input name="Submit" type="submit" value="Pagar con Payu" id={style.paymentButton} />
         <input name="shippingAddress" type="hidden" value={formRef.current?.address} />
         <input name="shippingCity" type="hidden" value={formRef.current?.city} />
         <input name="shippingCountry" type="hidden" value="CO" />
