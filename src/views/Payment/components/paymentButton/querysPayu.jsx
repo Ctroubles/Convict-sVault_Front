@@ -30,11 +30,11 @@ function PayUQueries() {
   const handleQueryByTransactionId = async () => {
     try {
       const response = await axios.post('https://sandbox.api.payulatam.com/reports-api/4.0/service.cgi', {
-        test: false,
-        language: 'en',
+        test: true,
+        language: 'es',
         command: 'TRANSACTION_RESPONSE_DETAIL',
         merchant: {
-          apiLogin: 'pRRXKOl8ikMmt9u',
+          apiLogin: 'iMs8HTQwddSM26Q',
           apiKey: '4Vj8eK4rloUd272L48hsrarnUA',
         },
         details: {
@@ -50,11 +50,11 @@ function PayUQueries() {
   const handleQueryByReferenceCode = async () => {
     try {
       const response = await axios.post('https://sandbox.api.payulatam.com/reports-api/4.0/service.cgi', {
-        test: false,
+        test: true,
         language: 'en',
         command: 'ORDER_DETAIL_BY_REFERENCE_CODE',
         merchant: {
-          apiLogin: 'pRRXKOl8ikMmt9u',
+          apiLogin: 'iMs8HTQwddSM26Q',
           apiKey: '4Vj8eK4rloUd272L48hsrarnUA',
         },
         details: {
