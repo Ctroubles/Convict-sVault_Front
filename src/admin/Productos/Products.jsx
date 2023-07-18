@@ -1,43 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useState, useEffect } from 'react';
-import style from "./Products.module.css";
-import { FaTrash, FaEdit, FaUndo, FaFilter, FaCircle } from "react-icons/fa";
-import CreateProduct from '../CreateProduct/CreateProduct';
-import { Link } from 'react-router-dom/cjs/react-router-dom';
-import { IoMdAddCircle } from "react-icons/io";
+import style from './Products.module.css';
+import { FaTrash, FaEdit, FaUndo } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import { IoMdAddCircle } from 'react-icons/io';
 import EditProductModal from './EditProductModal';
 import swal from 'sweetalert2';
 import Url_deploy_back from '../../util/deploy_back';
 
-
-
 function Products({ darkMode }) {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [filter, setFilter] = useState("active");
+  const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(13);
   const [isMobile, setIsMobile] = useState(false);
-  const [activeFilter, setActiveFilter] = useState("activos");
+  const [activeFilter, setActiveFilter] = useState('activos');
   const [sortDirection, setSortDirection] = useState('asc');
-  //////darkmode///////
   const [tableClassName, setTableClassName] = useState(style.table);
 
   useEffect(() => {
-    const updatedTableClassName = darkMode ? `${style.table} ${style.darkModeTable}` : style.table;
+    const updatedTableClassName = `${style.table} ${darkMode ? style.darkModeTable : ''}`;
     setTableClassName(updatedTableClassName);
   }, [darkMode]);
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
 
-  const getProductNumber = (index) => {
-    return indexOfFirstProduct + index + 1;
-  };
+  const getProductNumber = (index) => indexOfFirstProduct + index + 1;
 
   const openModal = (product) => {
     setSelectedProduct(product);
@@ -45,12 +37,7 @@ function Products({ darkMode }) {
   };
 
   const updateProduct = (updatedProduct) => {
-    const updatedProducts = products.map((product) => {
-      if (product._id === updatedProduct._id) {
-        return updatedProduct;
-      }
-      return product;
-    });
+    const updatedProducts = products.map((product) => (product._id === updatedProduct._id ? updatedProduct : product));
     setProducts(updatedProducts);
     setFilteredProducts(updatedProducts);
   };
@@ -58,20 +45,19 @@ function Products({ darkMode }) {
   const handleRevoke = async (product) => {
     try {
       await axios.put(`${Url_deploy_back}/products/isActive/${product._id}`, {
-        isActive: false
+        isActive: false,
       });
-  
-      // Actualizar el estado del producto desactivado y sin stock
+
       const updatedProduct = { ...product, isActive: false };
       const updatedProducts = products.map((p) => (p._id === updatedProduct._id ? updatedProduct : p));
       setProducts(updatedProducts);
       setFilteredProducts(updatedProducts);
-  
+
       swal.fire({
         title: 'Se desactivó el producto con éxito',
         icon: 'success',
         confirmButtonText: 'Aceptar',
-        timerProgressBar: 2000
+        timerProgressBar: 2000,
       });
     } catch (error) {
       console.log(error);
@@ -80,28 +66,27 @@ function Products({ darkMode }) {
         text: error.message,
         icon: 'error',
         confirmButtonText: 'Aceptar',
-        timerProgressBar: 3000
+        timerProgressBar: 3000,
       });
     }
   };
-  
+
   const handleRestore = async (product) => {
     try {
       await axios.put(`${Url_deploy_back}/products/isActive/${product._id}`, {
-        isActive: true
+        isActive: true,
       });
-  
-      // Actualizar el estado del producto activado
+
       const updatedProduct = { ...product, isActive: true };
       const updatedProducts = products.map((p) => (p._id === updatedProduct._id ? updatedProduct : p));
       setProducts(updatedProducts);
       setFilteredProducts(updatedProducts);
-  
+
       swal.fire({
         title: 'Se restauró el producto con éxito',
         icon: 'success',
         confirmButtonText: 'Aceptar',
-        timerProgressBar: 2000
+        timerProgressBar: 2000,
       });
     } catch (error) {
       console.log(error);
@@ -110,71 +95,31 @@ function Products({ darkMode }) {
         text: error.message,
         icon: 'error',
         confirmButtonText: 'Aceptar',
-        timerProgressBar: 3000
+        timerProgressBar: 3000,
       });
     }
   };
 
-
-  const getActiveProducts = async () => {
-    try {
-      const { data } = await axios.get(`http://localhost:3001/products/active`);
-    console.log("first")
-      const sortedProducts = data.sort((a, b) => a.name.localeCompare(b.name));
-      setProducts(sortedProducts);
-      setFilteredProducts(sortedProducts);
-      setCurrentPage(1); // Restablece la página actual a la primera al obtener los productos
-    } catch (error) {
-      console.error(error);
-      alert("Something went wrong");
-    }
-  };
-
-  const getInactiveProducts = async () => {
-    try {
-      console.log("222")
-      const { data } = await axios.get(`http://localhost:3001/products/inactive`);
-      const sortedProducts = data.sort((a, b) => a.name.localeCompare(b.name));
-      setProducts(sortedProducts);
-      setFilteredProducts(sortedProducts);
-      setCurrentPage(1); // Restablece la página actual a la primera al obtener los productos
-    } catch (error) {
-      console.error(error);
-      alert("Something went wrong");
-    }
-  };
-
-  
   const getProducts = async () => {
     try {
-      const { data } = await axios.get(`${Url_deploy_back}/products`);
+      const url = activeFilter === 'activos' ? `${Url_deploy_back}/products/active` : `${Url_deploy_back}/products/inactive`;
+      const { data } = await axios.get(url);
       const sortedProducts = data.sort((a, b) => a.name.localeCompare(b.name));
       setProducts(sortedProducts);
       setFilteredProducts(sortedProducts);
-      setCurrentPage(1); // Restablece la página actual a la primera al obtener los productos
+      setCurrentPage(1);
     } catch (error) {
       console.error(error);
-      alert("Something went wrong");
+      alert('Something went wrong');
     }
   };
 
   useEffect(() => {
     getProducts();
-  }, []);
-
-
-  useEffect(() => {
-    if (activeFilter === 'activos') {
-      getActiveProducts();
-    } else if (activeFilter === 'inactivos') {
-      getInactiveProducts();
-    }
   }, [activeFilter]);
 
   useEffect(() => {
-    setFilteredProducts((prevFilteredProducts) =>
-      prevFilteredProducts.sort((a, b) => a.name.localeCompare(b.name))
-    );
+    setFilteredProducts((prevFilteredProducts) => prevFilteredProducts.sort((a, b) => a.name.localeCompare(b.name)));
   }, [filteredProducts]);
 
   useEffect(() => {
@@ -193,30 +138,24 @@ function Products({ darkMode }) {
     setActiveFilter(filter);
     setCurrentPage(1);
   };
-  const filtroProducts = products
-  .filter((product) => {
-    if (activeFilter === 'activos') {
-      return product.isActive;
-    } else if (activeFilter === 'inactivos') {
-      return !product.isActive;
-    } else {
-      return true;
-    }
-  })
-  .filter((product) => product.name?.toLowerCase().includes(searchTerm?.toLowerCase()))
-  .sort((a, b) => {
-    const nameA = a.name.toLowerCase();
-    const nameB = b.name.toLowerCase();
-    if (sortDirection === 'asc') {
-      return nameA.localeCompare(nameB);
-    } else {
-      return nameB.localeCompare(nameA);
-    }
-  })
+
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
     setCurrentPage(1);
   };
+
+  const filteredProductsData = products
+    .filter((product) => product.name?.toLowerCase().includes(searchTerm?.toLowerCase()))
+    .sort((a, b) => {
+      const nameA = a.name.toLowerCase();
+      const nameB = b.name.toLowerCase();
+      if (sortDirection === 'asc') {
+        return nameA.localeCompare(nameB);
+      } else {
+        return nameB.localeCompare(nameA);
+      }
+    });
+
   return (
     <div className={`${style.productsContainer} ${darkMode ? style.darkMode : ''}`}>
       <div className={style.searchContainer}>
@@ -224,17 +163,16 @@ function Products({ darkMode }) {
           type="text"
           placeholder="Buscar producto"
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          onKeyUp={handleSearch}
+          onChange={handleSearch}
           className={style.searchInput}
         />
         <div className={style.filterButtons}>
           <div id={style.containerButt}>
             <button
               className={`${style.filterButton} ${activeFilter === 'activos' ? style.activeFilterButton : ''}`}
-              onClick={() => handleToggleFilter("activos")}
+              onClick={() => handleToggleFilter('activos')}
             >
-            Activos
+              Activos
             </button>
           </div>
           <button
@@ -245,12 +183,12 @@ function Products({ darkMode }) {
           </button>
         </div>
       </div>
-      <div style={{ width: "100%", maxWidth: "1300px" }}>
-        <div id={style.tableContainer} className={`${tableClassName}`}>
-          {filteredProducts.length === 0 ? (
+      <div style={{ width: '100%', maxWidth: '1300px' }}>
+        <div id={style.tableContainer} className={tableClassName}>
+          {filteredProductsData.length === 0 ? (
             <div className={style.tableOverlay}>
               <div className={style.tableOverlayMessage}>
-                No se encontraron productos con el nombre "<span>{searchTerm}</span>"
+                No se encontraron productos con el nombre <span>{searchTerm}</span>
               </div>
             </div>
           ) : null}
@@ -269,10 +207,9 @@ function Products({ darkMode }) {
               </tr>
             </thead>
             <tbody>
-            {filtroProducts
+            {filteredProductsData
   .slice(indexOfFirstProduct, indexOfLastProduct)
   .map((product, index) => {
-    
     return (
       <tr key={product._id}>
         <td>{getProductNumber(index)}</td>
