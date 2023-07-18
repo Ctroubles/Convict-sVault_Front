@@ -22,6 +22,7 @@ import ErrorPage from "./views/Payment/components/paymentButton/ErrorPage";
 import TransactionHistory from "./admin/transactionsHistory/transactionHistory";
 import Url_deploy_back from "./util/deploy_back";
 import PayUQueries from "./views/Payment/components/paymentButton/querysPayu";
+import PayUCheckout from "./views/Payment/components/paymentButton/PayuResponse/newPayu";
 
 
 
@@ -126,7 +127,7 @@ function App() {
         </div>
       ) : (
         <Router>
-          {/* <Route path={"/queris"} render={()=> <PayUQueries user={currentUser}/>} /> */}
+          <Route path={"/queris"} render={()=> <PayUCheckout user={currentUser}/>} />
           <Route path={"/payment"} render={()=> <PasarelaDePagos user={currentUser}/>} />
           <Route path={"/response"} render={()=> <PayUResponseSummary user={currentUser}/>}/>
           <Route path={"/confirmation"} render={()=> <PayUConfirmationPage/>}/>

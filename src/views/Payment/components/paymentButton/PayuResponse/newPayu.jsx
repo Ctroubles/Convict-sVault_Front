@@ -1,47 +1,58 @@
-import React, { useEffect } from 'react';
-import { PayU } from '@ingameltd/payu';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
+import swal from 'sweetalert2';
 
-const PayuNew = () => {
-  useEffect(() => {
-    PayU.merchantId = "1"; 
-    PayU.apiKey = "xxxxxxxxxxxx"; // Ingresa tu clave de API aquí
-    PayU.apiLogin = "xxxxxxxxxxxx"; // Ingresa tu inicio de sesión de API aquí
-    PayU.language = PayU.Language.es; // Ingresa el idioma aquí
-    PayU.isTest = true; // Asigna true si estás en modo de prueba
+function PayUCheckout() {
+  const [paymentUrl, setPaymentUrl] = useState(null);
+  const referenceCode = `PAGO${uuidv4()}`;
 
-    // https://sandbox.api.payulatam.com/payments-api/
-    PayU.paymentsUrl = "https://sandbox.api.payulatam.com/payments-api/"; // Inclúyelo si deseas probar en un servidor de pagos específico y asigna su URL.
-    // https://api.payulatam.com/reports-api/
-    PayU.reportsUrl = "https://sandbox.api.payulatam.com/reports-api/"; // Inclúyelo si deseas probar en un servidor de informes específico y asigna su URL.
-    
+  const handlePayment = async () => {
+    try {
+      const response = await axios.post('https://sandbox.api.payulatam.com/payments-api/4.0/service.cgi', {
+        // Datos de la solicitud de pago
+        merchantId: '508029',
+        accountId: '512321',
+        referenceCode: referenceCode,
+        description: 'DESCRIPCION_DEL_PAGO',
+        amount: 100.00,
+        currency: 'COP',
+        buyerEmail: 'kevinacr17@gmail.com',
+        // Otros campos necesarios según tus requerimientos
 
-    PayU.setPaymentsCustomUrl("https://sandbox.api.payulatam.com/payments-api/4.0/service.cgi");
-    PayU.setReportsCustomUrl("https://sandbox.api.payulatam.com/reports-api/4.0/service.cgi");
-    // Opcional: Configurar nivel de registro de PayU
-    PayU.setLogLevel(PayU.LogLevel.ALL);
-    
-    // Ejemplo de uso: Realizar una petición a la API de PayU con parámetros
-    const makePayURequest = async () => {
-      try {
-        const parameters = new Map();
-        parameters.set(PayU.PARAMETERS.TRANSACTION_ID, transactionId);
-        parameters.set(PayU.PARAMETERS.ORDER_ID, orderId.toString());
+        // Campos para capturar el pago
+        capture: true,
+        // Otros campos necesarios para la captura del pago
+      });
 
-        const response = await PayU.createPayment(parameters);
-        console.log(response);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+      // Obtener la URL de pago del response
+      const { paymentUrl } = response.data;
 
-    makePayURequest(); // Llama a la función para realizar la petición a PayU cuando el componente se monte
-  }, []);
+      // Redireccionar al usuario a la página de pago de PayU
+      window.location.href = paymentUrl;
+    } catch (error) {
+      console.error('Error al procesar el pago:', error);
+      // Mostrar alerta de error
+      swal.fire({
+        title: 'Error al procesar el pago',
+        text: error.message,
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+        timerProgressBar: 3000
+      });
+    }
+  };
 
   return (
     <div>
-      {/* Tu contenido JSX aquí */}
+      <h1>Pago con PayU</h1>
+      {paymentUrl ? (
+        <p>Se ha generado el enlace de pago: <a href={paymentUrl}>{paymentUrl}</a></p>
+      ) : (
+        <button onClick={handlePayment}>Realizar Pago</button>
+      )}
     </div>
   );
-};
+}
 
-export default PayuNew;
+export default PayUCheckout;
