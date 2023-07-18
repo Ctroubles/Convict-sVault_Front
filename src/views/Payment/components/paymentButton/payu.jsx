@@ -1,33 +1,43 @@
-import React from 'react';
-import style from "./paymentButton.module.css"
+import React, { useEffect, useRef } from 'react';
+import style from "./paymentButton.module.css";
 import { v4 as uuidv4 } from 'uuid';
 import { validatorsLevel2 } from '../../validators';
 import Url_deploy_back from '../../../../util/deploy_back';
 
-
-
 const CryptoJS = require("crypto-js");
 
-
-function PAYU({total, user, formRef, setErrors, items}) {
-console.log(items)
+function PAYU({ total, user, formRef, setErrors, items }) {
+  console.log(items);
   let apiKey = "4Vj8eK4rloUd272L48hsrarnUA";
   let merchantId = "508029";
   const referenceCode = `PAGO${uuidv4()}`;
   let mont = total;
 
   let signature = CryptoJS.MD5(apiKey + "~" + merchantId + "~" + referenceCode + "~" + mont + "~COP").toString();
-    
-  const handleSubmit = (event) => {
-    if (!validatorsLevel2(setErrors,formRef.current)) {
-      event.preventDefault(); 
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (!validatorsLevel2(setErrors, formRef.current)) {
       return;
+    }
+
+    try {
+      const response = await fetch("https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/", {
+        method: "POST",
+        body: new FormData(formRef.current),
+      });
+
+      // Process the response as needed
+      console.log(response);
+    } catch (error) {
+      console.error("Error submitting form:", error);
     }
   };
 
   return (
     <div id={style.formCotainer}>
-      <form method="post" action="https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/" onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} ref={formRef}>
         <input name="merchantId" type="hidden" value="508029" />
         <input name="accountId" type="hidden" value="512321" />
         <input
