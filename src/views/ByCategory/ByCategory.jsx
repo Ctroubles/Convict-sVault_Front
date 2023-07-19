@@ -7,6 +7,7 @@ import homeIcon from "./assets/home_icon.svg";
 import { useParams } from "react-router-dom";
 import { capitalizeFirstLetter } from "../../util";
 import Url_deploy_back from "../../util/deploy_back";
+import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 
 
 
@@ -16,15 +17,22 @@ const ByCategory = () => {
     window.scrollTo(0,0)
   },[])
 
-
+  
+  const location = useLocation();
   const { cat } = useParams();
 
   const [products, setProducts] = useState([]);
+  const [sort, setSort] = useState(null);
+
+  useEffect(() => {
+    setSort(null)
+  }, [location])
 
   const getProducts = async () => {
     try {
       const { data } = await axios.get(`${Url_deploy_back}/products/category/${cat}`);
-      setProducts(data);
+      const dataClean = data.filter(e => Number(e.stock )> 0);
+      setProducts(dataClean);
     } catch (error) {
       console.log(error);
       alert("Error al traer Data, checar en consola");
@@ -32,18 +40,19 @@ const ByCategory = () => {
   };
 
   useEffect(() => {
-    setProducts([]);
     getProducts();
   }, [cat]);
 
   const sortProductsDescending = () => {
     const sorted = [...products].sort((a, b) => b.price - a.price);
     setProducts(sorted);
+    setSort(1)
   };
 
   const sortProductsAscending = () => {
     const sorted = [...products].sort((a, b) => a.price - b.price);
     setProducts(sorted);
+    setSort(2)
   };
 
   return (
@@ -51,7 +60,7 @@ const ByCategory = () => {
       <section>
         <div style={{ maxWidth: "1300px", width: "100%" }}>
           <div style={{ paddingRight: "30px" }}>
-            <FilterSideBar sortProductsDescending={sortProductsDescending} sortProductsAscending={sortProductsAscending} />
+            <FilterSideBar sortProductsDescending={sortProductsDescending} sortProductsAscending={sortProductsAscending} sort={sort}/>
           </div>
           <div style={{ width: "100%" }}>
             <div style={{ display: "flex", alignItems: "end", padding: "0px 0 20px 10px" }}>
@@ -66,7 +75,7 @@ const ByCategory = () => {
             <div style={{ width: "100%" }}>
               <div id={style.cardsContaier}>
                 {products.map((e) => (
-                  <Card key={e._id} brand={e.brand} category={e.category} image={e.image} price={e.price} name={e.name} id={e._id} />
+                  <Card key={e._id} brand={e.brand} category={e.category} image={e.image} price={e.price} name={e.name} id={e._id} stock={e.stock} />
                 ))}
               </div>
             </div>

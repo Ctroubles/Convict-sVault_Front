@@ -43,18 +43,27 @@ const Header = ({user, viewportWidth}) =>{
         setItemsCart(quantity)
     },[cart])
 
-
+    useEffect(()=>{
+        if (cartStatus)  document.body.style.overflow = "hidden";
+        else  document.body.style.overflow = "visible";
+        return () => {
+            document.body.style.overflow = "visible";
+        };
+    },[cartStatus])
     useEffect(()=>{
         if (viewportWidth <= 1400 && navRef.current) {
             if (navStatus ) {
+                document.body.style.overflow = "hidden";
                 navRef.current.classList.remove(style.nonDisplay);
             }else{
                 setTimeout(() => {
                     navRef.current.classList.add(style.nonDisplay);
+                    document.body.style.overflow = "visible";
                 }, 150);
             }
         }else{
             navRef.current.classList.remove(style.nonDisplay);
+            document.body.style.overflow = "visible";
         }
     },[navStatus])
 
@@ -67,6 +76,14 @@ const Header = ({user, viewportWidth}) =>{
         }
     },[viewportWidth])
 
+
+    useEffect(()=>{
+        if (cartStatus)  document.body.style.overflow = "hidden";
+        else  document.body.style.overflow = "visible";
+        return () => {
+            document.body.style.overflow = "visible";
+        };
+    },[cartStatus])
 
     const closeNavSide = (e) =>{
         if (e.target.id === style.navContainer || e.target.id === style.buttonNav) {

@@ -1,11 +1,11 @@
 #Form{
     background-color: #ffffff;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
     padding: 0 20px 30px;
 }
 #Header{
-    padding: 20px 15px;
+    padding: 30px 15px;
 }
 #Header h2{
     font-size: 24px;
@@ -141,4 +141,19 @@
     padding-top: 4px;
     height: 14px;
     max-height: 14px;
+}
+
+
+@media screen and (max-width:920px) {
+    #Form{
+        padding: 0 10px 15px;
+    }
+}
+@media screen and (max-width:680px) {
+    #Form{
+        padding: 0 0px 15px;
+    }
+    #Header{
+        padding: 30px 15px 0px;
+    }
 }

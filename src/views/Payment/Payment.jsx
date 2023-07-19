@@ -30,7 +30,7 @@ function PaymentView({user}) {
         const key = Object.keys(e)[0];
         const { data } = await axios.get(`${Url_deploy_back}/products/${key}`);
         if (!data.hasOwnProperty('price')) {
-          throw new Error('El objeto de producto no contiene una propiedad "price".');
+          throw new Error('Uno de los productos del carrito parece estar dañada');
         }
         total = total + data.price * e[key];
         return { ...data, quantity: e[key] };

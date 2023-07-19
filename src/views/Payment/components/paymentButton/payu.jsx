@@ -28,7 +28,7 @@ function PAYU({ total, user, formRef, setErrors, items }) {
         }
         );
         setPaymentId(paymentId)
-        console.log("holaaaaaaaaaaaaaaa",paymentId)
+        console.log("payId",paymentId)
 
       // El pago se capturó exitosamente
       console.log('Pago capturado:', response.data);
@@ -68,9 +68,6 @@ function PAYU({ total, user, formRef, setErrors, items }) {
   const handleSubmit = async(event) => {
     if (!validatorsLevel2(setErrors,formRef.current)) {
       event.preventDefault(); 
-      setTimeout(() => {
-        formRef.current.submit();
-      }, 10000);
       return;
     }
         // await createPayment();
@@ -100,15 +97,15 @@ function PAYU({ total, user, formRef, setErrors, items }) {
         <input name="currency" type="hidden" value="COP" />
         <input name="signature" type="hidden" value={signature} />
         <input name="test" type="hidden" value="1" />
-        <input name="buyerEmail" type="hidden" value={user.email} />
+        <input name="buyerEmail" type="hidden" value={user?.email || ""} />
         <input name="responseUrl" type="hidden" value={`https://convict-s-vault-front.vercel.app/response`} />
-        <input name="payerFullName" type="hidden" value={formRef.current?.name} />
-        <input name="payerMobilePhone" type="hidden" value={user.phone} />
-        <input name="payerDocument" type="hidden" value={user.dni} />
+        <input name="payerFullName" type="hidden" value={formRef.current?.name || ""} />
+        <input name="payerMobilePhone" type="hidden" value={formRef.current?.phone  || ""}/>
+        <input name="payerDocument" type="hidden" value={user?.dni  || ""} />
         <input name="confirmationUrl" type="hidden" value={`https://convict-s-vault-front.vercel.app/confirmation`} />
         <input name="Submit" type="submit" value="Pagar con Payu" id={style.paymentButton} />
-        <input name="shippingAddress" type="hidden" value={formRef.current?.address} />
-        <input name="shippingCity" type="hidden" value={formRef.current?.city} />
+        <input name="shippingAddress" type="hidden" value={formRef.current?.address || ""} />
+        <input name="shippingCity" type="hidden" value={formRef.current?.city || ""} />
         <input name="shippingCountry" type="hidden" value="CO" />
         <input name="sourceUrl" type="hidden" value={window.location.href} />
       </form>

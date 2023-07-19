@@ -1,9 +1,11 @@
 import setting from "./assets/settings.png";
 import style from "./FilterSideBar.module.css";
 import arrow from "./assets/arrow.png";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useRef } from "react";
+import { useEffect } from "react";
 
-const FilterSideBar = ({ sortProductsDescending, sortProductsAscending }) => {
+const FilterSideBar = ({ sortProductsDescending, sortProductsAscending, sort}) => {
   return (
     <div id={style.FilterSideBar}>
       <label>
@@ -16,38 +18,56 @@ const FilterSideBar = ({ sortProductsDescending, sortProductsAscending }) => {
           </div>
         </div>
         <div id={style.lineOptions}>
-          <Filtro filtro={"Precio"} sortProductsDescending={sortProductsDescending} sortProductsAscending={sortProductsAscending} />
+          <Filtro filtro={"Precio"} sortProductsDescending={sortProductsDescending} sortProductsAscending={sortProductsAscending} sort={sort}/>
         </div>
       </label>
     </div>
   );
 };
 
-const Filtro = ({ filtro, sortProductsDescending, sortProductsAscending }) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+const Filtro = ({ filtro, sortProductsDescending, sortProductsAscending, sort}) => {
+
+  const buttonRef = useRef(null);
+
+
+  const [open, setOpen] = useState(null);
+
 
   const handleMenuToggle = () => {
-    setIsMenuOpen(!isMenuOpen);
+      setOpen(true);
   };
+
+  const handleClickOutside = () => {
+      setOpen(false);
+  };
+
+  useEffect(() => {
+    if (open === true) {
+      document.addEventListener("click", handleClickOutside);
+    }else if(open === false){
+      document.removeEventListener("click", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [open]);
 
   const handleSortDescending = () => {
     sortProductsDescending();
-    setIsMenuOpen(false);
   };
 
   const handleSortAscending = () => {
     sortProductsAscending();
-    setIsMenuOpen(false);
   };
 
   return (
-    <div id={style.Filtro}>
+    <div id={style.Filtro} onClick={()=>handleMenuToggle()} className={open?style.open:undefined}>
       <p onClick={handleMenuToggle}>{filtro}</p>
-      <img src={arrow} alt="Flecha" onClick={handleMenuToggle} />
-      {isMenuOpen && (
+      <img src={arrow} alt="Flecha"  />
+      {open && (
         <div id={style.menuOptions}>
-          <span onClick={handleSortDescending}>Descendente</span>
-          <span onClick={handleSortAscending}>Ascendente</span>
+          <span onClick={handleSortDescending} ref={buttonRef} id={sort===1?style.active:undefined}>Descendente</span>
+          <span onClick={handleSortAscending} ref={buttonRef} id={sort===2?style.active:undefined}>Ascendente</span>
         </div>
       )}
     </div>

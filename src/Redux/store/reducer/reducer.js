@@ -1,12 +1,17 @@
 import { SEARCH_PRODUCT, SET_ID, SET_USER_CART, } from "../actions/actions.type"
-// import { paginationArray } from "../../../util/index"
-const initialState={
-    id:null,
-    searchBar: [],
-    numPag: 0,
-    paginated:[],
-    cart:[],
-}
+
+
+const cartInStorage = localStorage.getItem("cart");
+const parsedCartData = cartInStorage ? JSON.parse(cartInStorage) : [];
+
+const initialState = {
+  id: null,
+  searchBar: [],
+  numPag: 0,
+  paginated: [],
+  cart: parsedCartData,
+};
+
 const rootReducer=(state= initialState, { type, payload })=> {
  switch (type) {
     case SET_ID:
@@ -20,6 +25,9 @@ const rootReducer=(state= initialState, { type, payload })=> {
             searchBar: payload
         };
     case SET_USER_CART:
+        if (!state.id) {
+            localStorage.setItem("cart", JSON.stringify(payload))
+        }
         return{
             ...state,
             cart:payload,

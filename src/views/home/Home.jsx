@@ -4,11 +4,9 @@ import SliderCategory from "./components/SilderCategory/SliderCategory";
 
 
 const Home = ({viewportWidth})=>{
-
     useEffect(()=>{
         window.scrollTo(0,0)
       },[])
-
     return(
         <div>
             <section id={style.body}>

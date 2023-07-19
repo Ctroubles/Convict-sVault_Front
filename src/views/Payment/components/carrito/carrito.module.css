@@ -9,6 +9,9 @@
     transition: transform 0.5s ease;
     min-height: calc(100vh - 74px);
   }
+  #tittle{
+    padding: 35px 0 0px 15px;
+  }
   #tittle h1{
     font-size: 24px;
     font-weight: 400;
@@ -16,7 +19,7 @@
     color: #111111;
   }
   #cardsContainer{
-    padding: 10px 0 20px 20px;
+    padding: 25px 25px 20px 18px;
   }
   .linesData{
     display: flex;
@@ -80,3 +83,36 @@
     align-items: center;
     justify-content: center;
   }
+
+
+
+
+  
+@media screen and (max-width:920px) {
+  #Cart{
+    padding: 0 25px;
+    min-height: auto;
+    gap: 50px;
+  }
+  #tittle{
+    padding: 10px 0 0px 0px;
+  }
+}  
+@media screen and (max-width:540px) {
+  #Cart{
+    padding: 0 0px;
+  }
+  #tittle{
+    padding: 10px 0 0px 12px;
+  }
+}  
+@media screen and (max-width:410px) {
+  #cardsContainer{
+    padding: 25px 22px 20px 15px;
+  }
+}
+@media screen and (max-width:380px) {
+  #cardsContainer{
+    padding: 25px 22px 20px 9px;
+  }
+}

@@ -6,9 +6,6 @@
 #FilterSideBar>label:first-child{
     display: flex;
     margin-bottom: 20px;
-    overflow: hidden;
-    border-radius: 10px 10px 0 0;
-    border-top: 1px solid #d4d8dd;
 }
 #top{
     display: flex;
@@ -35,6 +32,7 @@
 
 
 
+
 /* FILTRO COMPONENT */
 
 #Filtro{
@@ -43,8 +41,15 @@
     align-items: center;
     padding: 14px 16px 12px 16px;
     background-color: #F0F0F0;
+    border-top: 1px solid #d4d8dd;
     border-right: 1px solid #d4d8dd;
     border-bottom: 1px solid #d4d8dd;
+    position: relative;
+    cursor: pointer;
+    border-radius: 0 4px 10px 0;
+}
+#Filtro.open{
+    border-radius: 0 4px 0 0;
 }
 #Filtro p{
     font-size: 15px;
@@ -56,4 +61,28 @@
     width: 12px;
     height: 12px;
     transform: rotate(90deg);
+}
+#menuOptions{
+    display: block;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    left: 0;
+    box-shadow: 0px 2px 5px 0px #0000006b;
+}
+#menuOptions span{
+    font-size: 14.5px;
+    background-color: rgba(0, 0, 255, 0);
+    display: block;
+    padding: 10px 0 8px 7px;
+    border-bottom: 1px solid rgba(0, 0, 255, 0.11);
+}
+#menuOptions span:hover{
+    background-color: rgba(0, 0, 255, 0.05);
+}
+span#active{
+    background-color: rgba(0, 0, 255, 0.15);
+}
+span#active:hover{
+    background-color: rgba(0, 0, 255, 0.15) !important;
 }

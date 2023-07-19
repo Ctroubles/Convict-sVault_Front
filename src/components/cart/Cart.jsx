@@ -9,7 +9,7 @@ import { useHistory } from "react-router-dom";
 
 
 const Cart = ({ setCartStatus }) => {
-
+  
   const refModal = useRef(null)
   const {cart}  = useSelector((e) => e);
 

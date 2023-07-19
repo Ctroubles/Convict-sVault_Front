@@ -8,6 +8,7 @@ import { capitalizeFirstLetter } from "../../../../../util";
 
 const Formulario = ({id, updating, data}) =>{
 
+
     const eventListenerRef = useRef()
 
     const [targetMenu, setMenuTarget] = useState()
@@ -27,7 +28,10 @@ const Formulario = ({id, updating, data}) =>{
         number: data.number,
         extraData: data.extraData,
     })
-
+    useEffect(()=>{
+        window.scrollTo(0,0)
+      },[])
+      
     const [errors, setErrors] = useState({
         country:null,
         department:false,

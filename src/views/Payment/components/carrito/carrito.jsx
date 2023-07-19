@@ -9,13 +9,13 @@ const Carrito = ({loading, items, total, user, formRef, setErrors}) =>{
         <div style={{height:"100%"}}>
         <div id={styles.Cart}>
           <div>
-            <div style={{ padding: "20px 0 0px 15px" }}>
-              <label id={styles.tittle}>
+            <div  id={styles.tittle}>
+              <label>
                 <h1>Resumen de compra</h1>
               </label>
             </div>
             <div>
-              <div style={{ padding: "15px 28px 0 5px" }}>
+              <div >
                 <div id={styles.cardsContainer}>
                   {items.map((e) => (
                     <CardCart
