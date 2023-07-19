@@ -6,13 +6,15 @@ import axios from 'axios';
 function PayUConfirmationPage() {
   const location = useLocation();
   const history = useHistory();
+  console.log('URL completa:', location.search);
+
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
-    const transactionState = searchParams.get('transactionState');
-    const responseCode = searchParams.get('responseCode');
-    const transactionId = searchParams.get('transactionId');
-    const extra1 = searchParams.get('extra1');
+    const transactionState = '4';
+    const responseCode = 'APPROVED';
+    const transactionId = '449c2f8f-f46b-4779-a80b-e778c55ad7c7';
+    const extra1 = 'ID: 649a258c3f7e8616142fe268 - Nombre: ssssss (Cantidad: 1)';
     const TX_VALUE = searchParams.get('TX_VALUE');
 
     console.log('transactionState:', transactionState);
@@ -43,7 +45,7 @@ function PayUConfirmationPage() {
           transactionId,
           total: TX_VALUE,
           description: extra1,
-          state: 'APPROVED', // Puedes ajustar el estado según tus necesidades
+          state: 'APPROVED',
         }),
       });
       if (response.ok) {
@@ -57,7 +59,7 @@ function PayUConfirmationPage() {
   };
 
   const updateStockFromDescription = (searchParams, transactionId) => {
-    const description = searchParams.get('description');
+    const description = 'ID: 649a258c3f7e8616142fe268 - Nombre: ssssss (Cantidad: 1)';
     const productInfoArray = description.split(', ');
 
     productInfoArray.forEach(async (productInfo) => {
