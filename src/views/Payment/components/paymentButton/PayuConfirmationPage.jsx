@@ -34,10 +34,10 @@ function PayUConfirmationPage() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          transactionId,
-          total: TX_VALUE,
-          description: extra1,
-          state: 'APPROVED',
+          transactionId: transactionId  || "test",
+          total: TX_VALUE || "test",
+          description: extra1 || "test",
+          state: transactionState || "test",
         }),
       });
       if (response.ok) {
@@ -51,7 +51,7 @@ function PayUConfirmationPage() {
   };
 
   const updateStockFromDescription = (searchParams, transactionId) => {
-    const description = extra1;
+    const description = extra1 || "";
     const productInfoArray = description.split(', ');
 
     productInfoArray.forEach(async (productInfo) => {
@@ -84,9 +84,7 @@ function PayUConfirmationPage() {
       // Actualizar el stock
       let updatedStock = stock - quantity;
       updatedStock = Math.max(updatedStock, 0);
-      console.log(updatedStock)
 
-      // Realizar la solicitud PUT para actualizar el stock del producto
       await axios.put(`${Url_deploy_back}/products/${productId}`, {
         name,
         price,
