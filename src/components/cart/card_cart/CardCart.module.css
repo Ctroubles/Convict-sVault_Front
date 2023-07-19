@@ -27,6 +27,7 @@
 #leftSection h2{
     font-size: 16px;
     font-weight: 500;
+    word-break: break-all;
 }
 #leftSection p{
     font-size: 14px;
@@ -66,6 +67,8 @@
     border: 1px solid #0592ceb7;
     height: 25px;
     padding: 0 10px;
+    background-color: #11111100;
+    transition: background-color 0.25s ease;
 }
 #quantitySection label:hover{
     background-color: #11111120;
@@ -102,4 +105,11 @@
 }
 #xButton:active{
     transform: scale(1.25);
+}
+#quantitySection label#disabled{
+    opacity: 0.6 !important;
+    cursor: not-allowed !important;
+}
+#quantitySection label#disabled:hover{
+    background-color: #11111100;
 }

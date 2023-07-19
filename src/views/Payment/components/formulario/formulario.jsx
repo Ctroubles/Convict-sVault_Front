@@ -6,7 +6,7 @@ import { capitalizeFirstLetter } from "../../../../util";
 import { validators } from "../../validators";
 
 
-const Formulario = ({user,formRef, errors, setErrors}) =>{
+const Formulario = ({user={},formRef, errors, setErrors}) =>{
    
     function filterAdress (arr = [], value = ""){
         const formattedValue = value.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -16,7 +16,7 @@ const Formulario = ({user,formRef, errors, setErrors}) =>{
                         })
         return filtrado;
     }
-    const nombre = `${user.name?user.name:""} ${user.surname?user.surname:""}`;
+    const nombre = `${user?.name?user.name:""} ${user?.surname?user?.surname:""}`;
     const callbackRef = useRef(null);
 
     const [form,setForm] = useState({
@@ -24,7 +24,7 @@ const Formulario = ({user,formRef, errors, setErrors}) =>{
         departament:"",
         city:"",
         address:"",
-        phone: user.phone?String(user.phone): "",
+        phone: user?.phone?String(user?.phone): "",
     })
     const [selectedRadioOption, setSelectedRadioOption] = useState({});
 
@@ -41,7 +41,7 @@ const Formulario = ({user,formRef, errors, setErrors}) =>{
 
     const [departament, setDepartament] = useState([...Object.keys(DEPARTAMENTOS)])
     const [ciudades, setCiudades] = useState(getCiudades())
-    const [direcciones, setDirecciones] = useState(user.addresses || [])
+    const [direcciones, setDirecciones] = useState(user?.addresses || [])
     const [targetMenu, setMenuTarget] = useState()
 
     useEffect(()=>{
@@ -82,7 +82,7 @@ const Formulario = ({user,formRef, errors, setErrors}) =>{
                         setCiudades(coincidence);
                         break;
                     case "address":
-                        coincidence = filterAdress(user.addresses,value)
+                        coincidence = filterAdress(user?.addresses,value)
                         setDirecciones(coincidence);
                         break
                     default:
@@ -98,7 +98,7 @@ const Formulario = ({user,formRef, errors, setErrors}) =>{
                         setCiudades(getCiudades())
                         break;
                     case "address":
-                        setDirecciones(filterAdress(user.addresses,value));
+                        setDirecciones(filterAdress(user?.addresses,value));
                         break
                     default:
                         break;
@@ -158,7 +158,7 @@ const Formulario = ({user,formRef, errors, setErrors}) =>{
                     <div id={styles.radioInputs}>
                         <div>
                             {
-                               user.addresses?.map((e,i)=>{
+                               user?.addresses?.map((e,i)=>{
 
                                     const option = `${e.department?e.department:""}${e.city && e.department?", "+ e.city : e.city ? e.city:""} ${e.street?e.street:""}${e.number && e.street?", "+e.number:e.number?e.number:""}${e.extraData && (e.street||e.number)?", "+e.extraData:e.extraData?e.extraData:""}`
                                     const address = `${e.street?e.street:""}${e.number && e.street?", "+e.number:e.number?e.number:""}${e.extraData && (e.street||e.number)?", "+e.extraData:e.extraData?e.extraData:""}`
@@ -185,11 +185,11 @@ const Formulario = ({user,formRef, errors, setErrors}) =>{
               
                             }
                             {
-                                user.addresses?.length ?
+                                user?.addresses?.length ?
                                     (
                                         <div className={styles.optionsRadio}>
-                                            <input type="radio" name="ChooseAdrres" id={`${user.addresses?.length} Other`} checked={selectedRadioOption.other === true } onChange={()=>setSelectedRadioOption({other:true})}/>
-                                            <label htmlFor={`${user.addresses?.length} Other`}>
+                                            <input type="radio" name="ChooseAdrres" id={`${user?.addresses?.length} Other`} checked={selectedRadioOption.other === true } onChange={()=>setSelectedRadioOption({other:true})}/>
+                                            <label htmlFor={`${user?.addresses?.length} Other`}>
                                                 Otra
                                             </label>
                                         </div>

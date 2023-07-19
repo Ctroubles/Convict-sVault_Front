@@ -4,21 +4,39 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import { setUserCart } from "../../../../../../Redux/store/actions/actions";
 import Url_deploy_back from "../../../../../../util/deploy_back";
+import { add_item, getItemQuantity } from "../../../../../../util/local_cart-handlers";
+import { useState } from "react";
+import { useEffect } from "react";
 
 
 
-const OtherCard = ({brand,category,image,price,name,id}) =>{
+const OtherCard = ({brand,stock,image,price,name,id}) =>{
 
-    const {id:userID} = useSelector(state=>state)
+    const {id:userID, cart} = useSelector(state=>state)
     const dispatch = useDispatch()
 
+
+    const [isMaxQuantityReached, setIsMaxQuantityReached] = useState(getItemQuantity(cart,id) >= stock);
+
+
     const addToCar = async() =>{
-        const {data} = await axios.put(`${Url_deploy_back}/cart/addItem`,{
-            "userid":userID,
-            "itemid":id,
-        })
-        dispatch(setUserCart(data));
+        if (userID) {
+            const { data } = await axios.put(`${Url_deploy_back}/cart/addItem`, {
+                userid: userID,
+                itemid: id,
+            });
+            dispatch(setUserCart(data));
+      }else{
+        const updateCart = add_item(cart, id);
+        dispatch(setUserCart(updateCart));
+      }  
     }
+
+
+    useEffect(()=>{
+        setIsMaxQuantityReached(getItemQuantity(cart,id) >= stock);
+    },[cart])
+
 
     return(
         <div id={style.CardContainer} style={{flexBasis:`calc(100% / ${3})`, width:`calc(100% / ${3})`, maxWidth:`calc(100% / ${3})`}} >
@@ -51,7 +69,7 @@ const OtherCard = ({brand,category,image,price,name,id}) =>{
                             </div>
                             <div>
                                 <div id={style.buttonSection}>
-                                    <button onClick={()=>addToCar()}>
+                                    <button onClick={()=>addToCar()} id={isMaxQuantityReached?style.disabled:undefined} disabled={isMaxQuantityReached} >
                                         Agregar
                                     </button>
                                 </div>

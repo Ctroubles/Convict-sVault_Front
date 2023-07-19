@@ -4,22 +4,41 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { setUserCart } from "../../Redux/store/actions/actions";
 import Url_deploy_back from "../../util/deploy_back";
+import { add_item, getItemQuantity } from "../../util/local_cart-handlers";
+import { useState } from "react";
+import { useEffect } from "react";
 
 
-const Card = ({brand,category,image,price,name,id}) =>{
+const Card = ({brand, stock, image,price,name,id}) =>{
 
-    const {id:userID} = useSelector(state=>state)
+    const {id:userID,cart} = useSelector(state=>state)
     const dispatch = useDispatch()
 
-    const addToCar = async(e) =>{
-        e.stopPropagation();
-        const {data} = await axios.put(`${Url_deploy_back}/cart/addItem`,{
-            "userid":userID,
-            "itemid":id,
-        })
-        dispatch(setUserCart(data));
-    }
+    const [isMaxQuantityReached, setIsMaxQuantityReached] = useState(getItemQuantity(cart,id) >= stock);
 
+
+    const addToCar = async (e) => {
+        e.stopPropagation();
+
+        const quantity = getItemQuantity(cart,id);
+
+        if (quantity  < stock) {   
+          if (userID) {
+                const { data } = await axios.put(`${Url_deploy_back}/cart/addItem`, {
+                    userid: userID,
+                    itemid: id,
+                });
+                dispatch(setUserCart(data));
+          }else{
+            const updateCart = add_item(cart, id);
+            dispatch(setUserCart(updateCart));
+          }           
+        }
+    };
+
+    useEffect(()=>{
+        setIsMaxQuantityReached(getItemQuantity(cart,id) >= stock);
+    },[cart])
 
     return(
         <div id={style.Card}>
@@ -51,7 +70,7 @@ const Card = ({brand,category,image,price,name,id}) =>{
                         </div>
                         <div>
                             <div id={style.buttonSection}>
-                                <button onClick={(e)=>addToCar(e)}>
+                                <button onClick={(e)=>addToCar(e)} id={isMaxQuantityReached?style.disabled:undefined} disabled={isMaxQuantityReached}>
                                     Agregar
                                 </button>
                             </div>

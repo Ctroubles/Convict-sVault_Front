@@ -106,7 +106,7 @@
 #buttonMenuPhone > div {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     cursor: pointer;
     color:#ffffff;
     text-decoration: none;
@@ -372,21 +372,27 @@
         text-decoration: none;
     }
     #buttonMenuPhone{
-        display: flex;
+        display: block;
     }
     #top{
         padding: 20px 30px;
     }
 }
-
-
 @media screen and (max-width:980px) {
     #top{
         padding: 20px 20px;
     }
 }
-
-
+@media screen and (max-width:900px) {
+    #buttonMenuPhone > div {
+        padding: 10px 10px 10px 20px;
+    }
+}
+@media screen and (max-width:5200px) {
+    #buttonMenuPhone > div {
+        padding: 10px 10px 10px 15px;
+    }
+}
 @media screen and (max-width:600px) {
     #logoSection h1{
         font-size: 25px;
@@ -398,5 +404,4 @@
         padding: 0 15px 0 14px;
     }
 }
-
 
