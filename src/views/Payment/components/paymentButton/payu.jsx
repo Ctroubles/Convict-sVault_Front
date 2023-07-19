@@ -102,7 +102,7 @@ function PAYU({ total, user, formRef, setErrors, items }) {
         <input name="payerFullName" type="hidden" value={formRef.current?.name || ""} />
         <input name="payerMobilePhone" type="hidden" value={formRef.current?.phone  || ""}/>
         <input name="payerDocument" type="hidden" value={user?.dni  || ""} />
-        <input name="confirmationUrl" type="hidden" value={`https://convict-s-vault-back.vercel.app/confirmation/confirmation`} />
+        <input name="confirmationUrl" type="hidden" value={`http://localhost:3001/confirmation/confirmation`} />
         <input name="Submit" type="submit" value="Pagar con Payu" id={style.paymentButton} />
         <input name="shippingAddress" type="hidden" value={formRef.current?.address || ""} />
         <input name="shippingCity" type="hidden" value={formRef.current?.city || ""} />
