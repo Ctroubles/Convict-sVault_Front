@@ -12,21 +12,21 @@ function PayUConfirmationPage() {
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const transactionState = '4';
-    const responseCode = 'APPROVED';
+    const polResponseCode = '1';
     const transactionId = '449c2f8f-f46b-4779-a80b-e778c55ad7c7';
     const extra1 = 'ID: 649a258c3f7e8616142fe268 - Nombre: ssssss (Cantidad: 1)';
     const TX_VALUE = searchParams.get('TX_VALUE');
 
     console.log('transactionState:', transactionState);
-    console.log('responseCode:', responseCode);
+    console.log('responseCode:', polResponseCode);
 
     // Realiza las acciones necesarias según el estado de la transacción y el código de respuesta
-    if (transactionState === '4' && responseCode === 'APPROVED') {
+    if (transactionState === '4' && polResponseCode === '1') {
       // Transacción confirmada exitosamente
       console.log('Transacción confirmada exitosamente');
       saveTransaction(transactionId, extra1, TX_VALUE); // Guardar transacción en la base de datos
       updateStockFromDescription(searchParams, transactionId); // Actualizar el stock de los productos
-      history.push('/success'); // Redirige a la página de éxito
+      // history.push('/success');
     } else {
       // Transacción fallida u otro caso
       console.log('Error al confirmar la transacción');
