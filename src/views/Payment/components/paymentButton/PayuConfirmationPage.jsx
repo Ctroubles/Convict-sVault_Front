@@ -13,7 +13,7 @@ function PayUConfirmationPage() {
     const searchParams = new URLSearchParams(location.search);
     const transactionState = '4';
     const polResponseCode = '1';
-    const transactionId = '449c2f8f-f46b-4779-a80b-e778c55ad7c7';
+    const transactionId = '9ae339ea-2d2d-4e47-803b-2096830d89ba';
     const extra1 = 'ID: 649a258c3f7e8616142fe268 - Nombre: ssssss (Cantidad: 1)';
     const TX_VALUE = searchParams.get('TX_VALUE');
 
