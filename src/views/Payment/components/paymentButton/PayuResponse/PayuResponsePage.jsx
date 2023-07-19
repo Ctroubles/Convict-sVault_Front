@@ -25,35 +25,35 @@ function PayUResponseSummary() {
       console.log(error)
     }
   
-    saveTransaction(); // Guarda la transacción en la base de datos al cargar el componente
-    updateStockFromDescription();
+    // saveTransaction(); // Guarda la transacción en la base de datos al cargar el componente
+    // updateStockFromDescription();
   }, [location.search, history]);
-  const updateProductStock = async (productId, quantity) => {
-    try {
-      // Obtener datos del producto
-      const { data } = await axios.get(`${Url_deploy_back}/products/${productId}`);
-      const { name, price, image, brand, category, stock } = data;
+  // const updateProductStock = async (productId, quantity) => {
+  //   try {
+  //     // Obtener datos del producto
+  //     const { data } = await axios.get(`${Url_deploy_back}/products/${productId}`);
+  //     const { name, price, image, brand, category, stock } = data;
   
-      // Actualizar el stock
-      let updatedStock = stock - quantity;
-    updatedStock = Math.max(updatedStock, 0);
-      console.log(updatedStock)
+  //     // Actualizar el stock
+  //     let updatedStock = stock - quantity;
+  //   updatedStock = Math.max(updatedStock, 0);
+  //     console.log(updatedStock)
   
-      // Realizar la solicitud PUT para actualizar el stock del producto
-      await axios.put(`${Url_deploy_back}/products/${productId}`, {
-        name,
-        price,
-        image,
-        brand,
-        category,
-        stock: updatedStock,
-      });
+  //     // Realizar la solicitud PUT para actualizar el stock del producto
+  //     await axios.put(`${Url_deploy_back}/products/${productId}`, {
+  //       name,
+  //       price,
+  //       image,
+  //       brand,
+  //       category,
+  //       stock: updatedStock,
+  //     });
   
-      console.log(`Se actualizó el stock del producto ${productId}`);
-    } catch (error) {
-      console.error(`Error al actualizar el stock del producto ${productId}`, error);
-    }
-  };
+  //     console.log(`Se actualizó el stock del producto ${productId}`);
+  //   } catch (error) {
+  //     console.error(`Error al actualizar el stock del producto ${productId}`, error);
+  //   }
+  // };
 
   const searchParams = new URLSearchParams(location.search);
   const TX_VALUE = parseFloat(searchParams.get('TX_VALUE'));
@@ -78,55 +78,55 @@ function PayUResponseSummary() {
     estadoTx = searchParams.get('mensaje');
   }
 
-  const saveTransaction = async () => {
-    try {
-      const response = await fetch(`${Url_deploy_back}/transactions/create`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          transactionId,
-          total: TX_VALUE,
-          description: extra1,
-          state: transactionState,
-        }),
-      });
-      if (response.ok) {
-        console.log('Transacción guardada en la base de datos');
-      } else {
-        console.error('Error al guardar la transacción en la base de datos');
-      }
-    } catch (error) {
-      console.error('Error al realizar la solicitud POST:', error.message);
-    }
-  };
+  // const saveTransaction = async () => {
+  //   try {
+  //     const response = await fetch(`${Url_deploy_back}/transactions/create`, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         transactionId,
+  //         total: TX_VALUE,
+  //         description: extra1,
+  //         state: transactionState,
+  //       }),
+  //     });
+  //     if (response.ok) {
+  //       console.log('Transacción guardada en la base de datos');
+  //     } else {
+  //       console.error('Error al guardar la transacción en la base de datos');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error al realizar la solicitud POST:', error.message);
+  //   }
+  // };
 
-  const updateStockFromDescription = () => {
-    const description = searchParams.get('description');
-    const productInfoArray = description.split(', ');
+  // const updateStockFromDescription = () => {
+  //   const description = searchParams.get('description');
+  //   const productInfoArray = description.split(', ');
   
-    productInfoArray.forEach(async (productInfo) => {
-      const [productId, quantityString] = productInfo
-        .replace('ID: ', '')
-        .split(' - Nombre: ');
+  //   productInfoArray.forEach(async (productInfo) => {
+  //     const [productId, quantityString] = productInfo
+  //       .replace('ID: ', '')
+  //       .split(' - Nombre: ');
   
-      const quantity = parseInt(/\(Cantidad: (\d+)\)/.exec(quantityString)[1], 10);
+  //     const quantity = parseInt(/\(Cantidad: (\d+)\)/.exec(quantityString)[1], 10);
   
-      if (!isNaN(quantity)) {
-        // Check if the transaction ID has already been processed
-        if (localStorage.getItem(transactionId)) {
-          console.log(`Stock update for transaction ${transactionId} has already been processed`);
-          return;
-        }
+  //     if (!isNaN(quantity)) {
+  //       // Check if the transaction ID has already been processed
+  //       if (localStorage.getItem(transactionId)) {
+  //         console.log(`Stock update for transaction ${transactionId} has already been processed`);
+  //         return;
+  //       }
   
-        await updateProductStock(productId, quantity);
+  //       await updateProductStock(productId, quantity);
   
-        // Store the transaction ID in local storage to mark it as processed
-        localStorage.setItem(transactionId, 'processed');
-      }
-    });
-  };
+  //       // Store the transaction ID in local storage to mark it as processed
+  //       localStorage.setItem(transactionId, 'processed');
+  //     }
+  //   });
+  // };
   return (
     <div className={styles.container}>
       <div className={styles.summary}>
