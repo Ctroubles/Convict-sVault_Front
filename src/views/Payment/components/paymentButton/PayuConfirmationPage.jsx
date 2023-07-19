@@ -17,11 +17,21 @@ function PayUConfirmationPage() {
     useEffect(() => {
         if (transactionState === '4' && polResponseCode === '1') {
 
+<<<<<<< HEAD
           console.log('Transacción confirmada exitosamente');
           saveTransaction(transactionId, extra1, TX_VALUE); 
           updateStockFromDescription(searchParams, transactionId); 
         } else {
           history.push('/error'); 
+=======
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const transactionState = '4';
+    const polResponseCode = '1';
+    const transactionId = '9ae339ea-2d2d-4e47-803b-2096830d89ba';
+    const extra1 = 'ID: 649a258c3f7e8616142fe268 - Nombre: ssssss (Cantidad: 1)';
+    const TX_VALUE = searchParams.get('TX_VALUE');
+>>>>>>> 5db879901fe49d71931af61f456f7ee587686ddd
 
         }
     }, [location.search, history]);
