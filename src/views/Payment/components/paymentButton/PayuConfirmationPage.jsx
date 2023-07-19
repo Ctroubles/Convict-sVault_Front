@@ -7,32 +7,24 @@ function PayUConfirmationPage() {
   const location = useLocation();
   const history = useHistory();
   console.log('URL completa:', location.search);
+  const searchParams = new URLSearchParams(location.search);
+  const transactionState = searchParams.get("transactionState");
+  const polResponseCode = searchParams.get("polResponseCode");
+  const transactionId = searchParams.get("transactionId");
+  const extra1 = searchParams.get("despcription");
+  const TX_VALUE = searchParams.get('TX_VALUE');
 
+    useEffect(() => {
+        if (transactionState === '4' && polResponseCode === '1') {
 
-  useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const transactionState = '4';
-    const polResponseCode = '1';
-    const transactionId = '449c2f8f-f46b-4779-a80b-e778c55ad7c7';
-    const extra1 = 'ID: 649a258c3f7e8616142fe268 - Nombre: ssssss (Cantidad: 1)';
-    const TX_VALUE = searchParams.get('TX_VALUE');
+          console.log('Transacción confirmada exitosamente');
+          saveTransaction(transactionId, extra1, TX_VALUE); 
+          updateStockFromDescription(searchParams, transactionId); 
+        } else {
+          history.push('/error'); 
 
-    console.log('transactionState:', transactionState);
-    console.log('responseCode:', polResponseCode);
-
-    // Realiza las acciones necesarias según el estado de la transacción y el código de respuesta
-    if (transactionState === '4' && polResponseCode === '1') {
-      // Transacción confirmada exitosamente
-      console.log('Transacción confirmada exitosamente');
-      saveTransaction(transactionId, extra1, TX_VALUE); // Guardar transacción en la base de datos
-      updateStockFromDescription(searchParams, transactionId); // Actualizar el stock de los productos
-      // history.push('/success');
-    } else {
-      // Transacción fallida u otro caso
-      console.log('Error al confirmar la transacción');
-      history.push('/error'); // Redirige a la página de error
-    }
-  }, [location.search, history]);
+        }
+    }, [location.search, history]);
 
   const saveTransaction = async (transactionId, extra1, TX_VALUE) => {
     try {
@@ -59,7 +51,7 @@ function PayUConfirmationPage() {
   };
 
   const updateStockFromDescription = (searchParams, transactionId) => {
-    const description = 'ID: 649a258c3f7e8616142fe268 - Nombre: ssssss (Cantidad: 1)';
+    const description = extra1;
     const productInfoArray = description.split(', ');
 
     productInfoArray.forEach(async (productInfo) => {
@@ -70,16 +62,15 @@ function PayUConfirmationPage() {
       const quantity = parseInt(/\(Cantidad: (\d+)\)/.exec(quantityString)[1], 10);
 
       if (!isNaN(quantity)) {
-        // Verificar si el ID de transacción ya ha sido procesado
+
         if (localStorage.getItem(transactionId)) {
           console.log(`La actualización de stock para la transacción ${transactionId} ya ha sido procesada`);
           return;
         }
 
         await updateProductStock(productId, quantity, transactionId);
-
-        // Almacenar el ID de transacción en el almacenamiento local para marcarlo como procesado
         localStorage.setItem(transactionId, 'processed');
+
       }
     });
   };
