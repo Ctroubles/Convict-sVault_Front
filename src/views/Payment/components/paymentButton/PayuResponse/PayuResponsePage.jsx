@@ -19,7 +19,7 @@ function PayUResponseSummary() {
     try {
       if (transactionState === 'APPROVED') {
         // Transacción aprobada exitosamente
-        // history.push('/confirmation');
+        history.push('/confirmation');
       } 
     } catch (error) {
       console.log(error)
