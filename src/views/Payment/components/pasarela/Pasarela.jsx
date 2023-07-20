@@ -8,8 +8,8 @@ const Pasarela = () =>{
 
     const [formPay, setformPay] = useState({
         reference:"",
-        card:"",
-        cvv:"",
+        card:"376414000000009",
+        cvv:"777",
     })
 
 
@@ -129,14 +129,14 @@ const Pasarela = () =>{
         const requestConfig = {
         headers: {
             'Content-Type': 'application/json', 
-            // 'Access-Control-Allow-Origin': '*', 
+            'Access-Control-Allow-Origin': '*', 
         },
         };
         try {
 
-            const response = await axios.post('https://example.com/api/endpoint', requestData, requestConfig);
+            const response = await axios.post('https://sandbox.api.payulatam.com/payments-api/4.0/service.cgi', requestData, requestConfig);
             console.log(response);
-            
+
           } catch (error) {
             console.log(error);
           }     
