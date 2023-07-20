@@ -136,6 +136,7 @@ const Pasarela = () =>{
 
             const response = await axios.post('https://example.com/api/endpoint', requestData, requestConfig);
             console.log(response);
+            
           } catch (error) {
             console.log(error);
           }     
