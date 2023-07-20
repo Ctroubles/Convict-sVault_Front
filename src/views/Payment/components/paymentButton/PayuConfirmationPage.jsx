@@ -11,18 +11,16 @@ function PayUConfirmationPage() {
   const transactionState = searchParams.get("transactionState");
   const polResponseCode = searchParams.get("polResponseCode");
   const transactionId = searchParams.get("transactionId");
-  const extra1 = searchParams.get("despcription");
+  const extra1 = searchParams.get("description");
   const TX_VALUE = searchParams.get('TX_VALUE');
 
     useEffect(() => {
         if (transactionState === '4' && polResponseCode === '1') {
-
           console.log('Transacción confirmada exitosamente');
           saveTransaction(transactionId, extra1, TX_VALUE); 
           updateStockFromDescription(searchParams, transactionId); 
         } else {
           history.push('/error'); 
-
         }
     }, [location.search, history]);
 
