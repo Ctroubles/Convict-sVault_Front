@@ -40,7 +40,6 @@ const validators = (target,value) =>{
 const validatorsLevel2 = (setErrorsForm, currentForm) =>{
     const errors= {};
     let aproved = true
-    console.log(currentForm);
     for(let prop in currentForm){
         switch (prop) {
             case "name":
@@ -77,7 +76,7 @@ const validatorsLevel2 = (setErrorsForm, currentForm) =>{
                 break;
          }
     }
-    console.log(errors);
+
     setErrorsForm(errors)
     return aproved;
 };

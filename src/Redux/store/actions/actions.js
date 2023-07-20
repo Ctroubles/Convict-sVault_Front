@@ -1,4 +1,4 @@
-import { SEARCH_PRODUCT, SET_ID, SET_USER_CART } from "./actions.type";
+import { SEARCH_PRODUCT, SET_ID, SET_PURCHASE_FORM, SET_USER_CART } from "./actions.type";
 import axios from "axios";
 import Url_deploy_back from "../../../util/deploy_back";
 
@@ -28,9 +28,17 @@ const setUserCart = (payload) =>{
     }
 }
 
+const setPurchaseForm = (payload) =>{
+    return{
+        type: SET_PURCHASE_FORM,
+        payload,
+    }
+};
+
 
 export {
     setId,
     searchProduct,
     setUserCart,
+    setPurchaseForm,
 }
