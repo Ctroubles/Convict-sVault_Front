@@ -13,11 +13,15 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Profile from "./views/Profile/Profile";
 import { setId, setUserCart } from "./Redux/store/actions/actions";
 import { useDispatch } from "react-redux";
-import PasarelaDePagos from "./views/Payment/Payment.jsx";
+import FormPayment from "./views/Payment/Payment.jsx";
 import { Redirect } from 'react-router-dom';
+import PaymentCheckout from "./views/Payment/components/pasarela/Pasarela";
+
+
+////////////
 import PayUResponseSummary from "./views/Payment/components/paymentButton/PayuResponse/PayuResponsePage";
 import PayUConfirmationPage from "./views/Payment/components/paymentButton/PayuConfirmationPage";
-import SuccesPage from "./views/Payment/components/paymentButton/SuccesPage";
+// import SuccesPage from "./views/Payment/components/paymentButton/SuccesPage";
 import ErrorPage from "./views/Payment/components/paymentButton/ErrorPage";
 import TransactionHistory from "./admin/transactionsHistory/transactionHistory";
 import Url_deploy_back from "./util/deploy_back";
@@ -128,13 +132,18 @@ function App() {
       ) : (
         <Router>
           <Route path={"/queris"} render={()=> <PayUCheckout user={currentUser}/>} />
-          <Route path={"/payment"} render={()=> <PasarelaDePagos user={currentUser}/>} />
+          <Route exact path={"/checkout"} render={()=> <FormPayment user={currentUser}/>} />
+          <Route exact path={"/checkout/payment"} render={()=> <PaymentCheckout user={currentUser}/>} />
+
+
           <Route path={"/response"} render={()=> <PayUResponseSummary user={currentUser}/>}/>
           <Route path={"/confirmation"} render={()=> <PayUConfirmationPage/>}/>
-          <Route path={"/success"} render={() =><SuccesPage />}/>
+          {/* <Route path={"/success"} render={() =><SuccesPage />}/> */}
           <Route path={"/error"} render={()=> <ErrorPage/>} />
           <Route exact path={"/"} render={() => <Landing />} />
           <Route path={"/history"} render={() => <TransactionHistory />} />
+
+
           <Route path="/home" render={() =>
             <>
               <div className={styles.headerContainer}>

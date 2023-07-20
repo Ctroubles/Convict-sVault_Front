@@ -1,4 +1,4 @@
-import { SEARCH_PRODUCT, SET_ID, SET_USER_CART, } from "../actions/actions.type"
+import { SEARCH_PRODUCT, SET_ID, SET_PURCHASE_FORM, SET_USER_CART, } from "../actions/actions.type"
 
 
 const cartInStorage = localStorage.getItem("cart");
@@ -10,6 +10,7 @@ const initialState = {
   numPag: 0,
   paginated: [],
   cart: parsedCartData,
+  purchaseForm: null,
 };
 
 const rootReducer=(state= initialState, { type, payload })=> {
@@ -31,6 +32,14 @@ const rootReducer=(state= initialState, { type, payload })=> {
         return{
             ...state,
             cart:payload,
+        };    
+    case SET_PURCHASE_FORM:
+        // if (!state.id) {
+        //     localStorage.setItem("cart", JSON.stringify(payload))
+        // }
+        return{
+            ...state,
+            purchaseForm:payload,
         }
     default:
         return{

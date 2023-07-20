@@ -20,7 +20,7 @@ const Cart = ({ setCartStatus }) => {
   const history = useHistory();
 
   const handleConfirmOrder = () => {
-    history.push(`/payment`);
+    history.push(`/checkout`);
   };
   
 

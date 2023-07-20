@@ -1,10 +1,23 @@
 import styles from "./carrito.module.css";
 import CardCart from "../../../../components/cart/card_cart/CardCart";
+import { validatorsLevel2 } from "../../validators";
+import { useDispatch } from "react-redux";
+import { setPurchaseForm } from "../../../../Redux/store/actions/actions";
+import { useHistory } from 'react-router-dom';
 
-import PAYU from "../paymentButton/payu";
 
-const Carrito = ({loading, items, total, user, formRef, setErrors}) =>{
+const Carrito = ({loading, items, total, formRef, setErrors}) =>{
 
+  const dispatch = useDispatch()
+  const history = useHistory()
+
+  const submitHandler = () => {
+    if (validatorsLevel2(setErrors,formRef.current)) {
+      dispatch(setPurchaseForm(formRef.current));
+      history.push("/checkout/payment")
+    }
+  };
+  
     return (
         <div style={{height:"100%"}}>
         <div id={styles.Cart}>
@@ -26,6 +39,7 @@ const Carrito = ({loading, items, total, user, formRef, setErrors}) =>{
                       brand={e.brand}
                       id={e._id}
                       quantity={e.quantity}
+                      stock={e.stock}
                     />
                   ))}
                 </div>
@@ -62,7 +76,9 @@ const Carrito = ({loading, items, total, user, formRef, setErrors}) =>{
                   </div>
                 </div>
                 <div id={styles.containerPaymentButton}>
-                    <PAYU loading={loading} total={total} user={user} formRef={formRef} setErrors={setErrors} items={items}/>
+                  <div id={styles.paymentButtonContainer}>
+                      <button onClick={()=>submitHandler()} id={styles.paymentButton} >Pagar con Payu</button>
+                  </div>
                 </div>                                  
               </div>
             </div>

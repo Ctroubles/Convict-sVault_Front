@@ -48,6 +48,10 @@ const Formulario = ({user={},formRef, errors, setErrors}) =>{
         if (!selectedRadioOption.other===true) {
             const { id, ...whithoutId } = selectedRadioOption;
             setForm({ ...form, ...whithoutId });
+            setErrors({...errors, departament:null, city:null, address:null,})
+        }else{
+            const { _id, ...formWhithout_id } = form;
+            setForm({...formWhithout_id });
         }
     },[selectedRadioOption])
 
