@@ -79,7 +79,7 @@ const Header = ({user, viewportWidth}) =>{
 
     useEffect(()=>{
         const rootElement = document.getElementById("root");
-        if (cartStatus) {
+        if (cartStatus && viewportWidth > 960) {
             rootElement.style.height = "100vh"    
             rootElement.style.overflow = "hidden";
         }
@@ -91,7 +91,7 @@ const Header = ({user, viewportWidth}) =>{
             rootElement.style.overflow = "visible";
             rootElement.style.height = "auto"    
         }
-    },[cartStatus])
+    },[cartStatus, viewportWidth])
 
     const closeNavSide = (e) =>{
         if (e.target.id === style.navContainer || e.target.id === style.buttonNav) {
