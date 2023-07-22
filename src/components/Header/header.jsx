@@ -78,10 +78,11 @@ const Header = ({user, viewportWidth}) =>{
 
 
     useEffect(()=>{
-        if (cartStatus)  document.body.style.overflow = "hidden";
-        else  document.body.style.overflow = "visible";
+        const rootElement = document.getElementById("root");
+        if (cartStatus)  rootElement.style.overflow = "hidden";
+        else  rootElement.style.overflow = "visible";
         return () => {
-            document.body.style.overflow = "visible";
+            rootElement.style.overflow = "visible";
         };
     },[cartStatus])
 
