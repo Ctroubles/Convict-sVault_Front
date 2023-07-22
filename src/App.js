@@ -21,11 +21,9 @@ import PaymentCheckout from "./views/Payment/components/pasarela/Pasarela";
 ////////////
 import PayUResponseSummary from "./views/Payment/components/paymentButton/PayuResponse/PayuResponsePage";
 import PayUConfirmationPage from "./views/Payment/components/paymentButton/PayuConfirmationPage";
-// import SuccesPage from "./views/Payment/components/paymentButton/SuccesPage";
 import ErrorPage from "./views/Payment/components/paymentButton/ErrorPage";
 import TransactionHistory from "./admin/transactionsHistory/transactionHistory";
 import Url_deploy_back from "./util/deploy_back";
-import PayUQueries from "./views/Payment/components/paymentButton/querysPayu";
 import PayUCheckout from "./views/Payment/components/paymentButton/PayuResponse/newPayu";
 
 

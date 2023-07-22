@@ -10,13 +10,13 @@ import store from './Redux/store/store';
 
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
-
+console.log(window.location.origin + "/home");
 
 ReactDOM.render(
   <Auth0Provider
     domain={domain}
     clientId={clientId}
-    redirectUri={window.location.origin}
+    redirectUri={window.location.origin + "/home"}
   >
     <Provider store={store}>
         <React.StrictMode>

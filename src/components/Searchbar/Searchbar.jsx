@@ -12,7 +12,7 @@
 //   const searchProdByName = async (name) => {
 //     try {
 //       const { data } = await axios.get(
-//         `http://localhost:3001/products?name=${name}`
+//         `https://convict-s-vault-back.vercel.app/products?name=${name}`
 //       );
 //       console.log(data);
 //       setSearch(data);
