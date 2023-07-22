@@ -79,11 +79,18 @@ const Header = ({user, viewportWidth}) =>{
 
     useEffect(()=>{
         const rootElement = document.getElementById("root");
-        if (cartStatus)  rootElement.style.overflow = "hidden";
-        else  rootElement.style.overflow = "visible";
-        return () => {
+        if (cartStatus) {
+            rootElement.style.height = "100vh"    
+            rootElement.style.overflow = "hidden";
+        }
+        else { 
             rootElement.style.overflow = "visible";
-        };
+            rootElement.style.height = "auto"    
+        }
+        return () => { 
+            rootElement.style.overflow = "visible";
+            rootElement.style.height = "auto"    
+        }
     },[cartStatus])
 
     const closeNavSide = (e) =>{
