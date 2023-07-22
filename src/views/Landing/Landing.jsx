@@ -11,20 +11,26 @@ const Landing = () => {
 
   return (
     <div className={style.container}>
-      <div>
-        <img src={logo3} alt='Super Reo Y+' width="400px"/>
-      </div>
-      <div>
-      <Link to={"/home"}>
-        <button className={style.button}>VER TIENDA</button>
-      </Link>
-      {
-        isAuthenticated ? (
-          <LogoutButton />
-        ) : (
-          <LoginButton />
-        )
-      }
+      <div style={{width: "100%"}}>
+        <div id={style.imgContainer}>
+          <img src={logo3} alt='Super Reo Y+' />
+        </div>
+        <div id={style.containerButtons}>
+          <div>
+            <Link style={{width: "100%", display:"block"}} to={"/home"}>
+              <button className={style.button}>VER TIENDA</button>
+            </Link>
+          </div>
+          <div>
+            {
+              isAuthenticated ? (
+                <LogoutButton />
+              ) : (
+                <LoginButton />
+              )
+            }
+          </div>  
+        </div>
       </div>
     </div>
   );
