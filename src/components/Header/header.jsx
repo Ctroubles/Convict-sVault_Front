@@ -139,7 +139,7 @@ const Header = ({user, viewportWidth}) =>{
                                                         <span>Mi perfil</span>
                                                     </label>
                                                 </Link>            
-                                                <div className={style.options} onClick={()=>logout()} style={{paddingBottom:"5px", color:" #fa0202 "}}>
+                                                <div className={style.options} onClick={()=>logout({ returnTo: window.location.origin })} style={{paddingBottom:"5px", color:" #fa0202 "}}>
                                                     <label>
                                                         <span>Cerrar sesión</span>
                                                     </label>

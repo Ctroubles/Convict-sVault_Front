@@ -360,7 +360,7 @@ const Profile = ({user, viewportWidth}) =>{
                                 </div>
                                 <div id={style.guardar}>
                                     <label><span onClick={()=>modalHandler()}>CANCELAR</span></label>
-                                    <label><p onClick={()=>logout()}>SALIR</p></label>
+                                    <label><p onClick={()=>logout({ returnTo: window.location.origin })}>SALIR</p></label>
                                 </div>
                             </div>
                         </div>

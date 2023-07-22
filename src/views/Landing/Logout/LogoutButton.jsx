@@ -15,7 +15,7 @@ function LogoutButton() {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        logout();
+        logout({ returnTo: window.location.origin });
         Swal.fire('¡Sesión cerrada!', '', 'success');
       }
     });
