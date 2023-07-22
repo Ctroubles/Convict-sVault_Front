@@ -44,13 +44,6 @@ const Header = ({user, viewportWidth}) =>{
     },[cart])
 
     useEffect(()=>{
-        if (cartStatus)  document.body.style.overflow = "hidden";
-        else  document.body.style.overflow = "visible";
-        return () => {
-            document.body.style.overflow = "visible";
-        };
-    },[cartStatus])
-    useEffect(()=>{
         if (viewportWidth <= 1400 && navRef.current) {
             if (navStatus ) {
                 document.body.style.overflow = "hidden";
