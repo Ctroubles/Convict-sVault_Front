@@ -127,10 +127,10 @@ const Pasarela = () =>{
         };
 
         const requestConfig = {
-        headers: {
-            'Content-Type': 'application/json', 
-            'Access-Control-Allow-Origin': '*', 
-        },
+            headers: {
+                'Content-Type': 'application/json', 
+                'Accept': 'application/json', 
+            },
         };
         try {
 

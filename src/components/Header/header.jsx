@@ -44,13 +44,6 @@ const Header = ({user, viewportWidth}) =>{
     },[cart])
 
     useEffect(()=>{
-        if (cartStatus)  document.body.style.overflow = "hidden";
-        else  document.body.style.overflow = "visible";
-        return () => {
-            document.body.style.overflow = "visible";
-        };
-    },[cartStatus])
-    useEffect(()=>{
         if (viewportWidth <= 1400 && navRef.current) {
             if (navStatus ) {
                 document.body.style.overflow = "hidden";
@@ -78,12 +71,20 @@ const Header = ({user, viewportWidth}) =>{
 
 
     useEffect(()=>{
-        if (cartStatus)  document.body.style.overflow = "hidden";
-        else  document.body.style.overflow = "visible";
-        return () => {
-            document.body.style.overflow = "visible";
-        };
-    },[cartStatus])
+        const rootElement = document.getElementById("root");
+        if (cartStatus && viewportWidth > 960) {
+            rootElement.style.height = "100vh"    
+            rootElement.style.overflow = "hidden";
+        }
+        else { 
+            rootElement.style.overflow = "visible";
+            rootElement.style.height = "auto"    
+        }
+        return () => { 
+            rootElement.style.overflow = "visible";
+            rootElement.style.height = "auto"    
+        }
+    },[cartStatus, viewportWidth])
 
     const closeNavSide = (e) =>{
         if (e.target.id === style.navContainer || e.target.id === style.buttonNav) {
