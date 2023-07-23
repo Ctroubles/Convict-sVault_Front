@@ -22,8 +22,9 @@ const Pasarela = () =>{
 
         const referenceCode = formPay.reference;
 
-        const PAYU_APY_KEY = process.env.REACT_APP_PAYU_APY_KEY;
-        const PAYU_MERCHANT_ID = process.env.REACT_APP_PAYU_MERCHANT_ID;
+        const PAYU_APY_KEY = process.env.REACT_APP_PAYU_APY_KEY || "3IFUR2Dcs26VKg4v8060jCY8fh";
+        // const PAYU_MERCHANT_ID = process.env.REACT_APP_PAYU_MERCHANT_ID || "996433";
+        const PAYU_MERCHANT_ID = "996433"
 
         let signature = CryptoJS.MD5( PAYU_APY_KEY + "~" + PAYU_MERCHANT_ID + "~" + referenceCode + "~" + 65000 + "~COP").toString();
 
@@ -32,8 +33,10 @@ const Pasarela = () =>{
             language: 'es',
             command: 'SUBMIT_TRANSACTION',
             merchant: {
-              apiKey: PAYU_APY_KEY,
-              apiLogin: process.env.REACT_APP_PAYU_API_LOGIN,
+              apiKey: "3IFUR2Dcs26VKg4v8060jCY8fh",
+              // apiKey: PAYU_APY_KEY,
+              apiLogin: "2e5ztTEBVy4Kx3F",
+              // apiLogin: process.env.REACT_APP_PAYU_API_LOGIN,
             },
             transaction: {
               order: {
