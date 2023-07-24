@@ -20,7 +20,7 @@ const Home = ({viewportWidth})=>{
                             <SliderCategory viewportWidth={viewportWidth} category={"Juguetes"}/>
                             <SliderCategory viewportWidth={viewportWidth} category={"Muebles"}/>
                             <SliderCategory viewportWidth={viewportWidth} category={"Ropa"}/>
-                            <SliderCategory viewportWidth={viewportWidth} category={"Mascotas"}/>
+                            {/* <SliderCategory viewportWidth={viewportWidth} category={"Mascotas"}/> */}
                             <SliderCategory viewportWidth={viewportWidth} category={"Turismo"}/>
                             <SliderCategory viewportWidth={viewportWidth} category={"Artesanias"}/>
                             <SliderCategory viewportWidth={viewportWidth} category={"Agropecuario"}/>
