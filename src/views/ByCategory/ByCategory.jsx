@@ -74,9 +74,16 @@ const ByCategory = () => {
             </div>
             <div style={{ width: "100%" }}>
               <div id={style.cardsContaier}>
-                {products.map((e) => (
-                  <Card key={e._id} brand={e.brand} category={e.category} image={e.image} price={e.price} name={e.name} id={e._id} stock={e.stock} />
-                ))}
+                {
+                  products.length ?
+                  products.map((e) => (
+                    <Card key={e._id} brand={e.brand} category={e.category} image={e.image} price={e.price} name={e.name} id={e._id} stock={e.stock} />
+                  )) : (
+                    <div style={{textAlign:"center", width:"100%", padding:"20px 15px"}}>
+                      <p>Por el momento no hay productos disponibles en esta categoría.</p>
+                    </div>
+                  )
+                }
               </div>
             </div>
           </div>
