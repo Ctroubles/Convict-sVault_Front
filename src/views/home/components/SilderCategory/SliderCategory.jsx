@@ -35,7 +35,6 @@ const SliderCategory = ({category, viewportWidth}) =>{
             
         } catch (error) {
             console.log(error);
-            alert(`Error al traer Data en la categoría ${category}, checar en consola para más información.`)
         }
     }
 

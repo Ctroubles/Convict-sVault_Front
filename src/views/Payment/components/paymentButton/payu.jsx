@@ -7,8 +7,8 @@ import axios from 'axios';
 import CryptoJS from 'crypto-js';
 
 function PAYU({ total, user, formRef, setErrors, items }) {
-  let apiKey = "4Vj8eK4rloUd272L48hsrarnUA";
-  let merchantId = "508029";
+  let apiKey = "3IFUR2Dcs26VKg4v8060jCY8fh";
+  let merchantId = "996433";
   const referenceCode = `PAGO${uuidv4()}`;
   let mont = total;
 
