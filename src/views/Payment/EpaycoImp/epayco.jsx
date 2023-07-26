@@ -1,33 +1,62 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
+import ePayco from 'epayco';
 
-function Epayco() {
-  useEffect(() => {
-    fetch(`http://localhost:3001/session`, {
-      method: 'POST',
-      body: JSON.stringify({
-        // ...params_transaction son los parámetros que necesitas enviar en la solicitud
-        // Asegúrate de incluir todos los parámetros requeridos según la documentación de ePayco
-      }),
-      headers: { 'Content-Type': 'application/json' }
-    })
-      .then(response => response.json())
-      .then(({ sessionId }) => {
-        const handler = ePayco.checkout.configure({
-          sessionId,
-          external: false // Cambia a true para usar checkout externo
-        });
+const Epayco = () => {
+  const [nombre, setNombre] = useState('');
 
-        // Abre el checkout
-        handler.openNew();
-      })
-      .catch(error => console.log(error));
-  }, []);
+  const getSessionId = async () => {
+    try {
+      const response = await fetch('http://localhost:3001/session', {
+        method: 'POST',
+        body: JSON.stringify({
+          name: "zapatos",
+          invoice: "prueba 122",
+          description: "Compra zaptos cantidad x1",
+          currency: "cop",
+          amount: "55000",
+          country: "CO",
+          test: "true",
+          ip: "186.97.212.162"
+        }),
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      const data = await response.json();
+      const sessionId = data.sessionId;
+      console.log(sessionId);
+      return sessionId;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  };
+
+  const pagar = async () => {
+    console.log(nombre);
+    const sessionId = await getSessionId();
+    if (sessionId) {
+      const handler = ePayco.checkout.configure({
+        sessionId,
+        external: false,
+        test: true,
+      });
+      handler.openNew();
+    } else {
+      console.log("Error al obtener el sessionId");
+    }
+  };
 
   return (
-    <div>
-      <h1>Aplicación React.js</h1>
-    </div>
+    <>
+      <input
+        type="text"
+        placeholder="Ingresa tu nombre"
+        value={nombre}
+        onChange={(e) => setNombre(e.target.value)}
+      />
+      <button onClick={pagar}>Pagar</button>
+    </>
   );
-}
+};
 
 export default Epayco;
