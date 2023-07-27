@@ -25,6 +25,7 @@ import ErrorPage from "./views/Payment/components/paymentButton/ErrorPage";
 import TransactionHistory from "./admin/transactionsHistory/transactionHistory";
 import Url_deploy_back from "./util/deploy_back";
 import PayUCheckout from "./views/Payment/components/paymentButton/PayuResponse/newPayu";
+import Epayco from "./views/Payment/EpaycoImp/epayco";
 
 
 
@@ -129,6 +130,8 @@ function App() {
         </div>
       ) : (
         <Router>
+
+          <Route path={"/epayco"} render={()=> <Epayco/>} />
           <Route path={"/queris"} render={()=> <PayUCheckout user={currentUser}/>} />
           <Route exact path={"/checkout"} render={()=> <FormPayment user={currentUser}/>} />
           <Route exact path={"/checkout/payment"} render={()=> <PaymentCheckout user={currentUser}/>} />
