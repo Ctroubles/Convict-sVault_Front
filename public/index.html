@@ -25,68 +25,9 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>SUPER REO Y+</title>
+    <script type="text/javascript" src="https://checkout.epayco.co/checkout.js" async></script>
   </head>
   <body>
-    <input type="text" id="nombre" placeholder="Ingresa tu nombre" />
-    <button onclick="pagar()">Pagar</button>
-    <script type="text/javascript" src="https://checkout.epayco.co/checkout.js"></script>
-    <script>
-      // Definimos la función para obtener el sessionId desde el servidor
-      async function getSessionId() {
-        try {
-          const response = await fetch('http://localhost:3001/session', {
-            method: 'POST',
-            body: JSON.stringify({
-              name: "zapatos",
-              invoice: "prueba 122",
-              description: "Compra zaptos cantidad x1",
-              currency: "cop",
-              amount: "55000",
-              country: "CO",
-              test: "true",
-              ip: "186.97.212.162"
-          }),
-            headers: { 'Content-Type': 'application/json' },
-          });
-      
-          // Convierte la respuesta a formato JSON
-          const data = await response.json();
-      
-          // Obtiene el sessionId del objeto data
-          const sessionId = data.sessionId;
-      
-          console.log(sessionId);
-      
-          return sessionId; // Devuelve el sessionId
-        } catch (error) {
-          console.log(error);
-          return null; // Devuelve null en caso de error
-        }
-      }
-
-      // Función para manejar el clic en el botón "Pagar"
-      async function pagar() {
-        const nombre = document.getElementById("nombre").value;
-        console.log(nombre);
-
-        // Llamar a la función getSessionId para obtener el sessionId
-        const sessionId = await getSessionId();
-
-        if (sessionId) {
-          // Configura el checkout con el sessionId obtenido
-          const handler = ePayco.checkout.configure({
-            sessionId,
-            external: false,
-            test: true,
-          });
-
-          // Abre el checkout
-          handler.openNew();
-        } else {
-          console.log("Error al obtener el sessionId");
-        }
-      }
-    </script>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
 </body>
