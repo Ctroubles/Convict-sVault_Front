@@ -204,8 +204,6 @@ const Header = ({user, viewportWidth}) =>{
                                         <Link to={"/category/juguetes"} className={style.buttonNav} style={category==="juguetes"?{backgroundColor:"#0e628b"}:undefined}><li >Juguetería</li></Link>    
                                         <Link to={"/category/belleza"} className={style.buttonNav} style={category==="belleza"?{backgroundColor:"#0e628b"}:undefined}><li >Belleza</li></Link>    
                                         <Link to={"/category/equipaje"} className={style.buttonNav} style={category==="equipaje"?{backgroundColor:"#0e628b"}:undefined}><li >Equipaje</li></Link>      
-                                        {/* <Link to={"/category/mascotas"} className={style.buttonNav} style={category==="mascotas"?{backgroundColor:"#0e628b"}:undefined}><li >Mascotas</li></Link>       */}
-                                        <Link to={"/category/turismo"} className={style.buttonNav} style={category==="turismo"?{backgroundColor:"#0e628b"}:undefined}><li >Turismo</li></Link>      
                                         <Link to={"/category/artesania"} className={style.buttonNav} style={category==="artesania"?{backgroundColor:"#0e628b"}:undefined}><li >Artesania</li></Link>      
                                         <Link to={"/category/agropecuario"} className={style.buttonNav} style={category==="agropecuario"?{backgroundColor:"#0e628b"}:undefined}><li >Agropecuario</li></Link>      
                                         <Link to={"/category/servicios"} className={style.buttonNav} style={category==="servicios"?{backgroundColor:"#0e628b"}:undefined}><li >Servicios</li></Link>      

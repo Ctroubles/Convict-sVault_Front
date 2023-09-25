@@ -108,7 +108,9 @@
     font-size: 14px;
 }
 
-
+.acerca{
+    text-decoration: none;
+}
 
 @media screen and (max-width:920px) {
     #nav{

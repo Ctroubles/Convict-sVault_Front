@@ -1,0 +1,57 @@
+/* AboutUs.css */
+
+.aboutUsContainer {
+    max-width: 1200px;
+    width: 100%;
+    padding: 20px;
+    margin: 0 auto;
+    /* background-color: rgb(8, 69, 236); */
+  }
+  
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .content {
+    font-size: 18px;
+    line-height: 1.6;
+    text-align: left;
+  }
+  
+  /* Estilos para 965px */
+  @media screen and (max-width: 965px) {
+    .title {
+      font-size: 22px;
+      text-align: center;
+    }
+  }
+  
+  /* Estilos para 768px */
+  @media screen and (max-width: 768px) {
+    .title {
+      font-size: 20px;
+      text-align: center;
+    }
+  
+    .content {
+      font-size: 16px;
+      text-align: left;
+    }
+  }
+  
+  /* Estilos para 350px */
+  @media screen and (max-width: 350px) {
+    .title {
+      font-size: 18px;
+      text-align: center;
+    }
+  
+    .content {
+      font-size: 14px;
+      text-align: left;
+    }
+  }
+  

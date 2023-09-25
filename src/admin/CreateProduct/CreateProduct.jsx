@@ -16,7 +16,6 @@ const categorias = [
   "Muebles",
   "Ropa",
   "Mascotas",
-  "Turismo",
   "Artesania",
   "Agropecuario",
   "Servicios",
