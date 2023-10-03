@@ -8,6 +8,7 @@ import headphones from "./assets/headphones.webp"
 import sheet from "./assets/sheet.png"
 import visa from "./assets/metodos_pago/visa.svg"
 import mastercard from "./assets/metodos_pago/mastercard.svg"
+import { Link } from "react-router-dom/cjs/react-router-dom.min"
 
 
 const Footer = ()=>{
@@ -17,13 +18,8 @@ const Footer = ()=>{
                 <section style={{display:"flex", justifyContent:"center", backgroundColor:"#dff2fb"}}>
                     <div style={{maxWidth:"1200px",width:"100%",padding:"0 20px",}}>
                         <section id={style.nav}>
-                            <div>
-                                <label>
-                                    <img src={footer_1} alt="" />
-                                </label>
-                                <span>Acerca de nosotros</span>
-                            </div> 
-                            <div>
+                            
+                            {/* <div>
                                 <label>
                                     <img src={footer_2} alt="" />
                                 </label>
@@ -34,25 +30,32 @@ const Footer = ()=>{
                                     <img src={footer_3} alt="" />
                                 </label>
                                 <span>Política de privacidad</span>
-                            </div> 
-                            <div>
+                            </div>  */}
+                            {/* <div>
                                 <label>
                                     <img src={footer_4} alt="" />
                                 </label>
                                 <span>Cambios y Devoluciones</span>
-                            </div> 
-                            <div>
+                            </div>  */}
+                            {/* <div>
                                 <label>
                                     <img src={footer_5} alt="" />
                                 </label>
                                 <span>Promociones</span>
-                            </div> 
+                            </div>  */}
                         </section>
                     </div>
                 </section>
                 <section style={{display:"flex", justifyContent:"center"}}>
                     <div id={style.infSuperReo}>
+                    <div className={style.acerca}>
+                                <label>
+                                    <img src={footer_1} alt="" />
+                                </label>
+                                <Link to="/aboutUs">Acerca de nosotros</Link>
+                            </div> 
                         <div>
+                            
                             <div>
                                 <div>
                                     <h1>SUPER REO Y+</h1>
@@ -70,18 +73,18 @@ const Footer = ()=>{
                                     <h2>¿Necesitas ayuda en tu compra?</h2>
                                 </div>
                                 <div>
-                                    <p>Conversa con nosotros de lunes a viernes de 8:00 am a 5:00 pm y sabado de 9:00 am a 1:00 pm </p>
+                                    <p>comunicate con nosotros de lunes a viernes de 8:00 am a 5:00 pm y sabado de 9:00 am a 1:00 pm </p>
                                 </div>
                                 <div className={style.contact}>
                                     <img src={headphones} alt="" />
                                     <span>Llamanos al </span>
-                                    <span className={style.blueSpan}> 999 999 999</span>
+                                    <span className={style.blueSpan}> 3013282300</span>
                                 </div>
-                                <div className={style.contact}>
+                                {/* <div className={style.contact}>
                                     <img src={sheet} alt="" />
                                     <span>Mandar una </span>
                                     <span className={style.blueSpan} style={{textDecoration:"underline"}}>solicitud online</span>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                         <div>
@@ -99,7 +102,7 @@ const Footer = ()=>{
                                 <div id={style.imgContainerPayment}>
                                     <img src={visa} alt="" />
                                     <img src={mastercard} alt="" />
-                                    <img src={visa} alt="" />
+                                    {/* <img src={visa} alt="" /> */}
                                 </div>
                             </div>
                         </div>

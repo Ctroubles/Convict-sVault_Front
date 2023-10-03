@@ -26,6 +26,7 @@ import TransactionHistory from "./admin/transactionsHistory/transactionHistory";
 import Url_deploy_back from "./util/deploy_back";
 import PayUCheckout from "./views/Payment/components/paymentButton/PayuResponse/newPayu";
 import Epayco from "./views/Payment/EpaycoImp/epayco";
+import AboutUs from "./views/home/components/aboutUs/aboutUs";
 
 
 
@@ -132,6 +133,8 @@ function App() {
         <Router>
 
           <Route path={"/testPayment"} render={()=> <Epayco/>} />
+          <Route path={"/aboutUs"} render={()=> <AboutUs/>} />
+          <Route path={"/epayco"} render={()=> <Epayco/>} />
           <Route path={"/queris"} render={()=> <PayUCheckout user={currentUser}/>} />
           <Route exact path={"/checkout"} render={()=> <FormPayment user={currentUser}/>} />
           <Route exact path={"/checkout/payment"} render={()=> <PaymentCheckout user={currentUser}/>} />
