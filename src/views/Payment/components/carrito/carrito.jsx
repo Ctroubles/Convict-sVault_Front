@@ -3,24 +3,70 @@ import CardCart from "../../../../components/cart/card_cart/CardCart";
 import { validatorsLevel2 } from "../../validators";
 import { useDispatch } from "react-redux";
 import { setPurchaseForm } from "../../../../Redux/store/actions/actions";
-import { useHistory } from 'react-router-dom';
+import axios from "axios";
+import { v4 as uuidv4 } from 'uuid';
+import Url_deploy_back from "../../../../util/deploy_back";
+const Carrito = ({ loading, items, total, formRef, setErrors }) => {
+  const dispatch = useDispatch();
+  console.log("items", total);
 
+  const pagarAutomatically = async (sessionId) => {
+    const apiKey = 'e95deec204ee959cd0fad3b4c2082d54';
+    const privateKey = 'e244fdc8a0b2b994132f2b1b9baf9692';
 
-const Carrito = ({loading, items, total, formRef, setErrors}) =>{
+    if (sessionId) {
+      const handler = window.ePayco.checkout.configure({
+        sessionId,
+        external: false,
+        test: true,
+      });
 
-  const dispatch = useDispatch()
-  const history = useHistory()
+      handler.openNew();
+    } else {
+      console.log("Error al obtener el sessionId");
+    }
+  };
 
-  const submitHandler = () => {
-    if (validatorsLevel2(setErrors,formRef.current)) {
-      dispatch(setPurchaseForm(formRef.current));
-      history.push("/checkout/payment")
+  const getSessionId = async () => {
+    try {
+      const response = await axios.post(`${Url_deploy_back}/session`, {
+        response: 'https://www.superreoy.com/home',
+        confirmation: 'https://www.superreoy.com/home',
+        name: items[0].name  || "default name",
+        invoice: `PAGO${uuidv4()}`,
+        description: `${items[0].name} X ${items[0].quantity}`,
+        currency: 'cop',
+        amount: `${total}`,
+        country: 'CO',
+        test: 'true',
+        ip: '186.97.212.162',
+      });
+
+      const { data } = await response;
+      const sessionId = data.sessionId;
+      console.log(sessionId);
+      return sessionId;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  };
+
+  const submitHandler = async () => {
+    try {
+      if (validatorsLevel2(setErrors, formRef.current)) {
+        dispatch(setPurchaseForm(formRef.current));
+        const sessionId = await getSessionId();
+        pagarAutomatically(sessionId);
+      }
+    } catch (error) {
+      console.error('Error during form validation:', error);
     }
   };
   
-    return (
-        <div style={{height:"100%"}}>
-        <div id={styles.Cart}>
+  return (
+    <div style={{ height: "100%" }}>
+      <div id={styles.Cart}>
           <div>
             <div  id={styles.tittle}>
               <label>
@@ -77,7 +123,9 @@ const Carrito = ({loading, items, total, formRef, setErrors}) =>{
                 </div>
                 <div id={styles.containerPaymentButton}>
                   <div id={styles.paymentButtonContainer}>
-                      <button onClick={()=>submitHandler()} id={styles.paymentButton} >Pagar con Payu</button>
+                  {/* <Epayco loading={loading} items={items} total={total} formRef={formRef} setErrors={setErrors} /> */}
+
+                  <button onClick={() => submitHandler()} id={styles.paymentButton} >Pagar con Epayco</button>
                   </div>
                 </div>                                  
               </div>
