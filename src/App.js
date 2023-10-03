@@ -131,7 +131,7 @@ function App() {
       ) : (
         <Router>
 
-          <Route path={"/epayco"} render={()=> <Epayco/>} />
+          <Route path={"/testPayment"} render={()=> <Epayco/>} />
           <Route path={"/queris"} render={()=> <PayUCheckout user={currentUser}/>} />
           <Route exact path={"/checkout"} render={()=> <FormPayment user={currentUser}/>} />
           <Route exact path={"/checkout/payment"} render={()=> <PaymentCheckout user={currentUser}/>} />
