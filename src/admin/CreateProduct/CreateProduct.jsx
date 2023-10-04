@@ -103,7 +103,6 @@ function CreateProduct({ darkMode }) {
   };
 
   useEffect(() => {
-    // Guardar los valores del formulario en el almacenamiento local
     localStorage.setItem("productForm", JSON.stringify(values));
   }, [values]);
 
