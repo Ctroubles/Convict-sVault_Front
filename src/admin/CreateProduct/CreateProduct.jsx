@@ -15,7 +15,6 @@ const categorias = [
   "Juguetes",
   "Muebles",
   "Ropa",
-  "Mascotas",
   "Artesania",
   "Agropecuario",
   "Servicios",
@@ -84,7 +83,7 @@ function CreateProduct({ darkMode }) {
       const { data: data2 } = await axios.post(`${Url_deploy_back}/upload/`, data);
       console.log(data2);
       swal.fire({
-        title: `Su componente se ha creado con éxito`,
+        title: `Su producto se ha creado con éxito`,
         icon: 'success',
         confirmButtonText: 'Aceptar',
         allowOutsideClick: false,

@@ -18,7 +18,7 @@ const Carrito = ({ loading, items, total, formRef, setErrors }) => {
       const handler = window.ePayco.checkout.configure({
         sessionId,
         external: false,
-        test: true,
+        test: false,
       });
 
       handler.openNew();
@@ -38,7 +38,7 @@ const Carrito = ({ loading, items, total, formRef, setErrors }) => {
         currency: 'cop',
         amount: `${total}`,
         country: 'CO',
-        test: 'true',
+        test: false,
         ip: '186.97.212.162',
       });
 
