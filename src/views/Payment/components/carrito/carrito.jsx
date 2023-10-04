@@ -8,7 +8,6 @@ import { v4 as uuidv4 } from 'uuid';
 import Url_deploy_back from "../../../../util/deploy_back";
 const Carrito = ({ loading, items, total, formRef, setErrors }) => {
   const dispatch = useDispatch();
-  console.log("items", total);
 
   const pagarAutomatically = async (sessionId) => {
     const apiKey = 'e95deec204ee959cd0fad3b4c2082d54';
