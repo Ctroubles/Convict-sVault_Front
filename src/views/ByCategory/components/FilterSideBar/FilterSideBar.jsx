@@ -66,8 +66,8 @@ const Filtro = ({ filtro, sortProductsDescending, sortProductsAscending, sort}) 
       <img src={arrow} alt="Flecha"  />
       {open && (
         <div id={style.menuOptions}>
-          <span onClick={handleSortDescending} ref={buttonRef} id={sort===1?style.active:undefined}>Descendente</span>
-          <span onClick={handleSortAscending} ref={buttonRef} id={sort===2?style.active:undefined}>Ascendente</span>
+          <span onClick={handleSortDescending} ref={buttonRef} id={sort===1?style.active:undefined}>Mayora menor</span>
+          <span onClick={handleSortAscending} ref={buttonRef} id={sort===2?style.active:undefined}>Menor a mayor</span>
         </div>
       )}
     </div>

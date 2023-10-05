@@ -159,7 +159,7 @@ function Sales() {
   return (
     <div className={style.salescontainer}>
       <div className={style.cardsContainer}>
-        <div className={style.card}>
+        {/* <div className={style.card}>
           <div className={style.cardIcon}>
             <FaShoppingCart />
           </div>
@@ -167,8 +167,8 @@ function Sales() {
             <h3>Ventas</h3>
             <p>{salesCount}</p>
           </div>
-        </div>
-        <div className={style.card}>
+        </div> */}
+        {/* <div className={style.card}>
         <Link to="/history" className={style.cardLink} id="cardLink">
           <div className={style.cardIcon}>
             <FaMoneyBillWave />
@@ -178,7 +178,7 @@ function Sales() {
             <p>${totalRevenue}</p>
           </div>
           </Link>
-        </div>
+        </div> */}
       </div>
       <div className={style.chart}>
         <CategoryChart categoryCounts={categoryCounts} chartType={chartType} />
