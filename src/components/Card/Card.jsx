@@ -59,9 +59,9 @@ const Card = ({brand, stock, image,price,name,id}) =>{
                         <div id={style.priceSection}>
                             <div>
                                 <div>
-                                    <small>
+                                    {/* <small>
                                         $ {price + 32800}
-                                    </small>
+                                    </small> */}
                                 </div>
                                 <div>
                                     <span>$ {price}</span>

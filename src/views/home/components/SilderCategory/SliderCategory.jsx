@@ -19,7 +19,7 @@ const SliderCategory = ({category, viewportWidth}) =>{
     const getProducts = async() =>{
         try {
             const {data} = await axios.get(`${Url_deploy_back}/products/category/${category}`);
-            console.log(data);
+            // console.log(data);
             if (data.length) {
                 const arrSlider = data.filter(e => Number(e.stock ) > 0 && e.isActive);
                 for (let i = 0; i < 4; i++) {

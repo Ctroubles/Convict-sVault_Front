@@ -9,6 +9,7 @@ import sheet from "./assets/sheet.png"
 import visa from "./assets/metodos_pago/visa.svg"
 import mastercard from "./assets/metodos_pago/mastercard.svg"
 import { Link } from "react-router-dom/cjs/react-router-dom.min"
+import { FaInstagram } from "react-icons/fa"
 
 
 const Footer = ()=>{
@@ -52,7 +53,7 @@ const Footer = ()=>{
                                 <label>
                                     <img src={footer_1} alt="" />
                                 </label>
-                                <Link to="/aboutUs">Acerca de nosotros</Link>
+                                <Link to="/aboutUs" style={{ textDecoration: 'none', color: 'black'}}>Acerca de nosotros</Link>
                             </div> 
                         <div>
                             
@@ -107,7 +108,20 @@ const Footer = ()=>{
                             </div>
                         </div>
                     </div>
+                    <div>
+    <div>
+        <div>
+            <h2 style={{ color: '#009fe3', justifyContent:"center", padding: "30px 20px 10px" }}>Redes Sociales</h2>
+        </div>
+        <div>
+            <a href="https://www.instagram.com/super_reo_y/" target="_blank" rel="noopener noreferrer">
+                <FaInstagram size={50} style={{ color: '#009fe3' }}/>
+            </a>
+        </div>
+    </div>
+</div>
                 </section>
+                
                 <footer id={style.footer}>
                     Copyrigth © 2023 - SUPER REO Y+ 
                 </footer>

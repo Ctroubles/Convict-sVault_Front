@@ -53,15 +53,17 @@ function App() {
             "Content-Type": "application/json",
           },
         }
-      ).catch((err) => {alert("error log");console.log(err)});
-
-      const data = response?.data;
-      if (data) {
+        ).catch((err) => {alert("error al crear el usuario");console.log(err)});
+        
+        const data = response?.data;
+        if (data) {
+        console.log("segundo")
         setCurrentUser(data);
         dispatch(setId(data._id));
         dispatch(setUserCart(data.cart));
         const emailSent = localStorage.getItem("emailSent");
         if (!emailSent) {
+          console.log("tercero")
           try {
             await sendEmail(data);
             localStorage.setItem("emailSent", "true");
@@ -73,6 +75,7 @@ function App() {
     };
 
     const sendEmail = async (data) => {
+      console.log("cuarto")
       await axios.post(
         `${Url_deploy_back}/users/send-email`,
         { userId: data.id, email: data.email, name: data.name },
@@ -88,6 +91,7 @@ function App() {
       if (isAuthenticated) await postUser();
       if (!isLoading) setLoadingStatus(false);
     };
+    
 
     setting();
   }, [user, isAuthenticated, isLoading]);
@@ -133,7 +137,17 @@ function App() {
         <Router>
 
           <Route path={"/testPayment"} render={()=> <Epayco/>} />
-          <Route path={"/aboutUs"} render={()=> <AboutUs/>} />
+          <Route path="/aboutUs" render={() =>
+          <>
+            <div className={styles.headerContainer}>
+              <Header user={currentUser} viewportWidth={viewportWidth} />
+            </div>
+            <div className={styles.bodyContainer}>
+              <AboutUs />
+              <Footer />
+            </div>
+          </>
+        } />
           <Route path={"/epayco"} render={()=> <Epayco/>} />
           <Route path={"/queris"} render={()=> <PayUCheckout user={currentUser}/>} />
           <Route exact path={"/checkout"} render={()=> <FormPayment user={currentUser}/>} />
