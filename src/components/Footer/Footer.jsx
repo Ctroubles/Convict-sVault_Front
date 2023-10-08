@@ -79,7 +79,7 @@ const Footer = ()=>{
                                 <div className={style.contact}>
                                     <img src={headphones} alt="" />
                                     <span>Llamanos al </span>
-                                    <span className={style.blueSpan}> 3013282300</span>
+                                    <span className={style.blueSpan}> 3052072716</span>
                                 </div>
                                 {/* <div className={style.contact}>
                                     <img src={sheet} alt="" />
