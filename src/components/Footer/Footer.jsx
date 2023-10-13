@@ -74,7 +74,7 @@ const Footer = ()=>{
                                     <h2>¿Necesitas ayuda en tu compra?</h2>
                                 </div>
                                 <div>
-                                    <p>comunicate con nosotros de lunes a viernes de 8:00 am a 5:00 pm y sabado de 9:00 am a 1:00 pm </p>
+                                    <p>comunicate con nosotros de lunes a viernes de 8:00 am a 5:00 pm </p>
                                 </div>
                                 <div className={style.contact}>
                                     <img src={headphones} alt="" />

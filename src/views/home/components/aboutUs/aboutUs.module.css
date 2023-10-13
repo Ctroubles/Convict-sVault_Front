@@ -8,18 +8,49 @@
 }
 
 .card {
-  /* padding: 40px 30px 40px; */
+  /* width: 500px; */
+  height: 400px;
   flex: 1;
   border: 2px solid #0189c3;
-  border-radius: 10px; /* Añade esquinas redondeadas */
+  border-radius: 10px;
   padding: 25px;
   margin-right: 20px;
-  transition: box-shadow 0.3s, transform 0.3s; /* Añade transiciones de efectos */
+  transition: box-shadow 0.3s, transform 0.3s;
+  background: #0189c3; 
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
 }
 
 .card:hover {
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Efecto de sombreado al pasar el mouse */
-  transform: translateY(-5px); /* Efecto de levantamiento al pasar el mouse */
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+}
+
+.front,
+.back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center;
+  padding: 20px; 
+}
+
+.back {
+  /* color: #0189c3; */
+  background-color: #fff;
+  transform: rotateY(180deg);
+}
+
+.flipped {
+  transform: rotateY(180deg);
 }
 
 .title {
@@ -27,14 +58,16 @@
   font-weight: bold;
   margin-bottom: 10px;
   text-align: center;
-  color: #0189c3;
+  color: #fff; /* Cambiado a blanco para que sea visible en el fondo azul */
 }
 
 .content {
   font-size: 18px;
   line-height: 1.6;
   text-align: left;
+  color: #0189c3; /* Cambiado a blanco para que sea visible en el fondo azul */
 }
+
 /* Estilos para 965px */
 @media screen and (max-width: 965px) {
   .title {

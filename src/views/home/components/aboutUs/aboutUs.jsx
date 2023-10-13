@@ -1,32 +1,82 @@
-import React from 'react';
+import React, { useState } from 'react';
 import style from "./aboutUs.module.css"
 
 const AboutUs = () => {
-  // Datos ficticios
+  const [rotation1, setRotation1] = useState(0);
+  const [rotation2, setRotation2] = useState(0);
+  const [rotation3, setRotation3] = useState(0);
+
   const companyInfo = {
     quienesSomos:
       'Somos una empresa apasionada por la innovación y la tecnología. Desde nuestros inicios, nos hemos dedicado a brindar soluciones tecnológicas vanguardistas que superan las expectativas de nuestros clientes. Nos enorgullece ser impulsores del cambio y contribuir al progreso de la sociedad.',
     mision:
-      'Nuestra misión es clara y ambiciosa: mejorar la vida de las personas mediante el desarrollo de productos y servicios de alta calidad. Nos esforzamos por crear soluciones que no solo cumplan con las necesidades actuales, sino que también anticipen y aborden los desafíos futuros. Estamos comprometidos con la excelencia en cada paso que damos.',
+      'Somos una empresa dedicada a las ventas online. Nuestro propósito es apoyar a emprendedores comercializando sus productos y los nuestros. También realizamos campañas sociales, apoyando a personas privadas de la libertad con sus artesanías y aprendizajes, donaciones para animales, niños y todo lo que esté a nuestro alcance.',
     vision:
-      'Miramos hacia el futuro con una visión audaz. Aspiramos a convertirnos en líderes globales en el mercado tecnológico, siendo reconocidos por nuestra excelencia, innovación y compromiso con la satisfacción del cliente. Visualizamos un mundo donde nuestras soluciones marquen la pauta y establezcan nuevos estándares, allanando el camino para un futuro más eficiente y conectado.',
+      'Para el año 2026, queremos ser reconocidos como una de las mejores páginas web a nivel nacional, apoyando la resocialización y colaborando entre emprendedores.',
+  };
+  
+
+  const handleClick = (cardNumber) => {
+    switch (cardNumber) {
+      case 1:
+        setRotation1(rotation1 + 180);
+        break;
+      case 2:
+        setRotation2(rotation2 + 180);
+        break;
+      case 3:
+        setRotation3(rotation3 + 180);
+        break;
+      default:
+        break;
+    }
   };
 
   return (
     <div className={style.aboutUsContainer}>
-      <div className={style.card}>
-        <h1 className={style.title}>¿Quiénes Somos?</h1>
-        <p className={style.content}>{companyInfo.quienesSomos}</p>
+      <div
+        className={style.card}
+        style={{
+          transform: `rotateY(${rotation1}deg)`,
+        }}
+        onClick={() => handleClick(1)}
+      >
+        <div className={style.front}>
+          <h1 className={style.title}>¿Quiénes Somos?</h1>
+        </div>
+        <div className={style.back}>
+          <p className={style.content}>{companyInfo.quienesSomos}</p>
+        </div>
       </div>
 
-      <div className={style.card}>
-        <h1 className={style.title}>Misión</h1>
-        <p className={style.content}>{companyInfo.mision}</p>
+      <div
+        className={style.card}
+        style={{
+          transform: `rotateY(${rotation2}deg)`,
+        }}
+        onClick={() => handleClick(2)}
+      >
+        <div className={style.front}>
+          <h1 className={style.title}>Misión</h1>
+        </div>
+        <div className={style.back}>
+          <p className={style.content}>{companyInfo.mision}</p>
+        </div>
       </div>
 
-      <div className={style.card}>
-        <h1 className={style.title}>Visión</h1>
-        <p className={style.content}>{companyInfo.vision}</p>
+      <div
+        className={style.card}
+        style={{
+          transform: `rotateY(${rotation3}deg)`,
+        }}
+        onClick={() => handleClick(3)}
+      >
+        <div className={style.front}>
+          <h1 className={style.title}>Visión</h1>
+        </div>
+        <div className={style.back}>
+          <p className={style.content}>{companyInfo.vision}</p>
+        </div>
       </div>
     </div>
   );
