@@ -4,10 +4,10 @@
     font-size: 16px;
     border: none;
     border-radius: 5px;
-    background-color: #007bff;
+    background-color: #000000;
     color: #fff;
     cursor: pointer;
 }
-.LoginButton:hover {
+.logging:hover {
   background-color: #0056b3;
 }

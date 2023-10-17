@@ -9,7 +9,7 @@ import sheet from "./assets/sheet.png"
 import visa from "./assets/metodos_pago/visa.svg"
 import mastercard from "./assets/metodos_pago/mastercard.svg"
 import { Link } from "react-router-dom/cjs/react-router-dom.min"
-import { FaInstagram } from "react-icons/fa"
+import { FaFacebook, FaInstagram, FaTiktok, FaTwitter } from "react-icons/fa"
 
 
 const Footer = ()=>{
@@ -111,13 +111,20 @@ const Footer = ()=>{
                     <div>
     <div>
         <div>
-            <h2 style={{ color: '#009fe3', justifyContent:"center", padding: "30px 20px 10px" }}>Redes Sociales</h2>
+            <h2 style={{ color: '#000000', justifyContent:"center", padding: "30px 20px 10px" }}>Redes Sociales</h2>
         </div>
         <div>
-            <a href="https://www.instagram.com/super_reo_y/" target="_blank" rel="noopener noreferrer">
-                <FaInstagram size={50} style={{ color: '#009fe3' }}/>
+            <a href="https://www.instagram.com/super_reo_oficial/" target="_blank" rel="noopener noreferrer">
+                <FaInstagram size={45} style={{ color: '#000000', marginRight: '12px' }} />
             </a>
-        </div>
+            <a href="https://www.facebook.com/tucuenta" target="_blank" rel="noopener noreferrer">
+                <FaFacebook size={45} style={{ color: '#000000', marginRight: '12px' }} />
+            </a>
+            <a href="https://twitter.com/tucuenta" target="_blank" rel="noopener noreferrer">
+                <FaTwitter size={45} style={{ color: '#000000', marginRight: '12px' }} />
+            </a>
+            <FaTiktok size={45} style={{ color: '#000000' }} />
+            </div>
     </div>
 </div>
                 </section>

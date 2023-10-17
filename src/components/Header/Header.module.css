@@ -16,6 +16,7 @@
     padding: 5px 0 0 10px;
 }
 #searchBar{
+    
     width: 100%;
     margin: 0 20px;
     max-width: 600px;
@@ -45,6 +46,7 @@
 }
 
 #rightOptions{
+    
     display: flex;
     align-items: center;
 }
@@ -64,7 +66,7 @@
     height: 29px;
     width: 29px;
     content: "";
-    background: url('data:image/svg+xml;utf,<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none"><path fill="rgb(0,159,227)" d="M25.039 4.497A14.5 14.5 0 0 0 4.533 25.003 14.5 14.5 0 0 0 25.039 4.497ZM7.555 25.307a7.342 7.342 0 0 1 14.462 0 12.772 12.772 0 0 1-14.462 0Zm2.621-12.377a4.61 4.61 0 1 1 9.22 0 4.61 4.61 0 0 1-9.22 0Zm13.31 11.198a9.055 9.055 0 0 0-5.264-5.91 6.31 6.31 0 1 0-6.876 0 9.054 9.054 0 0 0-5.26 5.91 12.8 12.8 0 1 1 17.405 0h-.005Z"/></svg>');
+    background: url('data:image/svg+xml;utf,<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none"><path fill="rgb(0,000,000)" d="M25.039 4.497A14.5 14.5 0 0 0 4.533 25.003 14.5 14.5 0 0 0 25.039 4.497ZM7.555 25.307a7.342 7.342 0 0 1 14.462 0 12.772 12.772 0 0 1-14.462 0Zm2.621-12.377a4.61 4.61 0 1 1 9.22 0 4.61 4.61 0 0 1-9.22 0Zm13.31 11.198a9.055 9.055 0 0 0-5.264-5.91 6.31 6.31 0 1 0-6.876 0 9.054 9.054 0 0 0-5.26 5.91 12.8 12.8 0 1 1 17.405 0h-.005Z"/></svg>');
 }
 #account>:nth-child(2){
     padding-left: 10px;
@@ -75,7 +77,7 @@
 }
 #account p{
     font-size: 14px;
-    color: #009fe3;
+    color: #000000;
 }
 
 #shopping_cart{
@@ -90,6 +92,7 @@
     width: 23px;
     height: 23px;
     cursor: pointer;
+    
 }
 #shopping_cart span{
     font-size: 13px;
@@ -188,7 +191,7 @@
     text-decoration: none;
 }
 #navBar a:hover{
-    background-color: #0f88c3;
+    background-color: #474c4e;
     cursor: pointer;
 }
 
@@ -352,7 +355,7 @@
         align-items: center;
         justify-content: start;
         cursor: pointer;
-        color:#ffffff;
+        color:#000000;
         text-decoration: none;
         width:max-content;
         padding: 4px;

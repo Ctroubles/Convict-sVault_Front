@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import LoginButton from "./Login/LoginButton";
 import LogoutButton from "./Logout/LogoutButton";
 import { useAuth0 } from "@auth0/auth0-react";
-import logo3 from "../../assets/logoAzul2-removebg-preview.png";
+import logo3 from "../../assets/Super Reo 2.png";
 
 const Landing = () => {
   const { isAuthenticated } = useAuth0();

@@ -69,7 +69,7 @@
 }
 #tittle{
     padding: 12px 0 12px 15px; 
-    background-color: #009fe3;
+    background-color: #000000;
 }
 #tittle h1{
     font-size: 26px;
@@ -111,7 +111,7 @@
 #confirmButton{
     width: 100%;
     border: none;
-    background-color: #009fe3;
+    background-color: #000000;
     color: #fefefe;
     padding: 15px 16px;
     font-size: 18px;
@@ -188,6 +188,6 @@
     }
     #tittle{
         padding: 20px 0 12px 50px; 
-        background-color: #009fe3;
+        background-color: #000000;
     }
 }

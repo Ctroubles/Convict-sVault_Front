@@ -30,7 +30,7 @@
 }
 #deco{
     width: 100px;
-    border: 5px solid #009fe3;
+    border: 5px solid #000000;
 }
 #content{
     margin: 40px 0 0;
@@ -73,7 +73,7 @@
     align-items: stretch;
 }
 #leftArrow{
-    background-color: #49267f;
+    background-color: #000000;
     position: absolute;
     width: 38px;
     height: 38px;
@@ -85,7 +85,7 @@
 }
 #rigthArrow{
     top: 50%;
-    background-color: #49267f;
+    background-color: #000000;
     position: absolute;
     border-radius: 50%;
     width: 38px;

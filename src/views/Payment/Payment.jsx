@@ -3,7 +3,7 @@ import styles from "./Payment.module.css";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import CartComponent from "./components/carrito/carrito"
-import logoHeader from "../../assets/logo_superReoprincipal_model-4.png"
+import logoHeader from "../../assets/Super Reo with.png"
 import Formulario from "./components/formulario/formulario";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import Url_deploy_back from "../../util/deploy_back";

@@ -108,7 +108,7 @@ const SliderCategory = ({category, viewportWidth}) =>{
                     <div id={style.top}>
                         <label>
                             <Link to={`/category/${category.toLowerCase()}`}>
-                                <img src={icon} alt={category} />
+                                <img src={icon} alt={category}/>
                                 <h1>{category}</h1>
                             </Link>                      
                         </label>

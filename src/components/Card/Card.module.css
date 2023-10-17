@@ -91,7 +91,7 @@
     padding: 0 10px;
 }
 #buttonSection button{
-    background-color: rgb(0, 159, 227);
+    background-color: rgb(0, 000, 000);
     border: none;
     border-radius: 8px;
     width: 100%;
@@ -104,7 +104,7 @@
 }
 
 #buttonSection button:active{
-    background-color: rgb(0, 157, 255);
+    background-color: rgb(46, 47, 47);
     transform: scale(1.05);
 }
 
@@ -113,7 +113,7 @@
     cursor: not-allowed !important;
 }
 #buttonSection button#disabled:hover{
-    background-color: rgb(0, 159, 227) !important;
+    background-color: rgb(46, 47, 47) !important;
     transform: scale(1);
 }
 

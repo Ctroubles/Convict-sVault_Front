@@ -184,7 +184,7 @@ useEffect(() => {
           onChange={handleSearch}
         />
         <div className={style.filterButtons}>
-        <button
+        <button style={{marginLeft:'10px'}}
   className={`${style.filterButton} ${activeFilter === 'activos' ? style.activeFilterButton : ''}`}
   onClick={() => handleToggleFilter('activos')}
 >

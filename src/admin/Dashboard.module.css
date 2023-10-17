@@ -29,6 +29,7 @@
   text-decoration: none;
   color: #00adef;
   cursor: pointer;
+  height: 50px;
 }
 #logoSection > a:first-child *{
   pointer-events: none;

@@ -52,7 +52,7 @@
     padding-left: 13%;
 }
 #infSuperReo h1{
-    color: #009fe3;
+    color: #000000;
     font-size: 33px;
     margin-bottom: 16px;
 }
@@ -60,7 +60,7 @@
     font-size: 18px;
     font-weight: 500;
     margin-bottom: 20px;
-    color: #009fe3;
+    color: #000000;
 }
 #infSuperReo p{
     font-size: 14px;
@@ -101,7 +101,7 @@
 
 #footer{
     width: 100%;
-    background-color: rgb(0, 159, 227);
+    background-color: rgb(0, 0, 0);
     color: #fefefe;
     text-align: center;
     padding: 4px 0px 3px 0;
@@ -131,7 +131,7 @@
         width: 100%;
     }
     #infSuperReo h1{
-        color: #009fe3;
+        color: #000000;
         font-size: 25px;
         margin-bottom: 16px;
     }

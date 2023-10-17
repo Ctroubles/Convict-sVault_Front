@@ -3,7 +3,7 @@
    background-color: #eee;
 }
 #Header{
-  background-color: #009fe3;
+  background-color: #111111f3;
   position: fixed;
   width: 100vw;
   z-index: 10;
@@ -24,7 +24,7 @@
   justify-content: center;
 }
 #logoSection img{
-  height: 70px;
+  height: 100px;
 }
 #back span{
   cursor: pointer;
