@@ -226,7 +226,7 @@
 #menu_desplegable>.options{
     display: block;
     text-align: center;
-    color: #000000;
+    color: #fff;
     font-size: 14px;
     padding: 8px 8px 5px 8px;
     cursor: pointer;
@@ -314,7 +314,7 @@
         flex-direction: column;
         align-items: stretch;
         height: 100%;
-        background-color: #009fe3;
+        background-color: #0e0e0e;
     }
     #buttonMenu{
         width: auto;
@@ -355,7 +355,7 @@
         align-items: center;
         justify-content: start;
         cursor: pointer;
-        color:#000000;
+        color:#fff;
         text-decoration: none;
         width:max-content;
         padding: 4px;
