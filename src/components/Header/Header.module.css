@@ -380,21 +380,45 @@
     #top{
         padding: 20px 30px;
     }
+    #logoSection img,
+#account,
+#shopping_cart {
+    max-width: 100%; /* Ajusta el tamaño máximo de las imágenes al 100% del contenedor */
+    max-height: 100%; /* Ajusta el tamaño máximo de las imágenes al 100% del contenedor */
+}
 }
 @media screen and (max-width:980px) {
     #top{
         padding: 20px 20px;
     }
+    #logoSection img,
+#account,
+#shopping_cart {
+    max-width: 100%; /* Ajusta el tamaño máximo de las imágenes al 100% del contenedor */
+    max-height: 100%; /* Ajusta el tamaño máximo de las imágenes al 100% del contenedor */
+}
 }
 @media screen and (max-width:900px) {
     #buttonMenuPhone > div {
         padding: 10px 10px 10px 20px;
     }
+    #logoSection img,
+#account,
+#shopping_cart {
+    max-width: 100%; /* Ajusta el tamaño máximo de las imágenes al 100% del contenedor */
+    max-height: 100%; /* Ajusta el tamaño máximo de las imágenes al 100% del contenedor */
+}
 }
 @media screen and (max-width:5200px) {
     #buttonMenuPhone > div {
         padding: 10px 10px 10px 15px;
     }
+    #logoSection img,
+#account,
+#shopping_cart {
+    max-width: 100%; /* Ajusta el tamaño máximo de las imágenes al 100% del contenedor */
+    max-height: 100%; /* Ajusta el tamaño máximo de las imágenes al 100% del contenedor */
+}
 }
 @media screen and (max-width:600px) {
     #logoSection h1{
@@ -406,5 +430,11 @@
     #account{
         padding: 0 15px 0 14px;
     }
+    #logoSection img,
+#account,
+#shopping_cart {
+    max-width: 100%; /* Ajusta el tamaño máximo de las imágenes al 100% del contenedor */
+    max-height: 100%; /* Ajusta el tamaño máximo de las imágenes al 100% del contenedor */
+}
 }
 
