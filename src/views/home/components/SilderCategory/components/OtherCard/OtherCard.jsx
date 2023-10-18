@@ -53,6 +53,7 @@ const OtherCard = ({brand,stock,image,price,name,id}) =>{
                                 <label>
                                     <p>{brand}</p>
                                     <h1>{name}</h1>
+                                    <h1>Disponible: {stock}</h1>
                                 </label>
                             </div>
                             <div id={style.priceSection}>
