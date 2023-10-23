@@ -139,10 +139,10 @@ function App() {
           <Route path={"/testPayment"} render={()=> <Epayco/>} />
           <Route path="/aboutUs" render={() =>
           <>
-            <div className={styles.headerContainer}>
+            <div className='headerContainer'>
               <Header user={currentUser} viewportWidth={viewportWidth} />
             </div>
-            <div className={styles.bodyContainer}>
+            <div className='bodyContainer'>
               <AboutUs />
               <Footer />
             </div>
