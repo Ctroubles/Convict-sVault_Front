@@ -49,12 +49,6 @@ const Footer = ()=>{
                 </section>
                 <section style={{display:"flex", justifyContent:"center"}}>
                     <div id={style.infSuperReo}>
-                    <div className={style.acerca}>
-                                <label>
-                                    <img src={footer_1} alt="" />
-                                </label>
-                                <Link to="/aboutUs" style={{ textDecoration: 'none', color: 'black'}}>Acerca de nosotros</Link>
-                            </div> 
                         <div>
                             
                             <div>
@@ -74,12 +68,12 @@ const Footer = ()=>{
                                     <h2>¿Necesitas ayuda en tu compra?</h2>
                                 </div>
                                 <div>
-                                    <p>comunicate con nosotros de lunes a viernes de 8:00 am a 5:00 pm </p>
+                                    <p>Comunícate con nosotros de lunes a viernes de 8:00 am a 5:00 pm </p>
                                 </div>
                                 <div className={style.contact}>
                                     <img src={headphones} alt="" />
-                                    <span>Llamanos al </span>
-                                    <span className={style.blueSpan}> 3052072716</span>
+                                    <span>Llámanos al </span>
+                                    <span className={style.accentColor}> 3052072716</span>
                                 </div>
                                 {/* <div className={style.contact}>
                                     <img src={sheet} alt="" />
@@ -107,26 +101,26 @@ const Footer = ()=>{
                                 </div>
                             </div>
                         </div>
+                        <div>
+                            <div>
+                                <div>
+                                    <h2>Redes Sociales</h2>
+                                </div>
+                                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                                    <a href="https://www.instagram.com/super_reo_oficial/" target="_blank" rel="noopener noreferrer">
+                                        <FaInstagram size={45} style={{ color: 'var(--color)', marginRight: '12px' }} />
+                                    </a>
+                                    <a href="https://www.facebook.com/tucuenta" target="_blank" rel="noopener noreferrer">
+                                        <FaFacebook size={45} style={{ color: 'var(--color)', marginRight: '12px' }} />
+                                    </a>
+                                    <a href="https://twitter.com/tucuenta" target="_blank" rel="noopener noreferrer">
+                                        <FaTwitter size={45} style={{ color: 'var(--color)', marginRight: '12px' }} />
+                                    </a>
+                                    <FaTiktok size={45} />
+                                    </div>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-    <div>
-        <div>
-            <h2 style={{ color: '#000000', justifyContent:"center", padding: "30px 20px 10px" }}>Redes Sociales</h2>
-        </div>
-        <div>
-            <a href="https://www.instagram.com/super_reo_oficial/" target="_blank" rel="noopener noreferrer">
-                <FaInstagram size={45} style={{ color: '#000000', marginRight: '12px' }} />
-            </a>
-            <a href="https://www.facebook.com/tucuenta" target="_blank" rel="noopener noreferrer">
-                <FaFacebook size={45} style={{ color: '#000000', marginRight: '12px' }} />
-            </a>
-            <a href="https://twitter.com/tucuenta" target="_blank" rel="noopener noreferrer">
-                <FaTwitter size={45} style={{ color: '#000000', marginRight: '12px' }} />
-            </a>
-            <FaTiktok size={45} style={{ color: '#000000' }} />
-            </div>
-    </div>
-</div>
                 </section>
                 
                 <footer id={style.footer}>

@@ -98,10 +98,7 @@ const Header = ({user, viewportWidth}) =>{
                 <div>
                         <div id={style.top}>
                             <div id={style.logoSection}>
-                            <img src={logo} alt="" width={"400px"} style={{ marginLeft: "0" }} />
-                                <h1>
-                                 
-                                </h1>
+                                <img src={logo} alt="" width={"320px"} style={{ marginLeft: "0" }} />
                             </div>
                             <div id={style.rightOptions} >
                                 <div>
@@ -160,14 +157,19 @@ const Header = ({user, viewportWidth}) =>{
                                 <div>
                                     <div id={style.shopping_cart}>
                                         <label>
-                                            <img src={shopping_cart} onClick={()=>setCartStatus(!cartStatus)} alt="Carrito de compras" />
+                                            <img style={{filter: 'invert(var(--invert-percent))'}} src={shopping_cart} onClick={()=>setCartStatus(!cartStatus)} alt="Carrito de compras" />
                                         </label>
                                         <span>{itemsCart}</span>
                                     </div>
                                 </div>                   
                             </div>
                         </div>
-                        <div style={{backgroundColor:"#000", display:"flex", justifyContent:"center"}}>
+                        <div style={{
+                                backgroundColor:"var(--main-background)", 
+                                color: "var(--main-color)",
+                                display:"flex", 
+                                justifyContent:"center",
+                            }}>
                                 <div id={style.buttonMenuPhone} onClick={()=>setNavStatus(!navStatus)}>
                                     <div>
                                             <label>
@@ -197,16 +199,15 @@ const Header = ({user, viewportWidth}) =>{
                                         </div>
                                     </div>
                                     <nav id={style.navBar}>
-                                        <Link to={"/category/ropa"} className={style.buttonNav} style={category==="ropa"?{backgroundColor:"#474c4e"}:undefined}><li >Ropa</li></Link>    
-                                        <Link to={"/category/calzado"} className={style.buttonNav} style={category==="calzado"?{backgroundColor:"#474c4e"}:undefined}><li >Calzado</li></Link>    
-                                        <Link to={"/category/joyeria"} className={style.buttonNav} style={category==="joyeria"?{backgroundColor:"#474c4e"}:undefined}><li >Joyería</li></Link>    
-                                        <Link to={"/category/muebles"} className={style.buttonNav} style={category==="muebles"?{backgroundColor:"#474c4e"}:undefined}><li >Muebles</li></Link>    
-                                        <Link to={"/category/juguetes"} className={style.buttonNav} style={category==="juguetes"?{backgroundColor:"#474c4e"}:undefined}><li >Juguetería</li></Link>    
-                                        <Link to={"/category/belleza"} className={style.buttonNav} style={category==="belleza"?{backgroundColor:"#474c4e"}:undefined}><li >Belleza</li></Link>    
-                                        <Link to={"/category/equipaje"} className={style.buttonNav} style={category==="equipaje"?{backgroundColor:"#474c4e"}:undefined}><li >Equipaje</li></Link>      
-                                        <Link to={"/category/artesania"} className={style.buttonNav} style={category==="artesania"?{backgroundColor:"#474c4e"}:undefined}><li >Artesania</li></Link>      
-                                        <Link to={"/category/agropecuario"} className={style.buttonNav} style={category==="agropecuario"?{backgroundColor:"#474c4e"}:undefined}><li >Agropecuario</li></Link>      
-                                        <Link to={"/category/servicios"} className={style.buttonNav} style={category==="servicios"?{backgroundColor:"#474c4e"}:undefined}><li >Servicios</li></Link>      
+                                        <Link to={"/category/ropa"} className={style.buttonNav} style={category==="ropa"?{color:"var(--accent-background)"}:undefined}><li >Ropa</li></Link>    
+                                        <Link to={"/category/calzado"} className={style.buttonNav} style={category==="calzado"?{color:"var(--accent-background)"}:undefined}><li >Calzado</li></Link>    
+                                        <Link to={"/category/joyeria"} className={style.buttonNav} style={category==="joyeria"?{color:"var(--accent-background)"}:undefined}><li >Joyería</li></Link>    
+                                        <Link to={"/category/muebles"} className={style.buttonNav} style={category==="muebles"?{color:"var(--accent-background)"}:undefined}><li >Muebles</li></Link>    
+                                        <Link to={"/category/juguetes"} className={style.buttonNav} style={category==="juguetes"?{color:"var(--accent-background)"}:undefined}><li >Belleza</li></Link>    
+                                        <Link to={"/category/equipaje"} className={style.buttonNav} style={category==="equipaje"?{color:"var(--accent-background)"}:undefined}><li >Equipaje</li></Link>      
+                                        <Link to={"/category/artesania"} className={style.buttonNav} style={category==="artesania"?{color:"var(--accent-background)"}:undefined}><li >Artesania</li></Link>      
+                                        <Link to={"/category/agropecuario"} className={style.buttonNav} style={category==="agropecuario"?{color:"var(--accent-background)"}:undefined}><li >Agropecuario</li></Link>      
+                                        <Link to={"/category/servicios"} className={style.buttonNav} style={category==="servicios"?{color:"var(--accent-background)"}:undefined}><li >Servicios</li></Link>      
                                     </nav>  
                                 </div>                               
                             </div>

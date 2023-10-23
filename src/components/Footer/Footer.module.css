@@ -49,18 +49,16 @@
     padding: 0 8%;
 }
 #infSuperReo>:nth-child(3)>:nth-child(1){
-    padding-left: 13%;
+    padding: 0 8%;
 }
 #infSuperReo h1{
-    color: #000000;
-    font-size: 33px;
+    font-size: 25px;
     margin-bottom: 16px;
 }
 #infSuperReo h2{
     font-size: 18px;
     font-weight: 500;
     margin-bottom: 20px;
-    color: #000000;
 }
 #infSuperReo p{
     font-size: 14px;
@@ -84,8 +82,8 @@
     font-weight: 400;
     margin-right: 5px;
 }
-.contact .blueSpan{
-    color: #149fe3 !important; 
+.contact .accentColor{
+    color: var(--accent-background); 
 }
 #imgContainerPayment{
     display: flex;
@@ -100,9 +98,8 @@
 
 #footer{
     width: 100%;
-    background-color: rgb(0, 0, 0);
-    background-color: #009fe3;
-    color: #fefefe;
+    background-color: var(--main-background);
+    color: var(--main-color);;
     text-align: center;
     padding: 4px 0px 3px 0;
     font-size: 14px;

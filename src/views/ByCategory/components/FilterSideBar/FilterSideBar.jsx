@@ -11,7 +11,7 @@ const FilterSideBar = ({ sortProductsDescending, sortProductsAscending, sort}) =
       <label>
         <div>
           <div id={style.top}>
-            <img src={setting} alt="Filtros" />
+            <img style={{filter: 'invert(var(--invert-percent))'}} src={setting} alt="Filtros" />
             <div>
               <label>Filtros</label>
             </div>

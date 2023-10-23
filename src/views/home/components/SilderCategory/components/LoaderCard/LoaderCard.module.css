@@ -15,7 +15,7 @@
     height: 100%;
 }
 #card>:nth-child(1) section{
-    border: 1px solid #bfc0c2;
+    border: 1px solid var(--border-color);
     padding: 0 0 10px;
     border-radius: 8px;
     height: 100%;
@@ -43,8 +43,8 @@
 }
 #nameSection{
     padding: 15px 7px 10px 7px;
-    border-bottom: 1px solid #d4d8dd;
-    border-top: 1px solid #d4d8dd;
+    border-bottom: 1px solid var(--border-color);
+    border-top: 1px solid var(--border-color);
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -102,34 +102,25 @@
 }
 #priceSection span{
     font-size: 14px;
-    color: rgb(74, 38, 127);
 }
 #buttonSection{
     padding: 0 10px;
 }
 #buttonSection button{
-    background-color: rgb(0, 159, 227);
+    background-color: var(--accent-background);
+    color: var(--accent-color);
     border: none;
     border-radius: 8px;
     width: 100%;
+    height: 50px;
     font-size: 16px;
     font-weight: 500;
-    color: #ffffffff;
     cursor: pointer;
     transition: transform 0.2s ease;
-    padding: 15px 0;
-}
-#buttonSection button:active{
-    background-color: rgb(0, 157, 255);
-    transform: scale(1.05);
 }
 #buttonSection button#disabled{
     opacity: 0.6 !important;
     cursor: not-allowed !important;
-}
-#buttonSection button#disabled:hover{
-    background-color: rgb(0, 159, 227) !important;
-    transform: scale(1);
 }
 .placeHolderBanner{
     width: 100%;

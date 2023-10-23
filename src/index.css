@@ -1,29 +1,50 @@
 :root{
     --background-color: #000;
+    --main-background: #fff;
+    --main-color: #000;
     --color: #eee;
-    --border-color: #5e5e5e
+    --accent-background: #149fe3;
+    --accent-color: #eee;
+    --border-color: #b3b3b3;
+    --invert-percent: 100%;
 }
 @media (prefers-color-scheme: dark){
     :root{
         --background-color: #000;
+        --main-background: #fff;
+        --main-color: #000;
         --color: #eee;
+        --border-color: #333;
+        --invert-percent: 100%;
     }
 }
 @media (prefers-color-scheme: light){
     :root{
         --background-color: #eee;
+        --main-background: #000;
+        --main-color: #eee;
         --color: #000;
+        --border-color: #b3b3b3;
+        --invert-percent: 0%;
     }
 }
 :root[data-theme='light'] {
     :root{
         --background-color: #eee;
-        --color: #eee
+        --main-background: #000;
+        --main-color: #eee;
+        --color: #000;
+        --border-color: #b3b3b3;
+        --invert-percent: 0%;
     }
 }
 :root[data-theme='dark'] {
     :root{
         --background-color: #000;
-        --color: #000;
+        --main-background: #fff;
+        --main-color: #000;
+        --color: #eee;
+        --border-color: #333;
+        --invert-percent: 100%;
     }
 }

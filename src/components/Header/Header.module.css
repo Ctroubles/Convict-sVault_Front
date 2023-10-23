@@ -5,12 +5,15 @@
     align-items: center;
 }
 #logoSection{
-    color: #009fe3;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     max-height: 42px;
     text-decoration: none;
+    
+}
+#logoSection img{
+    filter: invert(var(--invert-percent));
 }
 #logoSection h1{
     font-size: 35px;
@@ -24,7 +27,7 @@
 }
 #searchBar #container{
     display: flex;
-    border: 1px solid #b7babc;
+    border: 1px solid var(--border-color);
     padding: 0 2px 0 25px;
 }
 #searchBar input{
@@ -43,9 +46,7 @@
     background-color: transparent;
     border: none;
     font-size: 16px;
-    color: #727272;
 }
-
 #rightOptions{
     
     display: flex;
@@ -67,7 +68,8 @@
     height: 29px;
     width: 29px;
     content: "";
-    background: url('data:image/svg+xml;utf,<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none"><path fill="rgb(0,000,000)" d="M25.039 4.497A14.5 14.5 0 0 0 4.533 25.003 14.5 14.5 0 0 0 25.039 4.497ZM7.555 25.307a7.342 7.342 0 0 1 14.462 0 12.772 12.772 0 0 1-14.462 0Zm2.621-12.377a4.61 4.61 0 1 1 9.22 0 4.61 4.61 0 0 1-9.22 0Zm13.31 11.198a9.055 9.055 0 0 0-5.264-5.91 6.31 6.31 0 1 0-6.876 0 9.054 9.054 0 0 0-5.26 5.91 12.8 12.8 0 1 1 17.405 0h-.005Z"/></svg>');
+    background: url('data:image/svg+xml;utf,<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none"><path fill="rgb(0,0,0)" d="M25.039 4.497A14.5 14.5 0 0 0 4.533 25.003 14.5 14.5 0 0 0 25.039 4.497ZM7.555 25.307a7.342 7.342 0 0 1 14.462 0 12.772 12.772 0 0 1-14.462 0Zm2.621-12.377a4.61 4.61 0 1 1 9.22 0 4.61 4.61 0 0 1-9.22 0Zm13.31 11.198a9.055 9.055 0 0 0-5.264-5.91 6.31 6.31 0 1 0-6.876 0 9.054 9.054 0 0 0-5.26 5.91 12.8 12.8 0 1 1 17.405 0h-.005Z"/></svg>');
+    filter: invert(var(--invert-percent));
 }
 #account>:nth-child(2){
     padding-left: 10px;
@@ -77,9 +79,8 @@
 }
 #account p{
     font-size: 14px;
-    color: #000000;
+    color: var(--color);
 }
-
 #shopping_cart{
     display: flex;
     align-items: center;
@@ -100,7 +101,6 @@
     font-weight: 500;
 }
 #buttonMenuPhone{
-    color:#ffffff;
     align-items: center;
     justify-content: start;
     width: 100%;
@@ -111,7 +111,6 @@
     align-items: center;
     justify-content: start;
     cursor: pointer;
-    color:#ffffff;
     text-decoration: none;
     padding: 10px 10px 10px 50px;
 }
@@ -144,7 +143,7 @@
     width:100%;
 }
 #buttonMenu{
-    color:#ffffff;
+    color: inherit;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -155,7 +154,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    color:#ffffff;
+    color: inherit;
     text-decoration: none;
 }
 #buttonMenu a > label {
@@ -179,7 +178,7 @@
     display: flex;
     flex-grow: 1;
      list-style: none;
-    color:#ffffff;
+    color: inherit;
 }
 #navBar a{
     font-size: 15px;
@@ -187,17 +186,18 @@
     font-weight: 500;
     flex: 1 1 auto;
     text-align: center;
-    color:#ffffff;
+    background-color: var(--main-background);
+    color: var(--main-color);
     text-decoration: none;
+    transition: filter 0.2s ease;
 }
 #navBar a:hover{
-    background-color: #474c4e;
+    filter: brightness(90%);
     cursor: pointer;
 }
-
 .dashboardIcon{
     font-size: 35px;
-    color: #009fe3;
+    color: var(--main-color);
     cursor: pointer;
 }
 .underLined{
