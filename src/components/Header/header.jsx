@@ -172,21 +172,21 @@ const Header = ({user, viewportWidth}) =>{
                             }}>
                                 <div id={style.buttonMenuPhone} onClick={()=>setNavStatus(!navStatus)}>
                                     <div>
-                                            <label>
-                                                <img src={lines_menu} alt="Menu" />
-                                            </label>
-                                            <label>
-                                                <p>Categorías</p>
-                                            </label>
+                                        <label>
+                                            <img style={{filter: 'invert(var(--invert-percent))'}} src={lines_menu} alt="Menu" />
+                                        </label>
+                                        <label>
+                                            <p>Categorías</p>
+                                        </label>
                                     </div>
                                 </div>
                             <div id={style.navContainer} ref={navRef} className={!navStatus?style.desactive:style.active} onClick={(e)=>closeNavSide(e)}>
                                 <div>
                                     <div id={style.buttonMenu} >
                                         <div>
-                                            <Link to={"/home"} className={style.buttonNav}>
+                                            <Link to={"/home"} id={style.buttonNav}>
                                                 <label>
-                                                    <img src={lines_menu} alt="Menu" />
+                                                    <img style={{filter: 'invert(var(--invert-percent))'}} src={lines_menu} alt="Menu" />
                                                 </label>
                                                 <label>
                                                     <p>Todas las categorías</p>
@@ -203,7 +203,7 @@ const Header = ({user, viewportWidth}) =>{
                                         <Link to={"/category/calzado"} className={style.buttonNav} style={category==="calzado"?{color:"var(--accent-background)"}:undefined}><li >Calzado</li></Link>    
                                         <Link to={"/category/joyeria"} className={style.buttonNav} style={category==="joyeria"?{color:"var(--accent-background)"}:undefined}><li >Joyería</li></Link>    
                                         <Link to={"/category/muebles"} className={style.buttonNav} style={category==="muebles"?{color:"var(--accent-background)"}:undefined}><li >Muebles</li></Link>    
-                                        <Link to={"/category/juguetes"} className={style.buttonNav} style={category==="juguetes"?{color:"var(--accent-background)"}:undefined}><li >Belleza</li></Link>    
+                                        <Link to={"/category/belleza"} className={style.buttonNav} style={category==="belleza"?{color:"var(--accent-background)"}:undefined}><li >Belleza</li></Link>    
                                         <Link to={"/category/equipaje"} className={style.buttonNav} style={category==="equipaje"?{color:"var(--accent-background)"}:undefined}><li >Equipaje</li></Link>      
                                         <Link to={"/category/artesania"} className={style.buttonNav} style={category==="artesania"?{color:"var(--accent-background)"}:undefined}><li >Artesania</li></Link>      
                                         <Link to={"/category/agropecuario"} className={style.buttonNav} style={category==="agropecuario"?{color:"var(--accent-background)"}:undefined}><li >Agropecuario</li></Link>      
