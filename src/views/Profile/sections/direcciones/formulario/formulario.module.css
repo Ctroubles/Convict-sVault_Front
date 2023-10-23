@@ -133,14 +133,14 @@
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 #addButton button.active{
-    background-color: rgb(0, 159, 227);
+    background-color: #009fe3;
     cursor: pointer;
     color: #ffffff;
     transition: background-color 0.15s ease, transform 0.15s ease;
 }
 #addButton button.active:active{
     transform: scale(1.02);
-    background-color: rgb(0, 179, 255);
+    background-color: #00b3ff;
 }
 .error p{
     color: #e13232;

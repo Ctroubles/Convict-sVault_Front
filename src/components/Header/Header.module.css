@@ -6,10 +6,11 @@
 }
 #logoSection{
     color: #009fe3;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     max-height: 42px;
+    text-decoration: none;
 }
 #logoSection h1{
     font-size: 35px;
@@ -73,7 +74,6 @@
 }
 #hola{
     font-size: 11px;
-    color: #49267f;
 }
 #account p{
     font-size: 14px;

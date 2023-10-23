@@ -65,7 +65,6 @@
 #infSuperReo p{
     font-size: 14px;
     font-weight: 400;
-    color: rgb(15, 25, 30);
     padding-bottom: 30px;
 }
 .contact{
@@ -102,6 +101,7 @@
 #footer{
     width: 100%;
     background-color: rgb(0, 0, 0);
+    background-color: #009fe3;
     color: #fefefe;
     text-align: center;
     padding: 4px 0px 3px 0;

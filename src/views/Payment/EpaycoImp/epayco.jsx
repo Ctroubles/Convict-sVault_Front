@@ -51,7 +51,7 @@ const Epayco = ({ sessionId, loading, items, total, formRef, setErrors }) => {
     }
   };
 
-  return <></>;
+  return null;
 };
 
 export default Epayco;

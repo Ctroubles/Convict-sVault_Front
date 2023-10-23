@@ -1,0 +1,29 @@
+:root{
+    --background-color: #000;
+    --color: #eee;
+    --border-color: #5e5e5e
+}
+@media (prefers-color-scheme: dark){
+    :root{
+        --background-color: #000;
+        --color: #eee;
+    }
+}
+@media (prefers-color-scheme: light){
+    :root{
+        --background-color: #eee;
+        --color: #000;
+    }
+}
+:root[data-theme='light'] {
+    :root{
+        --background-color: #eee;
+        --color: #eee
+    }
+}
+:root[data-theme='dark'] {
+    :root{
+        --background-color: #000;
+        --color: #000;
+    }
+}

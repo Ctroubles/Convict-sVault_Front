@@ -3,7 +3,7 @@ import shopping_cart from "../../assets/icons/shopping_cart.svg"
 import lines_menu from "../../assets/icons/lines_menu.svg"
 // import SearchBar from "../Searchbar/Searchbar";
 // import NavBar from "../../admin/Dashboard";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { Link } from 'react-router-dom';
 import {useLocation} from "react-router-dom";
 import { useEffect } from "react";
 import { useState } from "react";

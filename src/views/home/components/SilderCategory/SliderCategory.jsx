@@ -4,20 +4,23 @@ import promocional from "./assets/imagenes_promocional/imagen_temporal.jpg";
 import { useEffect, useState } from "react";
 import axios from "axios"
 import OtherCard from "./components/OtherCard/OtherCard";
+import Skeleton from 'react-loading-skeleton'
 import arrow from "../../../../assets/icons/arrow_icon.svg"
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import Url_deploy_back from "../../../../util/deploy_back";
+import LoaderCard from "./components/LoaderCard/LoaderCard";
 
 
 
 const SliderCategory = ({category, viewportWidth}) =>{
-
+    const [loading, setLoading] = useState(true)
     const [products, setProducts] = useState([])
-    const [position, setPositon] = useState(-1)
+    const [position, setPosition] = useState(-1)
     const [sliderStyle, setSliderStyle] = useState({})
 
     const getProducts = async() =>{
         try {
+            setLoading(true)
             const {data} = await axios.get(`${Url_deploy_back}/products/category/${category}`);
             // console.log(data);
             if (data.length) {
@@ -31,11 +34,10 @@ const SliderCategory = ({category, viewportWidth}) =>{
                 setProducts(arrSlider);
             }else{
                 setProducts([])
-            }
-            
+            }            
         } catch (error) {
             console.log(error);
-        }
+        } finally {setLoading(false)}
     }
 
     useEffect(()=>{
@@ -50,7 +52,7 @@ const SliderCategory = ({category, viewportWidth}) =>{
       setSliderStyle({
         transition: `transform 300ms ease`,
       });
-      setPositon(position - 1);
+      setPosition(position - 1);
       setCanCall(false);
       setTimeout(() => {
         setCanCall(true);
@@ -62,7 +64,7 @@ const SliderCategory = ({category, viewportWidth}) =>{
       setSliderStyle({
         transition: `transform 300ms ease`,
       });
-      setPositon(position + 1);
+      setPosition(position + 1);
       setCanCall(false);
       setTimeout(() => {
         setCanCall(true);
@@ -75,14 +77,14 @@ const SliderCategory = ({category, viewportWidth}) =>{
                 setSliderStyle({
                     transition: `transform 0ms ease`,
                 })
-                setPositon(-1)
+                setPosition(-1)
             },300)
         }else if (!(position < 0)) {
             setTimeout(()=>{
                 setSliderStyle({
                     transition: `transform 0ms`,
                 })
-                setPositon(-(products.length-4))
+                setPosition(-(products.length-4))
             },300)
         }
     },[position])
@@ -100,6 +102,61 @@ const SliderCategory = ({category, viewportWidth}) =>{
         return size
     };
 
+    if (loading) {
+        return (
+            <div>
+                <section id={style.container}>
+                    <div id={style.top}>
+                        <label>
+                            <span>
+                                <img src={icon} alt={category} />
+                                <h1 style={{height: '42px', width: '230px'}}>
+                                    <Skeleton />
+                                </h1>
+                            </span>                      
+                        </label>
+                        <div id={style.deco}></div>
+                    </div>
+                    <div>
+                        <div>
+                            <div id={style.content}>
+                                <div id={style.leftSide}>
+                                    <div className={style.placeHolderBanner}>
+                                        <Skeleton />
+                                    </div>
+                                </div>
+                                <div id={style.rigthSide}>
+                                    <div style={{height:"100%", width:"100%"}}>
+                                        <div style={{height:"100%",  width:"100%"}}>
+                                            <section style={{height:"100%", position:"relative", paddingRight:"24px", width:"100%"}}>
+                                                <div id={style.frame}>
+                                                    <section id={style.cardsContainerLoading} style={{width:`calc(${sizeCardSlider()}* ${6})`, minWidth:`calc(${sizeCardSlider()} * ${6})`, maxWidth:`calc(${sizeCardSlider()} * ${6})` ,...sliderStyle, transform:`translate3d(calc((100% / ${6}) * ${position}),0,0)`, }}>
+                                                    {
+                                                         [1,2,3,4,5,6].map((e, i) => <LoaderCard key={i} />)
+                                                    }
+                                                    </section>
+                                                </div>
+                                                <button id={style.leftArrow} >
+                                                        <div>
+                                                            <img src={arrow} alt="" />
+                                                        </div>
+                                                    </button>
+                                                    <button id={style.rigthArrow}>
+                                                        <div>
+                                                            <img src={arrow} alt="" />
+                                                        </div>
+                                                    </button>
+                                            </section>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        )
+    }
 
     if (products.length) {
         return(

@@ -27,12 +27,6 @@
     display: flex;
 }
 
-
-
-
-
-
-
 /* FILTRO COMPONENT */
 
 #Filtro{
@@ -40,10 +34,10 @@
     justify-content: space-between;
     align-items: center;
     padding: 14px 16px 12px 16px;
-    background-color: #F0F0F0;
-    border-top: 1px solid #d4d8dd;
-    border-right: 1px solid #d4d8dd;
-    border-bottom: 1px solid #d4d8dd;
+    background-color: var(--background-color);
+    border-top: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
     position: relative;
     cursor: pointer;
     border-radius: 0 4px 10px 0;
@@ -54,7 +48,6 @@
 #Filtro p{
     font-size: 15px;
     font-weight: 500;
-    color: #252c3b;
     padding-right: 45px;
 }
 #Filtro img{

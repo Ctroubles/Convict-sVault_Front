@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import style from "./Home.module.css"
 import SliderCategory from "./components/SilderCategory/SliderCategory";
 
-
 const Home = ({viewportWidth})=>{
     useEffect(()=>{
         window.scrollTo(0,0)
@@ -11,7 +10,7 @@ const Home = ({viewportWidth})=>{
         <div>
             <section id={style.body}>
                 <div id={style.container} >
-                    <label htmlFor="">
+                    <div >
                         <div>
                             <SliderCategory viewportWidth={viewportWidth} category={"Belleza"}/>
                             <SliderCategory viewportWidth={viewportWidth} category={"Joyeria"}/>
@@ -25,7 +24,7 @@ const Home = ({viewportWidth})=>{
                             <SliderCategory viewportWidth={viewportWidth} category={"Agropecuario"}/>
                             <SliderCategory viewportWidth={viewportWidth} category={"Servicios"}/>
                         </div>
-                    </label>
+                    </div>
                 </div>
             </section>
         </div>

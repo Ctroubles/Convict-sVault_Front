@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import { capitalizeFirstLetter } from "../../util";
 import Url_deploy_back from "../../util/deploy_back";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
+import CardLoading from "../../components/CardLoading/CardLoading";
 
 
 
@@ -16,11 +17,11 @@ const ByCategory = () => {
   useEffect(()=>{
     window.scrollTo(0,0)
   },[])
-
   
   const location = useLocation();
   const { cat } = useParams();
 
+  const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
   const [sort, setSort] = useState(null);
 
@@ -30,12 +31,13 @@ const ByCategory = () => {
 
   const getProducts = async () => {
     try {
+      setLoading(true)
       const { data } = await axios.get(`${Url_deploy_back}/products/category/${cat}`);
       const dataClean = data.filter(e => Number(e.stock )> 0);
       setProducts(dataClean);
+      setLoading(false)
     } catch (error) {
       console.log(error);
-      alert("Error al traer Data, checar en consola");
     }
   };
 
@@ -68,20 +70,32 @@ const ByCategory = () => {
                 <img src={homeIcon} alt="Home" style={{ width: "28px", height: "28px" }} />
               </div>
               <div style={{ display: "flex", alignItems: "center" }}>
-                <div style={{ fontWeight: "400", margin: "0 9px 0 9px", fontSize: "20px" }}>{">"}</div>
-                <span style={{ fontSize: "16px", color: "rgb(37, 44, 59)" }}>{capitalizeFirstLetter(cat ? cat : "Categoría sin definir")}</span>
+                <div style={{ fontWeight: "200", margin: "0 9px 0 9px", fontSize: "20px" }}>{">"}</div>
+                <span style={{ fontSize: "16px", fontWeight: 200 }}>{capitalizeFirstLetter(cat ? cat : "Categoría sin definir")}</span>
               </div>
             </div>
             <div style={{ width: "100%" }}>
               <div id={style.cardsContaier}>
                 {
-                  products.length ?
-                  products.map((e) => (
-                    <Card key={e._id} brand={e.brand} category={e.category} image={e.image} price={e.price} name={e.name} id={e._id} stock={e.stock} />
-                  )) : (
-                    <div style={{textAlign:"center", width:"100%", padding:"20px 15px"}}>
-                      <p>Por el momento no hay productos disponibles en esta categoría.</p>
-                    </div>
+                  loading ? (
+                    <>
+                      {
+                        [1,2,3,4,5].map(n => <CardLoading />)
+                      }
+                    </>
+                  ) : (
+                    <>
+                      {
+                        products.length ?
+                        products.map((e) => (
+                          <Card key={e._id} brand={e.brand} category={e.category} image={e.image} price={e.price} name={e.name} id={e._id} stock={e.stock} />
+                        )) : (
+                          <div style={{textAlign:"center", width:"100%", padding:"20px 15px"}}>
+                            <p>Por el momento no hay productos disponibles en esta categoría.</p>
+                          </div>
+                        )
+                      }
+                    </>
                   )
                 }
               </div>

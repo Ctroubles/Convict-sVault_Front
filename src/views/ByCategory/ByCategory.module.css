@@ -1,7 +1,7 @@
 #ByCategory{
     display: flex;
     justify-content: center;
-    min-height: calc(100vh - 549.53px);
+    min-height: calc(100vh - 513px);
     padding: 0 20px;
 }
 #ByCategory>section:first-child{

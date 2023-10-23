@@ -9,13 +9,13 @@
 #top label{
     display: block;
 }
-#top label a{
+#top label a, #top label > span{
     display: flex;
     max-width: fit-content;
     align-items: center;
     justify-content: center;    
     text-decoration: none;
-    color: #111111;
+    color: var(--color);
     cursor: pointer;
     padding: 15px 0;
 }
@@ -72,6 +72,11 @@
     height: 100%;
     align-items: stretch;
 }
+#cardsContainerLoading{
+    display: flex;
+    height: 100%;
+    align-items: stretch;
+}
 #leftArrow{
     background-color: #000000;
     position: absolute;
@@ -94,6 +99,17 @@
     right: 0;
     transform: rotate(180deg) translate(-50px, 50%);
     cursor: pointer;
+}
+.placeHolderBanner{
+    background-color: red;
+    width: 100%;
+    aspect-ratio: 1;
+}
+.placeHolderBanner :first-child{
+    width: 100%;
+    height: 100%;
+    display: block;
+    aspect-ratio: 1/1;
 }
 
 

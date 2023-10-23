@@ -1,12 +1,12 @@
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import styles from "./index.module.css";
+import "./app.css";
+import 'react-loading-skeleton/dist/skeleton.css'
 import Landing from "./views/Landing/Landing";
 import Home from "./views/home/Home";
 import Dashboard from "./admin/Dashboard";
 import Header from "./components/Header/header";
 import ByCategory from "./views/ByCategory/ByCategory";
 import Footer from "./components/Footer/Footer.jsx";
-import "./app.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -164,10 +164,10 @@ function App() {
 
           <Route path="/home" render={() =>
             <>
-              <div className={styles.headerContainer}>
+              <div className={'headerContainer'}>
                 <Header user={currentUser} viewportWidth={viewportWidth} />
               </div>
-              <div  className={styles.bodyContainer}>
+              <div  className={'bodyContainer'}>
                 <Home viewportWidth={viewportWidth}/>
                 <Footer />
               </div>             
@@ -175,10 +175,10 @@ function App() {
           } />
           <Route path="/category/:cat" render={() =>
             <>
-              <div className={styles.headerContainer}>
+              <div className={'headerContainer'}>
                 <Header user={currentUser} viewportWidth={viewportWidth} />
               </div>
-              <div className={styles.bodyContainer}>
+              <div className={'bodyContainer'}>
                 <ByCategory />
                 <Footer />
               </div>              
@@ -188,10 +188,10 @@ function App() {
             !isAuthenticated ? loginWithRedirect() :
             (
               <>
-                <div className={styles.headerContainer}>
+                <div className={'headerContainer'}>
                   <Header user={currentUser} viewportWidth={viewportWidth}/>
                 </div>
-                <div className={styles.bodyContainer}>
+                <div className={'bodyContainer'}>
                   <Profile user={currentUser} viewportWidth={viewportWidth}/>
                   <Footer />
                 </div>
