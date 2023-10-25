@@ -1,17 +1,66 @@
-import { useEffect } from "react";
-import style from "./Home.module.css"
+import React, { useEffect, useState } from "react";
+import style from "./Home.module.css";
+import bannerPpal from "../../assets/icons/imagenbannerprincipal.jpg";
+import promoImage1 from "../../assets/icons/banner22222.png";
 import SliderCategory from "./components/SilderCategory/SliderCategory";
 
-const Home = ({viewportWidth})=>{
-    useEffect(()=>{
-        window.scrollTo(0,0)
-      },[])
+
+const Home = ({ viewportWidth }) => {
+        const promotions = [bannerPpal, promoImage1];
+        const [currentPromo, setCurrentPromo] = useState(0);
+      
+        useEffect(() => {
+          const timer = setInterval(() => {
+            setCurrentPromo((currentPromo + 1) % promotions.length);
+          }, 5000); // Cambia la imagen cada 5 segundos (5000 ms).
+      
+          return () => {
+            clearInterval(timer);
+          };
+        }, [currentPromo, promotions.length]);
+      
+        const handleDotClick = (index) => {
+          setCurrentPromo(index);
+        };
+      
+        const handleNextClick = () => {
+          setCurrentPromo((currentPromo + 1) % promotions.length);
+        };
+      
+        const handlePrevClick = () => {
+          setCurrentPromo((currentPromo - 1 + promotions.length) % promotions.length);
+        };
     return(
         <div>
             <section id={style.body}>
                 <div id={style.container} >
                     <div >
                         <div>
+                <div className={style.bannerContainer}>
+                <img
+                src={promotions[currentPromo]}
+                alt="Promoción"
+                className={style.bannerImage}
+                />
+                <div className={style.navigation}>
+                    <button onClick={handlePrevClick} className={style.prevButton}>
+                    &lt;
+                    </button>
+                    <div className={style.dots}>
+                    {promotions.map((_, index) => (
+                        <span
+                        key={index}
+                        className={`${style.dot} ${index === currentPromo ? style.activeDot : ""}`}
+                        onClick={() => handleDotClick(index)}
+                        ></span>
+                    ))}
+                    </div>
+                    <button onClick={handleNextClick} className={style.nextButton}>
+                    &gt;
+                    </button>
+          </div>
+          </div>
+          </div>
                             <SliderCategory viewportWidth={viewportWidth} category={"Belleza"}/>
                             <SliderCategory viewportWidth={viewportWidth} category={"Joyeria"}/>
                             <SliderCategory viewportWidth={viewportWidth} category={"Tecnologia"}/>
@@ -25,7 +74,6 @@ const Home = ({viewportWidth})=>{
                             <SliderCategory viewportWidth={viewportWidth} category={"Servicios"}/>
                         </div>
                     </div>
-                </div>
             </section>
         </div>
     )
