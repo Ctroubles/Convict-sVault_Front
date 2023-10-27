@@ -58,9 +58,9 @@ const Home = ({ viewportWidth }) => {
                     <button onClick={handleNextClick} className={style.nextButton}>
                     &gt;
                     </button>
-          </div>
-          </div>
-          </div>
+                </div>
+                </div>
+                </div>
                             <SliderCategory viewportWidth={viewportWidth} category={"Belleza"}/>
                             <SliderCategory viewportWidth={viewportWidth} category={"Joyeria"}/>
                             <SliderCategory viewportWidth={viewportWidth} category={"Tecnologia"}/>
