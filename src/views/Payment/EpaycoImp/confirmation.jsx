@@ -112,7 +112,7 @@ fetch(endpointURL)
         }
       })
       .then(data => {
-        console.log(data.x_ref_payco); // Mensaje de confirmación del servidor
+        console.log(data); // Mensaje de confirmación del servidor
       })
       .catch(error => {
         console.error(error);
