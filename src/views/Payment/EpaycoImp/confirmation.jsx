@@ -35,37 +35,36 @@ function PaymentConfirmationPage() {
   const url = 'http://localhost:3001';
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${Url_deploy_back}/transaction/details`);
-        const status = response.data.status;
-        const reference = response.data.referencePayco;
-        // console.log("referenceEpayco", reference)
-        setTransactionStatus(status);
+//     const fetchData = async () => {
+//       try {
+//         const response = await axios.get(`${Url_deploy_back}/transaction/details`);
+//         const status = response.data.status;
+//         const reference = response.data.referencePayco;
+//         // console.log("referenceEpayco", reference)
+//         // setTransactionStatus(status);
 
-        // Obtén la descripción de la transacción
-        // const transactionDescription = response.data.description || "";
-        const productIdWithHyphen = response.data.log.x_id_invoice;
-        const productId = productIdWithHyphen.split('-')[0]; // Obtiene la parte antes del guion
-        console.log("ID del producto:", productId);
-        console.log(response.data.description)
-        const productIdParts = productId.split('-'); // Divide la cadena por guiones
+//         // Obtén la descripción de la transacción
+//         // const transactionDescription = response.data.description || "";
+//         const productIdWithHyphen = response.data.log.x_id_invoice;
+//         const productId = productIdWithHyphen.split('-')[0]; // Obtiene la parte antes del guion
+//         console.log(response.data.description)
+//         const productIdParts = productId.split('-'); // Divide la cadena por guiones
 
-if (productIdParts.length > 0) {
-  const productIdBeforeDash = productIdParts[0];
-  console.log("ID del producto antes del guion:", productIdBeforeDash);
-} else {
-  console.log("La cadena no contiene guiones.");
-}
+// if (productIdParts.length > 0) {
+//   const productIdBeforeDash = productIdParts[0];
+//   console.log("ID del producto antes del guion:", productIdBeforeDash);
+// } else {
+//   console.log("La cadena no contiene guiones.");
+// }
 
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+//       } catch (error) {
+//         console.log(error);
+//       } finally {
+//         setIsLoading(false);
+//       }
+//     };
 
-    fetchData();
+//     fetchData();
     // Obtener la URL actual del navegador
 var urlActual = window.location.href;
 
@@ -75,7 +74,7 @@ var urlObj = new URL(urlActual);
 // Obtener el valor de ref_payco
 var refPayco = urlObj.searchParams.get("ref_payco");
 
-console.log(refPayco); // Esto imprimirá el valor de ref_payco si está presente en la URL actual
+// console.log(refPayco); // Esto imprimirá el valor de ref_payco si está presente en la URL actual
 
 const endpointURL = `https://secure.epayco.co/validation/v1/reference/${refPayco}`;
 
@@ -89,45 +88,46 @@ fetch(endpointURL)
     const xresponse = data.data.x_response;
     const xIdInvoice = data.data.x_id_invoice;
     console.log(xRefPayco); // Esto imprimirá el valor de x_ref_payco
-    console.log(xdescription);
+    setTransactionId(xRefPayco);
+    // console.log(xdescription);
     console.log(xresponse);
-    console.log(xIdInvoice)
+    // console.log(xIdInvoice)
     const productId = xIdInvoice.split('-')[0];
     if (xdescription && xIdInvoice) {
       updateStockFromDescription(xdescription, productId);
     }
     console.log(productId)
+    setTransactionStatus(xresponse);
   })
   .catch(error => {
     console.error("Error al realizar la solicitud:", error);
   });
 
-
-    const sendConfirmationData = () => {
-      // Datos de confirmación de ejemplo
+    // const sendConfirmationData = () => {
+    //   // Datos de confirmación de ejemplo
   
-      // Realiza una solicitud POST al servidor con los datos de confirmación
-      fetch('https://convict-s-vault-back.vercel.app/confirmation-epayco', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      .then(response => {
-        if (response.status === 200) {
-          return response.json();
-        } else {
-          throw new Error('Error al enviar datos de confirmación');
-        }
-      })
-      .then(data => {
-        console.log(data); // Mensaje de confirmación del servidor
-      })
-      .catch(error => {
-        console.error(error);
-      });
-    };
-    sendConfirmationData();
+    //   // Realiza una solicitud POST al servidor con los datos de confirmación
+    //   fetch('https://convict-s-vault-back.vercel.app/confirmation-epayco', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //   })
+    //   .then(response => {
+    //     if (response.status === 200) {
+    //       return response.json();
+    //     } else {
+    //       throw new Error('Error al enviar datos de confirmación');
+    //     }
+    //   })
+    //   .then(data => {
+    //     console.log(data); // Mensaje de confirmación del servidor
+    //   })
+    //   .catch(error => {
+    //     console.error(error);
+    //   });
+    // };
+    // sendConfirmationData();
   }, [transactionId]); // Agrega transactionId como una dependencia
 
   
@@ -183,9 +183,10 @@ fetch(endpointURL)
       // Obtener datos del producto
       const { data } = await axios.get(`${Url_deploy_back}/products/${productId}`);
       const { isActive, name, price, image, brand, category, stock } = data;
-  
+  console.log(stock)
       // Calcular el stock actualizado
       let updatedStock = stock - quantity;
+      console.log(updatedStock)
       updatedStock = Math.max(updatedStock, 0);
   
       const newIsActive = determineIsActive(updatedStock, quantity);
