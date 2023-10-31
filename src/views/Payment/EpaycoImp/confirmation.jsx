@@ -69,7 +69,37 @@ if (productIdParts.length > 0) {
     };
 
     fetchData();
+    const sendConfirmationData = async () => {
+      try {
+        const data = {
+          // Incluye los datos de la transacción que deseas enviar al servidor
+          x_ref_payco: '172885884', // Ejemplo de x_ref_payco
+          x_transaction_id: '172885884', // Ejemplo de x_transaction_id
+          // ... otros datos relevantes
+        };
+
+        const response = await fetch(`${Url_deploy_back}/confirmation-epayco`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+
+        if (response.status === 200) {
+          const result = await response.json();
+          console.log(result.message); // Mensaje de confirmación del servidor
+        } else {
+          console.error('Error al enviar datos de confirmación al servidor');
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    sendConfirmationData();
   }, [transactionId]); // Agrega transactionId como una dependencia
+
+  
 
   const updateStockFromDescription = async (description, productId) => {
     console.log("hola",  productId)

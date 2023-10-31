@@ -30,7 +30,7 @@ console.log(`${items[0]._id}-PAGO${uuidv4()}`)
     try {
       const response = await axios.post(`${Url_deploy_back}/session`, {
         response: 'https://www.superreoy.com/home',
-        confirmation: 'https://convict-s-vault-back.vercel.app/confirmation',
+        confirmation: 'https://convict-s-vault-back.vercel.app/confirmation-epayco',
         name: items[0].name  || "default name",
         invoice: `${items[0]._id}-PAGO${uuidv4()}`,
         description: items.map(item => `${item.name} X ${item.quantity}`).join(', '),
