@@ -40,7 +40,7 @@ function PaymentConfirmationPage() {
         const response = await axios.get(`${Url_deploy_back}/transaction/details`);
         const status = response.data.status;
         const reference = response.data.referencePayco;
-        console.log("referenceEpayco", reference)
+        // console.log("referenceEpayco", reference)
         setTransactionStatus(status);
 
         // Obtén la descripción de la transacción
@@ -69,32 +69,40 @@ if (productIdParts.length > 0) {
     };
 
     fetchData();
-    const sendConfirmationData = async () => {
-      try {
-        const data = {
-          // Incluye los datos de la transacción que deseas enviar al servidor
-          x_ref_payco: '172885884', // Ejemplo de x_ref_payco
-          x_transaction_id: '172885884', // Ejemplo de x_transaction_id
-          // ... otros datos relevantes
-        };
+    // Obtener la URL actual del navegador
+var urlActual = window.location.href;
 
-        const response = await fetch(`${Url_deploy_back}/confirmation-epayco`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
-        });
+// Crear un objeto URL
+var urlObj = new URL(urlActual);
 
+// Obtener el valor de ref_payco
+var refPayco = urlObj.searchParams.get("ref_payco");
+
+console.log(refPayco); // Esto imprimirá el valor de ref_payco si está presente en la URL actual
+
+    const sendConfirmationData = () => {
+      // Datos de confirmación de ejemplo
+  
+      // Realiza una solicitud POST al servidor con los datos de confirmación
+      fetch('https://convict-s-vault-back.vercel.app/confirmation-epayco', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .then(response => {
         if (response.status === 200) {
-          const result = await response.json();
-          console.log(result.message); // Mensaje de confirmación del servidor
+          return response.json();
         } else {
-          console.error('Error al enviar datos de confirmación al servidor');
+          throw new Error('Error al enviar datos de confirmación');
         }
-      } catch (error) {
+      })
+      .then(data => {
+        console.log(data.x_ref_payco); // Mensaje de confirmación del servidor
+      })
+      .catch(error => {
         console.error(error);
-      }
+      });
     };
     sendConfirmationData();
   }, [transactionId]); // Agrega transactionId como una dependencia
