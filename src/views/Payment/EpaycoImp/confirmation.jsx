@@ -76,10 +76,11 @@ var urlActual = window.location.href;
 var urlObj = new URL(urlActual);
 
 // Obtener el valor de ref_payco
-var refPayco = window.location.searchParams.get("ref_payco");
+var refPayco = urlObj.searchParams.get("ref_payco");
 
-// Construir la URL del endpoint con refPayco
-var endpointURL = `https://secure.epayco.co/validation/v1/reference/${refPayco}`;
+console.log(refPayco); // Esto imprimirá el valor de ref_payco si está presente en la URL actual
+
+const endpointURL = `https://secure.epayco.co/validation/v1/reference/${refPayco}`;
 
 // Realizar una solicitud HTTP GET al endpoint
 fetch(endpointURL)
