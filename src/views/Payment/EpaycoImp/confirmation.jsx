@@ -88,7 +88,10 @@ fetch(endpointURL)
   .then(data => {
     // Extraer el valor de x_ref_payco
     const xRefPayco = data.data.x_ref_payco;
-    console.log(xRefPayco); // Esto imprimirá el valor de x_ref_payco
+    const xdescription = data.data.x_description;
+    const xresponse = data.data.x_response;
+    const xIdInvoice = data.data.x_id_invoice;
+    console.log(data); // Esto imprimirá el valor de x_ref_payco
   })
   .catch(error => {
     console.error("Error al realizar la solicitud:", error);
