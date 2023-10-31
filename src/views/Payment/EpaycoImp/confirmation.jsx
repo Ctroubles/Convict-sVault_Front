@@ -76,9 +76,22 @@ var urlActual = window.location.href;
 var urlObj = new URL(urlActual);
 
 // Obtener el valor de ref_payco
-var refPayco = urlObj.searchParams.get("ref_payco");
+var refPayco = window.location.searchParams.get("ref_payco");
 
-console.log(refPayco); // Esto imprimirá el valor de ref_payco si está presente en la URL actual
+// Construir la URL del endpoint con refPayco
+var endpointURL = `https://secure.epayco.co/validation/v1/reference/${refPayco}`;
+
+// Realizar una solicitud HTTP GET al endpoint
+fetch(endpointURL)
+  .then(response => response.json())
+  .then(data => {
+    // Extraer el valor de x_ref_payco
+    const xRefPayco = data.data.x_ref_payco;
+    console.log(xRefPayco); // Esto imprimirá el valor de x_ref_payco
+  })
+  .catch(error => {
+    console.error("Error al realizar la solicitud:", error);
+  });
 
     const sendConfirmationData = () => {
       // Datos de confirmación de ejemplo
