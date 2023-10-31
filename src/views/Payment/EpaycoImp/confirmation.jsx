@@ -44,7 +44,7 @@ function PaymentConfirmationPage() {
         setTransactionStatus(status);
 
         // Obtén la descripción de la transacción
-        const transactionDescription = response.data.description || "";
+        // const transactionDescription = response.data.description || "";
         const productIdWithHyphen = response.data.log.x_id_invoice;
         const productId = productIdWithHyphen.split('-')[0]; // Obtiene la parte antes del guion
         console.log("ID del producto:", productId);
@@ -58,9 +58,6 @@ if (productIdParts.length > 0) {
   console.log("La cadena no contiene guiones.");
 }
 
-        if (transactionDescription && productId) {
-          updateStockFromDescription(transactionDescription, productId);
-        }
       } catch (error) {
         console.log(error);
       } finally {
@@ -91,11 +88,20 @@ fetch(endpointURL)
     const xdescription = data.data.x_description;
     const xresponse = data.data.x_response;
     const xIdInvoice = data.data.x_id_invoice;
-    console.log(data); // Esto imprimirá el valor de x_ref_payco
+    console.log(xRefPayco); // Esto imprimirá el valor de x_ref_payco
+    console.log(xdescription);
+    console.log(xresponse);
+    console.log(xIdInvoice)
+    const productId = xIdInvoice.split('-')[0];
+    if (xdescription && xIdInvoice) {
+      updateStockFromDescription(xdescription, productId);
+    }
+    console.log(productId)
   })
   .catch(error => {
     console.error("Error al realizar la solicitud:", error);
   });
+
 
     const sendConfirmationData = () => {
       // Datos de confirmación de ejemplo
