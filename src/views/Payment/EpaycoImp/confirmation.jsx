@@ -27,6 +27,7 @@ const boxStyle = {
 };
 
 function PaymentConfirmationPage() {
+
   const [transactionStatus, setTransactionStatus] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [transactionId, setTransactionId] = useState(0); // ID de la transacción
@@ -39,7 +40,7 @@ function PaymentConfirmationPage() {
         const response = await axios.get(`${Url_deploy_back}/transaction/details`);
         const status = response.data.status;
         const reference = response.data.referencePayco;
-        console.log(reference)
+        console.log("referenceEpayco", reference)
         setTransactionStatus(status);
 
         // Obtén la descripción de la transacción
