@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Url_deploy_back from "../../../../util/deploy_back";
 const Carrito = ({ loading, items, total, formRef, setErrors }) => {
   const dispatch = useDispatch();
-
+console.log(`${items[0]._id}-PAGO${uuidv4()}`)
   const pagarAutomatically = async (sessionId) => {
     const apiKey = 'e95deec204ee959cd0fad3b4c2082d54';
     const privateKey = 'e244fdc8a0b2b994132f2b1b9baf9692';
@@ -32,8 +32,8 @@ const Carrito = ({ loading, items, total, formRef, setErrors }) => {
         response: 'https://www.superreoy.com/home',
         confirmation: 'https://www.superreoy.com/home',
         name: items[0].name  || "default name",
-        invoice: `PAGO${uuidv4()}`,
-        description: `${items[0].name} X ${items[0].quantity}`,
+        invoice: `${items[0]._id}-PAGO${uuidv4()}`,
+        description: items.map(item => `${item.name} X ${item.quantity}`).join(', '),
         currency: 'cop',
         amount: `${total}`,
         country: 'CO',
@@ -43,6 +43,7 @@ const Carrito = ({ loading, items, total, formRef, setErrors }) => {
 
       const { data } = await response;
       const sessionId = data.sessionId;
+      console.log("hola", data)
       console.log(sessionId);
       return sessionId;
     } catch (error) {
