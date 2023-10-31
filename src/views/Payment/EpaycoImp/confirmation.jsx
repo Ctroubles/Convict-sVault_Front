@@ -38,6 +38,8 @@ function PaymentConfirmationPage() {
       try {
         const response = await axios.get(`${Url_deploy_back}/transaction/details`);
         const status = response.data.status;
+        const reference = response.data.referencePayco;
+        console.log(reference)
         setTransactionStatus(status);
 
         // Obtén la descripción de la transacción
@@ -107,6 +109,7 @@ if (productIdParts.length > 0) {
   
   
   const determineIsActive = (stock, quantity) => {
+    console.log("first")
     // Si updatedStock es mayor que 0, isActive es true, de lo contrario, es false.
     return stock - quantity > 0;
   };
@@ -124,6 +127,7 @@ if (productIdParts.length > 0) {
       updatedStock = Math.max(updatedStock, 0);
   
       const newIsActive = determineIsActive(updatedStock, quantity);
+      console.log(newIsActive)
       // Define isActive basado en el valor de updatedStock
   
       await axios.put(`${Url_deploy_back}/products/${productId}`, {
