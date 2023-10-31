@@ -106,21 +106,28 @@ if (productIdParts.length > 0) {
   
   
   
-  
+  const determineIsActive = (stock, quantity) => {
+    // Si updatedStock es mayor que 0, isActive es true, de lo contrario, es false.
+    return stock - quantity > 0;
+  };
   
 
   const updateProductStock = async (productId, quantity) => {
-    console.log("este es el id", productId)
+    console.log("este es el id", productId);
     try {
       // Obtener datos del producto
       const { data } = await axios.get(`${Url_deploy_back}/products/${productId}`);
-      const { name, price, image, brand, category, stock } = data;
-
-      // Actualizar el stock
+      const { isActive, name, price, image, brand, category, stock } = data;
+  
+      // Calcular el stock actualizado
       let updatedStock = stock - quantity;
       updatedStock = Math.max(updatedStock, 0);
-
+  
+      const newIsActive = determineIsActive(updatedStock, quantity);
+      // Define isActive basado en el valor de updatedStock
+  
       await axios.put(`${Url_deploy_back}/products/${productId}`, {
+        isActive: newIsActive,
         name,
         price,
         image,
@@ -128,11 +135,13 @@ if (productIdParts.length > 0) {
         category,
         stock: updatedStock,
       });
+  
       console.log(`Stock del producto ${productId} actualizado con éxito`);
     } catch (error) {
       console.error('Error al actualizar el stock del producto:', error.message);
     }
   };
+  
 
   return (
     <div style={containerStyle}>
