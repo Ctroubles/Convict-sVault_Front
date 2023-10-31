@@ -32,39 +32,9 @@ function PaymentConfirmationPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [transactionId, setTransactionId] = useState(0); // ID de la transacción
 
-  const url = 'http://localhost:3001';
 
   useEffect(() => {
-//     const fetchData = async () => {
-//       try {
-//         const response = await axios.get(`${Url_deploy_back}/transaction/details`);
-//         const status = response.data.status;
-//         const reference = response.data.referencePayco;
-//         // console.log("referenceEpayco", reference)
-//         // setTransactionStatus(status);
-
-//         // Obtén la descripción de la transacción
-//         // const transactionDescription = response.data.description || "";
-//         const productIdWithHyphen = response.data.log.x_id_invoice;
-//         const productId = productIdWithHyphen.split('-')[0]; // Obtiene la parte antes del guion
-//         console.log(response.data.description)
-//         const productIdParts = productId.split('-'); // Divide la cadena por guiones
-
-// if (productIdParts.length > 0) {
-//   const productIdBeforeDash = productIdParts[0];
-//   console.log("ID del producto antes del guion:", productIdBeforeDash);
-// } else {
-//   console.log("La cadena no contiene guiones.");
-// }
-
-//       } catch (error) {
-//         console.log(error);
-//       } finally {
-//         setIsLoading(false);
-//       }
-//     };
-
-//     fetchData();
+    localStorage.clear();
     // Obtener la URL actual del navegador
 var urlActual = window.location.href;
 
@@ -103,31 +73,6 @@ fetch(endpointURL)
     console.error("Error al realizar la solicitud:", error);
   });
 
-    // const sendConfirmationData = () => {
-    //   // Datos de confirmación de ejemplo
-  
-    //   // Realiza una solicitud POST al servidor con los datos de confirmación
-    //   fetch('https://convict-s-vault-back.vercel.app/confirmation-epayco', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //   })
-    //   .then(response => {
-    //     if (response.status === 200) {
-    //       return response.json();
-    //     } else {
-    //       throw new Error('Error al enviar datos de confirmación');
-    //     }
-    //   })
-    //   .then(data => {
-    //     console.log(data); // Mensaje de confirmación del servidor
-    //   })
-    //   .catch(error => {
-    //     console.error(error);
-    //   });
-    // };
-    // sendConfirmationData();
   }, [transactionId]); // Agrega transactionId como una dependencia
 
   
