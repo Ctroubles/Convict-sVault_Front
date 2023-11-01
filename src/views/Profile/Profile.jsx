@@ -179,17 +179,17 @@ const Profile = ({user, viewportWidth}) =>{
                                 <div>
                                     <div>
                                         <label className={style.navLink} style={section===1?{borderColor:"#009fe3"}:undefined} onClick={()=>history.push("/account/profile")}>
-                                            <span style={section===1?{color:"#000", fontWeight:"600"}:undefined}>Perfil</span>
+                                            <span style={section===1?{color:"#009fe3", fontWeight:"600"}:undefined}>Perfil</span>
                                         </label>
                                     </div>
                                     <div>
                                         <label className={style.navLink} style={section===2?{borderColor:"#009fe3"}:undefined} onClick={()=>history.push("/account/addresses")}>
-                                            <span style={section===2?{color:"#000", fontWeight:"600"}:undefined}>Direcciones</span>
+                                            <span style={section===2?{color:"#009fe3", fontWeight:"600"}:undefined}>Direcciones</span>
                                         </label>
                                     </div>
                                     <div>
                                         <label className={style.navLink} style={section===3?{borderColor:"#009fe3"}:undefined} onClick={()=>history.push("/account/orders")}>
-                                            <span style={section===3?{color:"#000", fontWeight:"600"}:undefined}>Pedidos</span>
+                                            <span style={section===3?{color:"#009fe3", fontWeight:"600"}:undefined}>Pedidos</span>
                                         </label>
                                     </div>
                                     {/* <div>
