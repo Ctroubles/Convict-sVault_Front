@@ -68,6 +68,7 @@ fetch(endpointURL)
     }
     console.log(productId)
     setTransactionStatus(xresponse);
+    localStorage.setItem(refPayco, 'processed');
   })
   .catch(error => {
     console.error("Error al realizar la solicitud:", error);
@@ -77,7 +78,7 @@ fetch(endpointURL)
 
   
 
-  const updateStockFromDescription = async (description, productId) => {
+  const updateStockFromDescription = async (description, productId, refPayco) => {
     console.log("hola",  productId)
     if (productId !== null) {
       const productInfoArray = description.split(', ');
@@ -91,8 +92,8 @@ fetch(endpointURL)
           const quantity = parseInt(quantityMatchResult[1], 10);
   
           if (!isNaN(quantity)) {
-            if (localStorage.getItem(productId)) {
-              alert(`La actualización de stock para la transacción ${productId} ya ha sido procesada`);
+            if (localStorage.getItem(refPayco)) {
+              alert(`Ya se habia realizado la actualizacion del stock con ref: ${refPayco}`);
               return;
             }
   
