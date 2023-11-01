@@ -123,11 +123,11 @@ function PaymentConfirmationPage() {
           if (!isNaN(quantity)) {
             // Realizar la verificación de existencia en la base de datos
             try {
-              const response = await fetch(`http://localhost:3001/transactions/compras/${refPayco}`);
+              const response = await fetch(`${Url_deploy_back}/transactions/compras/${refPayco}`);
               const data = await response.json();
   
               if (data.length > 0) {
-                console.log('El elemento ya existe en la base de datos.');
+                console.log('El elemento ya existe en la base de datos. No se actualizará el stock nuevamente.');
               } else {
                 // Continuar con la actualización del stock
                 try {
@@ -150,6 +150,7 @@ function PaymentConfirmationPage() {
       alert('Error: transactionId es null o no válido');
     }
   };
+  
   
   
   
