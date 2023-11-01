@@ -1,7 +1,128 @@
 #noData{
     padding: 20px;
     text-align: center; 
-    color:rgb(151, 152, 153); 
+    color:rgb(80, 84, 88); 
     font-size:24px; 
-    font-weight:400;
+    font-weight:200;
 }
+
+.productInfo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .imageContainer {
+    flex: 1; /* Ocupa todo el espacio disponible a la izquierda */
+    margin-right: 16px; /* Espacio entre la imagen y el contenido */
+  }
+  
+  .detailsContainer {
+    flex: 2; /* Ocupa el doble de espacio que la imagen */
+  }
+  
+/* Pedidos.module.css */
+
+/* Pedidos.module.css */
+
+.pedidoItem {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    padding: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  .pedidoItem h3 {
+    color: #333;
+    font-size: 18px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+  }
+  
+  .pedidoItem ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .pedidoItem li {
+    color: #555;
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+  
+  .pedidoItem img {
+    width: 80px;
+    height: 80px;
+    margin-right: 20px;
+  }
+  
+  /* Estilos para tamaños de pantalla específicos */
+  
+  @media (max-width: 965px) {
+    .pedidoItem {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .pedidoItem img {
+      margin-right: 0;
+      margin-bottom: 16px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .pedidoItem {
+      padding: 12px;
+    }
+  
+    .pedidoItem img {
+      width: 60px;
+      height: 60px;
+      margin-right: 10px;
+    }
+  
+    .pedidoItem h3 {
+      font-size: 16px;
+    }
+  }
+  
+  @media (max-width: 520px) {
+    .pedidoItem {
+      padding: 10px;
+    }
+  
+    .pedidoItem img {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+    }
+  
+    .pedidoItem h3 {
+      font-size: 14px;
+    }
+  }
+  
+  @media (max-width: 350px) {
+    .pedidoItem {
+      padding: 8px;
+    }
+  
+    .pedidoItem img {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+  
+    .pedidoItem h3 {
+      font-size: 12px;
+    }
+  
+    .pedidoItem li {
+      font-size: 12px;
+    }
+  }
+  
