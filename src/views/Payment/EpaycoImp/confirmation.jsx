@@ -136,9 +136,9 @@ function PaymentConfirmationPage({ user }) {
     }
   };
 
-  const updateStockFromDescription = async (description, productIds, xRefPayco) => {
+  const updateStockFromDescription = async (xdescription, productIds, xRefPayco) => {
     if (productIds !== null) {
-      const productInfoArray = description.split(', ');
+      const productInfoArray = xdescription.split(', ');
 
       for (const productInfo of productInfoArray) {
         const productMatch = /(\w+) X (\d+)/;
@@ -165,7 +165,7 @@ function PaymentConfirmationPage({ user }) {
                 if (productIndex < productIds.length) {
                   const productId = productIds[productIndex];
                   addProductToOrder(userId, productIds);
-                  updateStockFromDescription(description, productIds, xRefPayco);
+                  updateStockFromDescription(xdescription, productIds, xRefPayco);
                   updateProductStock(productIds, quantity);
                   try {
                     await updateProductStock(productId, quantity);
