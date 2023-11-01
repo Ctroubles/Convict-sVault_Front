@@ -131,7 +131,6 @@ function PaymentConfirmationPage() {
               }else{
                 console.error('Error en la respuesta:', data);
               }
-  
               if (data.length > 0) {
                 console.log('El elemento ya existe en la base de datos. No se actualizará el stock nuevamente.');
               } else {
