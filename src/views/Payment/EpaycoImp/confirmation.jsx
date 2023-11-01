@@ -55,7 +55,7 @@ function PaymentConfirmationPage() {
         console.log(xresponse);
         const productId = xIdInvoice.split('-')[0];
         if (xdescription && xIdInvoice) {
-          updateStockFromDescription(xdescription, productId, refPayco);
+          updateStockFromDescription(xdescription, productId, xRefPayco);
         }
         console.log(productId);
         setTransactionStatus(xresponse);
@@ -106,8 +106,8 @@ function PaymentConfirmationPage() {
   }, []);
   
 
-  const updateStockFromDescription = async (description, productId, refPayco) => {
-    console.log("hola", refPayco);
+  const updateStockFromDescription = async (description, productId, xRefPayco) => {
+    console.log("hola", xRefPayco);
   
     if (productId !== null) {
       const productInfoArray = description.split(', ');
@@ -145,7 +145,7 @@ function PaymentConfirmationPage() {
                 }
               }
             } catch (error) {
-              console.error('Error al verificar la existencia del elemento en la base de datos:', error);
+              console.error('Error al verificar la existencia del elemento en la base de datos:', error.message);
             }
           }
         }
