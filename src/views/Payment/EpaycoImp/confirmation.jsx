@@ -155,7 +155,7 @@ function PaymentConfirmationPage({ user }) {
         productIds, // Envía productIds como un array
         xAmount // Si es necesario
       };
-  
+  console.log("dataToSend:", dataToSend)
       const backendEndpoint = `http://localhost:3001/transactions/create`;
   
       const response = await fetch(backendEndpoint, {
