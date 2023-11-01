@@ -106,9 +106,6 @@ function PaymentConfirmationPage({ user }) {
     if (productIds !== null) {
       const productInfoArray = xdescription.split(', ');
   
-      // Crear un objeto para realizar un seguimiento de las cantidades de cada producto
-      const productQuantities = {};
-  
       for (const productInfo of productInfoArray) {
         const productMatch = /(\w+) X (\d+)/;
         const productMatchResult = productMatch.exec(productInfo);
@@ -118,27 +115,25 @@ function PaymentConfirmationPage({ user }) {
           const quantity = parseInt(productMatchResult[2], 10);
   
           if (!isNaN(quantity)) {
-            if (!productQuantities[productName]) {
-              productQuantities[productName] = 0;
-            }
-            productQuantities[productName] += quantity;
-          }
-        }
-      }
+            const productIndex = productInfoArray.indexOf(productInfo);
+            if (productIndex < productIds.length) {
+              const productId = productIds[productIndex];
+              try {
+                // Actualizar el stock primero
+                await updateProductStock(productId, quantity);
   
-      // Actualizar el stock y registrar la transacción para cada producto
-      for (const productName in productQuantities) {
-        const quantity = productQuantities[productName];
-        const productId = productIds.find((item) => item[productName]);
-        if (productId) {
-          try {
-            await updateProductStock(productId, quantity);
-            addProductToOrder(userId, productIds);
-            await registerTransaction(xRefPayco, xdescription, productId, xAmount, xresponse);
-            alert(`Stock actualizado con éxito para ${productName}`);
-          } catch (error) {
-            console.error(`Error al actualizar el stock de ${productName}:`, error.message);
-            alert(`Error al actualizar el stock de ${productName}`);
+                // Luego, agregar el producto al pedido
+                addProductToOrder(userId, productIds);
+  
+                // Finalmente, registrar la transacción
+                await registerTransaction(xRefPayco, xdescription, productIds, xAmount, xresponse);
+  
+                alert(`Stock actualizado con éxito${productId}`);
+              } catch (error) {
+                console.error('Error al actualizar el stock del producto:', error.message);
+                alert('Error al actualizar el stock del producto');
+              }
+            }
           }
         }
       }
@@ -147,18 +142,17 @@ function PaymentConfirmationPage({ user }) {
       alert('Error: transactionId es null o no válido');
     }
   };
-  
   const determineIsActive = (stock, quantity) => {
     return stock - quantity
   };
 
-  const registerTransaction = async (xRefPayco, xdescription, productId, xAmount, xresponse) => {
+  const registerTransaction = async (xRefPayco, xdescription, productIds, xAmount, xresponse) => {
     try {
       const dataToSend = {
         xRefPayco,
         xdescription,
         xAmount,
-        productId,
+        productIds,
         xresponse
       };
   
