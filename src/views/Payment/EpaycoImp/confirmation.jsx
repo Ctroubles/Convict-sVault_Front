@@ -197,7 +197,7 @@ function PaymentConfirmationPage({ user }) {
       const newIsActive = determineIsActive(updatedStock, quantity);
   
       // Define isActive basado en el valor de updatedStock
-      await axios.put(`http://localhost:3001/products/${productId}`, {
+      await axios.put(`${Url_deploy_back}/products/${productId}`, {
         isActive: newIsActive,
         name,
         price,
