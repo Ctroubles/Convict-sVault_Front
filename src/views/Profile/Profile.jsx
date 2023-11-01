@@ -336,7 +336,7 @@ const Profile = ({user, viewportWidth}) =>{
                                                     <div>
                                                         {
                                                             section===2?(<Direcciones addresses={user.addresses}/>):
-                                                            section===3?(<Pedidos pedidos={user.order}/>):null
+                                                            section===3?(<Pedidos pedidos={user.orders}/>):null
                                                         }
                                                     </div>
                                                 </div>
