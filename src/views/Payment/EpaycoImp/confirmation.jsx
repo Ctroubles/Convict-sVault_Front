@@ -118,27 +118,32 @@ function PaymentConfirmationPage({user}) {
       ////////////////////////////////////////////////////////////////////////////////
       const addProductToOrder = async (userId, productIds) => {
         try {
-          // console.log("1",userId)
-          console.log("addProductToOrder", productIds)
-          // Define el cuerpo de la solicitud
-          const requestBody = {
-            productIds: productIds,
-          };
+          const promises = productIds.map(async (productId) => {
+            // Define el cuerpo de la solicitud para cada producto
+            const requestBody = {
+              productIds: [productId], // Enviando un array con un solo elemento
+            };
       
-          // Realiza la solicitud POST al endpoint
-          const response = await axios.post(`http://localhost:3001/users/addOrder/${userId}`, requestBody);
+            // Realiza la solicitud POST al endpoint para agregar el producto al pedido
+            const response = await axios.post(`http://localhost:3001/users/addOrder/${userId}`, requestBody);
       
-          // Verifica si la solicitud fue exitosa
-          if (response.status === 200) {
-            console.log('Producto agregado al pedido exitosamente.');
-            // Puedes realizar alguna acción adicional aquí si es necesario.
-          } else {
-            console.error('Error al agregar el producto al pedido.');
-          }
+            if (response.status === 200) {
+              console.log(`Producto con ID ${productId} agregado al pedido exitosamente.`);
+              // Puedes realizar alguna acción adicional aquí si es necesario.
+            } else {
+              console.error(`Error al agregar el producto con ID ${productId} al pedido.`);
+            }
+          });
+      
+          // Espera a que todas las solicitudes se completen antes de continuar
+          await Promise.all(promises);
+      
+          console.log('Todos los productos fueron agregados al pedido exitosamente.');
         } catch (error) {
-          console.error('Error al realizar la solicitud:', error);
+          console.error('Error al realizar las solicitudes:', error);
         }
       };
+      
   
   
       ////////////////////////////////////////////////////////////////////

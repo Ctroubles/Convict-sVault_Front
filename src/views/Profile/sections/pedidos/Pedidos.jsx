@@ -3,6 +3,7 @@ import style from './Pedidos.module.css';
 import axios from 'axios';
 
 const Pedidos = ({ pedidos = [] }) => {
+  
   const [productDetails, setProductDetails] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 3;
