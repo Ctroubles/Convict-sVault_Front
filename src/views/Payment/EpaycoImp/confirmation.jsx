@@ -30,7 +30,7 @@ function PaymentConfirmationPage() {
 
   const [transactionStatus, setTransactionStatus] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [transactionId, setTransactionId] = useState(0); // ID de la transacción
+  const [transactionId, setTransactionId] = useState(0);
 
 
   useEffect(() => {
@@ -38,29 +38,63 @@ function PaymentConfirmationPage() {
     var urlObj = new URL(urlActual);
     var refPayco = urlObj.searchParams.get("ref_payco");
     const endpointURL = `https://secure.epayco.co/validation/v1/reference/${refPayco}`;
+  
+    // Declarar variables
+    let xRefPayco, xdescription, xresponse, xIdInvoice, xAmount;
+  
     fetch(endpointURL)
       .then(response => response.json())
       .then(data => {
-        const xRefPayco = data.data.x_ref_payco;
-        const xdescription = data.data.x_description;
-        const xresponse = data.data.x_response;
-        const xIdInvoice = data.data.x_id_invoice;
-        console.log(xRefPayco)
+        xRefPayco = data.data.x_ref_payco;
+        xdescription = data.data.x_description;
+        xresponse = data.data.x_response;
+        xIdInvoice = data.data.x_id_invoice;
+        xAmount = data.data.x_amount;
+        console.log(xRefPayco);
         setTransactionId(xRefPayco);
-        console.log(xresponse)
+        console.log(xresponse);
         const productId = xIdInvoice.split('-')[0];
         if (xdescription && xIdInvoice) {
           updateStockFromDescription(xdescription, productId, refPayco);
         }
-        console.log(productId)
+        console.log(productId);
         setTransactionStatus(xresponse);
         localStorage.setItem(refPayco, 'processed');
+  
+        // Aquí puedes realizar la solicitud POST al backend con las variables definidas
+        const dataToSend = {
+          xRefPayco,
+          xdescription,
+          xresponse,
+          productId,
+          xAmount // Si es necesario
+        };
+  
+        // URL del endpoint en tu backend
+        const backendEndpoint = 'http://localhost:3001/transactions/create';
+  
+        // Realiza una solicitud POST al backend
+        fetch(backendEndpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(dataToSend),
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Transacción guardada en la base de datos:', data);
+        })
+        .catch(error => {
+          console.error('Error al guardar la transacción en la base de datos:', error);
+        });
       })
       .catch(error => {
-        console.error("Error al realizar la solicitud:", error);
+        console.error('Error al realizar la solicitud:', error);
       });
-
-  }, [])
+  }, []);
+  
+  
 
   
 
@@ -134,7 +168,7 @@ function PaymentConfirmationPage() {
         stock: updatedStock,
       });
   
-      console.log(`andres cachon ${productId} actualizado con éxito`);
+      console.log(`el producto con id: ${productId} actualizado con éxito`);
     } catch (error) {
       console.error('Error al actualizar el stock del producto:', error.message);
     }
