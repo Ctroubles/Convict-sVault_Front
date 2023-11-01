@@ -54,7 +54,8 @@ function PaymentConfirmationPage({ user }) {
         xdescription = data.data.x_description;
         const xresponse = data.data.x_response; // Definir xresponse aquí
         xAmount = data.data.x_amount;
-        setTransactionId(xRefPayco);
+        console.log(xRefPayco)
+        setTransactionId("referencia epayco:", xRefPayco);
         if (xdescription) {
           checkIfTransactionExists(xRefPayco, () => {
             updateStockFromDescription(xdescription, productIds, xRefPayco, xAmount, xresponse); // Pasar xresponse como argumento
