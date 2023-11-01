@@ -168,7 +168,6 @@ function PaymentConfirmationPage({ user }) {
       })
       .then(response => response.json());
       console.log(response.status);
-  
       if (response.status === 200) {
         console.log('Transacción guardada en la base de datos con éxito');
       } else {
