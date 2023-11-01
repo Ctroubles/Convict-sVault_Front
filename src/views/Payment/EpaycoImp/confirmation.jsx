@@ -156,7 +156,7 @@ function PaymentConfirmationPage({ user }) {
         xAmount // Si es necesario
       };
   
-      const backendEndpoint = `${Url_deploy_back}/transactions/create`;
+      const backendEndpoint = `http://localhost:3001/transactions/create`;
   
       const response = await fetch(backendEndpoint, {
         method: 'POST',
