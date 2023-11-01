@@ -27,62 +27,50 @@ const boxStyle = {
   textAlign: 'center',
 };
 
-function PaymentConfirmationPage({user}) {
+function PaymentConfirmationPage({ user }) {
+  const userId = user._id;
 
   const cart = useSelector((state) => state.cart);
-  // console.log("esto es lo que hay en el carrito", cart)
 
   const productIds = cart.map(item => Object.keys(item)[0]);
-  // console.log(productIds);
 
-  // console.log("hola", user._id)
   const [transactionStatus, setTransactionStatus] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [transactionId, setTransactionId] = useState(0);
 
-
   useEffect(() => {
-   
-    // console.log("YA SE ACTUALIZOOOOOOOOOOO")
     var urlActual = window.location.href;
     var urlObj = new URL(urlActual);
     var refPayco = urlObj.searchParams.get("ref_payco");
     const endpointURL = `https://secure.epayco.co/validation/v1/reference/${refPayco}`;
-  
-    // Declarar variables
-    let xRefPayco, xdescription, xresponse, xIdInvoice, xAmount;
-  
+
+    let xRefPayco, xdescription, xresponse, xAmount;
+
     fetch(endpointURL)
       .then(response => response.json())
       .then(data => {
         xRefPayco = data.data.x_ref_payco;
         xdescription = data.data.x_description;
         xresponse = data.data.x_response;
-        // xIdInvoice = data.data.x_id_invoice;
         xAmount = data.data.x_amount;
-        console.log(xRefPayco);
         setTransactionId(xRefPayco);
-        console.log(xresponse);
-        if (xdescription && xIdInvoice) {
-          updateStockFromDescription(xdescription, productIds, xRefPayco);
+        if (xdescription) {
+          checkIfTransactionExists(xRefPayco, () => {
+            updateStockFromDescription(xdescription, productIds, xRefPayco);
+            addProductToOrder(userId, productIds);
+          });
         }
         setTransactionStatus(xresponse);
-        const userId = user._id
-        addProductToOrder(userId, productIds)
-  
-        // Aquí puedes realizar la solicitud POST al backend con las variables definidas
         const dataToSend = {
           xRefPayco,
           xdescription,
           xresponse,
           productIds,
-          xAmount // Si es necesario
+          xAmount,
         };
-  
-        // URL del endpoint en tu backend
+
         const backendEndpoint = `http://localhost:3001/transactions/create`;
-  
-        // Realiza una solicitud POST al backend
+
         fetch(backendEndpoint, {
           method: 'POST',
           headers: {
@@ -93,8 +81,6 @@ function PaymentConfirmationPage({user}) {
         .then(response => response.json())
         .then(data => {
           console.log('Transacción guardada en la base de datos:', data);
-  
-          // Realiza la segunda solicitud dentro de este bloque
           fetch(`http://localhost:3001/transactions/compras/${xRefPayco}`)
           .then(response => response.json())
           .then(data => {
@@ -115,106 +101,94 @@ function PaymentConfirmationPage({user}) {
       });
   }, []);
 
-      ////////////////////////////////////////////////////////////////////////////////
-      const addProductToOrder = async (userId, productIds) => {
-        try {
-          const promises = productIds.map(async (productId) => {
-            // Define el cuerpo de la solicitud para cada producto
-            const requestBody = {
-              productIds: [productId], // Enviando un array con un solo elemento
-            };
-      
-            // Realiza la solicitud POST al endpoint para agregar el producto al pedido
-            const response = await axios.post(`http://localhost:3001/users/addOrder/${userId}`, requestBody);
-      
-            if (response.status === 200) {
-              console.log(`Producto con ID ${productId} agregado al pedido exitosamente.`);
-              // Puedes realizar alguna acción adicional aquí si es necesario.
-            } else {
-              console.error(`Error al agregar el producto con ID ${productId} al pedido.`);
-            }
-          });
-      
-          // Espera a que todas las solicitudes se completen antes de continuar
-          await Promise.all(promises);
-      
-          console.log('Todos los productos fueron agregados al pedido exitosamente.');
-        } catch (error) {
-          console.error('Error al realizar las solicitudes:', error);
+  const checkIfTransactionExists = (xRefPayco, callback) => {
+    fetch(`http://localhost:3001/transactions/compras/${xRefPayco}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.length > 0) {
+          console.log('La transacción ya existe en la base de datos.');
+        } else {
+          callback();
         }
-      };
-      
-  
-  
-      ////////////////////////////////////////////////////////////////////
-  
+      })
+      .catch((error) => {
+        console.error('Error al verificar la existencia del elemento en la base de datos:', error);
+      });
+  };
 
-      const updateStockFromDescription = async (description, productIds, xRefPayco) => {
-        console.log("hola", xRefPayco);
-      
-        if (productIds !== null) {
-          const productInfoArray = description.split(', ');
-      
-          for (const productInfo of productInfoArray) {
-            const productMatch = /(\w+) X (\d+)/; // Expresión regular para capturar el nombre del producto y la cantidad
-      
-            const productMatchResult = productMatch.exec(productInfo);
-      
-            if (productMatchResult) {
-              const productName = productMatchResult[1];
-              const quantity = parseInt(productMatchResult[2], 10);
-              console.log(productName)
-      
-              if (!isNaN(quantity)) {
-                // Realizar la verificación de existencia en la base de datos
-                try {
-                  console.log("now");
-                  const response = await fetch(`http://localhost:3001/transactions/compras/${xRefPayco}`);
-                  const data = await response.json();
-      
-                  if (response.ok) {
-                    console.log("first", data);
-                  } else {
-                    console.error('Error en la respuesta:', data);
+  const addProductToOrder = async (userId, productIds) => {
+    try {
+      const promises = productIds.map(async (productId) => {
+        const requestBody = {
+          productId: productId,
+        };
+
+        const response = await axios.post(`http://localhost:3001/users/addOrder/${userId}`, requestBody);
+
+        if (response.status === 200) {
+          console.log(`Producto con ID ${productId} agregado al pedido exitosamente.`);
+        } else {
+          console.error(`Error al agregar el producto con ID ${productId} al pedido.`);
+        }
+      });
+    } catch (error) {
+      console.error('Error al realizar la solicitud:', error);
+    }
+  };
+
+  const updateStockFromDescription = async (description, productIds, xRefPayco) => {
+    if (productIds !== null) {
+      const productInfoArray = description.split(', ');
+
+      for (const productInfo of productInfoArray) {
+        const productMatch = /(\w+) X (\d+)/;
+        const productMatchResult = productMatch.exec(productInfo);
+
+        if (productMatchResult) {
+          const productName = productMatchResult[1];
+          const quantity = parseInt(productMatchResult[2], 10);
+
+          if (!isNaN(quantity)) {
+            try {
+              const response = await fetch(`http://localhost:3001/transactions/compras/${xRefPayco}`);
+              const data = await response.json();
+
+              if (response.ok) {
+                console.log("first", data);
+              } else {
+                console.error('Error en la respuesta:', data);
+              }
+              if (data.length > 0) {
+                console.log('El elemento ya existe en la base de datos. No se actualizará el stock nuevamente.');
+              } else {
+                const productIndex = productInfoArray.indexOf(productInfo);
+                if (productIndex < productIds.length) {
+                  const productId = productIds[productIndex];
+                  addProductToOrder(userId, productIds);
+                  updateStockFromDescription(description, productIds, xRefPayco);
+                  updateProductStock(productIds, quantity);
+                  try {
+                    await updateProductStock(productId, quantity);
+                    alert('Stock actualizado con éxito');
+                  } catch (error) {
+                    console.error('Error al actualizar el stock del producto:', error.message);
+                    alert('Error al actualizar el stock del producto');
                   }
-                  if (data.length > 0) {
-                    console.log('El elemento ya existe en la base de datos. No se actualizará el stock nuevamente.');
-                  } else {
-                    // Obtén el ID del producto correspondiente
-                    const productIndex = productInfoArray.indexOf(productInfo);
-                    if (productIndex < productIds.length) {
-                      const productId = productIds[productIndex];
-      
-                      // Continuar con la actualización del stock
-                      try {
-                        // Realizar la actualización del stock
-                        await updateProductStock(productId, quantity);
-                        alert('Stock actualizado con éxito');
-                      } catch (error) {
-                        console.error('Error al actualizar el stock del producto:', error.message);
-                        alert('Error al actualizar el stock del producto');
-                      }
-                    }
-                  }
-                } catch (error) {
-                  console.error('Error al verificar la existencia del elemento en la base de datos:', error.message);
                 }
               }
+            } catch (error) {
+              console.error('Error al verificar la existencia del elemento en la base de datos:', error.message);
             }
           }
-        } else {
-          console.error('transactionId es null o no válido.');
-          alert('Error: transactionId es null o no válido');
         }
-      };
-      
-  
-  
-  
-  
+      }
+    } else {
+      console.error('transactionId es null o no válido.');
+      alert('Error: transactionId es null o no válido');
+    }
+  };
+
   const determineIsActive = (stock, quantity) => {
-    console.log("first")
-    // Si updatedStock es mayor que 0, isActive es true, de lo contrario, es false.
     return stock - quantity > 0;
   };
   
