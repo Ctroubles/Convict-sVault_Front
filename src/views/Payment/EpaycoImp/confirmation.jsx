@@ -78,8 +78,8 @@ fetch(endpointURL)
 
   
 
-  const updateStockFromDescription = async (description, productId, xRefPayco) => {
-    console.log("hola",  xRefPayco)
+  const updateStockFromDescription = async (description, productId, refPayco) => {
+    console.log("hola",  refPayco)
     if (productId !== null) {
       const productInfoArray = description.split(', ');
   
@@ -92,8 +92,8 @@ fetch(endpointURL)
           const quantity = parseInt(quantityMatchResult[1], 10);
   
           if (!isNaN(quantity)) {
-            if (localStorage.getItem(xRefPayco)) {
-              alert(`Ya se habia realizado la actualizacion del stock con ref: ${xRefPayco}`);
+            if (localStorage.getItem(refPayco)) {
+              alert(`Ya se habia realizado la actualizacion del stock con ref: ${refPayco}`);
               return;
             }
   
