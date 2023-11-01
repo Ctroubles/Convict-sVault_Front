@@ -56,7 +56,7 @@ function PaymentConfirmationPage({ user }) {
         setTransactionId(xRefPayco);
         if (xdescription) {
           checkIfTransactionExists(xRefPayco, () => {
-            updateStockFromDescription(xdescription, productIds, xRefPayco);
+            updateStockFromDescription(xdescription, productIds, xRefPayco, xresponse);
             addProductToOrder(userId, productIds);
           });
         }
@@ -102,7 +102,7 @@ function PaymentConfirmationPage({ user }) {
     }
   };
 
-  const updateStockFromDescription = async (xdescription, productIds, xRefPayco, xAmount) => {
+  const updateStockFromDescription = async (xdescription, productIds, xRefPayco, xAmount, xresponse) => {
     if (productIds !== null) {
       const productInfoArray = xdescription.split(', ');
   
@@ -126,7 +126,7 @@ function PaymentConfirmationPage({ user }) {
                 addProductToOrder(userId, productIds);
   
                 // Finalmente, registrar la transacción
-                await registerTransaction(xRefPayco, xdescription, productIds, xAmount);
+                await registerTransaction(xRefPayco, xdescription, productIds, xAmount, xresponse);
   
                 alert('Stock actualizado con éxito');
               } catch (error) {
@@ -146,13 +146,14 @@ function PaymentConfirmationPage({ user }) {
     return stock - quantity
   };
 
-  const registerTransaction = async (xRefPayco, xdescription, productIds, xAmount) => {
+  const registerTransaction = async (xRefPayco, xdescription, productIds, xAmount, xresponse) => {
     try {
       const dataToSend = {
         xRefPayco,
         xdescription,
         xAmount,
         productIds,
+        xresponse
       };
   
       const backendEndpoint = `http://localhost:3001/transactions/create`;
@@ -171,7 +172,7 @@ function PaymentConfirmationPage({ user }) {
         console.error('Error al guardar la transacción en la base de datos');
       }
     } catch (error) {
-      console.error('Error al guardar la transacción en la base de datos:', error);
+      console.error('Error al guardar la transacción en la base de datos:', error.message);
     }
   };
   
@@ -179,6 +180,7 @@ function PaymentConfirmationPage({ user }) {
 
   const updateProductStock = async (productId, quantity) => {
     try {
+      console.log("cantidad:", quantity)
       // Obtener datos del producto
       const { data } = await axios.get(`http://localhost:3001/products/${productId}`);
       const { isActive, name, price, image, brand, category, stock } = data;
