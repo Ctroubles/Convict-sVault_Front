@@ -179,24 +179,21 @@ function PaymentConfirmationPage({ user }) {
   
 
   const updateProductStock = async (productId, quantity) => {
+    console.log("este es el id", productId);
     try {
-      console.log("Cantidad:", quantity);
       // Obtener datos del producto
-      const { data } = await axios.get(`http://localhost:3001/products/${productId}`);
+      const { data } = await axios.get(`${Url_deploy_back}/products/${productId}`);
       const { isActive, name, price, image, brand, category, stock } = data;
-  
-      console.log("Producto actual:", data);
-      console.log("Stock actual:", stock);
-  
+  console.log(stock)
       // Calcular el stock actualizado
       let updatedStock = stock - quantity;
+      console.log(updatedStock)
       updatedStock = Math.max(updatedStock, 0);
   
-      console.log("Stock actualizado:", updatedStock);
-  
       const newIsActive = determineIsActive(updatedStock, quantity);
-  
+      console.log(newIsActive)
       // Define isActive basado en el valor de updatedStock
+  
       await axios.put(`${Url_deploy_back}/products/${productId}`, {
         isActive: newIsActive,
         name,
@@ -204,10 +201,10 @@ function PaymentConfirmationPage({ user }) {
         image,
         brand,
         category,
-        stock: 10,
+        stock: updatedStock,
       });
   
-      console.log(`El producto con ID: ${productId} ha sido actualizado con éxito`);
+      console.log(`el producto con id: ${productId} actualizado con éxito`);
     } catch (error) {
       console.error('Error al actualizar el stock del producto:', error.message);
     }
