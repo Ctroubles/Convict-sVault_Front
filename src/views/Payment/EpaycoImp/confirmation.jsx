@@ -59,7 +59,6 @@ function PaymentConfirmationPage() {
         }
         console.log(productId);
         setTransactionStatus(xresponse);
-        localStorage.setItem(refPayco, 'processed');
   
         // Aquí puedes realizar la solicitud POST al backend con las variables definidas
         const dataToSend = {
