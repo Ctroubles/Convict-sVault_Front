@@ -4,29 +4,39 @@ import axios from 'axios';
 
 const Pedidos = ({ pedidos = [] }) => {
   const [productDetails, setProductDetails] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 3;
 
   useEffect(() => {
-    // Función para obtener detalles de productos por ID
-    const fetchProductDetails = async (productId) => {
-      try {
-        const response = await axios.get(`http://localhost:3001/products/${productId}`);
-        const productData = response.data;
-
-        // Añadir los detalles del producto al estado
-        setProductDetails((prevProductDetails) => [...prevProductDetails, productData]);
-      } catch (error) {
-        console.error('Error al obtener detalles del producto:', error);
-      }
-    };
-
-    // Resetear los detalles de productos cada vez que cambia el array de pedidos
+    // Limpia los detalles de productos al cambiar los pedidos
     setProductDetails([]);
 
-    // Iterar a través de los pedidos y obtener los detalles de cada producto
+    // Itera a través de los pedidos y obtiene los detalles de cada producto
     pedidos.forEach((pedido) => {
       fetchProductDetails(pedido);
     });
   }, [pedidos]);
+
+  // Función para obtener detalles de productos por ID
+  const fetchProductDetails = async (productId) => {
+    try {
+      const response = await axios.get(`http://localhost:3001/products/${productId}`);
+      const productData = response.data;
+
+      // Añadir los detalles del producto al estado
+      setProductDetails((prevProductDetails) => [...prevProductDetails, productData]);
+    } catch (error) {
+      console.error('Error al obtener detalles del producto:', error);
+    }
+  };
+
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = productDetails.slice(indexOfFirstProduct, indexOfLastProduct);
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   if (pedidos.length === 0) {
     return (
@@ -42,10 +52,10 @@ const Pedidos = ({ pedidos = [] }) => {
     <div id={style.Direcciones}>
       <h2>Tus Pedidos</h2>
       <div>
-        {productDetails.length > 0 &&
-          productDetails.map((product, index) => (
+        {currentProducts.length > 0 &&
+          currentProducts.map((product, index) => (
             <div key={index} className={style.pedidoItem}>
-              <h3> {index + 1}</h3>
+              <h3>{index + 1 + (currentPage - 1) * productsPerPage}</h3>
               <div className={style.productInfo}>
                 <div className={style.imageContainer}>
                   <img src={product.image} alt={product.name} />
@@ -64,7 +74,20 @@ const Pedidos = ({ pedidos = [] }) => {
             </div>
           ))}
       </div>
+      <div className={style.pagination}>
+        {productDetails.length > productsPerPage && (
+          <div>
+            <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
+              Anterior
+            </button>
+            <button onClick={() => paginate(currentPage + 1)} disabled={indexOfLastProduct >= productDetails.length}>
+              Siguiente
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
+
 export default Pedidos;
