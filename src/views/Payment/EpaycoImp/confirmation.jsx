@@ -123,7 +123,7 @@ function PaymentConfirmationPage() {
           if (!isNaN(quantity)) {
             // Realizar la verificación de existencia en la base de datos
             try {
-              const response = await fetch(`${Url_deploy_back}/transactions/compras/${refPayco}`);
+              const response = await fetch(`${Url_deploy_back}/transactions/compras/${xRefPayco}`);
               const data = await response.json();
 
               if (response.ok) {
