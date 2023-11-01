@@ -125,6 +125,12 @@ function PaymentConfirmationPage() {
             try {
               const response = await fetch(`${Url_deploy_back}/transactions/compras/${refPayco}`);
               const data = await response.json();
+
+              if (response.ok) {
+                console.log("first", data)
+              }else{
+                console.error('Error en la respuesta:', data);
+              }
   
               if (data.length > 0) {
                 console.log('El elemento ya existe en la base de datos. No se actualizará el stock nuevamente.');
