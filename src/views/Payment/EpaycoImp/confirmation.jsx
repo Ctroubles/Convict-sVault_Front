@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import logo from "../../../assets/icons/Banner ARTE.png";
 import Url_deploy_back from '../../../util/deploy_back';
+import { useSelector } from "react-redux";
 
 const containerStyle = {
   display: 'flex',
@@ -28,14 +29,21 @@ const boxStyle = {
 
 function PaymentConfirmationPage({user}) {
 
-  console.log("hola", user._id)
+  const cart = useSelector((state) => state.cart);
+  // console.log("esto es lo que hay en el carrito", cart)
+
+  const productIds = cart.map(item => Object.keys(item)[0]);
+  // console.log(productIds);
+
+  // console.log("hola", user._id)
   const [transactionStatus, setTransactionStatus] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [transactionId, setTransactionId] = useState(0);
 
 
   useEffect(() => {
-    console.log("YA SE ACTUALIZOOOOOOOOOOO")
+   
+    // console.log("YA SE ACTUALIZOOOOOOOOOOO")
     var urlActual = window.location.href;
     var urlObj = new URL(urlActual);
     var refPayco = urlObj.searchParams.get("ref_payco");
@@ -50,26 +58,24 @@ function PaymentConfirmationPage({user}) {
         xRefPayco = data.data.x_ref_payco;
         xdescription = data.data.x_description;
         xresponse = data.data.x_response;
-        xIdInvoice = data.data.x_id_invoice;
+        // xIdInvoice = data.data.x_id_invoice;
         xAmount = data.data.x_amount;
         console.log(xRefPayco);
         setTransactionId(xRefPayco);
         console.log(xresponse);
-        const productId = xIdInvoice.split('-')[0];
         if (xdescription && xIdInvoice) {
-          updateStockFromDescription(xdescription, productId, xRefPayco);
+          updateStockFromDescription(xdescription, productIds, xRefPayco);
         }
-        console.log(productId);
         setTransactionStatus(xresponse);
         const userId = user._id
-        addProductToOrder(userId, productId)
+        addProductToOrder(userId, productIds)
   
         // Aquí puedes realizar la solicitud POST al backend con las variables definidas
         const dataToSend = {
           xRefPayco,
           xdescription,
           xresponse,
-          productId,
+          productIds,
           xAmount // Si es necesario
         };
   
@@ -110,13 +116,13 @@ function PaymentConfirmationPage({user}) {
   }, []);
 
       ////////////////////////////////////////////////////////////////////////////////
-      const addProductToOrder = async (userId, productId) => {
+      const addProductToOrder = async (userId, productIds) => {
         try {
-          console.log("1",userId)
-          console.log("2", productId)
+          // console.log("1",userId)
+          console.log("addProductToOrder", productIds)
           // Define el cuerpo de la solicitud
           const requestBody = {
-            productId: productId,
+            productIds: productIds,
           };
       
           // Realiza la solicitud POST al endpoint
@@ -138,57 +144,65 @@ function PaymentConfirmationPage({user}) {
       ////////////////////////////////////////////////////////////////////
   
 
-  const updateStockFromDescription = async (description, productId, xRefPayco) => {
-    console.log("hola", xRefPayco);
-  
-    if (productId !== null) {
-      const productInfoArray = description.split(', ');
-  
-      for (const productInfo of productInfoArray) {
-        const quantityMatch = /X (\d+)/; // Expresión regular para capturar el número
-  
-        const quantityMatchResult = quantityMatch.exec(productInfo);
-  
-        if (quantityMatchResult) {
-          const quantity = parseInt(quantityMatchResult[1], 10);
-  
-          if (!isNaN(quantity)) {
-            // Realizar la verificación de existencia en la base de datos
-            try {
-              console.log("now")
-              const response = await fetch(`${Url_deploy_back}/transactions/compras/${xRefPayco}`);
-              const data = await response.json();
-
-              if (response.ok) {
-                console.log("first", data)
-              }else{
-                console.error('Error en la respuesta:', data);
-              }
-              if (data.length > 0) {
-                console.log('El elemento ya existe en la base de datos. No se actualizará el stock nuevamente.');
-              } else {
-                // Continuar con la actualización del stock
+      const updateStockFromDescription = async (description, productIds, xRefPayco) => {
+        console.log("hola", xRefPayco);
+      
+        if (productIds !== null) {
+          const productInfoArray = description.split(', ');
+      
+          for (const productInfo of productInfoArray) {
+            const productMatch = /(\w+) X (\d+)/; // Expresión regular para capturar el nombre del producto y la cantidad
+      
+            const productMatchResult = productMatch.exec(productInfo);
+      
+            if (productMatchResult) {
+              const productName = productMatchResult[1];
+              const quantity = parseInt(productMatchResult[2], 10);
+              console.log(productName)
+      
+              if (!isNaN(quantity)) {
+                // Realizar la verificación de existencia en la base de datos
                 try {
-                  // Realizar la actualización del stock
-                  await updateProductStock(productId, quantity);
-                  alert('Stock actualizado con éxito');
+                  console.log("now");
+                  const response = await fetch(`${Url_deploy_back}/transactions/compras/${xRefPayco}`);
+                  const data = await response.json();
+      
+                  if (response.ok) {
+                    console.log("first", data);
+                  } else {
+                    console.error('Error en la respuesta:', data);
+                  }
+                  if (data.length > 0) {
+                    console.log('El elemento ya existe en la base de datos. No se actualizará el stock nuevamente.');
+                  } else {
+                    // Obtén el ID del producto correspondiente
+                    const productIndex = productInfoArray.indexOf(productInfo);
+                    if (productIndex < productIds.length) {
+                      const productId = productIds[productIndex];
+      
+                      // Continuar con la actualización del stock
+                      try {
+                        // Realizar la actualización del stock
+                        await updateProductStock(productId, quantity);
+                        alert('Stock actualizado con éxito');
+                      } catch (error) {
+                        console.error('Error al actualizar el stock del producto:', error.message);
+                        alert('Error al actualizar el stock del producto');
+                      }
+                    }
+                  }
                 } catch (error) {
-                  console.error('Error al actualizar el stock del producto:', error.message);
-                  alert('Error al actualizar el stock del producto');
+                  console.error('Error al verificar la existencia del elemento en la base de datos:', error.message);
                 }
               }
-            } catch (error) {
-              console.error('Error al verificar la existencia del elemento en la base de datos:', error.message);
             }
           }
+        } else {
+          console.error('transactionId es null o no válido.');
+          alert('Error: transactionId es null o no válido');
         }
-      }
-    } else {
-      console.error('transactionId es null o no válido.');
-      alert('Error: transactionId es null o no válido');
-    }
-  };
-  
+      };
+      
   
   
   
@@ -200,39 +214,36 @@ function PaymentConfirmationPage({user}) {
   };
   
 
-  const updateProductStock = async (productId, quantity) => {
-    console.log("este es el id", productId);
+  const updateProductStock = async (productIds, quantity) => {
     try {
-      // Obtener datos del producto
-      const { data } = await axios.get(`${Url_deploy_back}/products/${productId}`);
-      const { isActive, name, price, image, brand, category, stock } = data;
-  console.log(stock)
-      // Calcular el stock actualizado
-      let updatedStock = stock - quantity;
-      console.log(updatedStock)
-      updatedStock = Math.max(updatedStock, 0);
+      for (const productId of productIds) {
+        // Obtener datos del producto
+        const { data } = await axios.get(`${Url_deploy_back}/products/${productId}`);
+        const { isActive, name, price, image, brand, category, stock } = data;
   
-      const newIsActive = determineIsActive(updatedStock, quantity);
-      console.log(newIsActive)
-      // Define isActive basado en el valor de updatedStock
+        // Calcular el stock actualizado
+        let updatedStock = stock - quantity;
+        updatedStock = Math.max(updatedStock, 0);
   
-      await axios.put(`${Url_deploy_back}/products/${productId}`, {
-        isActive: newIsActive,
-        name,
-        price,
-        image,
-        brand,
-        category,
-        stock: updatedStock,
-      });
+        const newIsActive = determineIsActive(updatedStock, quantity);
   
-      console.log(`el producto con id: ${productId} actualizado con éxito`);
+        // Define isActive basado en el valor de updatedStock
+        await axios.put(`${Url_deploy_back}/products/${productId}`, {
+          isActive: newIsActive,
+          name,
+          price,
+          image,
+          brand,
+          category,
+          stock: updatedStock,
+        });
+  
+        console.log(`El producto con ID: ${productId} ha sido actualizado con éxito`);
+      }
     } catch (error) {
       console.error('Error al actualizar el stock del producto:', error.message);
     }
   };
-  
-
   return (
     <div style={containerStyle}>
       <img src={logo} alt="Logo" style={logoStyle} />
