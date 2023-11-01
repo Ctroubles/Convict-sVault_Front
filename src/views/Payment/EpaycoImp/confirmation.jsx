@@ -34,7 +34,7 @@ function PaymentConfirmationPage() {
 
 
   useEffect(() => {
-    localStorage.clear();
+
     // Obtener la URL actual del navegador
 var urlActual = window.location.href;
 
