@@ -195,7 +195,7 @@ function PaymentConfirmationPage({ user }) {
       const newIsActive = determineIsActive(updatedStock, quantity);
   
       // Actualizar el producto con el nuevo stock
-      const response = await axios.put(`${Url_deploy_back}/products/${productId}`, {
+      const response = await axios.put(`${Url_deploy_back}/products/put/${productId}`, {
         isActive: newIsActive,
         name,
         price,
