@@ -204,7 +204,7 @@ function PaymentConfirmationPage({ user }) {
         image,
         brand,
         category,
-        stock: updatedStock,
+        stock: 10,
       });
   
       console.log(`El producto con ID: ${productId} ha sido actualizado con éxito`);
