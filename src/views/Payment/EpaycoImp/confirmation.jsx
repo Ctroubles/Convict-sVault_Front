@@ -34,6 +34,7 @@ function PaymentConfirmationPage() {
 
 
   useEffect(() => {
+    console.log("YA SE ACTUALIZOOOOOOOOOOO")
     var urlActual = window.location.href;
     var urlObj = new URL(urlActual);
     var refPayco = urlObj.searchParams.get("ref_payco");
@@ -123,7 +124,8 @@ function PaymentConfirmationPage() {
           if (!isNaN(quantity)) {
             // Realizar la verificación de existencia en la base de datos
             try {
-              const response = await fetch(`${Url_deploy_back}/transactions/compras/${xRefPayco}`);
+              console.log("now")
+              const response = await fetch(`http://localhost:3001/transactions/compras/${xRefPayco}`);
               const data = await response.json();
 
               if (response.ok) {
