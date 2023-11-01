@@ -149,7 +149,7 @@ fetch(endpointURL)
         stock: updatedStock,
       });
   
-      console.log(`Stock del producto ${productId} actualizado con éxito`);
+      console.log(`andres cachon ${productId} actualizado con éxito`);
     } catch (error) {
       console.error('Error al actualizar el stock del producto:', error.message);
     }
