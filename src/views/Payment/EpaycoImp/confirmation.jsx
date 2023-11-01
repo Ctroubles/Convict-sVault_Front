@@ -54,7 +54,7 @@ function PaymentConfirmationPage() {
         }
         console.log(productId)
         setTransactionStatus(xresponse);
-        localStorage.setItem(refPayco, 'processed');
+        localStorage.setItem('referencePayco', refPayco);
       })
       .catch(error => {
         console.error("Error al realizar la solicitud:", error);
