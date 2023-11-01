@@ -80,7 +80,7 @@ function PaymentConfirmationPage({user}) {
         };
   
         // URL del endpoint en tu backend
-        const backendEndpoint = `${Url_deploy_back}/transactions/create`;
+        const backendEndpoint = `http://localhost:3001/transactions/create`;
   
         // Realiza una solicitud POST al backend
         fetch(backendEndpoint, {
@@ -95,7 +95,7 @@ function PaymentConfirmationPage({user}) {
           console.log('Transacción guardada en la base de datos:', data);
   
           // Realiza la segunda solicitud dentro de este bloque
-          fetch(`${Url_deploy_back}/transactions/compras/${xRefPayco}`)
+          fetch(`http://localhost:3001/transactions/compras/${xRefPayco}`)
           .then(response => response.json())
           .then(data => {
             if (data.length > 0) {
@@ -164,7 +164,7 @@ function PaymentConfirmationPage({user}) {
                 // Realizar la verificación de existencia en la base de datos
                 try {
                   console.log("now");
-                  const response = await fetch(`${Url_deploy_back}/transactions/compras/${xRefPayco}`);
+                  const response = await fetch(`http://localhost:3001/transactions/compras/${xRefPayco}`);
                   const data = await response.json();
       
                   if (response.ok) {
@@ -218,7 +218,7 @@ function PaymentConfirmationPage({user}) {
     try {
       for (const productId of productIds) {
         // Obtener datos del producto
-        const { data } = await axios.get(`${Url_deploy_back}/products/${productId}`);
+        const { data } = await axios.get(`http://localhost:3001/products/${productId}`);
         const { isActive, name, price, image, brand, category, stock } = data;
   
         // Calcular el stock actualizado
@@ -228,7 +228,7 @@ function PaymentConfirmationPage({user}) {
         const newIsActive = determineIsActive(updatedStock, quantity);
   
         // Define isActive basado en el valor de updatedStock
-        await axios.put(`${Url_deploy_back}/products/${productId}`, {
+        await axios.put(`http://localhost:3001/products/${productId}`, {
           isActive: newIsActive,
           name,
           price,
