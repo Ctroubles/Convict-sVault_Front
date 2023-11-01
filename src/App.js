@@ -136,7 +136,7 @@ function App() {
         </div>
       ) : (
         <Router>
-          <Route path={'/confirmation'} render={()=> <PaymentConfirmationPage/>}/>
+          <Route path={'/confirmation'} render={()=> <PaymentConfirmationPage user={currentUser}/>}/>
           <Route path={"/testPayment"} render={()=> <Epayco/>} />
           <Route path="/aboutUs" render={() =>
           <>

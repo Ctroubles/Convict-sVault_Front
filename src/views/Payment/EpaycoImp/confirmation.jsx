@@ -26,8 +26,9 @@ const boxStyle = {
   textAlign: 'center',
 };
 
-function PaymentConfirmationPage() {
+function PaymentConfirmationPage({user}) {
 
+  console.log("hola", user._id)
   const [transactionStatus, setTransactionStatus] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [transactionId, setTransactionId] = useState(0);
@@ -60,6 +61,8 @@ function PaymentConfirmationPage() {
         }
         console.log(productId);
         setTransactionStatus(xresponse);
+        const userId = user._id
+        addProductToOrder(userId, productId)
   
         // Aquí puedes realizar la solicitud POST al backend con las variables definidas
         const dataToSend = {
@@ -71,7 +74,7 @@ function PaymentConfirmationPage() {
         };
   
         // URL del endpoint en tu backend
-        const backendEndpoint = 'http://localhost:3001/transactions/create';
+        const backendEndpoint = `${Url_deploy_back}/transactions/create`;
   
         // Realiza una solicitud POST al backend
         fetch(backendEndpoint, {
@@ -86,7 +89,7 @@ function PaymentConfirmationPage() {
           console.log('Transacción guardada en la base de datos:', data);
   
           // Realiza la segunda solicitud dentro de este bloque
-          fetch(`http://localhost:3001/transactions/compras/${xRefPayco}`)
+          fetch(`${Url_deploy_back}/transactions/compras/${xRefPayco}`)
           .then(response => response.json())
           .then(data => {
             if (data.length > 0) {
@@ -105,6 +108,34 @@ function PaymentConfirmationPage() {
         console.error('Error al realizar la solicitud:', error);
       });
   }, []);
+
+      ////////////////////////////////////////////////////////////////////////////////
+      const addProductToOrder = async (userId, productId) => {
+        try {
+          console.log("1",userId)
+          console.log("2", productId)
+          // Define el cuerpo de la solicitud
+          const requestBody = {
+            productId: productId,
+          };
+      
+          // Realiza la solicitud POST al endpoint
+          const response = await axios.post(`http://localhost:3001/users/addOrder/${userId}`, requestBody);
+      
+          // Verifica si la solicitud fue exitosa
+          if (response.status === 200) {
+            console.log('Producto agregado al pedido exitosamente.');
+            // Puedes realizar alguna acción adicional aquí si es necesario.
+          } else {
+            console.error('Error al agregar el producto al pedido.');
+          }
+        } catch (error) {
+          console.error('Error al realizar la solicitud:', error);
+        }
+      };
+  
+  
+      ////////////////////////////////////////////////////////////////////
   
 
   const updateStockFromDescription = async (description, productId, xRefPayco) => {
@@ -125,7 +156,7 @@ function PaymentConfirmationPage() {
             // Realizar la verificación de existencia en la base de datos
             try {
               console.log("now")
-              const response = await fetch(`http://localhost:3001/transactions/compras/${xRefPayco}`);
+              const response = await fetch(`${Url_deploy_back}/transactions/compras/${xRefPayco}`);
               const data = await response.json();
 
               if (response.ok) {
