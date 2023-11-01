@@ -128,7 +128,7 @@ function PaymentConfirmationPage({ user }) {
                 // Finalmente, registrar la transacción
                 await registerTransaction(xRefPayco, xdescription, productIds, xAmount, xresponse);
   
-                alert('Stock actualizado con éxito');
+                alert(`Stock actualizado con éxito${productId}`);
               } catch (error) {
                 console.error('Error al actualizar el stock del producto:', error.message);
                 alert('Error al actualizar el stock del producto');
