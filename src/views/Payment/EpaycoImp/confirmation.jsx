@@ -102,18 +102,18 @@ function PaymentConfirmationPage({ user }) {
     }
   };
 
-  const updateStockFromDescription = async (xdescription, productIds, xRefPayco) => {
+  const updateStockFromDescription = async (xdescription, productIds, xRefPayco, xAmount) => {
     if (productIds !== null) {
       const productInfoArray = xdescription.split(', ');
-
+  
       for (const productInfo of productInfoArray) {
         const productMatch = /(\w+) X (\d+)/;
         const productMatchResult = productMatch.exec(productInfo);
-
+  
         if (productMatchResult) {
           const productName = productMatchResult[1];
           const quantity = parseInt(productMatchResult[2], 10);
-
+  
           if (!isNaN(quantity)) {
             const productIndex = productInfoArray.indexOf(productInfo);
             if (productIndex < productIds.length) {
@@ -121,13 +121,13 @@ function PaymentConfirmationPage({ user }) {
               try {
                 // Actualizar el stock primero
                 await updateProductStock(productId, quantity);
-
+  
                 // Luego, agregar el producto al pedido
                 addProductToOrder(userId, productIds);
-
+  
                 // Finalmente, registrar la transacción
                 await registerTransaction(xRefPayco, xdescription, productIds, xAmount);
-
+  
                 alert('Stock actualizado con éxito');
               } catch (error) {
                 console.error('Error al actualizar el stock del producto:', error.message);
@@ -142,10 +142,39 @@ function PaymentConfirmationPage({ user }) {
       alert('Error: transactionId es null o no válido');
     }
   };
-
   const determineIsActive = (stock, quantity) => {
     return stock - quantity
   };
+
+  const registerTransaction = async (xRefPayco, xdescription, productIds, xAmount) => {
+    try {
+      const dataToSend = {
+        xRefPayco,
+        xdescription,
+        xAmount,
+        productIds,
+      };
+  
+      const backendEndpoint = `http://localhost:3001/transactions/create`;
+  
+      const response = await fetch(backendEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dataToSend),
+      });
+  
+      if (response.ok) {
+        console.log('Transacción guardada en la base de datos con éxito');
+      } else {
+        console.error('Error al guardar la transacción en la base de datos');
+      }
+    } catch (error) {
+      console.error('Error al guardar la transacción en la base de datos:', error);
+    }
+  };
+  
   
 
   const updateProductStock = async (productId, quantity) => {
