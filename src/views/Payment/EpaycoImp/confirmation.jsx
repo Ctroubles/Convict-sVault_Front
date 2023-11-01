@@ -61,40 +61,6 @@ function PaymentConfirmationPage({ user }) {
           });
         }
         setTransactionStatus(xresponse);
-        const dataToSend = {
-          xRefPayco,
-          xdescription,
-          xresponse,
-          productIds,
-          xAmount,
-        };
-
-        const backendEndpoint = `http://localhost:3001/transactions/create`;
-
-        fetch(backendEndpoint, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(dataToSend),
-        })
-        .then(response => response.json())
-        .then(data => {
-          console.log('Transacción guardada en la base de datos:', data);
-          fetch(`http://localhost:3001/transactions/compras/${xRefPayco}`)
-          .then(response => response.json())
-          .then(data => {
-            if (data.length > 0) {
-              console.log('El elemento ya existe en la base de datos.');
-            }
-          })
-          .catch(error => {
-            console.error('Error al verificar la existencia del elemento en la base de datos:', error);
-          });
-        })
-        .catch(error => {
-          console.error('Error al guardar la transacción en la base de datos:', error);
-        });
       })
       .catch(error => {
         console.error('Error al realizar la solicitud:', error);
@@ -149,35 +115,24 @@ function PaymentConfirmationPage({ user }) {
           const quantity = parseInt(productMatchResult[2], 10);
 
           if (!isNaN(quantity)) {
-            try {
-              const response = await fetch(`http://localhost:3001/transactions/compras/${xRefPayco}`);
-              const data = await response.json();
+            const productIndex = productInfoArray.indexOf(productInfo);
+            if (productIndex < productIds.length) {
+              const productId = productIds[productIndex];
+              try {
+                // Actualizar el stock primero
+                await updateProductStock(productId, quantity);
 
-              if (response.ok) {
-                console.log("first", data);
-              } else {
-                console.error('Error en la respuesta:', data);
+                // Luego, agregar el producto al pedido
+                addProductToOrder(userId, productIds);
+
+                // Finalmente, registrar la transacción
+                await registerTransaction(xRefPayco, xdescription, productIds, xAmount);
+
+                alert('Stock actualizado con éxito');
+              } catch (error) {
+                console.error('Error al actualizar el stock del producto:', error.message);
+                alert('Error al actualizar el stock del producto');
               }
-              if (data.length > 0) {
-                console.log('El elemento ya existe en la base de datos. No se actualizará el stock nuevamente.');
-              } else {
-                const productIndex = productInfoArray.indexOf(productInfo);
-                if (productIndex < productIds.length) {
-                  const productId = productIds[productIndex];
-                  addProductToOrder(userId, productIds);
-                  updateStockFromDescription(xdescription, productIds, xRefPayco);
-                  updateProductStock(productIds, quantity);
-                  try {
-                    await updateProductStock(productId, quantity);
-                    alert('Stock actualizado con éxito');
-                  } catch (error) {
-                    console.error('Error al actualizar el stock del producto:', error.message);
-                    alert('Error al actualizar el stock del producto');
-                  }
-                }
-              }
-            } catch (error) {
-              console.error('Error al verificar la existencia del elemento en la base de datos:', error.message);
             }
           }
         }
@@ -189,36 +144,34 @@ function PaymentConfirmationPage({ user }) {
   };
 
   const determineIsActive = (stock, quantity) => {
-    return stock - quantity > 0;
+    return stock - quantity
   };
   
 
-  const updateProductStock = async (productIds, quantity) => {
+  const updateProductStock = async (productId, quantity) => {
     try {
-      for (const productId of productIds) {
-        // Obtener datos del producto
-        const { data } = await axios.get(`http://localhost:3001/products/${productId}`);
-        const { isActive, name, price, image, brand, category, stock } = data;
+      // Obtener datos del producto
+      const { data } = await axios.get(`http://localhost:3001/products/${productId}`);
+      const { isActive, name, price, image, brand, category, stock } = data;
   
-        // Calcular el stock actualizado
-        let updatedStock = stock - quantity;
-        updatedStock = Math.max(updatedStock, 0);
+      // Calcular el stock actualizado
+      let updatedStock = stock - quantity;
+      updatedStock = Math.max(updatedStock, 0);
   
-        const newIsActive = determineIsActive(updatedStock, quantity);
+      const newIsActive = determineIsActive(updatedStock, quantity);
   
-        // Define isActive basado en el valor de updatedStock
-        await axios.put(`http://localhost:3001/products/${productId}`, {
-          isActive: newIsActive,
-          name,
-          price,
-          image,
-          brand,
-          category,
-          stock: updatedStock,
-        });
+      // Define isActive basado en el valor de updatedStock
+      await axios.put(`http://localhost:3001/products/${productId}`, {
+        isActive: newIsActive,
+        name,
+        price,
+        image,
+        brand,
+        category,
+        stock: updatedStock,
+      });
   
-        console.log(`El producto con ID: ${productId} ha sido actualizado con éxito`);
-      }
+      console.log(`El producto con ID: ${productId} ha sido actualizado con éxito`);
     } catch (error) {
       console.error('Error al actualizar el stock del producto:', error.message);
     }
