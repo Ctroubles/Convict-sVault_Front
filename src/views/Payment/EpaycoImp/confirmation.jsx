@@ -201,7 +201,8 @@ function PaymentConfirmationPage({ user }) {
         category,
         stock: updatedStock,
       });
-  
+  console.log("stock2:", stock)
+  console.log("updatedStock:", updatedStock)
       console.log(`El producto con ID: ${productId} ha sido actualizado con éxito`);
     } catch (error) {
       console.error('Error al actualizar el stock del producto:', error.message);
