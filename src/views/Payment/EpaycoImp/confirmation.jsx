@@ -166,9 +166,10 @@ function PaymentConfirmationPage({ user }) {
         },
         body: JSON.stringify(dataToSend),
       })
-      .then(response => response.json());
-      console.log(response.status);
-      if (response.status === 200) {
+      const responseData = await response.json();
+      console.log('Respuesta completa:', responseData);
+
+      if (response.ok) {
         console.log('Transacción guardada en la base de datos con éxito');
       } else {
         console.error('Error al guardar la transacción en la base de datos');
