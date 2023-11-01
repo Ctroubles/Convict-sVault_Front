@@ -156,7 +156,7 @@ function PaymentConfirmationPage({ user }) {
         xresponse
       };
   
-      const backendEndpoint = `http://localhost:3001/transactions/create`;
+      const backendEndpoint = `${Url_deploy_back}/transactions/create`;
   
       const response = await fetch(backendEndpoint, {
         method: 'POST',
@@ -166,7 +166,7 @@ function PaymentConfirmationPage({ user }) {
         body: JSON.stringify(dataToSend),
       });
   
-      if (response.ok) {
+      if (response.status === 200) {
         console.log('Transacción guardada en la base de datos con éxito');
       } else {
         console.error('Error al guardar la transacción en la base de datos');
