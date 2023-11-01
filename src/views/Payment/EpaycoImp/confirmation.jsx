@@ -37,30 +37,31 @@ function PaymentConfirmationPage({ user }) {
   const [transactionStatus, setTransactionStatus] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [transactionId, setTransactionId] = useState(0);
+  const [xresponse, setXResponse] = useState('');
 
   useEffect(() => {
     var urlActual = window.location.href;
     var urlObj = new URL(urlActual);
     var refPayco = urlObj.searchParams.get("ref_payco");
     const endpointURL = `https://secure.epayco.co/validation/v1/reference/${refPayco}`;
-
-    let xRefPayco, xdescription, xresponse, xAmount;
-
+  
+    let xRefPayco, xdescription, xAmount;
+  
     fetch(endpointURL)
       .then(response => response.json())
       .then(data => {
         xRefPayco = data.data.x_ref_payco;
         xdescription = data.data.x_description;
-        xresponse = data.data.x_response;
+        const xresponse = data.data.x_response; // Definir xresponse aquí
         xAmount = data.data.x_amount;
         setTransactionId(xRefPayco);
         if (xdescription) {
           checkIfTransactionExists(xRefPayco, () => {
-            updateStockFromDescription(xdescription, productIds, xRefPayco, xresponse);
+            updateStockFromDescription(xdescription, productIds, xRefPayco, xAmount, xresponse); // Pasar xresponse como argumento
             addProductToOrder(userId, productIds);
           });
         }
-        setTransactionStatus(xresponse);
+        setTransactionStatus(xresponse); // Actualizar el estado aquí
       })
       .catch(error => {
         console.error('Error al realizar la solicitud:', error);
@@ -155,7 +156,7 @@ function PaymentConfirmationPage({ user }) {
         productIds, // Envía productIds como un array
         xAmount // Si es necesario
       };
-  console.log("dataToSend:", dataToSend)
+  console.log("dataToSend:", dataToSend.xresponse)
       const backendEndpoint = `http://localhost:3001/transactions/create`;
   
       const response = await fetch(backendEndpoint, {
