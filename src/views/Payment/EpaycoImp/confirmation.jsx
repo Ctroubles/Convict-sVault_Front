@@ -34,47 +34,33 @@ function PaymentConfirmationPage() {
 
 
   useEffect(() => {
+    var urlActual = window.location.href;
+    var urlObj = new URL(urlActual);
+    var refPayco = urlObj.searchParams.get("ref_payco");
+    const endpointURL = `https://secure.epayco.co/validation/v1/reference/${refPayco}`;
+    fetch(endpointURL)
+      .then(response => response.json())
+      .then(data => {
+        const xRefPayco = data.data.x_ref_payco;
+        const xdescription = data.data.x_description;
+        const xresponse = data.data.x_response;
+        const xIdInvoice = data.data.x_id_invoice;
+        console.log(xRefPayco)
+        setTransactionId(xRefPayco);
+        console.log(xresponse)
+        const productId = xIdInvoice.split('-')[0];
+        if (xdescription && xIdInvoice) {
+          updateStockFromDescription(xdescription, productId, refPayco);
+        }
+        console.log(productId)
+        setTransactionStatus(xresponse);
+        localStorage.setItem(refPayco, 'processed');
+      })
+      .catch(error => {
+        console.error("Error al realizar la solicitud:", error);
+      });
 
-    // Obtener la URL actual del navegador
-var urlActual = window.location.href;
-
-// Crear un objeto URL
-var urlObj = new URL(urlActual);
-
-// Obtener el valor de ref_payco
-var refPayco = urlObj.searchParams.get("ref_payco");
-
-// console.log(refPayco); // Esto imprimirá el valor de ref_payco si está presente en la URL actual
-
-const endpointURL = `https://secure.epayco.co/validation/v1/reference/${refPayco}`;
-
-// Realizar una solicitud HTTP GET al endpoint
-fetch(endpointURL)
-  .then(response => response.json())
-  .then(data => {
-    // Extraer el valor de x_ref_payco
-    const xRefPayco = data.data.x_ref_payco;
-    const xdescription = data.data.x_description;
-    const xresponse = data.data.x_response;
-    const xIdInvoice = data.data.x_id_invoice;
-    console.log(xRefPayco); // Esto imprimirá el valor de x_ref_payco
-    setTransactionId(xRefPayco);
-    // console.log(xdescription);
-    console.log(xresponse);
-    // console.log(xIdInvoice)
-    const productId = xIdInvoice.split('-')[0];
-    if (xdescription && xIdInvoice) {
-      updateStockFromDescription(xdescription, productId, refPayco);
-    }
-    console.log(productId)
-    setTransactionStatus(xresponse);
-    localStorage.setItem(refPayco, 'processed');
-  })
-  .catch(error => {
-    console.error("Error al realizar la solicitud:", error);
-  });
-
-  }, [transactionId]); // Agrega transactionId como una dependencia
+  }, [])
 
   
 
