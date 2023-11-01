@@ -84,6 +84,18 @@ function PaymentConfirmationPage() {
         .then(response => response.json())
         .then(data => {
           console.log('Transacción guardada en la base de datos:', data);
+  
+          // Realiza la segunda solicitud dentro de este bloque
+          fetch(`http://localhost:3001/transactions/compras/${xRefPayco}`)
+          .then(response => response.json())
+          .then(data => {
+            if (data.length > 0) {
+              console.log('El elemento ya existe en la base de datos.');
+            }
+          })
+          .catch(error => {
+            console.error('Error al verificar la existencia del elemento en la base de datos:', error);
+          });
         })
         .catch(error => {
           console.error('Error al guardar la transacción en la base de datos:', error);
@@ -94,12 +106,10 @@ function PaymentConfirmationPage() {
       });
   }, []);
   
-  
-
-  
 
   const updateStockFromDescription = async (description, productId, refPayco) => {
-    console.log("hola",  refPayco)
+    console.log("hola", refPayco);
+  
     if (productId !== null) {
       const productInfoArray = description.split(', ');
   
@@ -107,22 +117,31 @@ function PaymentConfirmationPage() {
         const quantityMatch = /X (\d+)/; // Expresión regular para capturar el número
   
         const quantityMatchResult = quantityMatch.exec(productInfo);
-//   console.log(quantityMatchResult)
+  
         if (quantityMatchResult) {
           const quantity = parseInt(quantityMatchResult[1], 10);
   
           if (!isNaN(quantity)) {
-            if (localStorage.getItem(refPayco)) {
-              alert(`Ya se habia realizado la actualizacion del stock con ref: ${refPayco}`);
-              return;
-            }
+            // Realizar la verificación de existencia en la base de datos
             try {
-              await updateProductStock(productId, quantity); // Pasa productInfo en lugar de productId
-              localStorage.setItem(refPayco, 'processed');
-              alert('Stock actualizado con éxito');
+              const response = await fetch(`http://localhost:3001/transactions/compras/${refPayco}`);
+              const data = await response.json();
+  
+              if (data.length > 0) {
+                console.log('El elemento ya existe en la base de datos.');
+              } else {
+                // Continuar con la actualización del stock
+                try {
+                  // Realizar la actualización del stock
+                  await updateProductStock(productId, quantity);
+                  alert('Stock actualizado con éxito');
+                } catch (error) {
+                  console.error('Error al actualizar el stock del producto:', error.message);
+                  alert('Error al actualizar el stock del producto');
+                }
+              }
             } catch (error) {
-              console.error('Error al actualizar el stock del producto:', error.message);
-              alert('Error al actualizar el stock del producto');
+              console.error('Error al verificar la existencia del elemento en la base de datos:', error);
             }
           }
         }
@@ -132,6 +151,7 @@ function PaymentConfirmationPage() {
       alert('Error: transactionId es null o no válido');
     }
   };
+  
   
   
   
