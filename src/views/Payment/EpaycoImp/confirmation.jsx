@@ -64,7 +64,7 @@ fetch(endpointURL)
     // console.log(xIdInvoice)
     const productId = xIdInvoice.split('-')[0];
     if (xdescription && xIdInvoice) {
-      updateStockFromDescription(xdescription, productId);
+      updateStockFromDescription(xdescription, productId, refPayco);
     }
     console.log(productId)
     setTransactionStatus(xresponse);
