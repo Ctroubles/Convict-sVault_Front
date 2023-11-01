@@ -146,13 +146,13 @@ function PaymentConfirmationPage({ user }) {
     return stock - quantity
   };
 
-  const registerTransaction = async (xRefPayco, xdescription, productIds, xAmount, xresponse) => {
+  const registerTransaction = async (xRefPayco, xdescription, productId, xAmount, xresponse) => {
     try {
       const dataToSend = {
         xRefPayco,
         xdescription,
         xAmount,
-        productIds,
+        productId,
         xresponse
       };
   
