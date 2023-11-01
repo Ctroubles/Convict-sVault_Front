@@ -151,9 +151,9 @@ function PaymentConfirmationPage({ user }) {
       const dataToSend = {
         xRefPayco,
         xdescription,
-        xAmount,
-        productIds,
-        xresponse
+        xresponse,
+        productIds, // Envía productIds como un array
+        xAmount // Si es necesario
       };
   
       const backendEndpoint = `${Url_deploy_back}/transactions/create`;
@@ -164,8 +164,10 @@ function PaymentConfirmationPage({ user }) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(dataToSend),
-      });
-  console.log(response.status)
+      })
+      .then(response => response.json());
+      console.log(response.status);
+  
       if (response.status === 200) {
         console.log('Transacción guardada en la base de datos con éxito');
       } else {
