@@ -99,7 +99,7 @@ fetch(endpointURL)
   
             try {
               await updateProductStock(productId, quantity); // Pasa productInfo en lugar de productId
-              localStorage.setItem(productId, 'processed');
+              localStorage.setItem(xRefPayco, 'processed');
               alert('Stock actualizado con éxito');
             } catch (error) {
               console.error('Error al actualizar el stock del producto:', error.message);
