@@ -70,7 +70,7 @@ function PaymentConfirmationPage({ user }) {
   }, []);
 
   const checkIfTransactionExists = (xRefPayco, callback) => {
-    fetch(`http://localhost:3001/transactions/compras/${xRefPayco}`)
+    fetch(`${Url_deploy_back}/transactions/compras/${xRefPayco}`)
       .then((response) => response.json())
       .then((data) => {
         if (data.length > 0) {
@@ -91,7 +91,7 @@ function PaymentConfirmationPage({ user }) {
           productId: productId,
         };
 
-        const response = await axios.post(`http://localhost:3001/users/addOrder/${userId}`, requestBody);
+        const response = await axios.post(`${Url_deploy_back}/users/addOrder/${userId}`, requestBody);
 
         if (response.status === 200) {
           console.log(`Producto con ID ${productId} agregado al pedido exitosamente.`);
@@ -158,7 +158,7 @@ function PaymentConfirmationPage({ user }) {
         xAmount // Si es necesario
       };
   console.log("dataToSend:", dataToSend.xresponse)
-      const backendEndpoint = `http://localhost:3001/transactions/create`;
+      const backendEndpoint = `${Url_deploy_back}/transactions/create`;
   
       const response = await fetch(backendEndpoint, {
         method: 'POST',
