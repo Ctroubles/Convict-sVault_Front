@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import style from './Pedidos.module.css';
 import axios from 'axios';
+import Url_deploy_back from '../../../../util/deploy_back';
 
 const Pedidos = ({ pedidos = [] }) => {
   
@@ -21,7 +22,7 @@ const Pedidos = ({ pedidos = [] }) => {
   // Función para obtener detalles de productos por ID
   const fetchProductDetails = async (productId) => {
     try {
-      const response = await axios.get(`http://localhost:3001/products/${productId}`);
+      const response = await axios.get(`${Url_deploy_back}/products/${productId}`);
       const productData = response.data;
 
       // Añadir los detalles del producto al estado
