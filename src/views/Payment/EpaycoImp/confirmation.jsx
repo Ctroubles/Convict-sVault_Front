@@ -204,7 +204,7 @@ function PaymentConfirmationPage({ user }) {
         category,
         stock: updatedStock,
       });
-  
+  console.log(stock)
       if (response.status === 200) {
         console.log(`Producto con ID ${productId} actualizado con éxito`);
       } else {
