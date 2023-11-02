@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import style from "./Home.module.css";
-import bannerPpal from "../../assets/icons/imagenbannerprincipal.jpg";
-import promoImage1 from "../../assets/icons/banner22222.png";
+import promoImage1 from "../../assets/icons/Artboard 20 copy 2.png";
+import bannerPpal from "../../assets/icons/bannerNuevo.png";
 import SliderCategory from "./components/SilderCategory/SliderCategory";
 
 
@@ -12,7 +12,7 @@ const Home = ({ viewportWidth }) => {
         useEffect(() => {
           const timer = setInterval(() => {
             setCurrentPromo((currentPromo + 1) % promotions.length);
-          }, 5000); // Cambia la imagen cada 5 segundos (5000 ms).
+          }, 6000); // Cambia la imagen cada 5 segundos (5000 ms).
       
           return () => {
             clearInterval(timer);
