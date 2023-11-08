@@ -38,7 +38,7 @@ const SliderCategory = ({ category, viewportWidth }) => {
       const { data } = await axios.get(`${Url_deploy_back}/products/category/${category}`);
       if (data.length) {
         const arrSlider = data.filter(e => Number(e.stock) > 0 && e.isActive);
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < 5; i++) {
           arrSlider.push(arrSlider[i]);
         }
         setSliderStyle({
@@ -86,7 +86,7 @@ const SliderCategory = ({ category, viewportWidth }) => {
   };
 
   useEffect(() => {
-    if (!(position >= -products.length + 4)) {
+    if (!(position >= -products.length + 5)) {
       setTimeout(() => {
         setSliderStyle({
           transition: `transform 0ms ease`,
@@ -98,7 +98,7 @@ const SliderCategory = ({ category, viewportWidth }) => {
         setSliderStyle({
           transition: `transform 0ms`,
         });
-        setPosition(-(products.length - 4));
+        setPosition(-(products.length - 5));
       }, 300);
     }
   }, [position]);
