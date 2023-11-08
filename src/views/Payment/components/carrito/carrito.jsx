@@ -6,12 +6,17 @@ import { setPurchaseForm } from "../../../../Redux/store/actions/actions";
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 import Url_deploy_back from "../../../../util/deploy_back";
+import { useState } from "react";
+
+
 const Carrito = ({ loading, items, total, formRef, setErrors }) => {
+
+  const [donationAmount, setDonationAmount] = useState(0);
+
   const dispatch = useDispatch();
-console.log(`${items[0]._id}-PAGO${uuidv4()}`)
+// console.log(`${items[0]._id}-PAGO${uuidv4()}`)
   const pagarAutomatically = async (sessionId) => {
-    const apiKey = 'e95deec204ee959cd0fad3b4c2082d54';
-    const privateKey = 'e244fdc8a0b2b994132f2b1b9baf9692';
+
 
     if (sessionId) {
       const handler = window.ePayco.checkout.configure({
@@ -32,7 +37,7 @@ console.log(`${items[0]._id}-PAGO${uuidv4()}`)
         response: 'https://www.superreoy.com/home',
         confirmation: 'https://convict-s-vault-back.vercel.app/confirmation-epayco',
         name: items[0].name  || "default name",
-        invoice: `${items[0]._id}-PAGO${uuidv4()}`,
+        invoice: `PAGO${uuidv4()}`,
         description: items.map(item => `${item.name} X ${item.quantity}`).join(', '),
         currency: 'cop',
         amount: `${total}`,
@@ -43,8 +48,8 @@ console.log(`${items[0]._id}-PAGO${uuidv4()}`)
 
       const { data } = await response;
       const sessionId = data.sessionId;
-      console.log("hola", data)
-      console.log(sessionId);
+      // console.log("hola", data)
+      // console.log(sessionId);
       return sessionId;
     } catch (error) {
       console.log(error);
@@ -93,47 +98,58 @@ console.log(`${items[0]._id}-PAGO${uuidv4()}`)
             </div>
           </div>
           <div style={{ padding: "0 20px 0 20px" }}>
-            <div>
-              <div className={styles.linesData}>
-                <div>
-                  <label>Subtotal</label>
-                </div>
-                <div>
-                  <span>$ {total}</span>
-                </div>
-              </div>
-              <div className={styles.linesData}>
-                <div>
-                  <label>Delivery</label>
-                </div>
-                <div>
-                  <span></span>
-                </div>
+          <div>
+            <div className={styles.linesData}>
+              <div>
+                <label>Subtotal</label>
               </div>
               <div>
-                <div>
-                  <div id={styles.sectionTotal}>
-                    <div>
-                      <label>Total</label>
-                    </div>
-                    <div>
-                      <span>$ {total}</span>
-                    </div>
+                <span>$ {total}</span>
+              </div>
+            </div>
+            <div className={styles.linesData}>
+              <div>
+                <label>Donación</label>
+              </div>
+              <div>
+                <input
+                  type="number"
+                  value={donationAmount}
+                  onChange={(e) => setDonationAmount(parseFloat(e.target.value) || 0)}
+                />
+              </div>
+            </div>
+            <div className={styles.linesData}>
+              <div>
+                <label>Delivery</label>
+              </div>
+              <div>
+                <span></span>
+              </div>
+            </div>
+            <div>
+              <div>
+                <div id={styles.sectionTotal}>
+                  <div>
+                    <label>Total</label>
+                  </div>
+                  <div>
+                    <span>$ {total + donationAmount}</span>
                   </div>
                 </div>
-                <div id={styles.containerPaymentButton}>
-                  <div id={styles.paymentButtonContainer}>
-                  {/* <Epayco loading={loading} items={items} total={total} formRef={formRef} setErrors={setErrors} /> */}
-
-                  <button onClick={() => submitHandler()} id={styles.paymentButton} >Pagar con Epayco</button>
-                  </div>
-                </div>                                  
+              </div>
+              <div id={styles.containerPaymentButton}>
+                <div id={styles.paymentButtonContainer}>
+                  <button onClick={() => submitHandler()} id={styles.paymentButton}>
+                    Pagar con Epayco
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    )
+    </div>
+  );
 }
-
 export default Carrito;
