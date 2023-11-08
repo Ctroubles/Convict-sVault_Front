@@ -103,17 +103,17 @@ const SliderCategory = ({ category, viewportWidth }) => {
     }
   }, [position]);
 
-  function sizeCardSlider() {
-    let size;
-    if (viewportWidth > 680) {
-      size = "33.3333333%";
-    } else if (viewportWidth > 480) {
-      size = "50%";
-    } else {
-      size = "100%";
-    }
-    return size;
+function sizeCardSlider() {
+  let size;
+  if (viewportWidth > 680) {
+    size = category === "Belleza" ? "33.3333333%" : "20%";
+  } else if (viewportWidth > 480) {
+    size = category === "Belleza" ? "33.3333333%" : "20%";
+  } else {
+    size = "100%";
   }
+  return size;
+}
 
   if (loading) {
     return (
@@ -172,6 +172,8 @@ const SliderCategory = ({ category, viewportWidth }) => {
   }
 
   if (products.length) {
+    const isBelleza = category === "Belleza";
+  const cardWidth = isBelleza ? "33.3333333%" : "20%";
     return (
       <div>
         <section id={style.container}>
@@ -187,17 +189,17 @@ const SliderCategory = ({ category, viewportWidth }) => {
           <div>
             <div>
               <div id={style.content}>
-              <div id={style.leftSide}>
                 {category === "Belleza" && (
-                  <img src={promocional} alt="promocional" />
+                  <div id={style.leftSide}>
+                    <img src={promocional} alt="promocional" />
+                  </div>
                 )}
-              </div>
                 <div id={style.rigthSide}>
                   <div style={{ height: "100%", width: "100%" }}>
                     <div style={{ height: "100%", width: "100%" }}>
                       <section style={{ height: "100%", position: "relative", paddingRight: "24px", width: "100%" }}>
                         <div id={style.frame}>
-                          <div id={style.cardsContainer} style={{ width: `calc(${sizeCardSlider()}* ${products?.length})`, minWidth: `calc(${sizeCardSlider()} * ${products?.length})`, maxWidth: `calc(${sizeCardSlider()} * ${products?.length})`, ...sliderStyle, transform: `translate3d(calc((100% / ${products?.length}) * ${position}),0,0)`, }}>
+                          <div id={style.cardsContainer} style={{ width: `calc(${cardWidth}* ${products?.length})`, minWidth: `calc(${cardWidth} * ${products?.length})`, maxWidth: `calc(${cardWidth} * ${products?.length})`, ...sliderStyle, transform: `translate3d(calc((100% / ${products?.length}) * ${position}),0,0)`, }}>
                             {
                               products.map((e, i) => <OtherCard key={e._id + i} brand={e.brand} category={e.category} image={e.image} price={e.price} name={e.name} id={e._id} stock={e.stock} />)
                             }
@@ -222,11 +224,11 @@ const SliderCategory = ({ category, viewportWidth }) => {
           </div>
         </section>
       </div>
-    )
+    );
   } else {
     return (
       <></>
-    )
+    );
   }
 }
 

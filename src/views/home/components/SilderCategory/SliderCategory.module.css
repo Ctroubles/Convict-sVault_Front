@@ -51,7 +51,7 @@
 }
 #rigthSide{
     z-index: 1;
-    width: 65%;
+    width: 100%;
     background-color: transparent;
     transform: translateX(-50px);
     padding-left: 150px;
