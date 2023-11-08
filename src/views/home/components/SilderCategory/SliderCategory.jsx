@@ -187,9 +187,11 @@ const SliderCategory = ({ category, viewportWidth }) => {
           <div>
             <div>
               <div id={style.content}>
-                <div id={style.leftSide}>
-                  <img src={promocional} alt="" />
-                </div>
+              <div id={style.leftSide}>
+                {category === "Belleza" && (
+                  <img src={promocional} alt="promocional" />
+                )}
+              </div>
                 <div id={style.rigthSide}>
                   <div style={{ height: "100%", width: "100%" }}>
                     <div style={{ height: "100%", width: "100%" }}>
