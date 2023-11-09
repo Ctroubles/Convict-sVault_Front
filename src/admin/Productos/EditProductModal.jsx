@@ -19,7 +19,7 @@ function EditProductModal({ product, closeModal, updateProduct }) {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `${Urlback}/products/${editedProduct._id}`,
+        `${Urlback}/products/put/${editedProduct._id}`,
         editedProduct
       );
       if (response.status === 200) {

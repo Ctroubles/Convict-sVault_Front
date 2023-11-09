@@ -1,7 +1,8 @@
 .sidebar{
   width: 14rem;
   height: calc(100vh - 81.19px);
-  background-color: #111111f3;
+  /* background-color: #111111f3; */
+  background-color: #007bff;
   margin-bottom: 0;
   text-decoration: none;
 }
@@ -24,8 +25,8 @@
   transition: all 0.25s ease;
 }
 .activeButton {
- background-color: #111111f3;
- transition: all 0.25s ease;
+  background-color: #111111f3;
+  transition: all 0.25s ease;
 }
 .optionsSide{
   display: block;

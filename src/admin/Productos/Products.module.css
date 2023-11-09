@@ -93,6 +93,7 @@
   text-align: left;
   border-bottom: 1px solid #ddd;
   word-break: break-all;
+  color: #000;
   
 }
 .table th {
@@ -293,25 +294,6 @@
   .table td {
     white-space: nowrap;
   }
-  /* .mobileTable {
-    display: block;
-    overflow-x: auto;
-  } */
-
-  /* .mobileTable thead {
-    display: none;
-  } */
-
-  /* .mobileTable tbody,
-  .mobileTable tr,
-  .mobileTable td {
-    display: block;
-    width: 100%;
-  } */
-/* 
-  .mobileTable td {
-    text-align: left;
-  } */
   .searchContainer {
     flex-direction: column;
     gap: 0.5rem;
