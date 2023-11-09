@@ -20,7 +20,9 @@ const Cart = ({ setCartStatus }) => {
   const history = useHistory();
 
   const handleConfirmOrder = () => {
-    history.push(`/checkout`);
+    if (items.length > 0) {
+      history.push(`/checkout`);
+    }
   };
   
 
@@ -133,7 +135,7 @@ const Cart = ({ setCartStatus }) => {
                     </div>
                   </div>
                 </div>
-                <button id={style.confirmButton} onClick={handleConfirmOrder}>
+                <button id={style.confirmButton} onClick={handleConfirmOrder} disabled={items.length === 0} style={{ cursor: items.length === 0 ? 'not-allowed' : 'pointer' }}>
              Confirmar orden
             </button>
               </div>

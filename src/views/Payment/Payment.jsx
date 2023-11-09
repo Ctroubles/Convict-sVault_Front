@@ -13,8 +13,6 @@ function PaymentView({user}) {
 
   const history = useHistory();
   const formRef = useRef(null)
-
-
   const {cart}  = useSelector((e) => e);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -24,6 +22,11 @@ function PaymentView({user}) {
 
 
   const getData = async (cart) => {
+    if (cart.length === 0) {
+      // Si el carrito está vacío, redirigir hacia atrás
+      history.goBack();
+      return;
+    }
     let total = 0;
     const carrito = await Promise.all(
       cart.map(async (e) => {

@@ -19,12 +19,9 @@ import PaymentCheckout from "./views/Payment/components/pasarela/Pasarela";
 
 
 ////////////
-import PayUResponseSummary from "./views/Payment/components/paymentButton/PayuResponse/PayuResponsePage";
-import PayUConfirmationPage from "./views/Payment/components/paymentButton/PayuConfirmationPage";
-import ErrorPage from "./views/Payment/components/paymentButton/ErrorPage";
+
 import TransactionHistory from "./admin/transactionsHistory/transactionHistory";
 import Url_deploy_back from "./util/deploy_back";
-import PayUCheckout from "./views/Payment/components/paymentButton/PayuResponse/newPayu";
 import Epayco from "./views/Payment/EpaycoImp/epayco";
 import AboutUs from "./views/home/components/aboutUs/aboutUs";
 import PaymentConfirmationPage from "./views/Payment/EpaycoImp/confirmation";
@@ -150,15 +147,8 @@ function App() {
           </>
         } />
           <Route path={"/epayco"} render={()=> <Epayco/>} />
-          <Route path={"/queris"} render={()=> <PayUCheckout user={currentUser}/>} />
           <Route exact path={"/checkout"} render={()=> <FormPayment user={currentUser}/>} />
           <Route exact path={"/checkout/payment"} render={()=> <PaymentCheckout user={currentUser}/>} />
-
-
-          {/* <Route path={"/response"} render={()=> <PayUResponseSummary user={currentUser}/>}/> */}
-          {/* <Route path={"/confirmation"} render={()=> <PayUConfirmationPage/>}/> */}
-          {/* <Route path={"/success"} render={() =><SuccesPage />}/> */}
-          {/* <Route path={"/error"} render={()=> <ErrorPage/>} /> */}
           <Route exact path={"/"} render={() => <Landing />} />
           <Route path={"/history"} render={() => <TransactionHistory />} />
 
