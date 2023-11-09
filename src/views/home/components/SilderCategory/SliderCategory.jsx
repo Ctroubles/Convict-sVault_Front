@@ -10,7 +10,10 @@ import LoaderCard from "./components/LoaderCard/LoaderCard";
 import { FaRing, FaLaptop, FaBox, FaTshirt, FaToolbox, FaSuitcase, FaHatCowboy, FaCog} from 'react-icons/fa';
 import { GiLipstick, GiRunningShoe } from 'react-icons/gi';
 import { MdOutlineSmartToy } from "react-icons/md"
+import { AiFillSetting } from "react-icons/ai"
 import promocional from "./assets/imagenes_promocional/imagen_temporal.jpg";
+import promocional2 from "../../../../assets/icons/BANNER OCTUBRRE (1).jpg"
+
 
 const categoryIcons = {
     Belleza: <GiLipstick className={`${style.largeIcon} ${style.iconColor}`} />, // Aplicar estilos de tamaño y color
@@ -24,6 +27,7 @@ const categoryIcons = {
     Equipaje: <FaSuitcase className={`${style.largeIcon} ${style.iconColor}`} />,
     Agropecuario: <FaHatCowboy className={`${style.largeIcon} ${style.iconColor}`} />,
     Servicios: <FaCog className={`${style.largeIcon} ${style.iconColor}`} />,
+    Repuestos: <AiFillSetting className={`${style.largeIcon} ${style.iconColor}`} />,
 };
 
 const SliderCategory = ({ category, viewportWidth }) => {
@@ -32,6 +36,36 @@ const SliderCategory = ({ category, viewportWidth }) => {
   const [position, setPosition] = useState(-1);
   const [sliderStyle, setSliderStyle] = useState({});
 
+  const [currentPromoImage, setCurrentPromoImage] = useState(promocional);
+  const [promoIndex, setPromoIndex] = useState(0);
+
+  useEffect(() => {
+    const promoImages = [promocional, promocional2];
+
+    const changePromoImage = () => {
+      const nextIndex = (promoIndex + 1) % promoImages.length;
+      setCurrentPromoImage(promoImages[nextIndex]);
+      setPromoIndex(nextIndex);
+    };
+
+    const promoInterval = setInterval(changePromoImage, 5000);
+
+    return () => {
+      clearInterval(promoInterval);
+    };
+  }, [promoIndex]);
+  const promoImages = [promocional, promocional2];
+  const goToPreviousPromo = () => {
+    const previousIndex = (promoIndex - 1 + 2) % 2; // 2 is the number of promo images
+    setCurrentPromoImage(promoImages[previousIndex]);
+    setPromoIndex(previousIndex);
+  };
+
+  const goToNextPromo = () => {
+    const nextIndex = (promoIndex + 1) % 2; // 2 is the number of promo images
+    setCurrentPromoImage(promoImages[nextIndex]);
+    setPromoIndex(nextIndex);
+  };
   const getProducts = async () => {
     try {
       setLoading(true);
@@ -189,11 +223,22 @@ function sizeCardSlider() {
           <div>
             <div>
               <div id={style.content}>
-                {category === "Belleza" && (
-                  <div id={style.leftSide}>
-                    <img src={promocional} alt="promocional" />
-                  </div>
-                )}
+              {category === "Belleza" && (
+  <div id={style.leftSide}>
+    <div id={style.imageContainer}>
+      <img src={currentPromoImage} alt="promocional" />
+      <div id={style.buttonsContainer}>
+        <button onClick={goToPreviousPromo} className={style.roundButton}>
+          &lt;
+        </button>
+        <button onClick={goToNextPromo} className={style.roundButton}>
+          &gt;
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+                
                 <div id={style.rigthSide}>
                   <div style={{ height: "100%", width: "100%" }}>
                     <div style={{ height: "100%", width: "100%" }}>

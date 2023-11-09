@@ -18,6 +18,7 @@ const categorias = [
   "Artesania",
   "Agropecuario",
   "Servicios",
+  "Repuestos"
 ];
 
 function CreateProduct({ darkMode }) {

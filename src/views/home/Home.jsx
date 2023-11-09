@@ -70,6 +70,7 @@ const Home = ({ viewportWidth }) => {
                             <SliderCategory viewportWidth={viewportWidth} category={"Ropa"}/>
                             <SliderCategory viewportWidth={viewportWidth} category={"Artesanias"}/>
                             <SliderCategory viewportWidth={viewportWidth} category={"Equipaje"}/>
+                            <SliderCategory viewportWidth={viewportWidth} category={"Repuestos"}/>
                             <SliderCategory viewportWidth={viewportWidth} category={"Agropecuario"}/>
                             <SliderCategory viewportWidth={viewportWidth} category={"Servicios"}/>
                         </div>

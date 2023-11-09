@@ -208,6 +208,7 @@ const Header = ({user, viewportWidth}) =>{
                                         <Link to={"/category/artesania"} className={style.buttonNav} style={category==="artesania"?{color:"var(--accent-background)"}:undefined}><li >Artesania</li></Link>      
                                         <Link to={"/category/agropecuario"} className={style.buttonNav} style={category==="agropecuario"?{color:"var(--accent-background)"}:undefined}><li >Agropecuario</li></Link>      
                                         <Link to={"/category/servicios"} className={style.buttonNav} style={category==="servicios"?{color:"var(--accent-background)"}:undefined}><li >Servicios</li></Link>      
+                                        <Link to={"/category/repuestos"} className={style.buttonNav} style={category==="repuestos"?{color:"var(--accent-background)"}:undefined}><li >Repuestos</li></Link>      
                                     </nav>  
                                 </div>                               
                             </div>

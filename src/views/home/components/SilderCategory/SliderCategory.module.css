@@ -121,6 +121,35 @@
     color: #0189c3; 
   }
 
+  #leftSide {
+    text-align: center;
+  }
+  
+  #imageContainer {
+    text-align: center;
+    position: relative;
+  }
+  
+  #buttonsContainer {
+    position: absolute;
+    bottom: -30px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .roundButton {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: transparent; /* Sin color de fondo */
+    color: #0189c3; /* Color del texto */
+    font-size: 25px;
+    border: none;
+    cursor: pointer;
+  }
+
 @media screen and (max-width: 1100px) {
     #leftSide{
         width: 22%;
