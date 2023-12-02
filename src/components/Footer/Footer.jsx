@@ -110,7 +110,7 @@ const Footer = ()=>{
                                     <a href="https://www.instagram.com/super_reo_oficial/" target="_blank" rel="noopener noreferrer">
                                         <FaInstagram size={45} style={{ color: 'var(--color)', marginRight: '12px' }} />
                                     </a>
-                                    <a href="https://www.facebook.com/tucuenta" target="_blank" rel="noopener noreferrer">
+                                    <a href="https://www.facebook.com/profile.php?id=61553522340838" target="_blank" rel="noopener noreferrer">
                                         <FaFacebook size={45} style={{ color: 'var(--color)', marginRight: '12px' }} />
                                     </a>
                                     <a href="https://twitter.com/tucuenta" target="_blank" rel="noopener noreferrer">
